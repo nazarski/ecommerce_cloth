@@ -1,6 +1,5 @@
 class AppIcons{
   AppIcons._();
-
   static const path = '/assets/icons';
   static const String home = '$path/home.svg';
   static const String heart = '$path/heart.svg';
