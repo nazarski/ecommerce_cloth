@@ -21,5 +21,4 @@ class AppColorsDark{
   static const Color saleHot = Color(0xffFF3E3E);
   static const Color error = Color(0xffFF2424);
   static const Color success = Color(0xff55D85A);
-
 }
