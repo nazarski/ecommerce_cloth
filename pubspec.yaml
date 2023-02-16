@@ -35,6 +35,7 @@ flutter:
      - assets/
      - assets/icons/
      - assets/fonts/
+     - assets/images/
 
   # Add fonts
   fonts:
