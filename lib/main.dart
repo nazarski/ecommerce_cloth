@@ -11,10 +11,11 @@ void main() async {
   );
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     ),
   );
 }
