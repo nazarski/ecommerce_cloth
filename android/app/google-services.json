@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "180329192292",
+    "project_id": "ecommerce-cloth-fae40",
+    "storage_bucket": "ecommerce-cloth-fae40.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180329192292:android:7864f251e6a26874cb7871",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_cloth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180329192292-v9q4e4titqsrnp9ndrrdm2m5nnrhp72e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ1QBwuzJZlYnaa5x0VqrJzBv8vsYXXYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180329192292-v9q4e4titqsrnp9ndrrdm2m5nnrhp72e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "180329192292-4td66f78ntihfkr60a1fm7041cfpcpg0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ecommerceCloth"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
