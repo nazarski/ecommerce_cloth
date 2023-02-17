@@ -8,6 +8,7 @@ class AppColorsLight{
   static const Color primary = Color(0xffDB3022);
   static const Color background = Color(0xffF9F9F9);
   static const Color white = Color(0xffFFFFFF);
+  static const Color saleHot = Color(0xffDB3022);
   static const Color error = Color(0xffF01F0E);
   static const Color success = Color(0xff2AA952);
 }
