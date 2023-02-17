@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_cloth/resources/app_images.dart';
+import 'package:ecommerce_cloth/routes/app_router.gr.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,6 +12,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    Future.delayed(
+      const Duration(seconds: 1),
+      () => context.router.replace(
+        const MainRoute(),
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
