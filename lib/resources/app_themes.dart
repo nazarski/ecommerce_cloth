@@ -40,8 +40,10 @@ class AppThemes {
     fontFamily: 'Metropolis',
     scaffoldBackgroundColor: AppColorsLight.background,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
       backgroundColor: AppColorsLight.white,
-      elevation: 2,
+      elevation: 0,
+      showUnselectedLabels: true,
       selectedIconTheme: IconThemeData(color: AppColorsLight.primary),
       unselectedIconTheme: IconThemeData(color: AppColorsLight.grey),
       selectedLabelStyle: TextStyle(
