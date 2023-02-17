@@ -6,29 +6,37 @@ class AppThemes {
 
   static final ThemeData lightTheme = ThemeData(
     colorScheme: const ColorScheme(
-      brightness: Brightness.light,
+        brightness: Brightness.light,
+        primary: AppColorsLight.primary,
+        // primary red
+        onPrimary: AppColorsLight.white,
+        // element background white
 
-      primary: AppColorsLight.primary,
-      // primary red
-      onPrimary: AppColorsLight.white,
+        secondary: AppColorsLight.black,
+        // black text
+        onSecondary: AppColorsLight.white,
+        // filler
 
-      secondary: AppColorsLight.black,
-      // black text
-      onSecondary: AppColorsLight.white,
+        error: AppColorsLight.error,
+        // error red
+        onError: AppColorsLight.success,
+        // green success
 
-      error: AppColorsLight.error,
-      // error red
-      onError: AppColorsLight.success,
-      // error green
+        background: AppColorsLight.background,
+        // background
+        onBackground: AppColorsLight.white,
+        // common white
 
-      background: AppColorsLight.background,
-      // background
-      onBackground: AppColorsLight.white,
+        surface: AppColorsLight.grey,
+        // grey
+        onSurface: AppColorsLight.saleHot, // sale hot
 
-      surface: AppColorsLight.grey,
-      // grey
-      onSurface: AppColorsLight.white,
-    ),
+        surfaceTint: AppColorsDark.white,
+        // chip foreground
+        onSurfaceVariant: AppColorsDark.background
+        // chip background
+
+        ),
     fontFamily: 'Metropolis',
     scaffoldBackgroundColor: AppColorsLight.background,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -98,11 +106,23 @@ class AppThemes {
         fontWeight: FontWeight.w400,
         color: AppColorsLight.grey,
       ),
+      labelSmall: TextStyle(
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+        color: AppColorsLight.white,
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
+      suffixIconColor: MaterialStateColor.resolveWith((states) {
+        if (states.contains(MaterialState.error)) {
+          return AppColorsLight.error;
+        }
+        return AppColorsLight.success;
+      }),
       filled: true,
       fillColor: AppColorsLight.white,
       border: OutlineInputBorder(
+
         borderRadius: BorderRadius.circular(4),
       ),
       labelStyle: const TextStyle(
@@ -127,11 +147,11 @@ class AppThemes {
     ),
     elevatedButtonTheme: const ElevatedButtonThemeData(
       style: ButtonStyle(
-        minimumSize: MaterialStatePropertyAll(
-          Size.fromWidth(
-            double.infinity,
-          ),
-        ),
+        // minimumSize: MaterialStatePropertyAll(
+        //   Size.fromWidth(
+        //     double.infinity,
+        //   ),
+        // ),
         backgroundColor: MaterialStatePropertyAll(
           AppColorsLight.primary,
         ),
@@ -184,6 +204,18 @@ class AppThemes {
         ),
       ),
     ),
+    textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+      textStyle: const MaterialStatePropertyAll(
+        TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      overlayColor:
+          MaterialStatePropertyAll(AppColorsLight.black.withOpacity(0.2)),
+      foregroundColor: const MaterialStatePropertyAll(AppColorsLight.black),
+    )),
     checkboxTheme: const CheckboxThemeData(
       fillColor: MaterialStatePropertyAll(
         AppColorsDark.primary,
@@ -207,29 +239,37 @@ class AppThemes {
 
   static final ThemeData darkTheme = ThemeData(
     colorScheme: const ColorScheme(
-      brightness: Brightness.light,
+        brightness: Brightness.dark,
+        primary: AppColorsDark.primary,
+        // primary red
+        onPrimary: AppColorsDark.dark,
+        // element background dark
 
-      primary: AppColorsDark.primary,
-      // primary red
-      onPrimary: AppColorsDark.white,
+        secondary: AppColorsDark.white,
+        // white text
+        onSecondary: AppColorsDark.dark,
+        // filler
 
-      secondary: AppColorsDark.dark,
-      // black text
-      onSecondary: AppColorsDark.white,
+        error: AppColorsDark.error,
+        // error red
+        onError: AppColorsDark.success,
+        // green success
 
-      error: AppColorsDark.error,
-      // error red
-      onError: AppColorsDark.success,
-      // error green
+        background: AppColorsDark.background,
+        // background
+        onBackground: AppColorsDark.white,
+        // common white
 
-      background: AppColorsDark.background,
-      // background
-      onBackground: AppColorsDark.white,
+        surface: AppColorsDark.grey,
+        // grey
+        onSurface: AppColorsDark.saleHot,
+        // sale hot
 
-      surface: AppColorsDark.grey,
-      // grey
-      onSurface: AppColorsDark.saleHot,
-    ),
+        surfaceTint: AppColorsDark.white,
+        // chip foreground
+        onSurfaceVariant: AppColorsDark.background // chip background
+
+        ),
     fontFamily: 'Metropolis',
     scaffoldBackgroundColor: AppColorsDark.background,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -299,11 +339,23 @@ class AppThemes {
         fontWeight: FontWeight.w400,
         color: AppColorsDark.grey,
       ),
+      labelSmall: TextStyle(
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+        color: AppColorsDark.white,
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
+      suffixIconColor: MaterialStateColor.resolveWith((states) {
+        if (states.contains(MaterialState.error)) {
+          return AppColorsDark.error;
+        }
+        return AppColorsDark.success;
+      }),
       filled: true,
       fillColor: AppColorsDark.dark,
       border: OutlineInputBorder(
+        borderSide: BorderSide.none,
         borderRadius: BorderRadius.circular(4),
       ),
       labelStyle: const TextStyle(
@@ -385,6 +437,15 @@ class AppThemes {
         ),
       ),
     ),
+    textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+      textStyle: const MaterialStatePropertyAll(
+        TextStyle(fontSize: 11, fontWeight: FontWeight.w400),
+      ),
+      overlayColor:
+          MaterialStatePropertyAll(AppColorsDark.white.withOpacity(0.2)),
+      foregroundColor: const MaterialStatePropertyAll(AppColorsDark.white),
+    )),
     checkboxTheme: const CheckboxThemeData(
       fillColor: MaterialStatePropertyAll(
         AppColorsDark.primary,

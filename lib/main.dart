@@ -1,4 +1,5 @@
 import 'package:ecommerce_cloth/firebase_options.dart';
+import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:ecommerce_cloth/resources/app_themes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,7 +16,7 @@ void main() async {
       themeMode: ThemeMode.system,
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
-      home: const SplashScreen(),
+      home: const HomePage(),
     ),
   );
 }
