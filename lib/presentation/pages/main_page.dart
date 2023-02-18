@@ -13,48 +13,40 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        context.tabsRouter.pop();
-        return true;
+    return AutoTabsScaffold(
+      homeIndex: 0,
+      routes: const [
+        HomeRoute(),
+        ShopRoute(),
+        BagRoute(),
+        FavouritesRoute(),
+        ProfileRoute(),
+      ],
+      bottomNavigationBuilder: (_, tabsRouter) {
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(12),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                offset: const Offset(0, -5),
+                blurRadius: 8,
+              )
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(12),
+            ),
+            child: AppBottomNavigation(
+              currentIndex: tabsRouter.activeIndex,
+              onTap: (i) => tabsRouter.setActiveIndex(i),
+            ),
+          ),
+        );
       },
-      child: AutoTabsScaffold(
-        homeIndex: 0,
-        routes: const [
-          HomeRoute(),
-          ShopRoute(),
-          BagRoute(),
-          FavouritesRoute(),
-          ProfileRoute(),
-        ],
-        bottomNavigationBuilder: (_, tabsRouter) {
-          return DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  offset: const Offset(0, -5),
-                  blurRadius: 8,
-                )
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
-              child: AppBottomNavigation(
-                currentIndex: tabsRouter.activeIndex,
-                onTap: (i) => tabsRouter.setActiveIndex(i),
-              ),
-            ),
-          );
-        },
-      ),
     );
   }
 }
-
-
