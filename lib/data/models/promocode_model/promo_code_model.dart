@@ -5,7 +5,6 @@ final String promoImage;
 final String promoText;
 final String title;
 
-//<editor-fold desc="Data Methods">
   const PromoCodeModel({
     required this.discount,
     required this.promoColor,
@@ -13,25 +12,6 @@ final String title;
     required this.promoText,
     required this.title,
   });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is PromoCodeModel &&
-          runtimeType == other.runtimeType &&
-          discount == other.discount &&
-          promoColor == other.promoColor &&
-          promoImage == other.promoImage &&
-          promoText == other.promoText &&
-          title == other.title);
-
-  @override
-  int get hashCode =>
-      discount.hashCode ^
-      promoColor.hashCode ^
-      promoImage.hashCode ^
-      promoText.hashCode ^
-      title.hashCode;
 
   @override
   String toString() {
@@ -74,5 +54,4 @@ final String title;
     );
   }
 
-//</editor-fold>
 }

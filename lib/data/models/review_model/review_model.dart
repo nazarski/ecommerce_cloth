@@ -9,7 +9,6 @@ class ReviewModel{
   final String userAvatar;
   final String userName;
 
-//<editor-fold desc="Data Methods">
   const ReviewModel({
     required this.reviewId,
     required this.helpful,
@@ -21,33 +20,6 @@ class ReviewModel{
     required this.userAvatar,
     required this.userName,
   });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is ReviewModel &&
-          runtimeType == other.runtimeType &&
-          reviewId == other.reviewId &&
-          helpful == other.helpful &&
-          productId == other.productId &&
-          publicationDate == other.publicationDate &&
-          userId == other.userId &&
-          review == other.review &&
-          reviewPictures == other.reviewPictures &&
-          userAvatar == other.userAvatar &&
-          userName == other.userName);
-
-  @override
-  int get hashCode =>
-      reviewId.hashCode ^
-      helpful.hashCode ^
-      productId.hashCode ^
-      publicationDate.hashCode ^
-      userId.hashCode ^
-      review.hashCode ^
-      reviewPictures.hashCode ^
-      userAvatar.hashCode ^
-      userName.hashCode;
 
   @override
   String toString() {

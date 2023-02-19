@@ -1,14 +1,14 @@
 import 'package:ecommerce_cloth/data/models/card_model/card_model.dart';
 import 'package:ecommerce_cloth/data/models/delivery_service_model/delivery_service_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_address_model.dart';
-import 'package:ecommerce_cloth/data/models/user_model/user_cart_model.dart';
+import 'package:ecommerce_cloth/data/models/user_model/user_cart_item_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_info_model.dart';
 
 class OrderModel {
   final int dateOfSubmission;
   final String orderId;
   final DeliveryServiceModel deliveryMethod;
-  final List<UserCartModel> orderedProducts;
+  final List<UserCartItemModel> orderedProducts;
   final CardModel payment;
   final UserAddressModel shippingAddress;
   final UserInfoModel user;
@@ -68,7 +68,7 @@ class OrderModel {
     int? dateOfSubmission,
     String? orderId,
     DeliveryServiceModel? deliveryMethod,
-    List<UserCartModel>? orderedProducts,
+    List<UserCartItemModel>? orderedProducts,
     CardModel? payment,
     UserAddressModel? shippingAddress,
     UserInfoModel? user,
@@ -105,7 +105,7 @@ class OrderModel {
       orderId: map['orderId'] as String,
       deliveryMethod: map['deliveryMethod'].fromMap as DeliveryServiceModel,
       orderedProducts:
-          map['orderedProducts'].map((e) => e.fromMap) as List<UserCartModel>,
+          map['orderedProducts'].map((e) => e.fromMap) as List<UserCartItemModel>,
       payment: map['payment'].fromMap as CardModel,
       shippingAddress: map['shippingAddress'].fromMap as UserAddressModel,
       user: map['user'].fromMap as UserInfoModel,

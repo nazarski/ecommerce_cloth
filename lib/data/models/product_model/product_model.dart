@@ -29,39 +29,6 @@ class ProductModel {
   });
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is ProductModel &&
-          runtimeType == other.runtimeType &&
-          attributes == other.attributes &&
-          availableQuantity == other.availableQuantity &&
-          brand == other.brand &&
-          category == other.category &&
-          subcategory == other.subcategory &&
-          id == other.id &&
-          images == other.images &&
-          name == other.name &&
-          popular == other.popular &&
-          price == other.price &&
-          rating == other.rating &&
-          sale == other.sale);
-
-  @override
-  int get hashCode =>
-      attributes.hashCode ^
-      availableQuantity.hashCode ^
-      brand.hashCode ^
-      category.hashCode ^
-      subcategory.hashCode ^
-      id.hashCode ^
-      images.hashCode ^
-      name.hashCode ^
-      popular.hashCode ^
-      price.hashCode ^
-      rating.hashCode ^
-      sale.hashCode;
-
-  @override
   String toString() {
     return 'ProductModel { '
         'attributes: $attributes, '

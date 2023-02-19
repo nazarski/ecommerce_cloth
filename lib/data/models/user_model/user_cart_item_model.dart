@@ -1,4 +1,4 @@
-class UserCartModel{
+class UserCartItemModel{
   final int additionDate;
   final String product;
   final String productImage;
@@ -8,8 +8,7 @@ class UserCartModel{
   final int quantity;
   final String size;
 
-//<editor-fold desc="Data Methods">
-  const UserCartModel({
+  const UserCartItemModel({
     required this.additionDate,
     required this.product,
     required this.productImage,
@@ -19,31 +18,6 @@ class UserCartModel{
     required this.quantity,
     required this.size,
   });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is UserCartModel &&
-          runtimeType == other.runtimeType &&
-          additionDate == other.additionDate &&
-          product == other.product &&
-          productImage == other.productImage &&
-          price == other.price &&
-          totalAmount == other.totalAmount &&
-          productTitle == other.productTitle &&
-          quantity == other.quantity &&
-          size == other.size);
-
-  @override
-  int get hashCode =>
-      additionDate.hashCode ^
-      product.hashCode ^
-      productImage.hashCode ^
-      price.hashCode ^
-      totalAmount.hashCode ^
-      productTitle.hashCode ^
-      quantity.hashCode ^
-      size.hashCode;
 
   @override
   String toString() {
@@ -59,7 +33,7 @@ class UserCartModel{
         '}';
   }
 
-  UserCartModel copyWith({
+  UserCartItemModel copyWith({
     int? additionDate,
     String? product,
     String? productImage,
@@ -69,7 +43,7 @@ class UserCartModel{
     int? quantity,
     String? size,
   }) {
-    return UserCartModel(
+    return UserCartItemModel(
       additionDate: additionDate ?? this.additionDate,
       product: product ?? this.product,
       productImage: productImage ?? this.productImage,
@@ -94,8 +68,8 @@ class UserCartModel{
     };
   }
 
-  factory UserCartModel.fromMap(Map<String, dynamic> map) {
-    return UserCartModel(
+  factory UserCartItemModel.fromMap(Map<String, dynamic> map) {
+    return UserCartItemModel(
       additionDate: map['additionDate'] as int,
       product: map['product'] as String,
       productImage: map['productImage'] as String,

@@ -20,6 +20,7 @@ dependencies:
   flutter_svg: ^2.0.1
   page_transition: ^2.0.9
   auto_route: ^5.0.4
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

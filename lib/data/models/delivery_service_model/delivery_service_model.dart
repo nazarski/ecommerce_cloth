@@ -5,7 +5,6 @@ class DeliveryServiceModel{
   final int price;
   final String service;
 
-//<editor-fold desc="Data Methods">
   const DeliveryServiceModel({
     required this.id,
     required this.estimated,
@@ -13,25 +12,6 @@ class DeliveryServiceModel{
     required this.price,
     required this.service,
   });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is DeliveryServiceModel &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          estimated == other.estimated &&
-          icon == other.icon &&
-          price == other.price &&
-          service == other.service);
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      estimated.hashCode ^
-      icon.hashCode ^
-      price.hashCode ^
-      service.hashCode;
 
   @override
   String toString() {

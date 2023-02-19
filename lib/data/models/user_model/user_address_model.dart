@@ -8,7 +8,6 @@ class UserAddressModel{
   final String region;
   final String zipCode;
 
-//<editor-fold desc="Data Methods">
   const UserAddressModel({
     required this.addressId,
     required this.address,
@@ -19,31 +18,6 @@ class UserAddressModel{
     required this.region,
     required this.zipCode,
   });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is UserAddressModel &&
-          runtimeType == other.runtimeType &&
-          addressId == other.addressId &&
-          address == other.address &&
-          city == other.city &&
-          country == other.country &&
-          fullName == other.fullName &&
-          primary == other.primary &&
-          region == other.region &&
-          zipCode == other.zipCode);
-
-  @override
-  int get hashCode =>
-      addressId.hashCode ^
-      address.hashCode ^
-      city.hashCode ^
-      country.hashCode ^
-      fullName.hashCode ^
-      primary.hashCode ^
-      region.hashCode ^
-      zipCode.hashCode;
 
   @override
   String toString() {

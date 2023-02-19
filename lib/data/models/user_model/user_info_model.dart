@@ -15,25 +15,6 @@ class UserInfoModel {
   });
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is UserInfoModel &&
-          runtimeType == other.runtimeType &&
-          createdAt == other.createdAt &&
-          displayName == other.displayName &&
-          email == other.email &&
-          favorites == other.favorites &&
-          photoUrl == other.photoUrl);
-
-  @override
-  int get hashCode =>
-      createdAt.hashCode ^
-      displayName.hashCode ^
-      email.hashCode ^
-      favorites.hashCode ^
-      photoUrl.hashCode;
-
-  @override
   String toString() {
     return 'UserInfoModel {'
         'createdAt: $createdAt, '

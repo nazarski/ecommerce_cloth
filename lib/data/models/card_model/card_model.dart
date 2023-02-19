@@ -5,7 +5,6 @@ class CardModel{
   final String cardType;
   final String cardIcon;
 
-//<editor-fold desc="Data Methods">
   const CardModel({
     required this.cardNumber,
     required this.cardDate,
@@ -13,25 +12,6 @@ class CardModel{
     required this.cardType,
     required this.cardIcon,
   });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is CardModel &&
-          runtimeType == other.runtimeType &&
-          cardNumber == other.cardNumber &&
-          cardDate == other.cardDate &&
-          cvvCode == other.cvvCode &&
-          cardType == other.cardType &&
-          cardIcon == other.cardIcon);
-
-  @override
-  int get hashCode =>
-      cardNumber.hashCode ^
-      cardDate.hashCode ^
-      cvvCode.hashCode ^
-      cardType.hashCode ^
-      cardIcon.hashCode;
 
   @override
   String toString() {
