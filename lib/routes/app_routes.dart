@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,10 @@ class AppRoutes{
             child: const SplashScreen(),
             type: PageTransitionType.fade);
       case MainPage.routeName:
+        return PageTransition(
+            child: const MainPage(),
+            type: PageTransitionType.fade);
+      case RegistrationPage.routeName:
         return PageTransition(
             child: const MainPage(),
             type: PageTransitionType.fade);
