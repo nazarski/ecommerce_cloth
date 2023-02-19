@@ -1,11 +1,13 @@
-class ReviewModel{
+import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
+
+class ReviewModel {
   final String reviewId;
   final int helpful;
   final String productId;
   final int publicationDate;
   final String userId;
   final String review;
-  final List <String> reviewPictures;
+  final List<String> reviewPictures;
   final String userAvatar;
   final String userName;
 
@@ -36,29 +38,34 @@ class ReviewModel{
         '}';
   }
 
-  ReviewModel copyWith({
-    String? reviewId,
-    int? helpful,
-    String? productId,
-    int? publicationDate,
-    String? userId,
-    String? review,
-    List<String>? reviewPictures,
-    String? userAvatar,
-    String? userName,
-  }) {
-    return ReviewModel(
-      reviewId: reviewId ?? this.reviewId,
-      helpful: helpful ?? this.helpful,
-      productId: productId ?? this.productId,
-      publicationDate: publicationDate ?? this.publicationDate,
-      userId: userId ?? this.userId,
-      review: review ?? this.review,
-      reviewPictures: reviewPictures ?? this.reviewPictures,
-      userAvatar: userAvatar ?? this.userAvatar,
-      userName: userName ?? this.userName,
+  ReviewEntity toEntity() {
+    return ReviewEntity(
+      reviewId: reviewId,
+      helpful: helpful,
+      productId: productId,
+      publicationDate: publicationDate,
+      userId: userId,
+      review: review,
+      reviewPictures: reviewPictures,
+      userAvatar: userAvatar,
+      userName: userName,
     );
   }
+
+  factory ReviewModel.fromEntity({required ReviewEntity entity}) {
+    return ReviewModel(
+      reviewId: entity.reviewId,
+      helpful: entity.helpful,
+      productId: entity.productId,
+      publicationDate: entity.publicationDate,
+      userId: entity.userId,
+      review: entity.review,
+      reviewPictures: entity.reviewPictures,
+      userAvatar: entity.userAvatar,
+      userName: entity.userName,
+    );
+  }
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -88,5 +95,4 @@ class ReviewModel{
     );
   }
 
-//</editor-fold>
 }

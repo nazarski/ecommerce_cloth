@@ -3,6 +3,7 @@ import 'package:ecommerce_cloth/data/models/delivery_service_model/delivery_serv
 import 'package:ecommerce_cloth/data/models/user_model/user_address_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_cart_item_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_info_model.dart';
+import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
 
 class OrderModel {
   final int dateOfSubmission;
@@ -14,7 +15,6 @@ class OrderModel {
   final UserInfoModel user;
   final int totalAmount;
 
-//<editor-fold desc="Data Methods">
   const OrderModel({
     required this.dateOfSubmission,
     required this.orderId,
@@ -27,31 +27,6 @@ class OrderModel {
   });
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is OrderModel &&
-          runtimeType == other.runtimeType &&
-          dateOfSubmission == other.dateOfSubmission &&
-          orderId == other.orderId &&
-          deliveryMethod == other.deliveryMethod &&
-          orderedProducts == other.orderedProducts &&
-          payment == other.payment &&
-          shippingAddress == other.shippingAddress &&
-          user == other.user &&
-          totalAmount == other.totalAmount);
-
-  @override
-  int get hashCode =>
-      dateOfSubmission.hashCode ^
-      orderId.hashCode ^
-      deliveryMethod.hashCode ^
-      orderedProducts.hashCode ^
-      payment.hashCode ^
-      shippingAddress.hashCode ^
-      user.hashCode ^
-      totalAmount.hashCode;
-
-  @override
   String toString() {
     return 'OrderModel{ '
         'dateOfSubmission: $dateOfSubmission, '
@@ -61,28 +36,37 @@ class OrderModel {
         'payment: $payment, '
         'shippingAddress: $shippingAddress, '
         'user: $user, '
-        'totalAmount: $totalAmount,}';
+        'totalAmount: $totalAmount,'
+        '}';
   }
 
-  OrderModel copyWith({
-    int? dateOfSubmission,
-    String? orderId,
-    DeliveryServiceModel? deliveryMethod,
-    List<UserCartItemModel>? orderedProducts,
-    CardModel? payment,
-    UserAddressModel? shippingAddress,
-    UserInfoModel? user,
-    int? totalAmount,
-  }) {
+  OrderEntity toEntity() {
+    return OrderEntity(
+      dateOfSubmission: dateOfSubmission,
+      orderId: orderId,
+      deliveryMethod: deliveryMethod.toEntity(),
+      orderedProducts: orderedProducts.map((e) => e.toEntity()).toList(),
+      payment: payment.toEntity(),
+      shippingAddress: shippingAddress.toEntity(),
+      user: user.toEntity(),
+      totalAmount: totalAmount,
+    );
+  }
+
+  factory OrderModel.fromEntity({required OrderEntity entity}) {
     return OrderModel(
-      dateOfSubmission: dateOfSubmission ?? this.dateOfSubmission,
-      orderId: orderId ?? this.orderId,
-      deliveryMethod: deliveryMethod ?? this.deliveryMethod,
-      orderedProducts: orderedProducts ?? this.orderedProducts,
-      payment: payment ?? this.payment,
-      shippingAddress: shippingAddress ?? this.shippingAddress,
-      user: user ?? this.user,
-      totalAmount: totalAmount ?? this.totalAmount,
+      dateOfSubmission: entity.dateOfSubmission,
+      orderId: entity.orderId,
+      deliveryMethod:
+          DeliveryServiceModel.fromEntity(entity: entity.deliveryMethod),
+      orderedProducts: entity.orderedProducts
+          .map((e) => UserCartItemModel.fromEntity(entity: e))
+          .toList(),
+      payment: CardModel.fromEntity(entity: entity.payment),
+      shippingAddress:
+          UserAddressModel.fromEntity(entity: entity.shippingAddress),
+      user: UserInfoModel.fromEntity(entity: entity.user),
+      totalAmount: entity.totalAmount,
     );
   }
 
@@ -104,8 +88,8 @@ class OrderModel {
       dateOfSubmission: map['dateOfSubmission'] as int,
       orderId: map['orderId'] as String,
       deliveryMethod: map['deliveryMethod'].fromMap as DeliveryServiceModel,
-      orderedProducts:
-          map['orderedProducts'].map((e) => e.fromMap) as List<UserCartItemModel>,
+      orderedProducts: map['orderedProducts'].map((e) => e.fromMap)
+          as List<UserCartItemModel>,
       payment: map['payment'].fromMap as CardModel,
       shippingAddress: map['shippingAddress'].fromMap as UserAddressModel,
       user: map['user'].fromMap as UserInfoModel,

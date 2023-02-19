@@ -1,4 +1,6 @@
-class DeliveryServiceModel{
+import 'package:ecommerce_cloth/domain/entities/delivery_service_entity/delivery_service_entity.dart';
+
+class DeliveryServiceModel {
   final String id;
   final String estimated;
   final String icon;
@@ -24,20 +26,22 @@ class DeliveryServiceModel{
         '}';
   }
 
-  DeliveryServiceModel copyWith({
-    String? id,
-    String? estimated,
-    String? icon,
-    int? price,
-    String? service,
-  }) {
+  DeliveryServiceEntity toEntity() {
+    return DeliveryServiceEntity(
+        id: id,
+        estimated: estimated,
+        icon: icon,
+        price: price,
+        service: service);
+  }
+
+ factory DeliveryServiceModel.fromEntity({required DeliveryServiceEntity entity}) {
     return DeliveryServiceModel(
-      id: id ?? this.id,
-      estimated: estimated ?? this.estimated,
-      icon: icon ?? this.icon,
-      price: price ?? this.price,
-      service: service ?? this.service,
-    );
+        id: entity.id,
+        estimated: entity.estimated,
+        icon: entity.icon,
+        price: entity.price,
+        service: entity.service);
   }
 
   Map<String, dynamic> toMap() {

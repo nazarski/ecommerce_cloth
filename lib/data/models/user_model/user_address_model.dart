@@ -1,4 +1,6 @@
-class UserAddressModel{
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_address_entity.dart';
+
+class UserAddressModel {
   final String addressId;
   final String address;
   final String city;
@@ -33,25 +35,29 @@ class UserAddressModel{
         '}';
   }
 
-  UserAddressModel copyWith({
-    String? addressId,
-    String? address,
-    String? city,
-    String? country,
-    String? fullName,
-    bool? primary,
-    String? region,
-    String? zipCode,
-  }) {
+  UserAddressEntity toEntity() {
+    return UserAddressEntity(
+      addressId: addressId,
+      address: address,
+      city: city,
+      country: country,
+      fullName: fullName,
+      primary: primary,
+      region: region,
+      zipCode: zipCode,
+    );
+  }
+
+  factory UserAddressModel.fromEntity({required UserAddressEntity entity}) {
     return UserAddressModel(
-      addressId: addressId ?? this.addressId,
-      address: address ?? this.address,
-      city: city ?? this.city,
-      country: country ?? this.country,
-      fullName: fullName ?? this.fullName,
-      primary: primary ?? this.primary,
-      region: region ?? this.region,
-      zipCode: zipCode ?? this.zipCode,
+      addressId: entity.addressId,
+      address: entity.address,
+      city: entity.city,
+      country: entity.country,
+      fullName: entity.fullName,
+      primary: entity.primary,
+      region: entity.region,
+      zipCode: entity.zipCode,
     );
   }
 

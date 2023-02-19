@@ -1,4 +1,6 @@
-class UserCartItemModel{
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
+
+class UserCartItemModel {
   final int additionDate;
   final String product;
   final String productImage;
@@ -33,25 +35,29 @@ class UserCartItemModel{
         '}';
   }
 
-  UserCartItemModel copyWith({
-    int? additionDate,
-    String? product,
-    String? productImage,
-    int? price,
-    int? totalAmount,
-    String? productTitle,
-    int? quantity,
-    String? size,
-  }) {
+  UserCartItemEntity toEntity() {
+    return UserCartItemEntity(
+      additionDate: additionDate,
+      product: product,
+      productImage: productImage,
+      price: price,
+      totalAmount: totalAmount,
+      productTitle: productTitle,
+      quantity: quantity,
+      size: size,
+    );
+  }
+
+  factory UserCartItemModel.fromEntity({required UserCartItemEntity entity}) {
     return UserCartItemModel(
-      additionDate: additionDate ?? this.additionDate,
-      product: product ?? this.product,
-      productImage: productImage ?? this.productImage,
-      price: price ?? this.price,
-      totalAmount: totalAmount ?? this.totalAmount,
-      productTitle: productTitle ?? this.productTitle,
-      quantity: quantity ?? this.quantity,
-      size: size ?? this.size,
+      additionDate: entity.additionDate,
+      product: entity.product,
+      productImage: entity.productImage,
+      price: entity.price,
+      totalAmount: entity.totalAmount,
+      productTitle: entity.productTitle,
+      quantity: entity.quantity,
+      size: entity.size,
     );
   }
 
@@ -80,6 +86,4 @@ class UserCartItemModel{
       size: map['size'] as String,
     );
   }
-
-//</editor-fold>
 }

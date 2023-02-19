@@ -1,3 +1,5 @@
+import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
+
 class ProductModel {
   final List<String> attributes;
   final Map<String, int> availableQuantity;
@@ -46,33 +48,37 @@ class ProductModel {
         '}';
   }
 
-  ProductModel copyWith({
-    List<String>? attributes,
-    Map<String, int>? availableQuantity,
-    String? brand,
-    String? category,
-    String? subcategory,
-    String? id,
-    List<String>? images,
-    String? name,
-    bool? popular,
-    int? price,
-    Map<String, dynamic>? rating,
-    Map<String, dynamic>? sale,
-  }) {
+  ProductEntity toEntity() {
+    return ProductEntity(
+      attributes: attributes,
+      availableQuantity: availableQuantity,
+      brand: brand,
+      category: category,
+      subcategory: subcategory,
+      id: id,
+      images: images,
+      name: name,
+      popular: popular,
+      price: price,
+      rating: rating,
+      sale: sale,
+    );
+  }
+
+  factory ProductModel.fromEntity({required ProductEntity entity}) {
     return ProductModel(
-      attributes: attributes ?? this.attributes,
-      availableQuantity: availableQuantity ?? this.availableQuantity,
-      brand: brand ?? this.brand,
-      category: category ?? this.category,
-      subcategory: subcategory ?? this.subcategory,
-      id: id ?? this.id,
-      images: images ?? this.images,
-      name: name ?? this.name,
-      popular: popular ?? this.popular,
-      price: price ?? this.price,
-      rating: rating ?? this.rating,
-      sale: sale ?? this.sale,
+      attributes: entity.attributes,
+      availableQuantity: entity.availableQuantity,
+      brand: entity.brand,
+      category: entity.category,
+      subcategory: entity.subcategory,
+      id: entity.id,
+      images: entity.images,
+      name: entity.name,
+      popular: entity.popular,
+      price: entity.price,
+      rating: entity.rating,
+      sale: entity.sale,
     );
   }
 
@@ -109,5 +115,4 @@ class ProductModel {
       sale: map['sale'] as Map<String, dynamic>,
     );
   }
-
 }

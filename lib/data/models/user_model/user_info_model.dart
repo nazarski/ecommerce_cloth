@@ -1,3 +1,5 @@
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
+
 class UserInfoModel {
   final int createdAt;
   final String displayName;
@@ -5,7 +7,6 @@ class UserInfoModel {
   final List<String> favorites;
   final String photoUrl;
 
-//<editor-fold desc="Data Methods">
   const UserInfoModel({
     required this.createdAt,
     required this.displayName,
@@ -25,19 +26,23 @@ class UserInfoModel {
         '}';
   }
 
-  UserInfoModel copyWith({
-    int? createdAt,
-    String? displayName,
-    String? email,
-    List<String>? favorites,
-    String? photoUrl,
-  }) {
+  UserInfoEntity toEntity() {
+    return UserInfoEntity(
+      createdAt: createdAt,
+      displayName: displayName,
+      email: email,
+      favorites: favorites,
+      photoUrl: photoUrl,
+    );
+  }
+
+  factory UserInfoModel.fromEntity({required UserInfoEntity entity}) {
     return UserInfoModel(
-      createdAt: createdAt ?? this.createdAt,
-      displayName: displayName ?? this.displayName,
-      email: email ?? this.email,
-      favorites: favorites ?? this.favorites,
-      photoUrl: photoUrl ?? this.photoUrl,
+      createdAt: entity.createdAt,
+      displayName: entity.displayName,
+      email: entity.email,
+      favorites: entity.favorites,
+      photoUrl: entity.photoUrl,
     );
   }
 
