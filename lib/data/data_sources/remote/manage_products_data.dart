@@ -41,7 +41,7 @@ class ManageProductsData {
     required Map<String, dynamic> rating,
     required Map<String, dynamic> sale,
 }) async {
-    await _productsCollection.doc('id').set(ProductModel(
+    await _productsCollection.doc(id).set(ProductModel(
             additionDate: additionDate,
             attributes: attributes,
             availableQuantity: availableQuantity,
