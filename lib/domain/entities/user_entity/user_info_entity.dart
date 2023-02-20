@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class UserInfoEntity extends Equatable{
-  final int createdAt;
+  final DateTime createdAt;
   final String displayName;
   final String email;
   final List<String> favorites;

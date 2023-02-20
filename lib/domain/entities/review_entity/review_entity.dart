@@ -4,7 +4,7 @@ class ReviewEntity extends Equatable{
   final String reviewId;
   final int helpful;
   final String productId;
-  final int publicationDate;
+  final DateTime publicationDate;
   final String userId;
   final String review;
   final List <String> reviewPictures;

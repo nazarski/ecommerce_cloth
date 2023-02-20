@@ -6,7 +6,7 @@ import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dar
 import 'package:equatable/equatable.dart';
 
 class OrderEntity extends Equatable{
-  final int dateOfSubmission;
+  final DateTime dateOfSubmission;
   final String orderId;
   final DeliveryServiceEntity deliveryMethod;
   final List<UserCartItemEntity> orderedProducts;

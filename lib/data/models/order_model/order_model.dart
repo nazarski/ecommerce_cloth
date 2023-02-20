@@ -6,7 +6,7 @@ import 'package:ecommerce_cloth/data/models/user_model/user_info_model.dart';
 import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
 
 class OrderModel {
-  final int dateOfSubmission;
+  final DateTime dateOfSubmission;
   final String orderId;
   final DeliveryServiceModel deliveryMethod;
   final List<UserCartItemModel> orderedProducts;
@@ -85,7 +85,7 @@ class OrderModel {
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
-      dateOfSubmission: map['dateOfSubmission'] as int,
+      dateOfSubmission: map['dateOfSubmission'] as DateTime,
       orderId: map['orderId'] as String,
       deliveryMethod: map['deliveryMethod'].fromMap as DeliveryServiceModel,
       orderedProducts: map['orderedProducts'].map((e) => e.fromMap)

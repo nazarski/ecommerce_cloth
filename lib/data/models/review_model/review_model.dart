@@ -4,7 +4,7 @@ class ReviewModel {
   final String reviewId;
   final int helpful;
   final String productId;
-  final int publicationDate;
+  final DateTime publicationDate;
   final String userId;
   final String review;
   final List<String> reviewPictures;
@@ -86,7 +86,7 @@ class ReviewModel {
       reviewId: map['reviewId'] as String,
       helpful: map['helpful'] as int,
       productId: map['productId'] as String,
-      publicationDate: map['publicationDate'] as int,
+      publicationDate: map['publicationDate'] as DateTime,
       userId: map['userId'] as String,
       review: map['review'] as String,
       reviewPictures: map['reviewPictures'] as List<String>,

@@ -1,11 +1,14 @@
+
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
 class ProductModel {
+  final DateTime additionDate;
   final List<String> attributes;
   final Map<String, int> availableQuantity;
   final String brand;
   final String category;
   final String subcategory;
+
   // final List<String> favorites;
   final String id;
   final List<String> images;
@@ -16,6 +19,7 @@ class ProductModel {
   final Map<String, dynamic> sale;
 
   const ProductModel({
+    required this.additionDate,
     required this.attributes,
     required this.availableQuantity,
     required this.brand,
@@ -33,6 +37,7 @@ class ProductModel {
   @override
   String toString() {
     return 'ProductModel { '
+        'additionDate: $additionDate'
         'attributes: $attributes, '
         'availableQuantity: $availableQuantity, '
         'brand: $brand, '
@@ -50,6 +55,7 @@ class ProductModel {
 
   ProductEntity toEntity() {
     return ProductEntity(
+      additionDate: additionDate,
       attributes: attributes,
       availableQuantity: availableQuantity,
       brand: brand,
@@ -67,6 +73,7 @@ class ProductModel {
 
   factory ProductModel.fromEntity({required ProductEntity entity}) {
     return ProductModel(
+      additionDate: entity.additionDate,
       attributes: entity.attributes,
       availableQuantity: entity.availableQuantity,
       brand: entity.brand,
@@ -84,6 +91,7 @@ class ProductModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'additionDate': additionDate,
       'attributes': attributes,
       'availableQuantity': availableQuantity,
       'brand': brand,
@@ -101,6 +109,7 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
+      additionDate: map['additionDate'] as DateTime,
       attributes: map['attributes'] as List<String>,
       availableQuantity: map['availableQuantity'] as Map<String, int>,
       brand: map['brand'] as String,

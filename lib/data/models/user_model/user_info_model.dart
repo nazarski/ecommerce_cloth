@@ -1,7 +1,7 @@
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 
 class UserInfoModel {
-  final int createdAt;
+  final DateTime createdAt;
   final String displayName;
   final String email;
   final List<String> favorites;
@@ -58,7 +58,7 @@ class UserInfoModel {
 
   factory UserInfoModel.fromMap(Map<String, dynamic> map) {
     return UserInfoModel(
-      createdAt: map['createdAt'] as int,
+      createdAt: map['createdAt'] as DateTime,
       displayName: map['displayName'] as String,
       email: map['email'] as String,
       favorites: map['favorites'] as List<String>,

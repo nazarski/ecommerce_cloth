@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class ProductEntity extends Equatable {
+  final DateTime additionDate;
   final List<String> attributes;
   final Map<String, int> availableQuantity;
   final String brand;
@@ -16,6 +17,7 @@ class ProductEntity extends Equatable {
   final Map<String, dynamic> sale;
 
   const ProductEntity({
+    required this.additionDate,
     required this.attributes,
     required this.availableQuantity,
     required this.brand,
@@ -32,6 +34,7 @@ class ProductEntity extends Equatable {
 
   @override
   List<Object> get props => [
+    additionDate,
         attributes,
         availableQuantity,
         brand,

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class UserCartItemEntity extends Equatable{
-  final int additionDate;
+  final DateTime additionDate;
   final String product;
   final String productImage;
   final int price;

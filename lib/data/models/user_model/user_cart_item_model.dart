@@ -1,7 +1,7 @@
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
 
 class UserCartItemModel {
-  final int additionDate;
+  final DateTime additionDate;
   final String product;
   final String productImage;
   final int price;
@@ -76,7 +76,7 @@ class UserCartItemModel {
 
   factory UserCartItemModel.fromMap(Map<String, dynamic> map) {
     return UserCartItemModel(
-      additionDate: map['additionDate'] as int,
+      additionDate: map['additionDate'] as DateTime,
       product: map['product'] as String,
       productImage: map['productImage'] as String,
       price: map['price'] as int,
