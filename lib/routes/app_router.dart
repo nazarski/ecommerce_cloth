@@ -17,6 +17,7 @@ import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.d
       page: SplashScreen,
       initial: true,
     ),
+
     AutoRoute(
       page: RegistrationPage,
     ),
