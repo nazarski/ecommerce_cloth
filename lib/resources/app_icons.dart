@@ -11,5 +11,7 @@ class AppIcons{
   static const String profileFilled = '$path/profile_filled.svg';
   static const String shopFilled = '$path/shop_filled.svg';
   static const String bagFilled = '$path/bag_filled.svg';
+  static const String facebookIcon = '$path/facebook_icon.svg';
+  static const String googleIcon = '$path/google_icon.svg';
 
 }

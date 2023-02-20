@@ -53,6 +53,12 @@ class AppThemes {
       unselectedLabelStyle: TextStyle(color: AppColorsLight.grey, fontSize: 10),
     ),
     textTheme: const TextTheme(
+      //Error text
+      titleSmall: TextStyle(
+        fontSize: 11,
+        fontWeight: FontWeight.w400,
+        color: AppColorsLight.error
+      ),
       // Headline
       displayLarge: TextStyle(
         fontSize: 34,
@@ -90,6 +96,7 @@ class AppThemes {
 
       // Descriptive items
       bodyMedium: TextStyle(
+        height: 1.5,
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: AppColorsLight.black,
@@ -124,8 +131,7 @@ class AppThemes {
       filled: true,
       fillColor: AppColorsLight.white,
       border: OutlineInputBorder(
-
-        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide.none,
       ),
       labelStyle: const TextStyle(
         color: AppColorsLight.grey,
@@ -286,6 +292,12 @@ class AppThemes {
       unselectedLabelStyle: TextStyle(color: AppColorsDark.grey, fontSize: 10),
     ),
     textTheme: const TextTheme(
+      //Error text
+      titleSmall: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w400,
+          color: AppColorsDark.error
+      ),
       // Headline
       displayLarge: TextStyle(
         fontSize: 34,

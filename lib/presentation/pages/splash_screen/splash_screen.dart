@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_cloth/resources/app_images.dart';
 import 'package:ecommerce_cloth/routes/app_router.gr.dart';
@@ -25,6 +26,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(
+      const Duration(seconds: 2),
+          () async {
+        log('SPLASH SCREEN');
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return const RegistrationPage();
+        }));
+      },
+    );
     return Center(
       child: Image.asset(
         AppImages.splashScreen,
