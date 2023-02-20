@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 import 'package:ecommerce_cloth/presentation/widgets/textfield_validator.dart';
 
@@ -7,41 +8,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecoveryPage extends StatelessWidget {
-  const RecoveryPage({Key? key}) : super(key: key);
+  RecoveryPage({Key? key}) : super(key: key);
   static const routeName = 'recovery_page';
+  final FocusNode emailFocus = FocusNode();
+  final TextEditingController emailController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  String validateEmail(String? value) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    final regex = RegExp(pattern);
+    if (value!.isEmpty) {
+      return 'This field is required and cannot be empty';
+    } else if (!regex.hasMatch(value)) {
+      return 'Not a valid email address. Should be your@email.com';
+    } else {
+      return '';
+    }
+  }
+
+  void validateAndSave() {
+    final FormState form = formKey.currentState!;
+    if (form.validate()) {
+      log('Form is valid');
+    } else {
+      log('Form is invalid');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    FocusNode emailFocus = FocusNode();
-    TextEditingController emailController = TextEditingController();
-    GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    String validateEmail(String? value) {
-      const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-          r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-          r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-          r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-          r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-          r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-          r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-      final regex = RegExp(pattern);
-      if (value!.isEmpty) {
-        return 'This field is required and cannot be empty';
-      } else if (!regex.hasMatch(value)) {
-        return 'Not a valid email address. Should be your@email.com';
-      } else {
-        return '';
-      }
-    }
-
-    void validateAndSave() {
-      final FormState form = formKey.currentState!;
-      if (form.validate()) {
-        log('Form is valid');
-      } else {
-        log('Form is invalid');
-      }
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +51,7 @@ class RecoveryPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            context.router.pop();
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -76,10 +78,8 @@ class RecoveryPage extends StatelessWidget {
                 height: height / 60,
               ),
               Text(
-
                 'Please, enter your email address. You will receive a link to create a new password via email.',
                 style: Theme.of(context).textTheme.bodyMedium,
-
               ),
               SizedBox(
                 height: height / 60,
@@ -91,7 +91,7 @@ class RecoveryPage extends StatelessWidget {
                   return validateEmail(email);
                 },
                 focusNode: emailFocus,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(18),
                 ],
@@ -99,11 +99,13 @@ class RecoveryPage extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 autofocus: false,
                 passwordVisible: false,
+                focusPush: emailFocus,
               ),
               SizedBox(
                 height: height / 20,
               ),
               SizedBox(
+                width: double.infinity,
                 height: height / 16,
                 child: ElevatedButton(
                   onPressed: validateAndSave,
