@@ -1,11 +1,12 @@
-class PromoCodeModel{
-final int discount;
-final String promoColor;
-final String promoImage;
-final String promoText;
-final String title;
+import 'package:ecommerce_cloth/domain/entities/promo_code_entity/promo_code_entity.dart';
 
-//<editor-fold desc="Data Methods">
+class PromoCodeModel {
+  final int discount;
+  final String promoColor;
+  final String promoImage;
+  final String promoText;
+  final String title;
+
   const PromoCodeModel({
     required this.discount,
     required this.promoColor,
@@ -15,42 +16,33 @@ final String title;
   });
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is PromoCodeModel &&
-          runtimeType == other.runtimeType &&
-          discount == other.discount &&
-          promoColor == other.promoColor &&
-          promoImage == other.promoImage &&
-          promoText == other.promoText &&
-          title == other.title);
-
-  @override
-  int get hashCode =>
-      discount.hashCode ^
-      promoColor.hashCode ^
-      promoImage.hashCode ^
-      promoText.hashCode ^
-      title.hashCode;
-
-  @override
   String toString() {
-    return 'PromoCodeModel{ discount: $discount, promoColor: $promoColor, promoImage: $promoImage, promoText: $promoText, title: $title,}';
+    return 'PromoCodeModel{'
+        'discount: $discount, '
+        'promoColor: $promoColor, '
+        'promoImage: $promoImage, '
+        'promoText: $promoText, '
+        'title: $title,'
+        '}';
   }
 
-  PromoCodeModel copyWith({
-    int? discount,
-    String? promoColor,
-    String? promoImage,
-    String? promoText,
-    String? title,
-  }) {
+  PromoCodeEntity toEntity() {
+    return PromoCodeEntity(
+      discount: discount,
+      promoColor: promoColor,
+      promoImage: promoImage,
+      promoText: promoText,
+      title: title,
+    );
+  }
+
+  factory PromoCodeModel.fromEntity({required PromoCodeEntity entity}) {
     return PromoCodeModel(
-      discount: discount ?? this.discount,
-      promoColor: promoColor ?? this.promoColor,
-      promoImage: promoImage ?? this.promoImage,
-      promoText: promoText ?? this.promoText,
-      title: title ?? this.title,
+      discount: entity.discount,
+      promoColor: entity.promoColor,
+      promoImage: entity.promoImage,
+      promoText: entity.promoText,
+      title: entity.title,
     );
   }
 
@@ -73,6 +65,4 @@ final String title;
       title: map['title'] as String,
     );
   }
-
-//</editor-fold>
 }

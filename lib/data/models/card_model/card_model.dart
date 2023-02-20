@@ -1,11 +1,12 @@
-class CardModel{
+import 'package:ecommerce_cloth/domain/entities/card_entity/card_entity.dart';
+
+class CardModel {
   final int cardNumber;
   final int cardDate;
   final int cvvCode;
   final String cardType;
   final String cardIcon;
 
-//<editor-fold desc="Data Methods">
   const CardModel({
     required this.cardNumber,
     required this.cardDate,
@@ -13,25 +14,6 @@ class CardModel{
     required this.cardType,
     required this.cardIcon,
   });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is CardModel &&
-          runtimeType == other.runtimeType &&
-          cardNumber == other.cardNumber &&
-          cardDate == other.cardDate &&
-          cvvCode == other.cvvCode &&
-          cardType == other.cardType &&
-          cardIcon == other.cardIcon);
-
-  @override
-  int get hashCode =>
-      cardNumber.hashCode ^
-      cardDate.hashCode ^
-      cvvCode.hashCode ^
-      cardType.hashCode ^
-      cardIcon.hashCode;
 
   @override
   String toString() {
@@ -43,21 +25,24 @@ class CardModel{
         'cardIcon: $cardIcon,}';
   }
 
-  CardModel copyWith({
-    int? cardNumber,
-    int? cardDate,
-    int? cvvCode,
-    String? cardType,
-    String? cardIcon,
-  }) {
-    return CardModel(
-      cardNumber: cardNumber ?? this.cardNumber,
-      cardDate: cardDate ?? this.cardDate,
-      cvvCode: cvvCode ?? this.cvvCode,
-      cardType: cardType ?? this.cardType,
-      cardIcon: cardIcon ?? this.cardIcon,
-    );
+  CardEntity toEntity() {
+    return CardEntity(
+        cardNumber: cardNumber,
+        cardDate: cardDate,
+        cvvCode: cvvCode,
+        cardType: cardType,
+        cardIcon: cardIcon);
   }
+
+  factory CardModel.fromEntity({required CardEntity entity}) {
+    return CardModel(
+        cardNumber: entity.cardNumber,
+        cardDate: entity.cardDate,
+        cvvCode: entity.cvvCode,
+        cardType: entity.cardType,
+        cardIcon: entity.cardIcon);
+  }
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -78,6 +63,4 @@ class CardModel{
       cardIcon: map['cardIcon'] as String,
     );
   }
-
-//</editor-fold>
 }
