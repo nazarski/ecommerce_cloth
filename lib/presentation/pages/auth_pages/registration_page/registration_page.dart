@@ -1,65 +1,67 @@
 import 'dart:developer';
 
-import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 import 'package:ecommerce_cloth/presentation/widgets/textfield_validator.dart';
+import 'package:ecommerce_cloth/routes/app_router.gr.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RegistrationPage extends StatelessWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+  RegistrationPage({Key? key}) : super(key: key);
   static const routeName = 'registration_page';
+  final FocusNode userNameFocus = FocusNode();
+  final FocusNode emailFocus = FocusNode();
+  final FocusNode passwordFocus = FocusNode();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  String validateEmail(String? value) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    final regex = RegExp(pattern);
+    if (value!.isEmpty) {
+      return 'This field is required and cannot be empty';
+    } else if (!regex.hasMatch(value)) {
+      return 'Not a valid email address. Should be your@email.com';
+    } else {
+      return '';
+    }
+  }
+
+  String validateUserName(String? userName) {
+    return userName!.isEmpty || userName.length > 15 ? 'Please enter a correct username' : '';
+  }
+
+  String validatePassword(String? password) {
+    if (password!.isEmpty) {
+      return 'This field is required and cannot be empty';
+    } else if (password.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+    return '';
+  }
+
+  void validateAndSave() {
+    final FormState form = formKey.currentState!;
+    if (form.validate()) {
+      log('Form is valid');
+    } else {
+      log('Form is invalid');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    FocusNode userNameFocus = FocusNode();
-    FocusNode emailFocus = FocusNode();
-    FocusNode passwordFocus = FocusNode();
-    TextEditingController userNameController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    String validateEmail(String? value) {
-      const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-          r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-          r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-          r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-          r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-          r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-          r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-      final regex = RegExp(pattern);
-      if (value!.isEmpty) {
-        return 'This field is required and cannot be empty';
-      } else if (!regex.hasMatch(value)) {
-        return 'Not a valid email address. Should be your@email.com';
-      } else {
-        return '';
-      }
-    }
-
-    String validateUserName(String? userName) {
-      return userName!.isEmpty || userName.length > 15 ? 'Please enter a correct username' : '';
-    }
-
-    String validatePassword(String? password) {
-      if (password!.isEmpty) {
-        return 'This field is required and cannot be empty';
-      } else if (password.length < 8) {
-        return 'Password must be at least 8 characters';
-      }
-      return '';
-    }
-
-    void validateAndSave() {
-      final FormState form = formKey.currentState!;
-      if (form.validate()) {
-        log('Form is valid');
-      } else {
-        log('Form is invalid');
-      }
-    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -95,7 +97,7 @@ class RegistrationPage extends StatelessWidget {
                 tempTextEditingController: userNameController,
                 keyboardType: TextInputType.name,
                 autofocus: false,
-                passwordVisible: false,
+                passwordVisible: false, focusPush: emailFocus,
               ),
               SizedBox(
                 height: height / 60,
@@ -114,35 +116,34 @@ class RegistrationPage extends StatelessWidget {
                 tempTextEditingController: emailController,
                 keyboardType: TextInputType.emailAddress,
                 autofocus: false,
-                passwordVisible: false,
+                passwordVisible: false, focusPush: passwordFocus,
               ),
               SizedBox(
                 height: height / 60,
               ),
               TextFieldValidator(
+
                 labelText: 'Password',
                 checkOfErrorOnFocusChange: true,
                 validation: (password) {
                   return validatePassword(password);
                 },
                 focusNode: passwordFocus,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(18),
                 ],
                 tempTextEditingController: passwordController,
                 keyboardType: TextInputType.emailAddress,
                 autofocus: false,
-                passwordVisible: true,
+                passwordVisible: true, focusPush: passwordFocus,
               ),
               SizedBox(
                 height: height / 60,
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                    return const LoginPage();
-                  }));
+                  context.router.push(const LoginRoute());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -163,6 +164,7 @@ class RegistrationPage extends StatelessWidget {
                 height: height / 40,
               ),
               SizedBox(
+                width: double.infinity,
                 height: height / 16,
                 child: ElevatedButton(
                   onPressed: validateAndSave,

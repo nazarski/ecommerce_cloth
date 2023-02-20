@@ -16,6 +16,8 @@ class TextFieldValidator extends StatefulWidget {
     required this.textInputAction,
     required this.inputFormatters,
     required this.passwordVisible,
+    required this.focusPush,
+
   });
 
   final String labelText;
@@ -24,8 +26,10 @@ class TextFieldValidator extends StatefulWidget {
   final Function validation;
   final TextEditingController tempTextEditingController;
   final FocusNode focusNode;
+  final FocusNode focusPush;
   final TextInputType keyboardType;
   final bool autofocus;
+
   final TextInputAction textInputAction;
   final List<TextInputFormatter> inputFormatters;
   final bool passwordVisible;
@@ -80,6 +84,14 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 color: AppColorsLight.white,
               ),
               child: TextFormField(
+                onFieldSubmitted: (v) {
+                  if(widget.textInputAction == TextInputAction.done) {
+                    FocusScope.of(context).unfocus();
+                  } else {
+                    FocusScope.of(context).requestFocus(widget.focusPush);
+                  }
+
+                },
                 obscureText: widget.passwordVisible,
                 focusNode: widget.focusNode,
                 controller: widget.tempTextEditingController,
@@ -94,7 +106,7 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                       errorString = widget.validation(widget.tempTextEditingController.text);
                       suffixIcon = const Icon(Icons.close);
                     });
-                    return "";
+                    return '';
                   } else {
                     setState(() {
                       isError = false;
