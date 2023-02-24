@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">6351639248193948</string>
+    <string name="app_name">laModaECom</string>
+    <string name="fb_login_protocol_scheme">fb6351639248193948</string>
+    <string name="facebook_client_token">5ba1ba4e0a2769de62874a111318f35b</string>
+</resources>
