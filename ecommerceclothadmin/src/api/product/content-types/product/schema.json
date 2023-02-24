@@ -1,0 +1,78 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Products",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "productId": {
+      "type": "uid"
+    },
+    "additionDate": {
+      "type": "date"
+    },
+    "attributes": {
+      "type": "enumeration",
+      "enum": [
+        "men",
+        "women",
+        "boys",
+        "girls"
+      ]
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "popular": {
+      "type": "boolean",
+      "default": false
+    },
+    "productTitle": {
+      "type": "string"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "totalReviews": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "availableQuantity": {
+      "type": "component",
+      "repeatable": true,
+      "component": "availability.sizes"
+    },
+    "productType": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-type.product-type",
+      "inversedBy": "products"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "product"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "products"
+    }
+  }
+}

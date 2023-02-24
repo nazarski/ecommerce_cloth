@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_groups",
+  "info": {
+    "singularName": "product-group",
+    "pluralName": "product-groups",
+    "displayName": "Product groups",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "groupTitle": {
+      "type": "string"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "productGroups"
+    },
+    "productTypes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product-type.product-type",
+      "mappedBy": "productGroups"
+    }
+  }
+}

@@ -63,7 +63,7 @@ class ProductSlider extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 280,
+          height: 300,
           child: ListView.separated(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,

@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "promocodes",
+  "info": {
+    "singularName": "promocode",
+    "pluralName": "promocodes",
+    "displayName": "Promocodes",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "promoTitle": {
+      "type": "string"
+    },
+    "promoValue": {
+      "type": "string"
+    },
+    "discount": {
+      "type": "integer"
+    },
+    "promoImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "promocodes"
+    }
+  }
+}

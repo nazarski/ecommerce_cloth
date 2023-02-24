@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories",
+  "info": {
+    "singularName": "category",
+    "pluralName": "categories",
+    "displayName": "Categories",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "categoryTitle": {
+      "type": "string"
+    },
+    "productGroups": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-group.product-group",
+      "mappedBy": "category"
+    }
+  }
+}

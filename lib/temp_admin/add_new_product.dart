@@ -37,6 +37,7 @@ class _AddNewProductState extends State<AddNewProduct> {
       availabilityFormKey.currentState?.save();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,14 +111,13 @@ class _AddNewProductState extends State<AddNewProduct> {
               ),
               Wrap(
                 children: images
-                    .map((e) =>
-                    Image(
-                      image: NetworkImage(
-                        e,
-                      ),
-                      width: 100,
-                      height: 100,
-                    ))
+                    .map((e) => Image(
+                          image: NetworkImage(
+                            e,
+                          ),
+                          width: 100,
+                          height: 100,
+                        ))
                     .toList(),
               ),
               TextField(
@@ -171,14 +171,14 @@ class _AddNewProductState extends State<AddNewProduct> {
                       }),
                 ],
               ),
-              if(addSale)...[
+              if (addSale) ...[
                 Row(
                   children: [
                     Expanded(
                       child: TextField(
                         controller: saleTitle,
                         decoration:
-                        const InputDecoration(labelText: 'Sale title'),
+                            const InputDecoration(labelText: 'Sale title'),
                       ),
                     ),
                     const SizedBox(
@@ -188,30 +188,34 @@ class _AddNewProductState extends State<AddNewProduct> {
                       child: TextField(
                         controller: saleValue,
                         decoration:
-                        const InputDecoration(labelText: 'Discount value'),
+                            const InputDecoration(labelText: 'Discount value'),
                       ),
                     ),
                   ],
                 )
               ],
-              ElevatedButton(onPressed: () async {
-                saveSizes();
-                print(availableQuantity);
-                await ManageProductsData.addNewProduct(
-                    additionDate: DateTime.now(),
-                    attributes: attributes.toList(),
-                    availableQuantity: availableQuantity,
-                    brand: brand.text,
-                    category: category.text,
-                    subcategory: subcategory.text,
-                    id: name.text.toLowerCase().replaceAll(' ', '-'),
-                    images: images,
-                    name: name.text,
-                    popular: popular,
-                    price: int.parse(price.text),
-                    rating: {},
-                    sale: sale);
-              },
+              ElevatedButton(
+                  onPressed: () async {
+                    saveSizes();
+                    print(availableQuantity);
+                    await ManageProductsData.addNewProduct(
+                        additionDate: DateTime.now(),
+                        attributes: attributes.toList(),
+                        availableQuantity: availableQuantity,
+                        brand: brand.text,
+                        category: category.text,
+                        subcategory: subcategory.text,
+                        id:
+                            '${name.text.toLowerCase().replaceAll(' ', '-')}-${DateTime.now().millisecondsSinceEpoch}',
+                        images: images,
+                        name: name.text,
+                        popular: popular,
+                        price: int.parse(price.text),
+                        rating: {},
+                        sale: addSale
+                            ? {saleTitle.text: int.parse(saleValue.text)}
+                            : {});
+                  },
                   child: Text('Add product'))
             ],
           ),
@@ -250,7 +254,7 @@ class _MyFormState extends State<MyForm> {
                   },
                   onValue: (quantity) {
                     widget.availability.update(widget.availability.keys.last,
-                            (value) => value = int.parse(quantity));
+                        (value) => value = int.parse(quantity));
                   },
                   index: fields[index],
                   last: fields[index] == fields.last,
@@ -297,21 +301,21 @@ class TextFields extends StatelessWidget {
       children: [
         Expanded(
             child: TextFormField(
-              onSaved: onKey,
-              decoration: const InputDecoration(labelText: 'Size'),
-            )),
+          onSaved: onKey,
+          decoration: const InputDecoration(labelText: 'Size'),
+        )),
         const SizedBox(
           width: 8,
         ),
         Expanded(
             child: TextFormField(
-              onSaved: onValue,
-              decoration: const InputDecoration(labelText: 'Quantity'),
-            )),
+          onSaved: onValue,
+          decoration: const InputDecoration(labelText: 'Quantity'),
+        )),
         last
             ? IconButton(onPressed: addNew, icon: const Icon(Icons.add))
             : IconButton(
-            onPressed: removeCurrent, icon: const Icon(Icons.remove))
+                onPressed: removeCurrent, icon: const Icon(Icons.remove))
       ],
     );
   }

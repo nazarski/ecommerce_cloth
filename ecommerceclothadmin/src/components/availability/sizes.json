@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_availability_sizes",
+  "info": {
+    "displayName": "Sizes",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "quantity": {
+      "type": "integer"
+    },
+    "size": {
+      "type": "string"
+    }
+  }
+}
