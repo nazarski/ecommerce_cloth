@@ -1,8 +1,9 @@
 module.exports = ({ env }) => ({
-  auth: {
-    secret: env('ADMIN_JWT_SECRET'),
+auth: {
+    secret: env('STRAPI_ADMIN_JWT_SECRET', 'defaultSecret'),
   },
   apiToken: {
-    salt: env('API_TOKEN_SALT'),
-  },
+    secret: 'your-secret-key',
+    salt: 'your-generated-salt-value'
+  }
 });
