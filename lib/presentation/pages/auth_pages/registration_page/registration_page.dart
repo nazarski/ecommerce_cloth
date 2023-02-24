@@ -7,6 +7,7 @@ import 'package:ecommerce_cloth/routes/app_router.gr.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class RegistrationPage extends StatelessWidget {
   RegistrationPage({Key? key}) : super(key: key);
@@ -174,7 +175,15 @@ class RegistrationPage extends StatelessWidget {
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 googleAuth: () {},
-                facebookAuth: () {},
+                facebookAuth: () async {
+                  FacebookAuth.instance.login(
+                    permissions: ['public_profile', 'email']).then((value) {
+                      FacebookAuth.instance.getUserData().then((userData)  {
+                        print(userData['name']);
+                        print(userData['email']);
+                      });
+                  });
+                },
                 label: 'Or sign up with social account',
               ),
               SizedBox(height: height / 20),

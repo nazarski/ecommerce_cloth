@@ -22,6 +22,7 @@ dependencies:
   auto_route: ^5.0.4
   equatable: ^2.0.5
   cloud_firestore: ^4.4.2
+  flutter_facebook_auth: ^5.0.7
 
 dev_dependencies:
   flutter_test:
