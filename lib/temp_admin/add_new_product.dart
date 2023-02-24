@@ -205,13 +205,16 @@ class _AddNewProductState extends State<AddNewProduct> {
                         brand: brand.text,
                         category: category.text,
                         subcategory: subcategory.text,
-                        id: '${name.text.toLowerCase().replaceAll(' ', '-')}${DateTime.now().millisecondsSinceEpoch}',
+                        id:
+                            '${name.text.toLowerCase().replaceAll(' ', '-')}-${DateTime.now().millisecondsSinceEpoch}',
                         images: images,
                         name: name.text,
                         popular: popular,
                         price: int.parse(price.text),
                         rating: {},
-                        sale: sale);
+                        sale: addSale
+                            ? {saleTitle.text: int.parse(saleValue.text)}
+                            : {});
                   },
                   child: Text('Add product'))
             ],

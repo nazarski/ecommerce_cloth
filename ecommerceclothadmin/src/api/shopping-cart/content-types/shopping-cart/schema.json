@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shopping_carts",
+  "info": {
+    "singularName": "shopping-cart",
+    "pluralName": "shopping-carts",
+    "displayName": "Shopping Cart",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "shoppingCart"
+    },
+    "cartItems": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart-item.cart-item"
+    },
+    "promocode": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::promocode.promocode"
+    }
+  }
+}
