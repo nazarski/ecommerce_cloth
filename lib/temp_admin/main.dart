@@ -1,4 +1,5 @@
 import 'package:ecommerce_cloth/firebase_options.dart';
+import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:ecommerce_cloth/temp_admin/add_new_product.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,6 @@ void main()async{
 
 
   runApp(MaterialApp(
-    home: AddNewProduct(),
+    home: SplashScreen(),
   ));
 }

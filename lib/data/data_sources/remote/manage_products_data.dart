@@ -1,60 +1,33 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class ManageProductsData {
   ManageProductsData._();
+  static final _dio = Dio();
+  static const _endpoint = StrapiInitialize.endpoint;
 
-  static final _productsCollection =
-      FirebaseFirestore.instance.collection('products');
-
-  static Future<List<ProductModel>> fetchNewProducts() async {
-    final startDate = DateTime.now().subtract(const Duration(days: 7));
-    return await _productsCollection
-        .where('additionDate', isGreaterThanOrEqualTo: startDate)
-        .limit(10)
-        .get()
-        .then((value) {
-      return value.docs
-          .map(
-            (e) => ProductModel.fromMap(
-              e.data(),
-            ),
-          )
-          .toList();
-    });
+  static Future<List<ProductModel>?> getProductsFromDate(DateTime startDate) async {
+    final response = await _dio.get('''
+    $_endpoint/products?populate=*
+    &filters[additionDate]
+    [\$gte]=${startDate.year}-${startDate.month}-${startDate.day}
+    '''
+    );
+    if (response.statusCode == 200) {
+      final values = List<Map<String, dynamic>>.from(response.data['data']);
+      return values.map((e) {
+        return ProductModel.fromMap(e['attributes']);
+      }).toList();
+    }
+    return null;
   }
 
-  static Future<void> addNewProduct({
-    required DateTime additionDate,
-    required List<String> attributes,
-    required Map<String, int> availableQuantity,
-    required String brand,
-    required String category,
-    required String subcategory,
-    required String id,
-    required List<String> images,
-    required String name,
-    required bool popular,
-    required int price,
-    required Map<String, dynamic> rating,
-    required Map<String, dynamic> sale,
-}) async {
-    await _productsCollection.doc(id).set(ProductModel(
-            additionDate: additionDate,
-            attributes: attributes,
-            availableQuantity: availableQuantity,
-            brand: brand,
-            category: category,
-            subcategory: subcategory,
-            id: id,
-            images: images,
-            name: name,
-            popular: popular,
-            price: price,
-            rating: rating,
-            sale: sale)
-        .toMap()).whenComplete(() => print('Product added'));
-  }
+
+
 }

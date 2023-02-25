@@ -40,6 +40,13 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "reviews"
+    },
+    "rated": {
+      "type": "integer",
+      "default": 1
+    },
+    "reviewText": {
+      "type": "string"
     }
   }
 }

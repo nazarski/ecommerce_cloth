@@ -1,17 +1,17 @@
-
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
 class ProductModel {
   final DateTime additionDate;
-  final List<String> attributes;
+  final List attributes;
   final Map<String, int> availableQuantity;
   final String brand;
-  final String category;
-  final String subcategory;
+  final String productType;
+  final String description;
+  final String thumbnail;
 
   // final List<String> favorites;
   final String id;
-  final List<String> images;
+  final List images;
   final String name;
   final bool popular;
   final int price;
@@ -23,8 +23,9 @@ class ProductModel {
     required this.attributes,
     required this.availableQuantity,
     required this.brand,
-    required this.category,
-    required this.subcategory,
+    required this.productType,
+    required this.thumbnail,
+    required this.description,
     required this.id,
     required this.images,
     required this.name,
@@ -36,33 +37,35 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel { '
-        'additionDate: $additionDate'
-        'attributes: $attributes, '
-        'availableQuantity: $availableQuantity, '
-        'brand: $brand, '
-        'category: $category, '
-        'subcategory: $subcategory, '
-        'id: $id, '
-        'images: $images, '
-        'name: $name, '
-        'popular: $popular, '
-        'price: $price, '
-        'rating: $rating, '
-        'sale: $sale,'
+    return '\nProductModel{'
+        '\nadditionDate: $additionDate'
+        '\nattributes: $attributes, '
+        '\navailableQuantity: $availableQuantity, '
+        '\nbrand: $brand, '
+        '\nproductType: $productType, '
+        '\ndescription: $description, '
+        '\nthumbnail: $thumbnail,'
+        '\nid: $id, '
+        '\nimages: $images, '
+        '\nname: $name, '
+        '\npopular: $popular, '
+        '\nprice: $price, '
+        '\nrating: $rating, '
+        '\nsale: $sale,'
         '}';
   }
 
   ProductEntity toEntity() {
     return ProductEntity(
       additionDate: additionDate,
-      attributes: attributes,
+      description: description,
+      attributes: List<String>.from(attributes),
       availableQuantity: availableQuantity,
       brand: brand,
-      category: category,
-      subcategory: subcategory,
+      productType: productType,
+      thumbnail: thumbnail,
       id: id,
-      images: images,
+      images: List<String>.from(images),
       name: name,
       popular: popular,
       price: price,
@@ -76,10 +79,11 @@ class ProductModel {
       additionDate: entity.additionDate,
       attributes: entity.attributes,
       availableQuantity: entity.availableQuantity,
+      description: entity.description,
       brand: entity.brand,
-      category: entity.category,
-      subcategory: entity.subcategory,
+      productType: entity.productType,
       id: entity.id,
+      thumbnail: entity.thumbnail,
       images: entity.images,
       name: entity.name,
       popular: entity.popular,
@@ -95,33 +99,50 @@ class ProductModel {
       'attributes': attributes,
       'availableQuantity': availableQuantity,
       'brand': brand,
-      'category': category,
-      'subcategory': subcategory,
+      'productType': productType,
       'id': id,
       'images': images,
       'name': name,
       'popular': popular,
+      'thumbnail': thumbnail,
       'price': price,
       'rating': rating,
       'sale': sale,
+      'description': description,
     };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-      additionDate: map['additionDate'] as DateTime,
-      attributes: map['attributes'] as List<String>,
-      availableQuantity: map['availableQuantity'] as Map<String, int>,
-      brand: map['brand'] as String,
-      category: map['category'] as String,
-      subcategory: map['subcategory'] as String,
-      id: map['id'] as String,
-      images: map['images'] as List<String>,
-      name: map['name'] as String,
+      additionDate: DateTime.parse(map['additionDate']),
+      attributes: map['attributes']['data'].map((e) {
+        return e['attributes']['title'] as String;
+      }).toList(),
+      description: map['description'] ?? '',
+      availableQuantity:
+          map['availableQuantity'].fold(<String, int>{}, (previousValue, element) {
+        previousValue.addAll(<String, int>{element['size']: element['quantity']});
+        return previousValue;
+      }),
+      brand: map['brand']['data']['attributes']['brandName'] as String,
+      productType:
+          map['productType']['data']['attributes']['typeName'] as String,
+      id: map['productId'] as String,
+      thumbnail: map['images']['data'].first['attributes']['formats']['small']
+          ['url'] as String,
+      images: map['images']['data'].map((e) {
+        return e['attributes']['formats']['large']['url'];
+      }).toList(),
+      name: map['productTitle'] ?? '',
       popular: map['popular'] as bool,
       price: map['price'] as int,
-      rating: map['rating'] as Map<String, dynamic>,
-      sale: map['sale'] as Map<String, dynamic>,
+      rating: map['rating']??{},
+      sale: map['sale']['data'] != null
+          ? {
+              'title': map['sale']['data']['attributes']['title'],
+              'discount': map['sale']['data']['attributes']['discount']
+            }
+          : {},
     );
   }
 }

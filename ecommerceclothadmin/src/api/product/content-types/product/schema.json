@@ -18,15 +18,6 @@
     "additionDate": {
       "type": "date"
     },
-    "attributes": {
-      "type": "enumeration",
-      "enum": [
-        "men",
-        "women",
-        "boys",
-        "girls"
-      ]
-    },
     "images": {
       "type": "media",
       "multiple": true,
@@ -46,7 +37,8 @@
       "type": "integer"
     },
     "totalReviews": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "description": {
       "type": "text"
@@ -72,6 +64,18 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::brand.brand",
+      "inversedBy": "products"
+    },
+    "attributes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::attribute.attribute",
+      "mappedBy": "products"
+    },
+    "sale": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sale.sale",
       "inversedBy": "products"
     }
   }

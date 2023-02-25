@@ -198,23 +198,23 @@ class _AddNewProductState extends State<AddNewProduct> {
                   onPressed: () async {
                     saveSizes();
                     print(availableQuantity);
-                    await ManageProductsData.addNewProduct(
-                        additionDate: DateTime.now(),
-                        attributes: attributes.toList(),
-                        availableQuantity: availableQuantity,
-                        brand: brand.text,
-                        category: category.text,
-                        subcategory: subcategory.text,
-                        id:
-                            '${name.text.toLowerCase().replaceAll(' ', '-')}-${DateTime.now().millisecondsSinceEpoch}',
-                        images: images,
-                        name: name.text,
-                        popular: popular,
-                        price: int.parse(price.text),
-                        rating: {},
-                        sale: addSale
-                            ? {saleTitle.text: int.parse(saleValue.text)}
-                            : {});
+                    // await ManageProductsData.addNewProduct(
+                    //     additionDate: DateTime.now(),
+                    //     attributes: attributes.toList(),
+                    //     availableQuantity: availableQuantity,
+                    //     brand: brand.text,
+                    //     category: category.text,
+                    //     subcategory: subcategory.text,
+                    //     id:
+                    //         '${name.text.toLowerCase().replaceAll(' ', '-')}-${DateTime.now().millisecondsSinceEpoch}',
+                    //     images: images,
+                    //     name: name.text,
+                    //     popular: popular,
+                    //     price: int.parse(price.text),
+                    //     rating: {},
+                    //     sale: addSale
+                    //         ? {saleTitle.text: int.parse(saleValue.text)}
+                    //         : {});
                   },
                   child: Text('Add product'))
             ],

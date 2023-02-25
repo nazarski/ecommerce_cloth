@@ -1,6 +1,10 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:ecommerce_cloth/data/data_sources/remote/manage_products_data.dart';
+import 'package:ecommerce_cloth/data/repositories/manare_products_repository_impl.dart';
+import 'package:ecommerce_cloth/domain/repositories/manage_products_repository.dart';
+import 'package:ecommerce_cloth/domain/use_cases/manage_products/get_products.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 import 'package:ecommerce_cloth/presentation/widgets/textfield_validator.dart';
 import 'package:ecommerce_cloth/routes/app_router.gr.dart';
@@ -39,7 +43,9 @@ class RegistrationPage extends StatelessWidget {
   }
 
   String validateUserName(String? userName) {
-    return userName!.isEmpty || userName.length > 15 ? 'Please enter a correct username' : '';
+    return userName!.isEmpty || userName.length > 15
+        ? 'Please enter a correct username'
+        : '';
   }
 
   String validatePassword(String? password) {
@@ -98,7 +104,8 @@ class RegistrationPage extends StatelessWidget {
                 tempTextEditingController: userNameController,
                 keyboardType: TextInputType.name,
                 autofocus: false,
-                passwordVisible: false, focusPush: emailFocus,
+                passwordVisible: false,
+                focusPush: emailFocus,
               ),
               SizedBox(
                 height: height / 60,
@@ -117,13 +124,13 @@ class RegistrationPage extends StatelessWidget {
                 tempTextEditingController: emailController,
                 keyboardType: TextInputType.emailAddress,
                 autofocus: false,
-                passwordVisible: false, focusPush: passwordFocus,
+                passwordVisible: false,
+                focusPush: passwordFocus,
               ),
               SizedBox(
                 height: height / 60,
               ),
               TextFieldValidator(
-
                 labelText: 'Password',
                 checkOfErrorOnFocusChange: true,
                 validation: (password) {
@@ -137,7 +144,8 @@ class RegistrationPage extends StatelessWidget {
                 tempTextEditingController: passwordController,
                 keyboardType: TextInputType.emailAddress,
                 autofocus: false,
-                passwordVisible: true, focusPush: passwordFocus,
+                passwordVisible: true,
+                focusPush: passwordFocus,
               ),
               SizedBox(
                 height: height / 60,
@@ -174,14 +182,18 @@ class RegistrationPage extends StatelessWidget {
               ),
               SizedBox(height: height / 8),
               SocialMediaBlock(
-                googleAuth: () {},
+                googleAuth: () async {
+                  final list = await GetProducts(ManageProductsRepositoryImpl())
+                      .getNewProducts();
+                  print(list);
+                },
                 facebookAuth: () async {
                   FacebookAuth.instance.login(
-                    permissions: ['public_profile', 'email']).then((value) {
-                      FacebookAuth.instance.getUserData().then((userData)  {
-                        print(userData['name']);
-                        print(userData['email']);
-                      });
+                      permissions: ['public_profile', 'email']).then((value) {
+                    FacebookAuth.instance.getUserData().then((userData) {
+                      print(userData['name']);
+                      print(userData['email']);
+                    });
                   });
                 },
                 label: 'Or sign up with social account',
