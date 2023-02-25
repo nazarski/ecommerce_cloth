@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
 import 'package:flutter/material.dart';
 import 'widgets/product_slider.dart';
 

@@ -183,9 +183,7 @@ class RegistrationPage extends StatelessWidget {
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 googleAuth: () async {
-                  final list = await GetProducts(ManageProductsRepositoryImpl())
-                      .getNewProducts();
-                  print(list);
+                  context.router.push(MainRoute());
                 },
                 facebookAuth: () async {
                   FacebookAuth.instance.login(

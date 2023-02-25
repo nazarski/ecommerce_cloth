@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/widgets/product_item_chip.dart';
 import 'package:flutter/material.dart';
 
@@ -5,12 +6,31 @@ import 'star_view_widget.dart';
 
 class ProductSliderItem extends StatelessWidget {
   const ProductSliderItem({
-    super.key, required this.value,
+    super.key,
+    required this.value,
+    required this.product,
   });
-final String value;
+
+  final String value;
+  final ProductEntity product;
+
+  String getTitle() {
+    final name = product.name;
+    final brand = product.brand;
+    final type = product.productType;
+    if (name.isEmpty) {
+      return brand.length < 13
+          ? '$brand $type'
+          : '${brand.substring(0, 10)}... $type';
+    }
+    return name.length < 13
+        ? '$name $type'
+        : '${name.substring(0, 9)}... $type';
+  }
 
   @override
   Widget build(BuildContext context) {
+    final String title = getTitle();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,9 +41,9 @@ final String value;
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: const Image(
-                image: NetworkImage(
-                    'https://media.boohoo.com/i/boohoo/pzz67541_navy_xl?w=900&qlt=default&fmt.jpg'),
+              child: Image(
+                image:
+                    NetworkImage('http://localhost:1337${product.thumbnail}'),
                 height: 184,
                 width: 148,
                 alignment: Alignment.topCenter,
@@ -33,7 +53,9 @@ final String value;
             Positioned(
               top: 8,
               left: 8,
-              child: ProductItemChip(value: value,),
+              child: ProductItemChip(
+                value: value,
+              ),
             ),
             Positioned(
               right: 0,
@@ -69,39 +91,48 @@ final String value;
           height: 6,
         ),
         Text(
-          'Dorothy Perkins',
+          product.brand,
           style: Theme.of(context).textTheme.labelMedium,
         ),
         const SizedBox(
           height: 4,
         ),
         Text(
-          'Checkered skirt',
+          title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(
           height: 4,
         ),
-        Text.rich(
-          TextSpan(children: [
-            TextSpan(
-              text: '1500₴',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.surface,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  decoration: TextDecoration.lineThrough
-              ),),
-            const WidgetSpan(child: SizedBox(width: 4,),),
-            TextSpan(
-                text: '1400₴',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ))
-          ]),
-        ),
+        product.sale.isEmpty
+            ? Text(
+                '${product.price}\u20B4',
+                style: Theme.of(context).textTheme.bodyMedium,
+              )
+            : Text.rich(
+                TextSpan(children: [
+                  TextSpan(
+                    text: '1500\u20B4',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.lineThrough),
+                  ),
+                  const WidgetSpan(
+                    child: SizedBox(
+                      width: 4,
+                    ),
+                  ),
+                  TextSpan(
+                      text: '1400\u20B4',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ))
+                ]),
+              ),
       ],
     );
   }

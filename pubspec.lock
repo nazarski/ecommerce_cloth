@@ -476,7 +476,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_riverpod:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_riverpod
       sha256: "46a27b7a11dc13738054093076f2dc65692ddcd463979b15092accf5681aea20"
@@ -774,7 +774,7 @@ packages:
     source: hosted
     version: "1.2.1"
   riverpod:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: riverpod
       sha256: "59a48de9c757aa61aa28e9fd625ffb360d43b6b54606f12536622c55be9e8c4b"
@@ -797,6 +797,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.3"
+  shimmer:
+    dependency: "direct main"
+    description:
+      name: shimmer
+      sha256: "1f1009b5845a1f88f1c5630212279540486f97409e9fc3f63883e71070d107bf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
