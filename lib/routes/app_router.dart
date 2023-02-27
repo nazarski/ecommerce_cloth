@@ -7,7 +7,7 @@ import 'package:ecommerce_cloth/presentation/pages/favourites_page/favourites_pa
 import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_page/profile_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/shop_page/shop_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 
 @AdaptiveAutoRouter(
@@ -34,7 +34,7 @@ import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.d
           page: HomePage,
         ),
         AutoRoute(
-          page: ShopPage,
+          page: CategoriesPage,
         ),
         AutoRoute(
           page: BagPage,

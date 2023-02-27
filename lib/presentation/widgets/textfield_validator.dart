@@ -1,4 +1,4 @@
-import 'package:ecommerce_cloth/resources/app_colors.dart';
+import 'package:ecommerce_cloth/core/resources/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

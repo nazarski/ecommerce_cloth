@@ -28,11 +28,11 @@ class GetProducts {
     // });
     switch(type){
       case ProductSliderType.newProducts:
-        return _getNewProducts();
+        return await _getNewProducts();
       case ProductSliderType.sale:
-        return _getHotProducts();
+        return await _getHotProducts();
       case ProductSliderType.hot:
-        return _getSaleProducts();
+        return await _getSaleProducts();
     }
   }
 }
