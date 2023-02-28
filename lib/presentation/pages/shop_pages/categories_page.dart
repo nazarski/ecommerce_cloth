@@ -1,131 +1,56 @@
 import 'package:flutter/material.dart';
+import 'widgets/tab_view_categories.dart';
 
-class CategoriesPage extends StatelessWidget {
+class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key}) : super(key: key);
 
   @override
+  State<CategoriesPage> createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
+  static const categoryGroups = ['women', 'men', 'kids'];
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-          ),
-        ),
-        title: const Text('Categories'),
-        actions: [
-          IconButton(
+    return DefaultTabController(
+      length: categoryGroups.length,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
             onPressed: () {},
             icon: const Icon(
-              Icons.search_rounded,
+              Icons.arrow_back_ios_new_rounded,
             ),
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: const [
-                SaleCard(),
-                SizedBox(
-                  height: 16,
-                ),
-                NewCard(),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class NewCard extends StatelessWidget {
-  const NewCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Theme.of(context).colorScheme.onPrimary,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 5),
-            blurRadius: 20,
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 24),
-              child: Text(
-                'New',
-                style: Theme.of(context).textTheme.displaySmall,
+          title: const Text('Categories'),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.search_rounded,
               ),
-            ),
-          ),
-          const Expanded(
-            child: Image(
-              image: AssetImage('assets/images/new.jpg'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SaleCard extends StatelessWidget {
-  const SaleCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Theme.of(context).colorScheme.onSurface,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 5),
-            blurRadius: 20,
-          ),
-        ],
-      ),
-      child: Center(
-        child: Column(
-          children: [
-            Text(
-              'summer sale'.toUpperCase(),
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              'Up to 50% off',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            )
           ],
+          bottom: TabBar(
+            indicatorColor: Theme.of(context).colorScheme.primary,
+            tabs: categoryGroups.map((e) {
+              return Tab(
+                text: '${e[0].toUpperCase()}${e.substring(1)}',
+              );
+            }).toList(),
+          ),
+        ),
+        body: TabBarView(
+          children: categoryGroups
+              .map(
+                (e) => TabViewCategories(categoryGroup: e),
+              )
+              .toList(),
         ),
       ),
     );
   }
 }
+
+

@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GetProducts {
   final ManageProductsRepository _productsRepository;
 
-  GetProducts(this._productsRepository);
+  const GetProducts(this._productsRepository);
 
   Future<List<ProductEntity>> _getNewProducts() async {
     final DateTime weekAgo = DateTime.now().subtract(const Duration(days: 7));

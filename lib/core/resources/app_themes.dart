@@ -243,14 +243,26 @@ class AppThemes {
         width: 2,
       ),
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       backgroundColor: AppColorsLight.background,
       elevation: 8,
+      shadowColor: Colors.black.withOpacity(0.2),
       foregroundColor: AppColorsLight.black,
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
+        color: AppColorsLight.black,
         fontWeight: FontWeight.w600,
         fontSize: 18,
       ),
+    ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: AppColorsLight.black,
+      labelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16),
+      unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16),
+      unselectedLabelColor: AppColorsLight.black,
     ),
   );
 
@@ -493,8 +505,19 @@ class AppThemes {
       foregroundColor: AppColorsDark.white,
       titleTextStyle: TextStyle(
         fontWeight: FontWeight.w600,
+        color: AppColorsDark.dark,
         fontSize: 18,
       ),
+    ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: AppColorsDark.white,
+      labelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16),
+      unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16),
+      unselectedLabelColor: AppColorsLight.white,
     ),
   );
 }

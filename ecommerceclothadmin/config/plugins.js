@@ -1,5 +1,10 @@
 module.exports = ({ env }) => ({
-  "vercel-deploy": {
-    enabled: true,
-  },
+  'users-permissions': {
+    config: {
+      ratelimit: {
+        interval: 60000,
+        max: 100000
+      }
+    }
+  }
 });

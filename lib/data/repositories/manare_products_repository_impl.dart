@@ -4,6 +4,7 @@ import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.da
 import 'package:ecommerce_cloth/domain/repositories/manage_products_repository.dart';
 
 class ManageProductsRepositoryImpl implements ManageProductsRepository {
+
   @override
   Future<List<ProductEntity>> getProductsFromDate(DateTime startDate) async {
     try {
@@ -17,4 +18,6 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
       return Future.error(e.toString());
     }
   }
+
+  const ManageProductsRepositoryImpl();
 }
