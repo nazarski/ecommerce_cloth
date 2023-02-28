@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.5
   hooks_riverpod: ^2.2.0
+  flutter_riverpod: ^2.2.0
+  riverpod: ^2.2.0
   flutter_local_notifications: ^13.0.0
   firebase_storage: ^11.0.14
   firebase_ui_firestore: ^1.2.8
@@ -23,6 +25,7 @@ dependencies:
   equatable: ^2.0.5
   flutter_facebook_auth: ^5.0.7
   dio: ^5.0.1
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

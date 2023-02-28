@@ -1,12 +1,9 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:ecommerce_cloth/data/data_sources/remote/manage_products_data.dart';
-import 'package:ecommerce_cloth/data/repositories/manare_products_repository_impl.dart';
-import 'package:ecommerce_cloth/domain/repositories/manage_products_repository.dart';
-import 'package:ecommerce_cloth/domain/use_cases/manage_products/get_products.dart';
+
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
-import 'package:ecommerce_cloth/presentation/widgets/textfield_validator.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 import 'package:ecommerce_cloth/routes/app_router.gr.dart';
 
 import 'package:flutter/material.dart';
@@ -183,9 +180,7 @@ class RegistrationPage extends StatelessWidget {
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 googleAuth: () async {
-                  final list = await GetProducts(ManageProductsRepositoryImpl())
-                      .getNewProducts();
-                  print(list);
+                  context.router.push(MainRoute());
                 },
                 facebookAuth: () async {
                   FacebookAuth.instance.login(

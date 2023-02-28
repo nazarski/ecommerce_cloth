@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
-import 'package:ecommerce_cloth/presentation/widgets/textfield_validator.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

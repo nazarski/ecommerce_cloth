@@ -27,7 +27,7 @@ import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart'
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart' as _i5;
 import 'package:ecommerce_cloth/presentation/pages/profile_page/profile_page.dart'
     as _i10;
-import 'package:ecommerce_cloth/presentation/pages/shop_page/shop_page.dart'
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page.dart'
     as _i7;
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart'
     as _i1;
@@ -78,7 +78,7 @@ class AppRouter extends _i11.RootStackRouter {
     ShopRoute.name: (routeData) {
       return _i11.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i7.ShopPage(),
+        child: const _i7.CategoriesPage(),
       );
     },
     BagRoute.name: (routeData) {
@@ -227,7 +227,7 @@ class HomeRoute extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.ShopPage]
+/// [_i7.CategoriesPage]
 class ShopRoute extends _i11.PageRouteInfo<void> {
   const ShopRoute()
       : super(

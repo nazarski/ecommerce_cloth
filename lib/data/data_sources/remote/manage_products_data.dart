@@ -1,11 +1,6 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class ManageProductsData {
   ManageProductsData._();
@@ -13,17 +8,14 @@ class ManageProductsData {
   static const _endpoint = StrapiInitialize.endpoint;
 
   static Future<List<ProductModel>?> getProductsFromDate(DateTime startDate) async {
-    final response = await _dio.get('''
-    $_endpoint/products?populate=*
-    &filters[additionDate]
-    [\$gte]=${startDate.year}-${startDate.month}-${startDate.day}
-    '''
-    );
+    final response = await _dio.get('$_endpoint/products?populate=*&filters[additionDate][\$gt]=${startDate.year}-${startDate.month.toString().padLeft(2,'0')}-${startDate.day.toString().padLeft(2,'0')}');
     if (response.statusCode == 200) {
       final values = List<Map<String, dynamic>>.from(response.data['data']);
       return values.map((e) {
         return ProductModel.fromMap(e['attributes']);
       }).toList();
+    }else{
+      print(response.statusCode);
     }
     return null;
   }

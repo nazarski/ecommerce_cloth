@@ -1,5 +1,6 @@
-import 'package:ecommerce_cloth/resources/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import 'app_colors.dart';
 
 class AppThemes {
   AppThemes._();
@@ -29,7 +30,8 @@ class AppThemes {
 
         surface: AppColorsLight.grey,
         // grey
-        onSurface: AppColorsLight.saleHot, // sale hot
+        onSurface: AppColorsLight.saleHot,
+        // sale hot
 
         surfaceTint: AppColorsDark.white,
         // chip foreground
@@ -55,10 +57,9 @@ class AppThemes {
     textTheme: const TextTheme(
       //Error text
       titleSmall: TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w400,
-        color: AppColorsLight.error
-      ),
+          fontSize: 11,
+          fontWeight: FontWeight.w400,
+          color: AppColorsLight.error),
       // Headline
       displayLarge: TextStyle(
         fontSize: 34,
@@ -96,7 +97,6 @@ class AppThemes {
 
       // Descriptive items
       bodyMedium: TextStyle(
-        height: 1.5,
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: AppColorsLight.black,
@@ -130,7 +130,7 @@ class AppThemes {
       }),
       filled: true,
       fillColor: AppColorsLight.white,
-      border: OutlineInputBorder(
+      border: const OutlineInputBorder(
         borderSide: BorderSide.none,
       ),
       labelStyle: const TextStyle(
@@ -243,6 +243,27 @@ class AppThemes {
         width: 2,
       ),
     ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColorsLight.background,
+      elevation: 8,
+      shadowColor: Colors.black.withOpacity(0.2),
+      foregroundColor: AppColorsLight.black,
+      titleTextStyle: const TextStyle(
+        color: AppColorsLight.black,
+        fontWeight: FontWeight.w600,
+        fontSize: 18,
+      ),
+    ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: AppColorsLight.black,
+      labelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16),
+      unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16),
+      unselectedLabelColor: AppColorsLight.black,
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -296,8 +317,7 @@ class AppThemes {
       titleSmall: TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w400,
-          color: AppColorsDark.error
-      ),
+          color: AppColorsDark.error),
       // Headline
       displayLarge: TextStyle(
         fontSize: 34,
@@ -478,6 +498,26 @@ class AppThemes {
         color: AppColorsDark.grey,
         width: 2,
       ),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColorsDark.background,
+      elevation: 8,
+      foregroundColor: AppColorsDark.white,
+      titleTextStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        color: AppColorsDark.dark,
+        fontSize: 18,
+      ),
+    ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: AppColorsDark.white,
+      labelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16),
+      unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16),
+      unselectedLabelColor: AppColorsLight.white,
     ),
   );
 }

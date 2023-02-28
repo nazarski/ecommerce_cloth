@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ecommerce_cloth/resources/app_images.dart';
+import 'package:ecommerce_cloth/core/resources/app_images.dart';
 import 'package:ecommerce_cloth/routes/app_router.gr.dart';
 import 'package:flutter/material.dart';
 

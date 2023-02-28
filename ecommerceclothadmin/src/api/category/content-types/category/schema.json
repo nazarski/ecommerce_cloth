@@ -20,6 +20,23 @@
       "relation": "oneToMany",
       "target": "api::product-group.product-group",
       "mappedBy": "category"
+    },
+    "categoryImage": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "attribute": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::attribute.attribute",
+      "inversedBy": "categories"
+    },
+    "categoryId": {
+      "type": "string"
     }
   }
 }

@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ecommerce_cloth/presentation/widgets/navigation/app_botom_navigation.dart';
 import 'package:ecommerce_cloth/routes/app_router.gr.dart';
 import 'package:flutter/material.dart';
+
+import 'widgets/navigation/app_botom_navigation.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
