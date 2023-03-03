@@ -18,7 +18,6 @@ class TabViewCategories extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoryProvider = ref.watch(categoriesProvider(categoryGroup));
-    // print(categoryProvider);
     return categoryProvider.when(
       data: (data) => SingleChildScrollView(
         padding: const EdgeInsets.all(16),

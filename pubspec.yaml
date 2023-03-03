@@ -10,22 +10,26 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.5
-  hooks_riverpod: ^2.2.0
-  flutter_riverpod: ^2.2.0
+  hooks_riverpod: ^2.3.0
+  flutter_riverpod: ^2.3.0
   riverpod: ^2.2.0
   flutter_local_notifications: ^13.0.0
   firebase_storage: ^11.0.14
-  firebase_ui_firestore: ^1.2.8
   firebase_analytics: ^10.1.4
   firebase_core: ^2.7.0
-  firebase_auth: ^4.2.9
   flutter_svg: ^2.0.2
   page_transition: ^2.0.9
   auto_route: ^5.0.4
   equatable: ^2.0.5
   flutter_facebook_auth: ^5.0.7
   dio: ^5.0.1
+  http: ^0.13.5
   shimmer: ^2.0.0
+  google_sign_in: ^6.0.1
+  flutter_inappwebview: ^5.7.2+3
+  flutter_web_auth_2: ^2.0.4
+
+
 
 dev_dependencies:
   flutter_test:

@@ -24,6 +24,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
             ),
           ),
           title: const Text('Categories'),
+          centerTitle: true,
           actions: [
             IconButton(
               onPressed: () {},

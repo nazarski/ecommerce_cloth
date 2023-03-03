@@ -8,6 +8,7 @@ import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_page/profile_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 
 @AdaptiveAutoRouter(
@@ -17,7 +18,6 @@ import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.d
       page: SplashScreen,
       initial: true,
     ),
-
     AutoRoute(
       page: RegistrationPage,
     ),
@@ -33,9 +33,11 @@ import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.d
         AutoRoute(
           page: HomePage,
         ),
-        AutoRoute(
-          page: CategoriesPage,
-        ),
+        AutoRoute(page: CategoriesPage, children: [
+          AutoRoute(
+            page: ProductGroupPage,
+          ),
+        ]),
         AutoRoute(
           page: BagPage,
         ),

@@ -44,7 +44,7 @@ class CategoryCard extends StatelessWidget {
                 const BorderRadius.horizontal(right: Radius.circular(8)),
                 child: Image(
                   fit: BoxFit.cover,
-                  image: NetworkImage('http://192.168.0.104:1337$imageLink'),
+                  image: NetworkImage('${StrapiInitialize.endpoint}$imageLink'),
                 ),
               ),
             ),

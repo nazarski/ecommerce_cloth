@@ -264,6 +264,10 @@ class AppThemes {
           fontSize: 16),
       unselectedLabelColor: AppColorsLight.black,
     ),
+    dividerTheme: const DividerThemeData(
+      color: AppColorsLight.grey,
+      thickness: 0.4
+    )
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -519,5 +523,9 @@ class AppThemes {
           fontSize: 16),
       unselectedLabelColor: AppColorsLight.white,
     ),
+      dividerTheme: const DividerThemeData(
+          color: AppColorsDark.grey,
+          thickness: 0.4
+      )
   );
 }

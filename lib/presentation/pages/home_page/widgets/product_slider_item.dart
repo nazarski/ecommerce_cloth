@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class ProductSliderItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: Image(
                 image:
-                    NetworkImage('http://192.168.0.104:1337${product.thumbnail}'),
+                    NetworkImage('${StrapiInitialize.endpoint}${product.thumbnail}'),
                 height: 184,
                 width: 148,
                 alignment: Alignment.topCenter,

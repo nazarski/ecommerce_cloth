@@ -1,11 +1,9 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
-
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 import 'package:ecommerce_cloth/routes/app_router.gr.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -180,14 +178,12 @@ class RegistrationPage extends StatelessWidget {
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 googleAuth: () async {
-                  context.router.push(MainRoute());
+                  context.router.push(const MainRoute());
                 },
                 facebookAuth: () async {
                   FacebookAuth.instance.login(
                       permissions: ['public_profile', 'email']).then((value) {
                     FacebookAuth.instance.getUserData().then((userData) {
-                      print(userData['name']);
-                      print(userData['email']);
                     });
                   });
                 },
@@ -201,3 +197,4 @@ class RegistrationPage extends StatelessWidget {
     );
   }
 }
+

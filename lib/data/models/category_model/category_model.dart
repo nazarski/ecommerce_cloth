@@ -47,11 +47,12 @@ class CategoryModel {
     return CategoryModel(
       categoryTitle: map['categoryTitle'] as String,
       categoryId: map['categoryId'] as String,
-      categoryImage:
-          map['categoryImage']['data'].first['attributes']['width'] > 500
-              ? map['categoryImage']['data'].first['attributes']['formats']
-                  ['small']['url'] as String
-              : map['categoryImage']['data'].first['attributes']['url'],
+      categoryImage: map['categoryImage']['data']['attributes']['formats']
+                  ['small'] !=
+              null
+          ? map['categoryImage']['data']['attributes']['formats']['small']
+              ['url'] as String
+          : map['categoryImage']['data']['attributes']['url'],
     );
   }
 }
