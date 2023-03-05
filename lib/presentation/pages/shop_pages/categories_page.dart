@@ -3,7 +3,7 @@ import 'widgets/tab_view_categories.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key}) : super(key: key);
-
+static const routeName = 'categories-page';
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
 }

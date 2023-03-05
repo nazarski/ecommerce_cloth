@@ -2,18 +2,27 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
-import 'package:ecommerce_cloth/routes/app_router.gr.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
   static const routeName = 'login_page';
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final FocusNode emailFocus = FocusNode();
+
   final FocusNode passwordFocus = FocusNode();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String validateEmail(String? value) {
@@ -138,7 +147,7 @@ class LoginPage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  context.router.push(const RecoveryRoute());
+                  // context.router.push( RecoveryRoute());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,

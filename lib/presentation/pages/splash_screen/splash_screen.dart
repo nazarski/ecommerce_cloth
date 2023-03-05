@@ -1,6 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_cloth/core/resources/app_images.dart';
-import 'package:ecommerce_cloth/routes/app_router.gr.dart';
+import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,11 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(
-      const Duration(seconds: 1),
-      () => context.router.replace(
-        const RegistrationRoute(),
-      ),
-    );
+        const Duration(seconds: 1),
+        () => Navigator.of(context).pushNamedAndRemoveUntil(
+            RegistrationPage.routeName, (route) => true));
     super.initState();
   }
 

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ProductGroupPage extends StatelessWidget {
-  const ProductGroupPage({Key? key}) : super(key: key);
+  const ProductGroupPage({
+    Key? key,
+  }) : super(key: key);
+  static const routeName = 'product-group-page';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
           ),
@@ -42,10 +47,14 @@ class ProductGroupPage extends StatelessWidget {
           ),
           Expanded(
               child: ListView.separated(
-                  itemBuilder: (context, i) =>  Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 16, horizontal: 40),
-                  child: Text('Sweaters', style: Theme.of(context).textTheme.bodyLarge,),),
+                  itemBuilder: (context, i) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 40),
+                        child: Text(
+                          'Sweaters',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
                   separatorBuilder: (_, __) => const Divider(),
                   itemCount: 9))
         ],

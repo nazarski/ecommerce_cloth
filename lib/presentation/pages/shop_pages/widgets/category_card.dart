@@ -1,11 +1,10 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard(
-      {Key? key,
-        required this.categoryTitle,
-        required this.imageLink})
+      {Key? key, required this.categoryTitle, required this.imageLink})
       : super(key: key);
   final String categoryTitle;
   final String imageLink;
@@ -13,7 +12,9 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(ProductGroupPage.routeName);
+      },
       child: Container(
         height: 100,
         decoration: BoxDecoration(
@@ -41,7 +42,7 @@ class CategoryCard extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius:
-                const BorderRadius.horizontal(right: Radius.circular(8)),
+                    const BorderRadius.horizontal(right: Radius.circular(8)),
                 child: Image(
                   fit: BoxFit.cover,
                   image: NetworkImage('${StrapiInitialize.endpoint}$imageLink'),
@@ -52,4 +53,5 @@ class CategoryCard extends StatelessWidget {
         ),
       ),
     );
-  }}
+  }
+}
