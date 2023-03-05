@@ -12,17 +12,17 @@ class ManageProductsData {
 
   static Future<List<ProductModel>?> getProductsFromDate(
       DateTime startDate) async {
-    final response = await _dio.get(
-        '$_endpoint/products?populate=*&filters[additionDate][\$gt]=${startDate.year}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}');
+    final response = await _dio.get('$_endpoint/products', queryParameters: {
+      'filters[additionDate][\$gt]':
+          '${startDate.year}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}',
+      'populate': '*'
+    });
     if (response.statusCode == 200) {
       final values = List<Map<String, dynamic>>.from(response.data['data']);
       if (values.isEmpty) {
-        return getProductsFromDate(
-          startDate.subtract(
-            const Duration(
-              days: 7)));
+        return getProductsFromDate(startDate.subtract(const Duration(days: 7)));
       }
-      final result = values.map((e){
+      final result = values.map((e) {
         return ProductModel.fromMap(e['attributes']);
       }).toList();
       return result;
@@ -31,4 +31,5 @@ class ManageProductsData {
     }
     return null;
   }
+
 }

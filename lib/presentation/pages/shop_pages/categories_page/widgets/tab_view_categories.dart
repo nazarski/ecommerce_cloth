@@ -39,6 +39,7 @@ class TabViewCategories extends ConsumerWidget {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: CategoryCard(
+                  categoryId: data[index].categoryId,
                   categoryTitle: data[index].categoryTitle,
                   imageLink: data[index].categoryImage,
                 ),

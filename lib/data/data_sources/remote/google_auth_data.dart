@@ -27,6 +27,7 @@ Future getServerAuthCode() async {
 Future getUser(String serverAuthCode) async {
   var response = await Dio().get("http://localhost:1337/api/connect/google/callback",
     data: "code=$serverAuthCode",
+
   );
   print(response.data);
   // final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
