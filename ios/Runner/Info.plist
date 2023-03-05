@@ -8,6 +8,7 @@
       <dict>
       <key>CFBundleURLSchemes</key>
       <array>
+        <string>fb6351639248193948</string>
         <string>com.googleusercontent.apps.460886256000-ct04n051ja2rl1puvllsrc13q1hkvbl7</string>
       </array>
       </dict>
@@ -18,6 +19,11 @@
     <string>CLIENT-TOKEN</string>
     <key>FacebookDisplayName</key>
     <string>LaModaEcom</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+    </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
