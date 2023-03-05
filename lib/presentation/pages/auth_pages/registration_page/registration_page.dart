@@ -1,24 +1,33 @@
 import 'dart:developer';
 
-import 'package:auto_route/auto_route.dart';
-
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
+import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
-import 'package:ecommerce_cloth/routes/app_router.gr.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-class RegistrationPage extends StatelessWidget {
-  RegistrationPage({Key? key}) : super(key: key);
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({Key? key}) : super(key: key);
   static const routeName = 'registration_page';
+
+  @override
+  State<RegistrationPage> createState() => _RegistrationPageState();
+}
+
+class _RegistrationPageState extends State<RegistrationPage> {
   final FocusNode userNameFocus = FocusNode();
+
   final FocusNode emailFocus = FocusNode();
+
   final FocusNode passwordFocus = FocusNode();
+
   final TextEditingController userNameController = TextEditingController();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String validateEmail(String? value) {
@@ -65,7 +74,10 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -82,7 +94,10 @@ class RegistrationPage extends StatelessWidget {
             children: [
               Text(
                 'Sign up',
-                style: Theme.of(context).textTheme.displayLarge,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .displayLarge,
               ),
               SizedBox(
                 height: height / 10,
@@ -149,7 +164,7 @@ class RegistrationPage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  context.router.push(const LoginRoute());
+                  // context.router.push(LoginRoute());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -157,11 +172,17 @@ class RegistrationPage extends StatelessWidget {
                   children: [
                     Text(
                       'Already have an account?',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyMedium,
                     ),
                     Icon(
                       Icons.arrow_right_alt_outlined,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .primary,
                     ),
                   ],
                 ),
@@ -180,15 +201,13 @@ class RegistrationPage extends StatelessWidget {
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 googleAuth: () async {
-                  context.router.push(MainRoute());
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      MainPage.routeName, (route) => false);
                 },
                 facebookAuth: () async {
                   FacebookAuth.instance.login(
                       permissions: ['public_profile', 'email']).then((value) {
-                    FacebookAuth.instance.getUserData().then((userData) {
-                      print(userData['name']);
-                      print(userData['email']);
-                    });
+                    FacebookAuth.instance.getUserData().then((userData) {});
                   });
                 },
                 label: 'Or sign up with social account',
@@ -201,3 +220,4 @@ class RegistrationPage extends StatelessWidget {
     );
   }
 }
+

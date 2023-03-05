@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 
 class StrapiInitialize{
-  static const endpoint = 'http://192.168.0.104:1337/api';
+  StrapiInitialize._();
+  static const endpoint = 'http://bugsmakersteam.pp.ua:1337';
+
+  static const apiEndpoint = 'http://bugsmakersteam.pp.ua:1337/api';
 }

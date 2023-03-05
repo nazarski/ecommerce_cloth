@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
 class ProductModel {
@@ -114,35 +116,28 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-      additionDate: DateTime.parse(map['additionDate']),
-      attributes: map['attributes']['data'].map((e) {
-        return e['attributes']['title'] as String;
-      }).toList(),
-      description: map['description'] ?? '',
-      availableQuantity:
-          map['availableQuantity'].fold(<String, int>{}, (previousValue, element) {
-        previousValue.addAll(<String, int>{element['size']: element['quantity']});
-        return previousValue;
-      }),
-      brand: map['brand']['data']['attributes']['brandName'] as String,
-      productType:
-          map['productType']['data']['attributes']['typeName'] as String,
-      id: map['productId'] as String,
-      thumbnail: map['images']['data'].first['attributes']['formats']['small']
-          ['url'] as String,
-      images: map['images']['data'].map((e) {
-        return e['attributes']['formats']['large']['url'];
-      }).toList(),
-      name: map['productTitle'] ?? '',
-      popular: map['popular'] as bool,
-      price: map['price'] as int,
-      rating: map['rating']??{},
-      sale: map['sale']['data'] != null
-          ? {
-              'title': map['sale']['data']['attributes']['title'],
-              'discount': map['sale']['data']['attributes']['discount']
-            }
-          : {},
-    );
+        id: map['productId'],
+        additionDate: DateTime.tryParse(map['additionDate']) ?? DateTime.now(),
+        popular: map['popular'],
+        name: map['productTitle'] ?? '',
+        price: map['price'],
+        description: map['description'] ?? '',
+        images: (map['images']['data'] as List).map((image) {
+          return image['attributes']['formats']['large']['url'];
+
+        }).toList(),
+        availableQuantity: (map['availableQuantity'] as List)
+            .fold(<String, int>{}, (previousValue, element) {
+          previousValue.addAll({element['size'] : element['quantity']});
+          return previousValue;
+        }),
+        productType: map['productType']['data']['attributes']['typeName'],
+        brand: map['brand']['data']['attributes']['brandName'],
+        attributes: (map['attributes']['data'] as List).map((element){
+          return element['attributes']['title'];
+        }).toList(),
+        thumbnail: map['images']['data'].first['attributes']['formats']['small']['url'],
+        rating: {},
+        sale: {});
   }
 }

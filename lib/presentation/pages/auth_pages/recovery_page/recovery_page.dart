@@ -7,11 +7,19 @@ import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.d
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class RecoveryPage extends StatelessWidget {
-  RecoveryPage({Key? key}) : super(key: key);
+class RecoveryPage extends StatefulWidget {
+  const RecoveryPage({Key? key}) : super(key: key);
   static const routeName = 'recovery_page';
+
+  @override
+  State<RecoveryPage> createState() => _RecoveryPageState();
+}
+
+class _RecoveryPageState extends State<RecoveryPage> {
   final FocusNode emailFocus = FocusNode();
+
   final TextEditingController emailController = TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String validateEmail(String? value) {

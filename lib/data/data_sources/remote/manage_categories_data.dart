@@ -8,7 +8,7 @@ class ManageCategoriesData {
   ManageCategoriesData._();
 
   static final _dio = Dio();
-  static const _endpoint = StrapiInitialize.endpoint;
+  static const _endpoint = StrapiInitialize.apiEndpoint;
 
   static Future<List<String>?> getAvailableCategories(String attribute) async {
     final response = await _dio.get(
@@ -33,13 +33,13 @@ class ManageCategoriesData {
       searchValue +=
           '${i == 0 ? '?' : '&'}filters[categoryId][\$in][$i]=${list[i]}';
     }
-    final response = await _dio
-        .get('$_endpoint/categories$searchValue&populate=categoryImage');
+    final response =
+        await _dio.get('$_endpoint/categories$searchValue&populate=categoryImage');
     if (response.statusCode == 200) {
       final values = List<Map<String, dynamic>>.from(response.data['data']);
       final result = values.map((e) {
         return CategoryModel.fromMap(e['attributes']);
-          }).toList();
+      }).toList();
       return result;
     } else {
       log(response.statusCode.toString());
