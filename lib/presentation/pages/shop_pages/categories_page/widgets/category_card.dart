@@ -1,5 +1,5 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
-import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {

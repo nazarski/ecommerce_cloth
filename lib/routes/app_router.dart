@@ -6,8 +6,8 @@ import 'package:ecommerce_cloth/presentation/pages/favourites_page/favourites_pa
 import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_page/profile_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/categories_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/shop_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +67,7 @@ class AppRouter {
         throw Exception('Invalid route: ${settings.name}');
     }
   }
+
   // Main page nested routes
   static Route<dynamic> generateShopPageNestedRoutes(RouteSettings settings) {
     final arguments = settings.arguments;

@@ -1,4 +1,4 @@
-import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/categories_page.dart';
 import 'package:ecommerce_cloth/routes/app_router.dart';
 import 'package:flutter/material.dart';
 
