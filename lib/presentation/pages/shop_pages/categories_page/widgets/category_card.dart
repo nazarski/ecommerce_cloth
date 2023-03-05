@@ -1,18 +1,25 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage-categories_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CategoryCard extends StatelessWidget {
-  const CategoryCard(
-      {Key? key, required this.categoryTitle, required this.imageLink})
-      : super(key: key);
+class CategoryCard extends ConsumerWidget {
+  const CategoryCard({
+    Key? key,
+    required this.categoryTitle,
+    required this.imageLink,
+    required this.categoryId,
+  }) : super(key: key);
   final String categoryTitle;
+  final String categoryId;
   final String imageLink;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
+        ref.read(productTypesProvider.notifier).selectCategory(categoryId);
         Navigator.of(context).pushNamed(ProductGroupPage.routeName);
       },
       child: Container(

@@ -3,5 +3,6 @@ import 'package:ecommerce_cloth/domain/entities/category_entity/category_entity.
 
 abstract class ManageCategoriesRepository{
   Future<List<CategoryEntity>> getCategoriesFromAttribute(String attribute);
+  Future<List<String>> getProductTypesFromCategoryId(String categoryId);
 
 }
