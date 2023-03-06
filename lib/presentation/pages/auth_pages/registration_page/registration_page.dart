@@ -1,11 +1,12 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
-import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -30,6 +31,90 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  final dio = Dio();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FacebookAuth _facebookAuth = FacebookAuth.instance;
+
+  Future<void> signInGoogle() async {
+    _googleSignIn.signIn().then(
+      (account) {
+        login(
+          email: account!.email,
+          username: account.displayName.toString(),
+        );
+        log(account.authHeaders.toString());
+      },
+    );
+  }
+
+  Future<void> signInFacebook() async {
+    _facebookAuth.login().then((value) {
+      _facebookAuth.getUserData().then(
+        (account) {
+          login(
+            email: account['email'],
+            username: account['name'],
+          );
+          log(account.toString());
+        },
+      );
+    });
+  }
+
+  Future<Map<String, dynamic>> login({required String email, required String username}) async {
+    try {
+      Response response = await dio.post(
+        'http://bugsmakersteam.pp.ua:1337/api/auth/local',
+        data: {
+          'identifier': email,
+          'password': email,
+        },
+      );
+
+      if (response.statusCode == 400) {
+        registerUser(email: email, username: username, typeOfAuth: 'social');
+        throw Exception('Invalid email or password');
+      }
+      log('Successful authorization ✅ :  ${response.data}');
+      return response.data;
+    } on DioError catch (e) {
+      registerUser(email: email, username: username, typeOfAuth: 'social');
+      throw Exception('Error logging in ${e.message}');
+    }
+  }
+
+  Future<Map<String, dynamic>> registerUser({
+    required String email,
+    required String username,
+    required String typeOfAuth,
+    String? password,
+  }) async {
+    String? strapiPassword;
+    try {
+      switch (typeOfAuth) {
+        case 'social':
+          strapiPassword = email;
+          break;
+        case 'standard':
+          strapiPassword = password;
+          break;
+      }
+      Response response = await dio.post(
+        'http://bugsmakersteam.pp.ua:1337/api/auth/local/register',
+        data: {
+          'username': username,
+          'email': email,
+          'password': strapiPassword,
+        },
+      );
+
+      log('Successful registration ✅ : ${response.data}');
+      return response.data;
+    } on DioError catch (e) {
+      throw Exception('Error registering user: ${e.message}');
+    }
+  }
+
   String validateEmail(String? value) {
     const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
         r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
@@ -49,9 +134,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   String validateUserName(String? userName) {
-    return userName!.isEmpty || userName.length > 15
-        ? 'Please enter a correct username'
-        : '';
+    return userName!.isEmpty || userName.length > 15 ? 'Please enter a correct username' : '';
   }
 
   String validatePassword(String? password) {
@@ -67,6 +150,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
     final FormState form = formKey.currentState!;
     if (form.validate()) {
       log('Form is valid');
+      registerUser(
+        email: emailController.text,
+        username: userNameController.text,
+        typeOfAuth: 'standard',
+        password: passwordController.text,
+      );
     } else {
       log('Form is invalid');
     }
@@ -74,10 +163,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -94,10 +180,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             children: [
               Text(
                 'Sign up',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .displayLarge,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               SizedBox(
                 height: height / 10,
@@ -172,17 +255,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   children: [
                     Text(
                       'Already have an account?',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Icon(
                       Icons.arrow_right_alt_outlined,
-                      color: Theme
-                          .of(context)
-                          .colorScheme
-                          .primary,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ],
                 ),
@@ -201,14 +278,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 googleAuth: () async {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      MainPage.routeName, (route) => false);
+                  await signInGoogle();
                 },
                 facebookAuth: () async {
-                  FacebookAuth.instance.login(
-                      permissions: ['public_profile', 'email']).then((value) {
-                    FacebookAuth.instance.getUserData().then((userData) {});
-                  });
+                  await signInFacebook();
                 },
                 label: 'Or sign up with social account',
               ),
@@ -220,4 +293,3 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 }
-
