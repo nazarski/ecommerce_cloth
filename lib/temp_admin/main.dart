@@ -11,7 +11,7 @@ void main()async{
   );
 
 
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: SplashScreen(),
   ));
 }

@@ -23,9 +23,10 @@ dependencies:
   flutter_facebook_auth: ^5.0.7
   dio: ^5.0.1
   shimmer: ^2.0.0
-  google_sign_in: ^6.0.1
+  google_sign_in: ^6.0.2
   flutter_web_auth_2: ^2.0.4
   build_runner: ^2.3.3
+
 
 
 
