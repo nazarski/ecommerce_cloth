@@ -32,4 +32,13 @@ class ManageProductsData {
     return null;
   }
 
+  static Future<List<String>?> getProductTypes(
+      String productGroup, String attribute) async {
+    final response =
+        await _dio.get('$_endpoint/product-types', queryParameters: {
+          
+        });
+
+    return null;
+  }
 }

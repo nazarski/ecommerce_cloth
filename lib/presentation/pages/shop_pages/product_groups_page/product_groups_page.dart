@@ -1,5 +1,6 @@
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/widgets/app_bar_back_search.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage-categories_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,7 +27,11 @@ class ProductGroupPage extends ConsumerWidget {
                 onPressed: () {},
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
-                  child: Center(child: Text('view all items'.toUpperCase())),
+                  child: Center(
+                    child: Text(
+                      'view all items'.toUpperCase(),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -40,7 +45,9 @@ class ProductGroupPage extends ConsumerWidget {
             Expanded(
               child: ListView.separated(
                 itemBuilder: (context, i) => InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(ProductListPage.routeName);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 40),

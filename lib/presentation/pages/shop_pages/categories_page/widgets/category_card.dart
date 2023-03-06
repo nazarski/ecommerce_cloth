@@ -1,6 +1,6 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage-categories_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

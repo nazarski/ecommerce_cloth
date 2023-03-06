@@ -23,9 +23,6 @@ class GetProducts {
     return await _productsRepository.getProductsFromDate(weekAgo);
   }
   Future<List<ProductEntity>> getByType(ProductSliderType type)async{
-    // await Future.delayed(Duration(seconds: 3),(){
-    //   print('shimmer');
-    // });
     switch(type){
       case ProductSliderType.newProducts:
         return await _getNewProducts();

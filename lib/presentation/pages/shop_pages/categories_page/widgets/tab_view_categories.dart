@@ -1,4 +1,4 @@
-import 'package:ecommerce_cloth/presentation/riverpod/manage-categories_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
@@ -48,7 +48,7 @@ class TabViewCategories extends ConsumerWidget {
           ],
         ),
       ),
-      error: (Object error, StackTrace stackTrace) => const Text('Error'),
+      error: (_,__) => const Text('Error'),
       loading: () => Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
