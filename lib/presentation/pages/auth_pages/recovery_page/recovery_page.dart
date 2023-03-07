@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 
@@ -59,7 +57,6 @@ class _RecoveryPageState extends State<RecoveryPage> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            context.router.pop();
           },
           icon: const Icon(
             Icons.arrow_back_ios,
