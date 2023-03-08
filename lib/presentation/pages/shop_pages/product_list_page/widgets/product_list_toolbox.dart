@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class ProductListToolBox extends StatelessWidget {
   const ProductListToolBox({
     super.key,
+    required this.sortButton,
+    required this.changeView,
   });
+
+  final ValueChanged sortButton;
+  final VoidCallback changeView;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +28,31 @@ class ProductListToolBox extends StatelessWidget {
             icon: const Icon(Icons.filter_list_rounded),
             label: const Text('Filters'),
           ),
-          TextButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.swap_vert_rounded),
-            label: const Text('Price: lowest to high'),
-          ),
+          PopupMenuButton(
+              child: Row(
+                children: [
+                  const Icon(Icons.swap_vert_rounded),
+                  const Text(
+                    'Price: lowest to high',
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              itemBuilder: (context) => [
+                    PopupMenuItem(child: Text('Price: lowest to high')),
+                    PopupMenuItem(child: Text('Price: highest to lowest')),
+                    PopupMenuItem(child: Text('Date: new first')),
+                    PopupMenuItem(child: Text('Sale: sale items first')),
+                  ]),
+          // TextButton.icon(
+          //   onPressed: () {},
+          //   icon: const Icon(Icons.swap_vert_rounded),
+          //   label: const Text('Price: lowest to high'),
+          // ),
           IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.grid_view_rounded))
+              onPressed: changeView, icon: const Icon(Icons.grid_view_rounded))
         ],
       ),
     );

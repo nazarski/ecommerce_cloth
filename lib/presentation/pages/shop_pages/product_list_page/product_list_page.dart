@@ -15,6 +15,8 @@ class ProductListPage extends StatefulWidget {
 }
 
 class _ProductListPageState extends State<ProductListPage> {
+  bool isGrid = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,17 +54,23 @@ class _ProductListPageState extends State<ProductListPage> {
                 widgetHeight: 30,
               ),
             ),
-            const SliverPersistentHeader(
+            SliverPersistentHeader(
               pinned: true,
               delegate: SliverHeaderDelegateWrap(
-                widget: ProductListToolBox(),
+                widget: ProductListToolBox(
+                  sortButton: (value) {},
+                  changeView: () {
+                    setState(() {
+                      isGrid = !isGrid;
+                    });
+                  },
+                ),
                 widgetHeight: 52,
               ),
             ),
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              sliver:
-              ProductListGridView(),
+              sliver: isGrid ? ProductListGridView() : ProductListListView(),
               // ProductListListView(),
             )
           ],
@@ -107,8 +115,7 @@ class ProductListGridView extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              Theme.of(context).colorScheme.onPrimary,
+                          color: Theme.of(context).colorScheme.onPrimary,
                           boxShadow: [
                             BoxShadow(
                                 color: Colors.black.withOpacity(0.3),
