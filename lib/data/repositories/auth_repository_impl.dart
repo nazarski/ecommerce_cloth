@@ -3,8 +3,11 @@ import 'package:ecommerce_cloth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   @override
-  Future<int?> requestUserRegistration(
-      {required String email, required String username, required String password}) async {
+  Future<int?> requestUserRegistration({
+    required String email,
+    required String username,
+    required String password,
+  }) async {
     final int? postRequestRegistrationUser = await AuthenticateData.postUserRegistration(
       email: email,
       username: username,
@@ -12,4 +15,18 @@ class AuthRepositoryImpl implements AuthRepository {
     );
     return postRequestRegistrationUser;
   }
+
+  @override
+  Future<int?> requestUserLogin({
+    required String email,
+    required String password,
+  }) async {
+    final int? postRequestLoginUser = await AuthenticateData.postUserLogin(
+      email: email,
+      password: password,
+    );
+    return postRequestLoginUser;
+  }
+
+
 }

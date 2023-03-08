@@ -479,10 +479,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_web_auth_2
-      sha256: b34ccd316fa38f73b2a36c655bdc0b74505d1962e9f2d810a78157da01a25a4c
+      sha256: eab1cc4ba7b2c517a7ea1cf0d165f2ae22403f4a725ea681fc238c32abd0ab87
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   flutter_web_auth_2_platform_interface:
     dependency: transitive
     description:

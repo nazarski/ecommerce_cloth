@@ -42,23 +42,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
           email: account!.email,
           username: account.displayName.toString(),
         );
-        log(account.authHeaders.toString());
+        log(account.toString());
       },
     );
   }
 
   Future<void> signInFacebook() async {
-    _facebookAuth.login().then((value) {
+    Map<String, dynamic> facebookData = {};
+    await _facebookAuth.login().then((value) {
       _facebookAuth.getUserData().then(
         (account) {
+          facebookData = account;
           login(
             email: account['email'],
             username: account['name'],
           );
-          log(account.toString());
+          log('aaaaaaaaaaaaaaaa ${account['picture']['data']['url'].toString()}');
         },
       );
     });
+   log(facebookData['name'].toString());
   }
 
   Future<Map<String, dynamic>> login({required String email, required String username}) async {

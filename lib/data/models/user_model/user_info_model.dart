@@ -19,7 +19,7 @@ class UserInfoModel {
   String toString() {
     return 'UserInfoModel {'
         'createdAt: $createdAt, '
-        'displayName: $displayName, '
+        'displayName username: $displayName, '
         'email: $email, '
         'favorites: $favorites, '
         'photoUrl: $photoUrl,'
