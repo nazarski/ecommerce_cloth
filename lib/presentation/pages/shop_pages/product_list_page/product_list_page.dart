@@ -1,6 +1,10 @@
-import 'package:ecommerce_cloth/core/resources/app_colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ecommerce_cloth/presentation/pages/home_page/widgets/star_view_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'widgets/product_list_toolbox.dart';
+import 'widgets/product_types_list.dart';
+import 'widgets/sliver_header_delegate_wrap.dart';
+import 'widgets/transforming_app_bar.dart';
 
 class ProductListPage extends StatefulWidget {
   const ProductListPage({Key? key}) : super(key: key);
@@ -48,51 +52,17 @@ class _ProductListPageState extends State<ProductListPage> {
                 widgetHeight: 30,
               ),
             ),
-            SliverPersistentHeader(
+            const SliverPersistentHeader(
               pinned: true,
               delegate: SliverHeaderDelegateWrap(
-                widget: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 5,
-                        offset: const Offset(0, 5))
-                  ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.filter_list_rounded),
-                        label: const Text('Filters'),
-                      ),
-                      TextButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.swap_vert_rounded),
-                        label: const Text('Price: lowest to high'),
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.grid_view_rounded))
-                    ],
-                  ),
-                ),
+                widget: ProductListToolBox(),
                 widgetHeight: 52,
               ),
             ),
-            SliverFixedExtentList(
-                delegate: SliverChildBuilderDelegate((context, i) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      color: Colors.red,
-                    ),
-                  );
-                }),
-                itemExtent: 140)
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              sliver: ProductListListView(),
+            )
           ],
         ),
       ),
@@ -100,150 +70,122 @@ class _ProductListPageState extends State<ProductListPage> {
   }
 }
 
-class ProductTypesList extends StatelessWidget {
-  const ProductTypesList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background
-      ),
-      child: ListView.separated(
-        separatorBuilder: (_, __) => const SizedBox(
-          width: 12,
-        ),
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        itemBuilder: (context, i) {
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            // height: 30,
-            // width: 100,
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                borderRadius: BorderRadius.circular(50)),
-            child: Center(
-              child: Text(
-                'Sleeveless',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.surfaceTint),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class SliverHeaderDelegateWrap extends SliverPersistentHeaderDelegate {
-  const SliverHeaderDelegateWrap(
-      {required this.widget, required this.widgetHeight});
-
-  final double widgetHeight;
-  final Widget widget;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return widget;
-  }
-
-  @override
-  double get maxExtent => widgetHeight;
-
-  @override
-  double get minExtent => widgetHeight;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
-}
-
-class TransformingAppBar extends SliverPersistentHeaderDelegate {
-  const TransformingAppBar({required this.expandedHeight});
-
-  final double expandedHeight;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    final progress = shrinkOffset / maxExtent;
-
-    return TransformingAppBarContent(progress: progress);
-  }
-
-  @override
-  double get maxExtent => expandedHeight;
-
-  @override
-  double get minExtent => 54;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      true;
-}
-
-class TransformingAppBarContent extends StatelessWidget {
-  const TransformingAppBarContent({
+class ProductListListView extends StatelessWidget {
+  const ProductListListView({
     super.key,
-    required this.progress,
   });
 
-  final double progress;
+  @override
+  Widget build(BuildContext context) {
+    return SliverFixedExtentList(
+        delegate: SliverChildBuilderDelegate((context, i) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Stack(
+              children: [
+                Container(
+                  height: 112,
+                  decoration: BoxDecoration(
+                      color:
+                          Theme.of(context).colorScheme.onBackground,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 5),
+                            blurRadius: 5)
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Row(
+                      children: [
+                        Image(
+                          image: AssetImage('assets/images/men.jpg'),
+                          width:
+                              MediaQuery.of(context).size.width * .33,
+                          alignment: Alignment.topCenter,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Pullover',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge,
+                            ),
+                            Text(
+                              'Mango',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium,
+                            ),
+                            StarsViewWidget(rating: 4, reviews: 12),
+                            Text(
+                              '650\$',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: HeartFavourite(
+                    active: false,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+        itemExtent: 140);
+  }
+}
+
+class HeartFavourite extends StatelessWidget {
+  const HeartFavourite({
+    super.key,
+    required this.active,
+  });
+
+  final bool active;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Theme.of(context).colorScheme.onPrimary,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                offset: const Offset(0, 4),
+                blurRadius: 5),
+          ]),
+      child: !active
+          ? Icon(
+              Icons.favorite_border,
+              size: 18,
+              color: Theme.of(context).colorScheme.surface,
+            )
+          : Icon(
+              Icons.favorite,
+              size: 18,
+              color: Theme.of(context).colorScheme.primary,
             ),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ],
-          elevation: 0,
-        ),
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 100),
-          padding: EdgeInsets.lerp(
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            const EdgeInsets.only(bottom: 16),
-            progress,
-          ),
-          alignment: Alignment.lerp(
-            Alignment.bottomLeft,
-            Alignment.bottomCenter,
-            progress,
-          ),
-          child: Text(
-            'Women`s tops',
-            style: TextStyle.lerp(
-              Theme.of(context).textTheme.displayLarge,
-              Theme.of(context).textTheme.displaySmall,
-              progress,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

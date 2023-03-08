@@ -18,13 +18,13 @@ class StarsViewWidget extends StatelessWidget {
           return const Icon(
             Icons.star_rounded,
             color: Color(0xffFFBA49),
-            size: 13,
+            size: 14,
           );
         }
         return Icon(
           Icons.star_border_rounded,
           color: Theme.of(context).colorScheme.surface,
-          size: 13,
+          size: 14,
         );
       }),
       Text(
