@@ -41,10 +41,12 @@ class GetProducts {
     required String attribute,
     required String categoryId,
   }) async {
-    return await _productsRepository.getProductTypes(
+    final data = await _productsRepository.getProductTypes(
       productGroup: productGroup,
       attribute: attribute,
       categoryId: categoryId,
     );
+    print(data);
+    return data;
   }
 }

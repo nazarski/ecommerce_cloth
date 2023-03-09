@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +41,11 @@ class ProductTypesList extends ConsumerWidget {
           },
         ),
       ),
-      error: (_, __) => Text('Error'),
+      error: (error, stackTrace) {
+        log(error.toString());
+        log(stackTrace.toString());
+        return SizedBox(height: 30, child: Text('Error'));
+      },
       loading: () => DecoratedBox(
         decoration:
             BoxDecoration(color: Theme.of(context).colorScheme.background),
@@ -55,6 +61,7 @@ class ProductTypesList extends ConsumerWidget {
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(50)),
               child: const ShimmerWidget(
+                width: 100,
                 height: 30,
               ),
             );

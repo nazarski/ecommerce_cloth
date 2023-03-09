@@ -30,7 +30,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
           productGroup: productGroup,
           attribute: attribute,
           categoryId: categoryId);
-      return data!;
+      return data;
     } catch (e) {
       return Future.error(e.toString());
     }

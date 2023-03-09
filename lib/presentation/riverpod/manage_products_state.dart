@@ -4,12 +4,12 @@ import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.da
 import 'package:ecommerce_cloth/domain/use_cases/manage_products/get_products.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-const getProducts = GetProducts(ManageProductsRepositoryImpl());
+const _getProducts = GetProducts(ManageProductsRepositoryImpl());
 
 final newProductsProvider =
     FutureProvider.family<List<ProductEntity>, ProductSliderType>(
         (ref, type) async {
-  final result = await getProducts.getByType(type);
+  final result = await _getProducts.getByType(type);
   return result;
 });
 
@@ -28,7 +28,7 @@ class ProductTypesProvider extends StateNotifier<AsyncValue<List<String>>> {
   }) async {
     try {
       this.productGroup = productGroup;
-      final productTypes = await getProducts.getProductTypes(
+      final List<String> productTypes = await _getProducts.getProductTypes(
         productGroup: productGroup,
         attribute: attribute!,
         categoryId: categoryId!,
