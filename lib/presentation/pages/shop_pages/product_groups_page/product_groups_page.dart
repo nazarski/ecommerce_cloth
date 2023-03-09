@@ -1,6 +1,7 @@
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/widgets/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,8 +13,8 @@ class ProductGroupPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productTypes = ref.watch(productTypesProvider);
-    return productTypes.when(
+    final productGroups = ref.watch(productGroupsProvider);
+    return productGroups.when(
       data: (data) => Scaffold(
         appBar: const AppBarSearchBack(
           title: 'Categories',
@@ -46,6 +47,9 @@ class ProductGroupPage extends ConsumerWidget {
               child: ListView.separated(
                 itemBuilder: (context, i) => InkWell(
                   onTap: () {
+                    ref.read(productTypesProvider.notifier).selectProductGroup(
+                          productGroup: data[i],
+                        );
                     Navigator.of(context).pushNamed(ProductListPage.routeName);
                   },
                   child: Padding(

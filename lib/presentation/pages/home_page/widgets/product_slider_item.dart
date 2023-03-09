@@ -3,7 +3,7 @@ import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.da
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
 import 'package:flutter/material.dart';
 
-import 'star_view_widget.dart';
+import '../../widgets/star_view_widget.dart';
 
 class ProductSliderItem extends StatelessWidget {
   const ProductSliderItem({

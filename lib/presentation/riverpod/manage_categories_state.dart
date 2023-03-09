@@ -11,17 +11,17 @@ final categoriesProvider =
   return result;
 });
 
-final productTypesProvider =
-    StateNotifierProvider<ProductTypesProvider, AsyncValue<List<String>>>(
-        (ref) => ProductTypesProvider());
+final productGroupsProvider =
+    StateNotifierProvider<ProductGroupsProvider, AsyncValue<List<String>>>(
+        (ref) => ProductGroupsProvider());
 
-class ProductTypesProvider extends StateNotifier<AsyncValue<List<String>>> {
-  ProductTypesProvider() : super(const AsyncValue.loading());
+class ProductGroupsProvider extends StateNotifier<AsyncValue<List<String>>> {
+  ProductGroupsProvider() : super(const AsyncValue.loading());
 
   Future<void> selectCategory(String categoryId) async {
     try {
-      final productTypes = await getCategories.getProductTypes(categoryId);
-      state = AsyncValue.data(productTypes);
+      final productGroups = await getCategories.getProductGroups(categoryId);
+      state = AsyncValue.data(productGroups);
     } catch (error) {
       state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
     }

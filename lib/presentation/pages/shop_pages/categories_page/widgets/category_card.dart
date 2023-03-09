@@ -1,6 +1,7 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +20,8 @@ class CategoryCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
-        ref.read(productTypesProvider.notifier).selectCategory(categoryId);
+        ref.read(productGroupsProvider.notifier).selectCategory(categoryId);
+        ref.read(productTypesProvider.notifier).categoryId = categoryId;
         Navigator.of(context).pushNamed(ProductGroupPage.routeName);
       },
       child: Container(

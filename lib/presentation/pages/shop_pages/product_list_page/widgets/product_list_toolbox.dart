@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:flutter/material.dart';
 
 class ProductListToolBox extends StatelessWidget {
@@ -5,10 +6,19 @@ class ProductListToolBox extends StatelessWidget {
     super.key,
     required this.sortButton,
     required this.changeView,
+    required this.currentType,
   });
 
   final ValueChanged sortButton;
   final VoidCallback changeView;
+  final SortType currentType;
+
+  static const Map<SortType, String> _typesToString = {
+    SortType.novelty: 'Date: new first',
+    SortType.priceDESC: 'Price: highest to lowest',
+    SortType.priceASC: 'Price: lowest to high',
+    SortType.saleFirst: 'Sale: sale items first',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -29,28 +39,21 @@ class ProductListToolBox extends StatelessWidget {
             label: const Text('Filters'),
           ),
           PopupMenuButton(
-              child: Row(
-                children: [
-                  const Icon(Icons.swap_vert_rounded),
-                  const Text(
-                    'Price: lowest to high',
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              itemBuilder: (context) => [
-                    PopupMenuItem(child: Text('Price: lowest to high')),
-                    PopupMenuItem(child: Text('Price: highest to lowest')),
-                    PopupMenuItem(child: Text('Date: new first')),
-                    PopupMenuItem(child: Text('Sale: sale items first')),
-                  ]),
-          // TextButton.icon(
-          //   onPressed: () {},
-          //   icon: const Icon(Icons.swap_vert_rounded),
-          //   label: const Text('Price: lowest to high'),
-          // ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            itemBuilder: (context) => _typesToString.entries.map((e) {
+              return PopupMenuItem(value: e.key, child: Text(e.value));
+            }).toList(),
+            child: Row(
+              children: [
+                const Icon(Icons.swap_vert_rounded),
+                Text(
+                  _typesToString[currentType] ?? '',
+                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          ),
           IconButton(
               onPressed: changeView, icon: const Icon(Icons.grid_view_rounded))
         ],

@@ -12,3 +12,30 @@ final newProductsProvider =
   final result = await getProducts.getByType(type);
   return result;
 });
+
+final productTypesProvider =
+    StateNotifierProvider<ProductTypesProvider, AsyncValue<List<String>>>(
+        (ref) => ProductTypesProvider());
+
+class ProductTypesProvider extends StateNotifier<AsyncValue<List<String>>> {
+  ProductTypesProvider() : super(const AsyncValue.loading());
+  String? attribute;
+  String? categoryId;
+  String? productGroup;
+
+  Future<void> selectProductGroup({
+    required String productGroup,
+  }) async {
+    try {
+      this.productGroup = productGroup;
+      final productTypes = await getProducts.getProductTypes(
+        productGroup: productGroup,
+        attribute: attribute!,
+        categoryId: categoryId!,
+      );
+      state = AsyncValue.data(productTypes);
+    } catch (error) {
+      state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
+    }
+  }
+}

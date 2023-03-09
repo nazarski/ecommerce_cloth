@@ -1,6 +1,8 @@
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TransformingAppBarContent extends StatelessWidget {
+class TransformingAppBarContent extends ConsumerWidget {
   const TransformingAppBarContent({
     super.key,
     required this.progress,
@@ -9,7 +11,11 @@ class TransformingAppBarContent extends StatelessWidget {
   final double progress;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String attribute =
+        ref.read(productTypesProvider.notifier).attribute ?? '';
+    final String group =
+        ref.read(productTypesProvider.notifier).productGroup ?? '';
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -44,7 +50,10 @@ class TransformingAppBarContent extends StatelessWidget {
             progress,
           ),
           child: Text(
-            'Women`s tops',
+            '''
+            ${attribute[0].toUpperCase()}${attribute.substring(1)}`s 
+            ${group.toLowerCase()}
+            ''',
             style: TextStyle.lerp(
               Theme.of(context).textTheme.displayLarge,
               Theme.of(context).textTheme.displaySmall,
