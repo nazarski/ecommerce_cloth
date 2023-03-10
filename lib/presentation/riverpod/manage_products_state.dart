@@ -1,6 +1,7 @@
 import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
 import 'package:ecommerce_cloth/data/repositories/manare_products_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_products/get_products.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -34,6 +35,30 @@ class ProductTypesProvider extends StateNotifier<AsyncValue<List<String>>> {
         categoryId: categoryId!,
       );
       state = AsyncValue.data(productTypes);
+    } catch (error) {
+      state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
+    }
+  }
+}
+
+final productListProvider =
+    StateNotifierProvider<ProductListProvider, AsyncValue<List<ProductEntity>>>(
+        (ref) {
+  final types = ref.watch(productTypesProvider).value;
+  return ProductListProvider(filter: ProductFilterEntity(productTypes: types));
+});
+
+class ProductListProvider
+    extends StateNotifier<AsyncValue<List<ProductEntity>>> {
+  ProductListProvider({required this.filter})
+      : super(const AsyncValue.loading());
+  final ProductFilterEntity filter;
+
+  Future<void> getFromProductTypes({
+    required List<String> productTypes,
+  }) async {
+    try {
+      // state = AsyncValue.data();
     } catch (error) {
       state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
     }

@@ -45,7 +45,7 @@ class ManageProductsData {
     });
     if (response.statusCode == 200) {
       final values = List<Map<String, dynamic>>.from(response.data['data']);
-      final data = values.map((e) => e['attributes']['typeName'].toString()).toList();
+      final data = values.map((e) => '${e['attributes']['typeName']}s').toList();
       return data;
     } else {
       log(response.statusCode.toString());

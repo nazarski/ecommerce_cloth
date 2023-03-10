@@ -46,7 +46,11 @@ class GetProducts {
       attribute: attribute,
       categoryId: categoryId,
     );
-    print(data);
     return data;
   }
+  // Future<List<ProductEntity>> getProductsByFilter(
+  //
+  //     )async{
+  //
+  // }
 }

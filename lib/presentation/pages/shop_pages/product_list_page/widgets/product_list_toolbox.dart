@@ -1,4 +1,5 @@
 import 'package:ecommerce_cloth/core/enums/sort_type.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class ProductListToolBox extends StatelessWidget {
@@ -38,24 +39,70 @@ class ProductListToolBox extends StatelessWidget {
             icon: const Icon(Icons.filter_list_rounded),
             label: const Text('Filters'),
           ),
-          PopupMenuButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            itemBuilder: (context) => _typesToString.entries.map((e) {
-              return PopupMenuItem(value: e.key, child: Text(e.value));
-            }).toList(),
-            child: Row(
-              children: [
-                const Icon(Icons.swap_vert_rounded),
-                Text(
-                  _typesToString[currentType] ?? '',
-                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w400),
+          TextButton.icon(
+            onPressed: () {
+              buildShowModalBottomSheet(
+                context: context,
+                header: 'Sort by',
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      child: Container(
+                        width: double.infinity,
+                        height: 48,
+                        padding: EdgeInsets.only(left: 16),
+                        child: Text(
+                          'Price: lowest to high',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        width: double.infinity,
+                        height: 48,
+                        padding: EdgeInsets.only(left: 16),
+                        child: Text(
+                          'Price: lowest to high',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        width: double.infinity,
+                        height: 48,
+                        padding: EdgeInsets.only(left: 16),
+                        child: Text(
+                          'Price: lowest to high',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        width: double.infinity,
+                        height: 48,
+                        padding: EdgeInsets.only(left: 16),
+                        child: Text(
+                          'Price: lowest to high',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
+            icon: const Icon(Icons.swap_vert_rounded),
+            label: Text(_typesToString[currentType] ?? ''),
           ),
           IconButton(
-              onPressed: changeView, icon: const Icon(Icons.grid_view_rounded))
+            onPressed: changeView,
+            icon: const Icon(
+              Icons.grid_view_rounded,
+            ),
+          )
         ],
       ),
     );

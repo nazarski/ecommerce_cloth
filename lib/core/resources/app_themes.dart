@@ -278,6 +278,12 @@ class AppThemes {
             fontFamily: 'Metropolis'),
       ),
     ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: AppColorsLight.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(34)),
+      )
+    )
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -547,6 +553,11 @@ class AppThemes {
             fontFamily: 'Metropolis'),
       ),
     ),
-  )
-  ;
+      bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: AppColorsDark.background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(34)),
+          )
+      )
+  );
 }
