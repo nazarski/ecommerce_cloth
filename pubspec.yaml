@@ -26,6 +26,8 @@ dependencies:
   google_sign_in: ^6.0.2
   flutter_web_auth_2: ^2.0.4
   build_runner: ^2.3.3
+  path_provider: ^2.0.13
+  flutter_secure_storage: ^8.0.0
 
 
 

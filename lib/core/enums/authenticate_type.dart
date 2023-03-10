@@ -1,5 +1,6 @@
 enum AuthenticateType {
   google,
   facebook,
-  local,
+  registration,
+  authorization,
 }

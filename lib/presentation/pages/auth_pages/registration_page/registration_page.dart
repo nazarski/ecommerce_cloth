@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
+import 'package:ecommerce_cloth/data/repositories/auth_repository_impl.dart';
+import 'package:ecommerce_cloth/domain/use_cases/authenticate/authenticate.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +33,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController passwordController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final _authenticate = Authenticate(AuthRepositoryImpl());
 
   final dio = Dio();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -61,7 +66,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         },
       );
     });
-   log(facebookData['name'].toString());
+    log(facebookData['name'].toString());
   }
 
   Future<Map<String, dynamic>> login({required String email, required String username}) async {
@@ -281,10 +286,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 googleAuth: () async {
-                  await signInGoogle();
+                  await _authenticate.authenticateByType(
+                    type: AuthenticateType.google,
+                  );
                 },
                 facebookAuth: () async {
-                  await signInFacebook();
+                  await _authenticate.authenticateByType(
+                    type: AuthenticateType.facebook,
+                  );
                 },
                 label: 'Or sign up with social account',
               ),
