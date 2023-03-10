@@ -30,7 +30,7 @@ class ProductTypesList extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(50)),
               child: Center(
                 child: Text(
-                  data[i],
+                  '${data[i]}s',
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -44,7 +44,7 @@ class ProductTypesList extends ConsumerWidget {
       error: (error, stackTrace) {
         log(error.toString());
         log(stackTrace.toString());
-        return SizedBox(height: 30, child: Text('Error'));
+        return const SizedBox(height: 30, child: Text('Error'));
       },
       loading: () => DecoratedBox(
         decoration:

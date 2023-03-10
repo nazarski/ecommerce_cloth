@@ -8,4 +8,12 @@ abstract class ManageProductsRepository {
       required String attribute,
       required String categoryId});
 
+  Future<List<ProductEntity>> getProductsFromFilter({
+    required int fromPrice,
+    required int toPrice,
+    required List<String> sizes,
+    required List<String> colors,
+    required List<String> brandNames,
+    required List<String> productTypes,
+  });
 }

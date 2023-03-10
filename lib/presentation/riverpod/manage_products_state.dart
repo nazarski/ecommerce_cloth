@@ -16,10 +16,15 @@ final newProductsProvider =
 
 final productTypesProvider =
     StateNotifierProvider<ProductTypesProvider, AsyncValue<List<String>>>(
-        (ref) => ProductTypesProvider());
+  (ref) => ProductTypesProvider(
+    productListProviderRef: ref.read(productListProvider.notifier),
+  ),
+);
 
 class ProductTypesProvider extends StateNotifier<AsyncValue<List<String>>> {
-  ProductTypesProvider() : super(const AsyncValue.loading());
+  ProductTypesProvider({required this.productListProviderRef})
+      : super(const AsyncValue.loading());
+  final ProductListProvider productListProviderRef;
   String? attribute;
   String? categoryId;
   String? productGroup;
@@ -35,6 +40,8 @@ class ProductTypesProvider extends StateNotifier<AsyncValue<List<String>>> {
         categoryId: categoryId!,
       );
       state = AsyncValue.data(productTypes);
+      productListProviderRef.filter = ProductFilterEntity(productTypes: productTypes);
+      productListProviderRef.getFromProductTypes();
     } catch (error) {
       state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
     }
@@ -44,21 +51,19 @@ class ProductTypesProvider extends StateNotifier<AsyncValue<List<String>>> {
 final productListProvider =
     StateNotifierProvider<ProductListProvider, AsyncValue<List<ProductEntity>>>(
         (ref) {
-  final types = ref.watch(productTypesProvider).value;
-  return ProductListProvider(filter: ProductFilterEntity(productTypes: types));
+  return ProductListProvider();
 });
 
 class ProductListProvider
     extends StateNotifier<AsyncValue<List<ProductEntity>>> {
-  ProductListProvider({required this.filter})
-      : super(const AsyncValue.loading());
-  final ProductFilterEntity filter;
+  ProductListProvider({this.filter}) : super(const AsyncValue.loading());
 
-  Future<void> getFromProductTypes({
-    required List<String> productTypes,
-  }) async {
+  ProductFilterEntity? filter;
+
+  Future<void> getFromProductTypes() async {
     try {
-      // state = AsyncValue.data();
+      final products = await _getProducts.getProductsByFilter(filter!);
+      state = AsyncValue.data(products);
     } catch (error) {
       state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
     }

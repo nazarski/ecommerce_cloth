@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:ecommerce_cloth/data/data_sources/remote/manage_products_data.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
@@ -9,9 +8,9 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
   @override
   Future<List<ProductEntity>> getProductsFromDate(DateTime startDate) async {
     try {
-      final List<ProductModel>? models =
+      final List<ProductModel> models =
           await ManageProductsData.getProductsFromDate(startDate);
-      return models!.map((e) => e.toEntity()).toList();
+      return models.map((e) => e.toEntity()).toList();
     } catch (e) {
       return Future.error(e.toString());
     }
@@ -26,11 +25,33 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
     required String categoryId,
   }) async {
     try {
-      final data = await ManageProductsData.getProductTypes(
+      return await ManageProductsData.getProductTypes(
           productGroup: productGroup,
           attribute: attribute,
           categoryId: categoryId);
-      return data;
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
+  @override
+  Future<List<ProductEntity>> getProductsFromFilter({
+    required int fromPrice,
+    required int toPrice,
+    required List<String> sizes,
+    required List<String> colors,
+    required List<String> brandNames,
+    required List<String> productTypes,
+  }) async {
+    try {
+      final list = await ManageProductsData.getProductsByFilterValues(
+          fromPrice: fromPrice,
+          toPrice: toPrice,
+          sizes: sizes,
+          colors: colors,
+          brandNames: brandNames,
+          productTypes: productTypes);
+      return list.map((e) => e.toEntity()).toList();
     } catch (e) {
       return Future.error(e.toString());
     }
