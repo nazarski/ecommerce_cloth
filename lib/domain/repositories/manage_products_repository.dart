@@ -9,6 +9,7 @@ abstract class ManageProductsRepository {
       required String categoryId});
 
   Future<List<ProductEntity>> getProductsFromFilter({
+    required int page,
     required int fromPrice,
     required int toPrice,
     required List<String> sizes,

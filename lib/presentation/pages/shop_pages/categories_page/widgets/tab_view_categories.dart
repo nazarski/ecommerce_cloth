@@ -19,7 +19,6 @@ class TabViewCategories extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoryProvider = ref.watch(categoriesProvider(categoryGroup));
-    ref.read(productTypesProvider.notifier).attribute = categoryGroup;
     return categoryProvider.when(
       data: (data) => SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -44,6 +43,7 @@ class TabViewCategories extends ConsumerWidget {
                   categoryId: data[index].categoryId,
                   categoryTitle: data[index].categoryTitle,
                   imageLink: data[index].categoryImage,
+                  attribute: categoryGroup,
                 ),
               );
             }),

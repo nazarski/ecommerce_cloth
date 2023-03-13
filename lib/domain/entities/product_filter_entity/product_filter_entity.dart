@@ -10,6 +10,7 @@ class ProductFilterEntity extends Equatable {
   final List<String>? attributes;
   final List<String>? brandNames;
   final SortType? sortType;
+  final int? page;
 
   const ProductFilterEntity({
     this.fromPrice,
@@ -20,6 +21,7 @@ class ProductFilterEntity extends Equatable {
     this.brandNames,
     this.sortType,
     this.productTypes,
+    this.page,
   });
 
   @override
@@ -32,6 +34,7 @@ class ProductFilterEntity extends Equatable {
         attributes,
         brandNames,
         sortType,
+        page,
       ];
 
   ProductFilterEntity copyWith({
@@ -43,6 +46,7 @@ class ProductFilterEntity extends Equatable {
     List<String>? attributes,
     List<String>? brandNames,
     SortType? sortType,
+    int? page,
   }) {
     return ProductFilterEntity(
       fromPrice: fromPrice ?? this.fromPrice,
@@ -53,6 +57,7 @@ class ProductFilterEntity extends Equatable {
       attributes: attributes ?? this.attributes,
       brandNames: brandNames ?? this.brandNames,
       sortType: sortType ?? this.sortType,
+      page: page ?? 1,
     );
   }
 }

@@ -13,9 +13,9 @@ class TransformingAppBarContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String attribute =
-        ref.read(productTypesProvider.notifier).attribute ?? '';
-    final String group =
-        ref.read(productTypesProvider.notifier).productGroup ?? '';
+        ref.read(collectSearchHierarchyProvider.notifier).finder.attribute;
+    final String productGroup =
+        ref.read(collectSearchHierarchyProvider.notifier).finder.productGroup;
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -50,7 +50,7 @@ class TransformingAppBarContent extends ConsumerWidget {
             progress,
           ),
           child: Text(
-            '${attribute[0].toUpperCase()}${attribute.substring(1)}`s ${group.toLowerCase()}',
+            '${attribute[0].toUpperCase()}${attribute.substring(1)}`s ${productGroup.toLowerCase()}',
             style: TextStyle.lerp(
               Theme.of(context).textTheme.displayLarge,
               Theme.of(context).textTheme.displaySmall,

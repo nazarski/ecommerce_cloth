@@ -80,7 +80,10 @@ class AppRouter {
             child: const CategoriesPage(), type: PageTransitionType.fade);
       case ProductGroupPage.routeName:
         return PageTransition(
-            child: const ProductGroupPage(), type: PageTransitionType.fade);
+          type: PageTransitionType.fade,
+          // settings: settings,
+          child: const ProductGroupPage(),
+        );
       case ProductListPage.routeName:
         return PageTransition(
             child: const ProductListPage(), type: PageTransitionType.fade);

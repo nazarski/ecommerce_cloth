@@ -1,6 +1,8 @@
 import 'package:ecommerce_cloth/core/resources/app_icons.dart';
+import 'package:ecommerce_cloth/temp_admin/sandbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SocialAuthButton extends StatelessWidget {
   const SocialAuthButton({Key? key, required this.icon}) : super(key: key);
@@ -31,7 +33,7 @@ class SocialAuthButton extends StatelessWidget {
   }
 }
 
-class SocialMediaBlock extends StatelessWidget {
+class SocialMediaBlock extends ConsumerWidget {
   const SocialMediaBlock({
     Key? key,
     required this.googleAuth,
@@ -43,36 +45,47 @@ class SocialMediaBlock extends StatelessWidget {
   final String label;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenSize = MediaQuery.of(context).size;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: googleAuth,
-              child: const SocialAuthButton(
-                icon: AppIcons.googleIcon,
-              ),
+    final wtch = ref.watch(authControllerProvider);
+    print('build');
+    return wtch.when(
+        data: (_) => Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  label,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: googleAuth,
+                      child: const SocialAuthButton(
+                        icon: AppIcons.googleIcon,
+                      ),
+                    ),
+                    SizedBox(width: screenSize.width / 30),
+                    GestureDetector(
+                      onTap: facebookAuth,
+                      child: const SocialAuthButton(
+                        icon: AppIcons.facebookIcon,
+                      ),
+                    )
+                  ],
+                ),
+              ],
             ),
-            SizedBox(width: screenSize.width / 30),
-            GestureDetector(
-              onTap: facebookAuth,
-              child: const SocialAuthButton(
-                icon: AppIcons.facebookIcon,
+        error: (_, __) => Container(),
+        loading: () => const SizedBox(
+              height: 50,
+              width: 50,
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
-            )
-          ],
-        ),
-      ],
-    );
+            ));
   }
 }

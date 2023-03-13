@@ -2,6 +2,7 @@ import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
 import 'package:ecommerce_cloth/data/repositories/manare_products_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/manage_products_repository.dart';
 import 'package:ecommerce_cloth/presentation/pages/home_page/widgets/product_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,14 +39,12 @@ class GetProducts {
   }
 
   Future<List<String>> getProductTypes({
-    required String productGroup,
-    required String attribute,
-    required String categoryId,
+    required ProductTypeFindEntity finder,
   }) async {
     final data = await _productsRepository.getProductTypes(
-      productGroup: productGroup,
-      attribute: attribute,
-      categoryId: categoryId,
+      productGroup: finder.productGroup,
+      attribute: finder.attribute,
+      categoryId: finder.categoryId,
     );
     return data;
   }
@@ -59,6 +58,7 @@ class GetProducts {
       colors: filter.colors ?? [],
       brandNames: filter.brandNames ?? [],
       productTypes: filter.productTypes ?? [],
+      page: filter.page ?? 1,
     );
     return listOfProducts;
   }

@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/widgets/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_state.dart';
@@ -13,7 +14,9 @@ class ProductGroupPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productGroups = ref.watch(productGroupsProvider);
+    final String categoryId =
+        ref.read(collectSearchHierarchyProvider.notifier).finder.categoryId;
+    final productGroups = ref.watch(productGroupsProvider(categoryId));
     return productGroups.when(
       data: (data) => Scaffold(
         appBar: const AppBarSearchBack(
@@ -47,7 +50,9 @@ class ProductGroupPage extends ConsumerWidget {
               child: ListView.separated(
                 itemBuilder: (context, i) => InkWell(
                   onTap: () {
-                    ref.read(productTypesProvider.notifier).selectProductGroup(
+                    ref
+                        .read(collectSearchHierarchyProvider.notifier)
+                        .addProductGroup(
                           productGroup: data[i],
                         );
                     Navigator.of(context).pushNamed(ProductListPage.routeName);

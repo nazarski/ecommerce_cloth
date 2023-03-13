@@ -1,5 +1,6 @@
 import 'package:ecommerce_cloth/data/repositories/manage_categories_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/category_entity/category_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_categories/get_categories.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,19 +12,25 @@ final categoriesProvider =
   return result;
 });
 
-final productGroupsProvider =
-    StateNotifierProvider<ProductGroupsProvider, AsyncValue<List<String>>>(
-        (ref) => ProductGroupsProvider());
+final productGroupsProvider = FutureProvider.family
+    .autoDispose<List<String>, String>((ref, categoryId) async {
+  final result = await _getCategories.getProductGroups(categoryId);
+  return result;
+});
 
-class ProductGroupsProvider extends StateNotifier<AsyncValue<List<String>>> {
-  ProductGroupsProvider() : super(const AsyncValue.loading());
-
-  Future<void> selectCategory(String categoryId) async {
-    try {
-      final productGroups = await _getCategories.getProductGroups(categoryId);
-      state = AsyncValue.data(productGroups);
-    } catch (error) {
-      state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
-    }
-  }
-}
+// final productGroupsProvider =
+//     StateNotifierProvider<ProductGroupsProvider, AsyncValue<List<String>>>(
+//         (ref) => ProductGroupsProvider());
+//
+// class ProductGroupsProvider extends StateNotifier<AsyncValue<List<String>>> {
+//   ProductGroupsProvider() : super(const AsyncValue.loading());
+//
+//   Future<void> selectCategory(String categoryId) async {
+//     try {
+//       final productGroups = await _getCategories.getProductGroups(categoryId);
+//       state = AsyncValue.data(productGroups);
+//     } catch (error) {
+//       state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
+//     }
+//   }
+// }

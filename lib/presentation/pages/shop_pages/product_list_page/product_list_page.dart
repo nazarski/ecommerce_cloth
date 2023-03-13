@@ -1,9 +1,7 @@
 import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:flutter/material.dart';
-
-import 'widgets/product_list_grid_view.dart';
-import 'widgets/product_list_list_view.dart';
 import 'widgets/product_list_toolbox.dart';
+import 'widgets/product_list_widget.dart';
 import 'widgets/product_types_list.dart';
 import 'widgets/sliver_header_delegate_wrap.dart';
 import 'widgets/transforming_app_bar.dart';
@@ -71,16 +69,12 @@ class _ProductListPageState extends State<ProductListPage> {
                 widgetHeight: 52,
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              sliver: isGrid
-                  ? const ProductListGridView()
-                  : const ProductListListView(),
-              // ProductListListView(),
-            )
+            ProductListWidget(isGrid: isGrid)
           ],
         ),
       ),
     );
   }
 }
+
+

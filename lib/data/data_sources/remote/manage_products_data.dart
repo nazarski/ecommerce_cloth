@@ -39,7 +39,8 @@ class ManageProductsData {
       'fields[0]': 'typeName',
     });
     final values = List<Map<String, dynamic>>.from(response.data['data']);
-    final data = values.map((e) => e['attributes']['typeName'] as String).toList();
+    final data =
+        values.map((e) => e['attributes']['typeName'] as String).toList();
     return data;
   }
 
@@ -50,6 +51,7 @@ class ManageProductsData {
     required List<String> colors,
     required List<String> brandNames,
     required List<String> productTypes,
+    required int page,
   }) async {
     final priceQuery = toPrice != 0
         ? {
@@ -79,10 +81,10 @@ class ManageProductsData {
         ...brandQuery,
         ...sizeQuery,
         ...productTypesQuery,
+        'pagination[page]': page,
         'populate': '*',
       },
     );
-    log(response.data.toString());
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     final result = values.map((e) {
       return ProductModel.fromMap(e['attributes']);

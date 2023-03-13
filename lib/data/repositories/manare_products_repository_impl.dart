@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_cloth/data/data_sources/remote/manage_products_data.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
@@ -42,15 +41,18 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
     required List<String> colors,
     required List<String> brandNames,
     required List<String> productTypes,
+    required int page,
   }) async {
     try {
       final list = await ManageProductsData.getProductsByFilterValues(
-          fromPrice: fromPrice,
-          toPrice: toPrice,
-          sizes: sizes,
-          colors: colors,
-          brandNames: brandNames,
-          productTypes: productTypes);
+        fromPrice: fromPrice,
+        toPrice: toPrice,
+        sizes: sizes,
+        colors: colors,
+        brandNames: brandNames,
+        productTypes: productTypes,
+        page: page,
+      );
       return list.map((e) => e.toEntity()).toList();
     } catch (e) {
       return Future.error(e.toString());
