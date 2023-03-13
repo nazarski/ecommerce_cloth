@@ -1,11 +1,15 @@
+import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
 import 'package:ecommerce_cloth/core/resources/app_icons.dart';
-import 'package:ecommerce_cloth/temp_admin/sandbox.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SocialAuthButton extends StatelessWidget {
-  const SocialAuthButton({Key? key, required this.icon}) : super(key: key);
+
+  const SocialAuthButton({Key? key, required this.icon,}) : super(key: key);
   final String icon;
 
   @override
@@ -36,56 +40,51 @@ class SocialAuthButton extends StatelessWidget {
 class SocialMediaBlock extends ConsumerWidget {
   const SocialMediaBlock({
     Key? key,
-    required this.googleAuth,
-    required this.facebookAuth,
+
     required this.label,
+    required this.ref,
   }) : super(key: key);
-  final VoidCallback googleAuth;
-  final VoidCallback facebookAuth;
   final String label;
+  final WidgetRef ref;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenSize = MediaQuery.of(context).size;
-    final wtch = ref.watch(authControllerProvider);
-    print('build');
-    return wtch.when(
-        data: (_) => Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: googleAuth,
-                      child: const SocialAuthButton(
-                        icon: AppIcons.googleIcon,
-                      ),
-                    ),
-                    SizedBox(width: screenSize.width / 30),
-                    GestureDetector(
-                      onTap: facebookAuth,
-                      child: const SocialAuthButton(
-                        icon: AppIcons.facebookIcon,
-                      ),
-                    )
-                  ],
-                ),
-              ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () async {
+                 typeRegister(ref: ref, type: AuthenticateType.google, context: context);
+              },
+              child: const SocialAuthButton(
+                icon: AppIcons.googleIcon,
+              ),
             ),
-        error: (_, __) => Container(),
-        loading: () => const SizedBox(
-              height: 50,
-              width: 50,
-              child: Center(
-                child: CircularProgressIndicator(),
+            SizedBox(width: screenSize.width / 30),
+            GestureDetector(
+              onTap: () async {
+                typeRegister(ref: ref, type: AuthenticateType.facebook, context: context);
+              },
+              child: const SocialAuthButton(
+                icon: AppIcons.facebookIcon,
               ),
             ));
+  }
+  void typeRegister ({required WidgetRef ref, required AuthenticateType type, required BuildContext context}) async {
+    await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously( UserCredentialEntity(type: type),
+    //         () {
+    //   Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+    // }
+    );
   }
 }

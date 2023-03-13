@@ -1,20 +1,27 @@
-import 'dart:developer';
+import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
 
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
+
+import 'package:ecommerce_cloth/presentation/helpers/auth_helpers.dart';
+import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
+
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
-import 'package:ecommerce_cloth/temp_admin/sandbox.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RegistrationPage extends ConsumerStatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
   static const routeName = 'registration_page';
 
   @override
-  ConsumerState<RegistrationPage> createState() => _RegistrationPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _RegistrationPageState();
+  }
 }
 
 class _RegistrationPageState extends ConsumerState<RegistrationPage> {
@@ -32,50 +39,27 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String validateEmail(String? value) {
-    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-    final regex = RegExp(pattern);
-    if (value!.isEmpty) {
-      return 'This field is required and cannot be empty';
-    } else if (!regex.hasMatch(value)) {
-      return 'Not a valid email address. Should be your@email.com';
-    } else {
-      return '';
-    }
-  }
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  String validateUserName(String? userName) {
-    return userName!.isEmpty || userName.length > 15
-        ? 'Please enter a correct username'
-        : '';
-  }
-
-  String validatePassword(String? password) {
-    if (password!.isEmpty) {
-      return 'This field is required and cannot be empty';
-    } else if (password.length < 8) {
-      return 'Password must be at least 8 characters';
-    }
-    return '';
-  }
-
-  void validateAndSave() {
-    final FormState form = formKey.currentState!;
-    if (form.validate()) {
-      log('Form is valid');
-    } else {
-      log('Form is invalid');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+
+    final authProvider = ref.watch(authControllerRegistrationProvider);
+ref.listen(authControllerRegistrationProvider, (previous, next) {
+
+    if (next.hasError) {
+      showErrorSnackBar(context);
+      ref.invalidate(authControllerRegistrationProvider);
+    }
+
+      if(next.value != null && next.value!) {
+        Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+      }
+
+
+
+});
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -101,7 +85,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 labelText: 'Name',
                 checkOfErrorOnFocusChange: true,
                 validation: (userName) {
-                  return validateUserName(userName);
+                  return validateUserNameHelper(userName);
                 },
                 focusNode: userNameFocus,
                 textInputAction: TextInputAction.next,
@@ -121,12 +105,12 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 labelText: 'Email',
                 checkOfErrorOnFocusChange: true,
                 validation: (email) {
-                  return validateEmail(email);
+                  return validateEmailHelper(email);
                 },
                 focusNode: emailFocus,
                 textInputAction: TextInputAction.next,
                 inputFormatters: [
-                  LengthLimitingTextInputFormatter(18),
+                  LengthLimitingTextInputFormatter(30),
                 ],
                 tempTextEditingController: emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -141,7 +125,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 labelText: 'Password',
                 checkOfErrorOnFocusChange: true,
                 validation: (password) {
-                  return validatePassword(password);
+                  return validatePasswordHelper(password);
                 },
                 focusNode: passwordFocus,
                 textInputAction: TextInputAction.done,
@@ -159,6 +143,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
               ),
               GestureDetector(
                 onTap: () {
+                  Navigator.of(context).pushNamed(LoginPage.routeName);
                   // context.router.push(LoginRoute());
                 },
                 child: Row(
@@ -180,26 +165,39 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 40,
               ),
               SizedBox(
-                width: double.infinity,
-                height: height / 16,
-                child: ElevatedButton(
-                  onPressed: validateAndSave,
-                  child: const Text('SIGN UP'),
-                ),
-              ),
+                  width: double.infinity,
+                  height: height / 16,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        final UserCredentialEntity userInfo = UserCredentialEntity(
+                          username: userNameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                          type: AuthenticateType.registration,
+                        );
+                        if (validateAndSaveHelper(formKey: formKey)) {
+                          await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously(
+                                userInfo,
+                              );
+                        }
+                      },
+                      child: authProvider.when(
+                            data: (_) {
+                              return const Text('SIGN UP');
+                            },
+                            error: (error, stackTrace) {
+                              return const Text('Error');
+                            },
+                            loading: () => const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                      // const Text('SIGN UP'),
+                      )),
               SizedBox(height: height / 8),
               SocialMediaBlock(
-                googleAuth: () async {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      MainPage.routeName, (route) => false);
-                },
-                facebookAuth: () async {
-                  FacebookAuth.instance.login(
-                      permissions: ['public_profile', 'email']).then((value) {
-                    FacebookAuth.instance.getUserData().then((userData) {});
-                  });
-                },
                 label: 'Or sign up with social account',
+                ref: ref,
               ),
               SizedBox(height: height / 20),
             ],
@@ -207,5 +205,16 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         ),
       ),
     );
+  }
+
+  void showErrorSnackBar(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Center(child: Text('User with this email or login already exists')),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    });
   }
 }

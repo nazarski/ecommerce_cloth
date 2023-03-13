@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/auth_pages/recovery_page/recovery_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/bag_page/bag_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/favourites_page/favourites_page.dart';
@@ -20,15 +21,12 @@ class AppRouter {
   // main routes
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
-    print(settings.name);
+    log(settings.name.toString());
     WidgetBuilder builder;
     switch (settings.name) {
       case SplashScreen.routeName:
         return PageTransition(
-            child: const SplashScreen(), type: PageTransitionType.fade);
-      case RecoveryPage.routeName:
-        return PageTransition(
-            child: const RecoveryPage(), type: PageTransitionType.fade);
+            child:  const SplashScreen(), type: PageTransitionType.fade);
       case LoginPage.routeName:
         return PageTransition(
             child: const LoginPage(), type: PageTransitionType.fade);

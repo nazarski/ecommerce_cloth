@@ -130,4 +130,3 @@ class ProductListProvider
     _getProductsFromFilter();
   }
 }
-

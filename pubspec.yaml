@@ -24,10 +24,10 @@ dependencies:
   dio: ^5.0.2
   shimmer: ^2.0.0
   google_sign_in: ^6.0.2
-  flutter_web_auth_2: ^2.1.1
-  build_runner: ^2.3.3
   infinite_scroll_pagination: ^3.2.0
-
+  build_runner: ^2.3.3
+  path_provider: ^2.0.13
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:

@@ -154,6 +154,21 @@ class AppThemes {
         );
       }),
     ),
+    snackBarTheme: SnackBarThemeData(
+      elevation: 40,
+behavior: SnackBarBehavior.fixed,
+      backgroundColor: AppColorsLight.primary,
+      actionTextColor: AppColorsLight.white,
+      contentTextStyle: const TextStyle(
+        fontSize: 16
+        ,
+        fontWeight: FontWeight.w500,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+  ),
+
+    ),
     elevatedButtonTheme: const ElevatedButtonThemeData(
       style: ButtonStyle(
         // minimumSize: MaterialStatePropertyAll(

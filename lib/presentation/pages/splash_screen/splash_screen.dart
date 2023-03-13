@@ -1,43 +1,38 @@
-import 'package:ecommerce_cloth/core/resources/app_images.dart';
-import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
+
+import 'package:ecommerce_cloth/presentation/pages/splash_screen/widgets/splash_banner_widget.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class SplashScreen extends ConsumerWidget {
   static const routeName = '/';
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    Future.delayed(
-        const Duration(seconds: 1),
-        () => Navigator.of(context).pushNamedAndRemoveUntil(
-            RegistrationPage.routeName, (route) => true));
-    super.initState();
-  }
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // Future.delayed(
-    //   const Duration(seconds: 2),
-    //       () async {
-    //     log('SPLASH SCREEN');
-    //     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-    //       return const RegistrationPage();
-    //     }));
-    //   },
-    // );
-    return Center(
-      child: Image.asset(
-        AppImages.splashScreen,
-        fit: BoxFit.cover,
-        height: double.infinity,
-        width: double.infinity,
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userLoggedIn = ref.watch(userLoggedInProvider);
+
+    return userLoggedIn.maybeWhen(
+      data: (value) {
+        Future.microtask(() {
+          if (value) {
+            log('This user is authorized');
+            Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+          } else {
+            log('This user is not register');
+            Navigator.of(context).pushNamedAndRemoveUntil(RegistrationPage.routeName, (route) => false);
+          }
+        });
+        return const SplashBannerWidget();
+      },
+      orElse: () {
+        return const SplashBannerWidget();
+      },
     );
   }
 }

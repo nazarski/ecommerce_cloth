@@ -4,10 +4,14 @@ class UserInfoModel {
   final DateTime createdAt;
   final String displayName;
   final String email;
-  final List<String> favorites;
+  final List favorites;
   final String photoUrl;
+  final String jwt;
+  final int id;
 
   const UserInfoModel({
+    required this.id,
+    required this.jwt,
     required this.createdAt,
     required this.displayName,
     required this.email,
@@ -19,7 +23,9 @@ class UserInfoModel {
   String toString() {
     return 'UserInfoModel {'
         'createdAt: $createdAt, '
-        'displayName: $displayName, '
+        'jwt: $jwt'
+        'id: $id'
+        'displayName username: $displayName, '
         'email: $email, '
         'favorites: $favorites, '
         'photoUrl: $photoUrl,'
@@ -33,11 +39,15 @@ class UserInfoModel {
       email: email,
       favorites: favorites,
       photoUrl: photoUrl,
+      jwt: jwt,
+      id: id,
     );
   }
 
   factory UserInfoModel.fromEntity({required UserInfoEntity entity}) {
     return UserInfoModel(
+      jwt: entity.jwt,
+      id: entity.id,
       createdAt: entity.createdAt,
       displayName: entity.displayName,
       email: entity.email,
@@ -48,7 +58,9 @@ class UserInfoModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'createdAt': createdAt,
+      'jwt': jwt,
+      'id': id,
+      'createdAt': createdAt.toString(),
       'displayName': displayName,
       'email': email,
       'favorites': favorites,
@@ -58,13 +70,13 @@ class UserInfoModel {
 
   factory UserInfoModel.fromMap(Map<String, dynamic> map) {
     return UserInfoModel(
-      createdAt: map['createdAt'] as DateTime,
+      jwt: map['jwt'] as String,
+      id: map['id'] as int,
+      createdAt: DateTime.parse(map['createdAt']),
       displayName: map['displayName'] as String,
       email: map['email'] as String,
-      favorites: map['favorites'] as List<String>,
+      favorites: map['favorites'] as List,
       photoUrl: map['photoUrl'] as String,
     );
   }
-
-//</editor-fold>
 }
