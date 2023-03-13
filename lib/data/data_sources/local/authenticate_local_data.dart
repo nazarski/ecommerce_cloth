@@ -64,4 +64,9 @@ class AuthenticateLocalData {
     await _secureStorage.deleteAll();
     log('✅ Successful: Secure storage has been cleared');
   }
+
+  static Future<bool> isUserLoggedIn() async {
+    final user = await _secureStorage.read(key: 'user');
+    return user != null;
+  }
 }

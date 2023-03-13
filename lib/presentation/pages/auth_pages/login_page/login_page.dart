@@ -1,20 +1,27 @@
-import 'dart:developer';
-import 'package:auto_route/auto_route.dart';
+
+import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
+import 'package:ecommerce_cloth/presentation/helpers/auth_helpers.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
+import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
   static const routeName = 'login_page';
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _LoginPageState();
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final FocusNode emailFocus = FocusNode();
 
   final FocusNode passwordFocus = FocusNode();
@@ -25,62 +32,27 @@ class _LoginPageState extends State<LoginPage> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String validateEmail(String? value) {
-    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-    final regex = RegExp(pattern);
-    if (value!.isEmpty) {
-      return 'This field is required and cannot be empty';
-    } else if (!regex.hasMatch(value)) {
-      return 'Not a valid email address. Should be your@email.com';
-    } else {
-      return '';
-    }
-  }
-
-  String validatePassword(String? password) {
-    if (password!.isEmpty) {
-      return 'This field is required and cannot be empty';
-    } else if (password.length < 8) {
-      return 'Password must be at least 8 characters';
-    }
-    return '';
-  }
-
-  void validateAndSave() {
-    final FormState form = formKey.currentState!;
-    if (form.validate()) {
-      log('Form is valid');
-    } else {
-      log('Form is invalid');
-    }
-  }
-
   @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+  Widget build(
+    BuildContext context,
+  ) {
+    final authProvider = ref.watch(authControllerLoginProvider);
+    ref.listen(authControllerLoginProvider, (previous, next) {
+      if (next.hasError) {
+        showErrorSnackBarLogin(context);
+        ref.invalidate(authControllerLoginProvider);
+      }
+      if (next.value != null && next.value!) {
+        Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+      }
+    });
+
+    final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () {
-            context.router.pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -92,10 +64,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Text(
                 'Login',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .displayLarge,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               SizedBox(
                 height: height / 10,
@@ -107,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                 labelText: 'Email',
                 checkOfErrorOnFocusChange: true,
                 validation: (email) {
-                  return validateEmail(email);
+                  return validateEmailHelper(email);
                 },
                 focusNode: emailFocus,
                 textInputAction: TextInputAction.next,
@@ -119,7 +88,6 @@ class _LoginPageState extends State<LoginPage> {
                 autofocus: false,
                 passwordVisible: false,
                 focusPush: passwordFocus,
-
               ),
               SizedBox(
                 height: height / 60,
@@ -128,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                 labelText: 'Password',
                 checkOfErrorOnFocusChange: true,
                 validation: (password) {
-                  return validatePassword(password);
+                  return validatePasswordHelper(password);
                 },
                 focusNode: passwordFocus,
                 textInputAction: TextInputAction.done,
@@ -140,36 +108,11 @@ class _LoginPageState extends State<LoginPage> {
                 autofocus: false,
                 passwordVisible: true,
                 focusPush: passwordFocus,
-
               ),
               SizedBox(
-                height: height / 60,
+                height: height / 50,
               ),
-              GestureDetector(
-                onTap: () {
-                  // context.router.push( RecoveryRoute());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Forgot your password?',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium,
-                    ),
-                    Icon(
-                      Icons.arrow_right_alt_outlined,
-                      color: Theme
-                          .of(context)
-                          .colorScheme
-                          .primary,
-                    ),
-                  ],
-                ),
-              ),
+
               SizedBox(
                 height: height / 40,
               ),
@@ -177,14 +120,31 @@ class _LoginPageState extends State<LoginPage> {
                 width: double.infinity,
                 height: height / 16,
                 child: ElevatedButton(
-                  onPressed: validateAndSave,
-                  child: const Text('LOGIN'),
-                ),
+                    onPressed: () async {
+                      final UserCredentialEntity userInfo = UserCredentialEntity(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        type: AuthenticateType.authorization,
+                      );
+                      if (validateAndSaveHelper(formKey: formKey)) {
+                        await ref.read(authControllerLoginProvider.notifier).signInAnonymously(userInfo);
+                      }
+                    },
+                    child: authProvider.when(
+                          data: (_) {
+                            return const Text('SIGN UP');
+                          },
+                          error: (error, stackTrace) {
+                            return const Text('Error');
+                          },
+                          loading: () => const CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )),
               ),
-              SizedBox(height: height / 5),
+              SizedBox(height: height / 4.5),
               SocialMediaBlock(
-                googleAuth: () {},
-                facebookAuth: () {},
+                ref: ref,
                 label: 'Or sign up with social account',
               ),
               SizedBox(height: height / 20),
@@ -193,5 +153,16 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void showErrorSnackBarLogin(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Center(child: Text('Oops, you have entered an incorrect password and email.')),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    });
   }
 }

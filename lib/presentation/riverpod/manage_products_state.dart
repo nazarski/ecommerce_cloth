@@ -12,3 +12,4 @@ final newProductsProvider =
   final result = await getProducts.getByType(type);
   return result;
 });
+

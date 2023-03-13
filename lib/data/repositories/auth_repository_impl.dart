@@ -99,7 +99,6 @@ class AuthRepositoryImpl implements AuthRepository {
       } else {
         return error.toString();
       }
-
     }
   }
 
@@ -125,7 +124,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Response> updateUserAvatar({required String jwt, required String photoUrl, required int userId}) async {
     try {
       final Response response =
-          await AuthenticateRemoteData.updateUserAvatar(userId: userId, photoUrl: photoUrl, jwt: jwt);
+      await AuthenticateRemoteData.updateUserAvatar(userId: userId, photoUrl: photoUrl, jwt: jwt);
       return response;
     } on Exception catch (error) {
       return Future.error(error.toString());
@@ -162,11 +161,21 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<UserInfoEntity> getUserFromSecureStorage() async {
-try {
-  final UserInfoModel userInfoModel = await AuthenticateLocalData.getUserFromSecureStorage();
-  final UserInfoEntity userInfoEntity = userInfoModel.toEntity();
-  return userInfoEntity;
-} on Exception catch (error) {
+    try {
+      final UserInfoModel userInfoModel = await AuthenticateLocalData.getUserFromSecureStorage();
+      final UserInfoEntity userInfoEntity = userInfoModel.toEntity();
+      return userInfoEntity;
+    } on Exception catch (error) {
+      return Future.error(error.toString());
+    }
+  }
+
+  @override
+  Future<bool> isUserLoggedIn() async {
+    try {
+      final bool = await AuthenticateLocalData.isUserLoggedIn();
+      return bool;
+    } on Exception catch (error) {
       return Future.error(error.toString());
     }
   }

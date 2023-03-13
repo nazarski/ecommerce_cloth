@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/user_model_from_social.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/auth_repository.dart';
 
@@ -164,12 +165,10 @@ class Authenticate {
   }
 
   Future authenticateByType({
-    required AuthenticateType type,
-    String? email,
-    String? username,
-    String? password,
+    required UserCredentialEntity userCredential,
   }) async {
-    switch (type) {
+    final credential = userCredential;
+    switch (credential.type) {
       case AuthenticateType.google:
         return await _authenticateUserFromGoogle();
       case AuthenticateType.facebook:
@@ -177,17 +176,20 @@ class Authenticate {
       case AuthenticateType.registration:
         return await _registerUserFromApp(
           avatarUrl: '',
-          email: email!,
-          username: username!,
-          password: password!,
+          email: credential.email!,
+          username: credential.username!,
+          password: credential.password!,
         );
       case AuthenticateType.authorization:
         return await _authorizationUserFromApp(
-          email: email!,
-          password: password!,
+          email: credential.email!,
+          password: credential.password!,
         );
       default:
         log('Error by type');
     }
+  }
+  Future<bool> isUserExist() async {
+    return await _authRepository.isUserLoggedIn();
   }
 }
