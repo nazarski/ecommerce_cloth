@@ -9,6 +9,7 @@ import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_page/profile_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/categories_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/shop_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class AppRouter {
     }
   }
 
-  // Main page nested routes
+  // Shop page nested routes
   static Route<dynamic> generateShopPageNestedRoutes(RouteSettings settings) {
     final arguments = settings.arguments;
     print(settings.name);
@@ -77,7 +78,13 @@ class AppRouter {
             child: const CategoriesPage(), type: PageTransitionType.fade);
       case ProductGroupPage.routeName:
         return PageTransition(
-            child: const ProductGroupPage(), type: PageTransitionType.fade);
+          type: PageTransitionType.fade,
+          // settings: settings,
+          child: const ProductGroupPage(),
+        );
+      case ProductListPage.routeName:
+        return PageTransition(
+            child: const ProductListPage(), type: PageTransitionType.fade);
       default:
         throw Exception('Invalid route: ${settings.name}');
     }

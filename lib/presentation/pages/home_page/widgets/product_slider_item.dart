@@ -1,9 +1,9 @@
+import 'package:ecommerce_cloth/core/utils/helper.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
 import 'package:flutter/material.dart';
-
-import 'star_view_widget.dart';
 
 class ProductSliderItem extends StatelessWidget {
   const ProductSliderItem({
@@ -15,23 +15,10 @@ class ProductSliderItem extends StatelessWidget {
   final String value;
   final ProductEntity product;
 
-  String getTitle() {
-    final name = product.name;
-    final brand = product.brand;
-    final type = product.productType;
-    if (name.isEmpty) {
-      return brand.length < 13
-          ? '$brand $type'
-          : '${brand.substring(0, 10)}... $type';
-    }
-    return name.length < 13
-        ? '$name $type'
-        : '${name.substring(0, 9)}... $type';
-  }
-
   @override
   Widget build(BuildContext context) {
-    final String title = getTitle();
+    final String title = getTitle(
+        name: product.name, brand: product.brand, type: product.productType);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -43,8 +30,8 @@ class ProductSliderItem extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image(
-                image:
-                    NetworkImage('${StrapiInitialize.endpoint}${product.thumbnail}'),
+                image: NetworkImage(
+                    '${StrapiInitialize.endpoint}${product.thumbnail}'),
                 height: 184,
                 width: 148,
                 alignment: Alignment.topCenter,
@@ -80,12 +67,13 @@ class ProductSliderItem extends StatelessWidget {
               ),
             ),
             const Positioned(
-                left: 0,
-                bottom: 0,
-                child: StarsViewWidget(
-                  rating: 4,
-                  reviews: 10,
-                ))
+              left: 0,
+              bottom: 0,
+              child: StarsViewWidget(
+                rating: 4,
+                reviews: 10,
+              ),
+            )
           ],
         ),
         const SizedBox(

@@ -1,8 +1,9 @@
-import 'package:ecommerce_cloth/presentation/riverpod/manage-categories_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shimmer/shimmer.dart';
 
+import 'card_shimer.dart';
 import 'category_card.dart';
 import 'new_card.dart';
 import 'sale_card.dart';
@@ -42,37 +43,15 @@ class TabViewCategories extends ConsumerWidget {
                   categoryId: data[index].categoryId,
                   categoryTitle: data[index].categoryTitle,
                   imageLink: data[index].categoryImage,
+                  attribute: categoryGroup,
                 ),
               );
-            })
+            }),
           ],
         ),
       ),
-      error: (Object error, StackTrace stackTrace) => const Text('Error'),
-      loading: () => Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: List.generate(5, (index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Shimmer.fromColors(
-                  baseColor:
-                      Theme.of(context).colorScheme.surface.withOpacity(0.1),
-                  highlightColor:
-                      Theme.of(context).colorScheme.background.withOpacity(0.3),
-                  child: Container(
-                    height: 100,
-                    width: double.infinity,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            );
-          }),
-        ),
-      ),
+      error: (_, __) => const Text('Error'),
+      loading: () => const CardShimmer(),
     );
   }
 }

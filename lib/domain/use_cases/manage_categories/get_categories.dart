@@ -10,7 +10,7 @@ class GetCategories {
     return await _categoriesRepository.getCategoriesFromAttribute(attribute);
   }
 
-  Future<List<String>> getProductTypes(String categoryId) async {
+  Future<List<String>> getProductGroups(String categoryId) async {
     final types =
         await _categoriesRepository.getProductTypesFromCategoryId(categoryId);
     return types.isEmpty ? ['Nothing here yet'] : types;

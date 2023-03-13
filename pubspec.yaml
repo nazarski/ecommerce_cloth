@@ -10,34 +10,30 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.5
-  hooks_riverpod: ^2.3.0
-  flutter_riverpod: ^2.3.0
+  hooks_riverpod: ^2.3.1
+  flutter_riverpod: ^2.3.1
   riverpod: ^2.2.0
   flutter_local_notifications: ^13.0.0
-  firebase_storage: ^11.0.14
-  firebase_analytics: ^10.1.4
-  firebase_core: ^2.7.0
-  flutter_svg: ^2.0.2
+  firebase_storage: ^11.0.15
+  firebase_analytics: ^10.1.5
+  firebase_core: ^2.7.1
+  flutter_svg: ^2.0.3
   page_transition: ^2.0.9
   equatable: ^2.0.5
-  flutter_facebook_auth: ^5.0.7
-  dio: ^5.0.1
+  flutter_facebook_auth: ^5.0.8
+  dio: ^5.0.2
   shimmer: ^2.0.0
   google_sign_in: ^6.0.2
-  flutter_web_auth_2: ^2.0.4
+  infinite_scroll_pagination: ^3.2.0
   build_runner: ^2.3.3
   path_provider: ^2.0.13
   flutter_secure_storage: ^8.0.0
-
-
-
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.1
-  auto_route_generator: ^5.0.3
 
   # Assets and fonts
 flutter:
@@ -45,15 +41,15 @@ flutter:
 
   # Add icons, images
   assets:
-     - assets/
-     - assets/icons/
-     - assets/fonts/
-     - assets/images/
+    - assets/
+    - assets/icons/
+    - assets/fonts/
+    - assets/images/
 
   # Add fonts
   fonts:
-     - family: Metropolis
-       fonts:
+    - family: Metropolis
+      fonts:
         - asset: assets/fonts/Metropolis-Black.otf
           weight: 900
         - asset: assets/fonts/Metropolis-Bold.otf

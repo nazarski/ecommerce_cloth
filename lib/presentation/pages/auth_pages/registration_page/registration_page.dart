@@ -61,7 +61,6 @@ ref.listen(authControllerRegistrationProvider, (previous, next) {
 
 });
     final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
