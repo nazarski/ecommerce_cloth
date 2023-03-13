@@ -44,7 +44,7 @@ class _ProductListListItemState extends State<ProductListListItem> with SingleTi
     return FadeTransition(
       opacity: _animationController,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 16.0),
+        padding: const EdgeInsets.only(bottom: 1.0),
         child: Stack(
           children: [
             Container(

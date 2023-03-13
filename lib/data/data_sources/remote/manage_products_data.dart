@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
+import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
 class ManageProductsData {
   ManageProductsData._();
@@ -88,6 +89,18 @@ class ManageProductsData {
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     final result = values.map((e) {
       return ProductModel.fromMap(e['attributes']);
+    }).toList();
+    return result;
+  }
+  static Future<List<ProductEntity>> testPagination(int page) async {
+    final response = await _dio.get('$_endpoint/products', queryParameters: {
+      'pagination[page]':page,
+      'pagination[pageSize]':6,
+      'populate': '*'
+    });
+    final values = List<Map<String, dynamic>>.from(response.data['data']);
+    final result = values.map((e) {
+      return ProductModel.fromMap(e['attributes']).toEntity();
     }).toList();
     return result;
   }

@@ -44,7 +44,8 @@ class _ProductListPageState extends State<ProductListPage> {
             // ),
             SliverPersistentHeader(
               delegate: TransformingAppBar(
-                  expandedHeight: MediaQuery.of(context).size.height * .16),
+                expandedHeight: MediaQuery.of(context).size.height * .16,
+              ),
               pinned: true,
             ),
             const SliverPersistentHeader(
@@ -76,5 +77,3 @@ class _ProductListPageState extends State<ProductListPage> {
     );
   }
 }
-
-

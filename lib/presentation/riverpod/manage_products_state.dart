@@ -5,6 +5,7 @@ import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_fi
 import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_products/get_products.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 const _getProducts = GetProducts(ManageProductsRepositoryImpl());
 
@@ -114,16 +115,6 @@ class ProductListProvider
     }
   }
 
-  // Future<void> getProductsFromFilterByPage(int page) async {
-  //   try {
-  //     final List<ProductEntity> products =
-  //         await _getProducts.getProductsByFilter(_filter.copyWith(page: page));
-  //     state = AsyncValue.data([...state.value ?? [], ...products]);
-  //   } catch (error) {
-  //     state = AsyncValue.error(error, StackTrace.fromString('Didn`t work'));
-  //   }
-  // }
-
   void setFilter(ProductFilterEntity newFields) {
     _filter = _filter.copyWith(
       fromPrice: newFields.fromPrice,
@@ -139,3 +130,4 @@ class ProductListProvider
     _getProductsFromFilter();
   }
 }
+
