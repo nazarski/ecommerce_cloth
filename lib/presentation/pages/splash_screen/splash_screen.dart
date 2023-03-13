@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/widgets/splash_banner_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
@@ -21,8 +22,7 @@ class SplashScreen extends ConsumerWidget {
         Future.microtask(() {
           if (value) {
             log('This user is authorized');
-            // Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
-            Navigator.of(context).pushNamedAndRemoveUntil(RegistrationPage.routeName, (route) => false);
+            Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
           } else {
             log('This user is not register');
             Navigator.of(context).pushNamedAndRemoveUntil(RegistrationPage.routeName, (route) => false);
