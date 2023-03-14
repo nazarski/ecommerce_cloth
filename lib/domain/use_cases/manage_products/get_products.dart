@@ -52,13 +52,13 @@ class GetProducts {
   Future<List<ProductEntity>> getProductsByFilter(
       ProductFilterEntity filter) async {
     final listOfProducts = await _productsRepository.getProductsFromFilter(
-      fromPrice: filter.toPrice ?? 0,
-      toPrice: filter.toPrice ?? 0,
-      sizes: filter.sizes ?? [],
-      colors: filter.colors ?? [],
-      brandNames: filter.brandNames ?? [],
-      productTypes: filter.productTypes ?? [],
-      page: filter.page ?? 1,
+      fromPrice: filter.fromPrice,
+      toPrice: filter.toPrice,
+      sizes: filter.sizes ,
+      colors: filter.colors ,
+      brandNames: filter.brandNames ,
+      productTypes: filter.productTypes,
+      page: filter.page,
     );
     return listOfProducts;
   }

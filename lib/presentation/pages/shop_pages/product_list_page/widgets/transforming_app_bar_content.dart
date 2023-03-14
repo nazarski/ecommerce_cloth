@@ -1,4 +1,4 @@
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

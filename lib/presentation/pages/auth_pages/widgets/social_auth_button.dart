@@ -8,8 +8,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SocialAuthButton extends StatelessWidget {
-
-  const SocialAuthButton({Key? key, required this.icon,}) : super(key: key);
+  const SocialAuthButton({
+    Key? key,
+    required this.icon,
+  }) : super(key: key);
   final String icon;
 
   @override
@@ -40,7 +42,6 @@ class SocialAuthButton extends StatelessWidget {
 class SocialMediaBlock extends ConsumerWidget {
   const SocialMediaBlock({
     Key? key,
-
     required this.label,
     required this.ref,
   }) : super(key: key);
@@ -51,20 +52,19 @@ class SocialMediaBlock extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final screenSize = MediaQuery.of(context).size;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          const SizedBox(height: 10),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             GestureDetector(
               onTap: () async {
-                 typeRegister(ref: ref, type: AuthenticateType.google, context: context);
+                typeRegister(
+                    ref: ref, type: AuthenticateType.google, context: context);
               },
               child: const SocialAuthButton(
                 icon: AppIcons.googleIcon,
@@ -72,19 +72,30 @@ class SocialMediaBlock extends ConsumerWidget {
             ),
             SizedBox(width: screenSize.width / 30),
             GestureDetector(
-              onTap: () async {
-                typeRegister(ref: ref, type: AuthenticateType.facebook, context: context);
-              },
-              child: const SocialAuthButton(
-                icon: AppIcons.facebookIcon,
-              ),
-            ));
+                onTap: () async {
+                  typeRegister(
+                      ref: ref,
+                      type: AuthenticateType.facebook,
+                      context: context);
+                },
+                child: const SocialAuthButton(
+                  icon: AppIcons.facebookIcon,
+                )),
+          ])
+        ]);
   }
-  void typeRegister ({required WidgetRef ref, required AuthenticateType type, required BuildContext context}) async {
-    await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously( UserCredentialEntity(type: type),
-    //         () {
-    //   Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
-    // }
-    );
+
+  void typeRegister(
+      {required WidgetRef ref,
+      required AuthenticateType type,
+      required BuildContext context}) async {
+    await ref
+        .read(authControllerRegistrationProvider.notifier)
+        .signInAnonymously(
+          UserCredentialEntity(type: type),
+          //         () {
+          //   Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+          // }
+        );
   }
 }

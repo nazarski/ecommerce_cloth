@@ -54,15 +54,11 @@ class ManageProductsData {
     required List<String> productTypes,
     required int page,
   }) async {
-    final priceQuery = toPrice != 0
-        ? {
-            'filters[price][\$lte]': toPrice,
-            'filters[price][\$gte]': fromPrice,
-          }
-        : {
-            'filters[price][\$gte]': fromPrice,
-          };
-
+    // dont forget to fix priceQuery
+    final priceQuery = {
+      'filters[price][\$lte]': toPrice,
+      'filters[price][\$gte]': fromPrice,
+    };
     final brandQuery = {
       for (int i = 0; i < brandNames.length; i++)
         'filters[brand][brandName][$i]': brandNames[i]
@@ -75,6 +71,17 @@ class ManageProductsData {
       for (int i = 0; i < productTypes.length; i++)
         'filters[productType][typeName][$i]': productTypes[i]
     };
+    print(
+      {
+        ...priceQuery,
+        ...brandQuery,
+        ...sizeQuery,
+        ...productTypesQuery,
+        'pagination[page]': page,
+        'pagination[pageSize]': 10,
+        'populate': '*',
+      },
+    );
     final response = await _dio.get(
       '$_endpoint/products',
       queryParameters: {
@@ -83,6 +90,7 @@ class ManageProductsData {
         ...sizeQuery,
         ...productTypesQuery,
         'pagination[page]': page,
+        'pagination[pageSize]': 10,
         'populate': '*',
       },
     );
@@ -92,10 +100,11 @@ class ManageProductsData {
     }).toList();
     return result;
   }
+
   static Future<List<ProductEntity>> testPagination(int page) async {
     final response = await _dio.get('$_endpoint/products', queryParameters: {
-      'pagination[page]':page,
-      'pagination[pageSize]':6,
+      'pagination[page]': page,
+      'pagination[pageSize]': 10,
       'populate': '*'
     });
     final values = List<Map<String, dynamic>>.from(response.data['data']);

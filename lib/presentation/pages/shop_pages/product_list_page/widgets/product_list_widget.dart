@@ -1,6 +1,7 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/manage_products_data.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/new_products_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
 import 'package:ecommerce_cloth/temp_admin/sandbox.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -61,25 +62,29 @@ class _ProductListWidgetState extends ConsumerState<ProductListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // ref.read(collectSearchHierarchyProvider).
-    return SliverPadding(
+    final controller = ref.watch(pagingControllerProvider);
+    return controller.when(
+      data: (controller) => SliverPadding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         sliver: PagedSliverList.separated(
-            pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate(
-                itemBuilder: (BuildContext context, item, int index) {
-              return ProductListListItem(
-                product: item as ProductEntity,
-              );
-            }),
-            separatorBuilder: (_, __) => SizedBox(
-                  height: 20,
-                ))
-
-        // widget.isGrid
-        //     ? const ProductListGridView()
-        //     : const ProductListListView(),
-        // ProductListListView(),
-        );
+          pagingController: controller,
+          builderDelegate: PagedChildBuilderDelegate(
+              itemBuilder: (BuildContext context, item, int index) {
+            return ProductListListItem(
+              product: item as ProductEntity,
+            );
+          }),
+          separatorBuilder: (_, __) => SizedBox(
+            height: 20,
+          ),
+        ),
+      ),
+      error: (_, __) => SliverToBoxAdapter(
+        child: Text('Error'),
+      ),
+      loading: () => SliverToBoxAdapter(
+        child: Text('Error'),
+      ),
+    );
   }
 }
