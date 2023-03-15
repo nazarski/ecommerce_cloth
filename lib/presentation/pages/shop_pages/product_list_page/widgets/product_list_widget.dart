@@ -1,14 +1,10 @@
-import 'package:ecommerce_cloth/data/data_sources/remote/manage_products_data.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/new_products_provider.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/product_list_grid_item.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
-import 'package:ecommerce_cloth/temp_admin/sandbox.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'product_list_grid_view.dart';
 import 'product_list_list_item.dart';
-import 'product_list_list_view.dart';
 
 class ProductListWidget extends ConsumerStatefulWidget {
   const ProductListWidget({
@@ -23,67 +19,60 @@ class ProductListWidget extends ConsumerStatefulWidget {
 }
 
 class _ProductListWidgetState extends ConsumerState<ProductListWidget> {
-  static const _pageSize = 6;
-
-  final PagingController<int, ProductEntity> _pagingController =
-      PagingController(firstPageKey: 1);
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      print('start');
-      final newItems = await ManageProductsData.testPagination(pageKey);
-      final isLastPage = newItems.length < _pageSize;
-      if (isLastPage) {
-        print('if last');
-        _pagingController.appendLastPage(newItems);
-      } else {
-        print('add more');
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final controller = ref.watch(pagingControllerProvider);
-    return controller.when(
-      data: (controller) => SliverPadding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        sliver: PagedSliverList.separated(
-          pagingController: controller,
-          builderDelegate: PagedChildBuilderDelegate(
-              itemBuilder: (BuildContext context, item, int index) {
-            return ProductListListItem(
-              product: item as ProductEntity,
-            );
-          }),
-          separatorBuilder: (_, __) => SizedBox(
-            height: 20,
+    final controllerProvider = ref.watch(pagingControllerProvider);
+    return controllerProvider.when(
+      data: (controller) {
+        if (widget.isGrid) {
+          return SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            sliver: PagedSliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisExtent: 260,
+                childAspectRatio: 1 / 1.55,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 24,
+                crossAxisCount: 2,
+              ),
+                pagingController: controller,
+                builderDelegate: PagedChildBuilderDelegate(
+                    itemBuilder: (BuildContext context, item, int index) {
+                  return ProductListGridItem(
+                    product: item as ProductEntity,
+                  );
+                }),
+
+              ),
+          );
+        }
+        return SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          sliver: PagedSliverList.separated(
+            pagingController: controller,
+            builderDelegate: PagedChildBuilderDelegate(
+                itemBuilder: (BuildContext context, item, int index) {
+              return ProductListListItem(
+                product: item as ProductEntity,
+              );
+            }),
+            separatorBuilder: (_, __) => const SizedBox(
+              height: 12,
+            ),
           ),
+        );
+      },
+      error: (error, stackTrace) {
+        return SliverToBoxAdapter(
+          child: Text(
+            error.toString(),
+          ),
+        );
+      },
+      loading: () => SliverFillRemaining(
+        child: Center(
+          child: CircularProgressIndicator(),
         ),
-      ),
-      error: (_, __) => SliverToBoxAdapter(
-        child: Text('Error'),
-      ),
-      loading: () => SliverToBoxAdapter(
-        child: Text('Error'),
       ),
     );
   }

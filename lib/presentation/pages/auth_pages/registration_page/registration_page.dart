@@ -11,8 +11,7 @@ import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.d
 import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RegistrationPage extends ConsumerStatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);

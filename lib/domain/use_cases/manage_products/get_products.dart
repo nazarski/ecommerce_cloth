@@ -4,8 +4,6 @@ import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.da
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/manage_products_repository.dart';
-import 'package:ecommerce_cloth/presentation/pages/home_page/widgets/product_slider.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class GetProducts {
   final ManageProductsRepository _productsRepository;

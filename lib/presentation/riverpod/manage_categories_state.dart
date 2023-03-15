@@ -2,7 +2,7 @@ import 'package:ecommerce_cloth/data/repositories/manage_categories_repository_i
 import 'package:ecommerce_cloth/domain/entities/category_entity/category_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_categories/get_categories.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const _getCategories = GetCategories(ManageCategoriesRepositoryImpl());
 

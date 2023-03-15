@@ -1,6 +1,5 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/manage_products_data.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
-import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_pagination_entity/product_pagination_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -15,7 +15,7 @@ class ProductListPage extends StatefulWidget {
 }
 
 class _ProductListPageState extends State<ProductListPage> {
-  bool isGrid = false;
+  bool isGrid = true;
 
   @override
   Widget build(BuildContext context) {
