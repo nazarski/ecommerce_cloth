@@ -188,8 +188,7 @@ ref.listen(authControllerRegistrationProvider, (previous, next) {
                             error: (error, stackTrace) {
                               return const Text('Error');
                             },
-                            loading: () => const CircularProgressIndicator(
-                              color: Colors.white,
+                            loading: () => const CircularProgressIndicator.adaptive(
                             ),
                           )
                       // const Text('SIGN UP'),

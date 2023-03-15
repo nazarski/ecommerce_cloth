@@ -78,7 +78,11 @@ class SocialMediaBlock extends ConsumerWidget {
               child: const SocialAuthButton(
                 icon: AppIcons.facebookIcon,
               ),
-            ));
+            )
+          ],
+        ),
+      ],
+    );
   }
   void typeRegister ({required WidgetRef ref, required AuthenticateType type, required BuildContext context}) async {
     await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously( UserCredentialEntity(type: type),

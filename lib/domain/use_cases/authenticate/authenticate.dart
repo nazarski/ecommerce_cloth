@@ -189,7 +189,19 @@ class Authenticate {
         log('Error by type');
     }
   }
+
   Future<bool> isUserExist() async {
     return await _authRepository.isUserLoggedIn();
+  }
+
+  Future<bool?> isExpired() async {
+    final loggedIn = await _authRepository.isUserLoggedIn();
+    if (loggedIn) {
+      final getUser = await _authRepository.getUserFromSecureStorage();
+      return  _authRepository.isExpired(jwt: getUser.jwt);
+    } else {
+      return false;
+    }
+
   }
 }

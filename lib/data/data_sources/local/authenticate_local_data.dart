@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_info_model.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:intl/intl.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AuthenticateLocalData {
@@ -60,6 +62,7 @@ class AuthenticateLocalData {
     log('✅ Successful: Received all secure data');
     return userInfoModel;
   }
+
   static Future<void> clearSecureStorage() async {
     await _secureStorage.deleteAll();
     log('✅ Successful: Secure storage has been cleared');
@@ -69,4 +72,30 @@ class AuthenticateLocalData {
     final user = await _secureStorage.read(key: 'user');
     return user != null;
   }
+
+  static bool isExpired({required String jwt}) {
+    final jwtDecode = JwtDecoder.decode(jwt);
+    final getExpire = jwtDecode['exp'];
+    final dateTimeOneDayBefore = DateTime.fromMillisecondsSinceEpoch(getExpire * 1000).subtract(
+      const Duration(days: 1),
+    );
+    final bool actualExpire = !DateTime.now().isAfter(dateTimeOneDayBefore);
+    final formatter = DateFormat('dd.MM.yyyy');
+    final formattedDate = formatter.format(dateTimeOneDayBefore);
+    log('⚠️ The expiration date of the token is equal to $formattedDate');
+    return actualExpire;
+  }
 }
+
+// String test () {
+//   final String jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc0LCJpYXQiOjE2Nzg4MDE4NzMsImV4cCI6MTY4MTM5Mzg3M30.OQUtpIMHlMNjfK_0XshJdgXnJ73xYtbBGzE12VhuRl8';
+//   final decode = JwtDecoder.decode(jwt);
+//   final expireTime = decode['exp'];
+//   final dateTime = DateTime.fromMillisecondsSinceEpoch(expireTime * 1000).subtract(Duration(days: 1));
+//   final formatter = DateFormat('dd.MM.yyyy');
+//   final formattedDate = formatter.format(dateTime);
+//   print(formattedDate);
+//   final after = DateTime.now().isAfter(dateTime);
+//   print(after.toString());
+//   return expireTime.toString();
+// }
