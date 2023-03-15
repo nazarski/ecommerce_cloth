@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/new_products_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/product_types_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +16,7 @@ class ProductTypesList extends ConsumerStatefulWidget {
 class _ProductTypesListState extends ConsumerState<ProductTypesList>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-  // bool _showWidget = false;
+
   @override
   void initState() {
     super.initState();
@@ -52,20 +52,9 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
               itemCount: data.length,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemBuilder: (context, i) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Center(
-                    child: Text(
-                      '${data[i]}s',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).colorScheme.surfaceTint),
-                    ),
-                  ),
+                return ProductTypeChip(
+                  type: data[i],
+                  // active: isActive,
                 );
               },
             ),
@@ -97,6 +86,49 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class ProductTypeChip extends ConsumerWidget {
+  const ProductTypeChip({
+    super.key,
+    required this.type,
+  });
+
+  final String type;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(filterValuesProvider);
+    final filter = ref.watch(filterValuesProvider.notifier).filter;
+    final isActive =
+        filter.productTypes.length == 1 && filter.productTypes.first == type;
+    return InkWell(
+      onTap: isActive
+          ? null
+          : () {
+              ref
+                  .read(filterValuesProvider.notifier)
+                  .setProductTypes(productTypes: [type]);
+            },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+            color: isActive
+                ? Theme.of(context).colorScheme.onSurface
+                : Theme.of(context).colorScheme.onSurfaceVariant,
+            borderRadius: BorderRadius.circular(50)),
+        child: Center(
+          child: Text(
+            '${type}s',
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.surfaceTint),
+          ),
         ),
       ),
     );

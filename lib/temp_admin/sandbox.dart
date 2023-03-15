@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // final authControllerProvider =
 //     StateNotifierProvider<AuthController, AsyncValue<void>>((ref) {

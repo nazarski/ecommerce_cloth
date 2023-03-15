@@ -11,7 +11,6 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.5
   flutter_riverpod: ^2.3.1
-  riverpod: ^2.2.0
   flutter_local_notifications: ^13.0.0
   firebase_storage: ^11.0.15
   firebase_analytics: ^10.1.5

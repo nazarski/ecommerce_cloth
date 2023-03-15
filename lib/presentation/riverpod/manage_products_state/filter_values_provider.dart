@@ -2,7 +2,7 @@ import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final filterValuesProvider = StateNotifierProvider.autoDispose((ref) {
+final filterValuesProvider = StateNotifierProvider((ref) {
   return FilterValuesProvider();
 });
 
@@ -29,7 +29,7 @@ class FilterValuesProvider extends StateNotifier<ProductFilterEntity> {
 
   void setProductTypes({required List<String> productTypes}) {
     state = state.copyWith(productTypes: productTypes);
-    print('ptoduct types are set');
+    print(state);
   }
 
   void setSizes({required String size}) {

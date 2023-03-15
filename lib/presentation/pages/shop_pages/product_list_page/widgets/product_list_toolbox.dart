@@ -50,7 +50,7 @@ class ProductListToolBox extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         height: 48,
-                        padding: EdgeInsets.only(left: 16),
+                        padding: const EdgeInsets.only(left: 16),
                         child: Text(
                           'Price: lowest to high',
                           style: Theme.of(context).textTheme.bodyLarge,
@@ -61,7 +61,7 @@ class ProductListToolBox extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         height: 48,
-                        padding: EdgeInsets.only(left: 16),
+                        padding: const EdgeInsets.only(left: 16),
                         child: Text(
                           'Price: lowest to high',
                           style: Theme.of(context).textTheme.bodyLarge,
@@ -72,7 +72,7 @@ class ProductListToolBox extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         height: 48,
-                        padding: EdgeInsets.only(left: 16),
+                        padding: const EdgeInsets.only(left: 16),
                         child: Text(
                           'Price: lowest to high',
                           style: Theme.of(context).textTheme.bodyLarge,
@@ -83,7 +83,7 @@ class ProductListToolBox extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         height: 48,
-                        padding: EdgeInsets.only(left: 16),
+                        padding: const EdgeInsets.only(left: 16),
                         child: Text(
                           'Price: lowest to high',
                           style: Theme.of(context).textTheme.bodyLarge,

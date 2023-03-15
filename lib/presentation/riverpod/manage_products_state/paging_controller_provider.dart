@@ -18,7 +18,7 @@ class PagingControllerProvider
   PagingController(firstPageKey: 1);
   Future<void> getProductsFromFilter(ProductFilterEntity filter) async {
     try {
-      Future<void> fetchPage(int pageKey) async {
+      pagingController.addPageRequestListener((pageKey) async {
         filter = filter.copyWith(page: pageKey);
         final newItems = await getProducts.getProductsByFilter(filter);
         final isLastPage = newItems.length < 10;
@@ -26,10 +26,7 @@ class PagingControllerProvider
           pagingController.appendLastPage(newItems);
         } else {
           pagingController.appendPage(newItems, pageKey + 1);
-        }
-      }
-      pagingController.addPageRequestListener((pageKey) {
-        fetchPage(pageKey);
+        };
       });
       state = AsyncValue.data(pagingController);
     } catch (error) {
