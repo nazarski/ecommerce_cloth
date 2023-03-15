@@ -124,7 +124,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Response> updateUserAvatar({required String jwt, required String photoUrl, required int userId}) async {
     try {
       final Response response =
-      await AuthenticateRemoteData.updateUserAvatar(userId: userId, photoUrl: photoUrl, jwt: jwt);
+          await AuthenticateRemoteData.updateUserAvatar(userId: userId, photoUrl: photoUrl, jwt: jwt);
       return response;
     } on Exception catch (error) {
       return Future.error(error.toString());
@@ -179,5 +179,15 @@ class AuthRepositoryImpl implements AuthRepository {
       return Future.error(error.toString());
     }
   }
-}
 
+  @override
+  bool? isExpired({required String jwt}) {
+    try {
+      final isExpire = AuthenticateLocalData.isExpired(jwt: jwt);
+      return isExpire;
+    } on Exception catch (error) {
+      log(error.toString());
+      return null;
+    }
+  }
+}

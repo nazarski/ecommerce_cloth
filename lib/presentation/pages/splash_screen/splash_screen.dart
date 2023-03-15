@@ -12,25 +12,27 @@ class SplashScreen extends ConsumerWidget {
   static const routeName = '/';
 
   const SplashScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userLoggedIn = ref.watch(userLoggedInProvider);
+    final userLoggedIn =  ref.watch(userLoggedInProvider);
 
-    return userLoggedIn.maybeWhen(
+    return
+      userLoggedIn.maybeWhen(
       data: (value) {
         Future.microtask(() {
-          if (value) {
-            log('This user is authorized');
+          if (value!) {
+            log('✅ This user is authorized');
             Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
           } else {
-            log('This user is not register');
+            log('🚫 This user is not register');
             Navigator.of(context).pushNamedAndRemoveUntil(RegistrationPage.routeName, (route) => false);
+
           }
         });
         return const SplashBannerWidget();
       },
       orElse: () {
+
         return const SplashBannerWidget();
       },
     );

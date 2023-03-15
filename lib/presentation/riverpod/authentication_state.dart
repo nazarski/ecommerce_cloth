@@ -47,8 +47,8 @@ class AuthLoginController extends StateNotifier<AsyncValue<bool>> {
  FutureOr<void> build() {}
 }
 
-final userLoggedInProvider = FutureProvider<bool>((ref) async {
- final user = _authenticate.isUserExist();
+final userLoggedInProvider = FutureProvider<bool?>((ref) async {
+ final user = await _authenticate.isExpired();
  return user;
 });
 

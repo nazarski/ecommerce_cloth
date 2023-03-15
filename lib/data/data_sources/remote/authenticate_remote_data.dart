@@ -11,6 +11,7 @@ import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/us
 import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/user_model_adapter.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthenticateRemoteData {
   AuthenticateRemoteData._();
@@ -53,6 +54,7 @@ class AuthenticateRemoteData {
 
     if (response.statusCode == 200) {
       final userData = response.data;
+
       final user = UserInfoModel(
         email: userData['user']['email'],
         createdAt: DateTime.parse(userData['user']['createdAt']),
@@ -62,6 +64,7 @@ class AuthenticateRemoteData {
         id: userData['user']['id'],
         jwt: userData['jwt'],
       );
+      print(user.jwt);
       log('✅ Successful: Registration user on server');
       return user;
     } else {
@@ -161,4 +164,14 @@ class AuthenticateRemoteData {
     log('✅ Successful: Avatar-field is updated on server');
     return response;
   }
+  bool isExpired(String? token) {
+    if (token == null) return true;
+    final jwt = JwtDecoder.decode(token);
+    final expiryTime = jwt['exp'];
+    if (expiryTime == null) return true;
+    final expiry = DateTime.fromMillisecondsSinceEpoch(expiryTime * 1000);
+    return DateTime.now().isAfter(expiry);
+  }
+
+
 }

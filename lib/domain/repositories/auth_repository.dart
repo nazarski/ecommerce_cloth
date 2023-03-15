@@ -48,7 +48,10 @@ abstract class AuthRepository {
   Future<void> saveUserToSecureStorage({
     required UserInfoEntity? userModel,
   });
+
   Future<UserInfoEntity> getUserFromSecureStorage();
 
   Future<bool> isUserLoggedIn();
+
+  bool? isExpired({required String jwt});
 }
