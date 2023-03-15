@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/product_types_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -110,9 +111,12 @@ class ProductTypeChip extends ConsumerWidget {
       onTap: isActive
           ? null
           : () {
-              ref
+              final filter = ref
                   .read(filterValuesProvider.notifier)
-                  .setProductTypes(productTypes: [type]);
+                  ..setProductTypes(productTypes: [type]);
+              ref
+                  .read(pagingControllerProvider.notifier)
+                  .newFilerValue(filter.filter);
             },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),

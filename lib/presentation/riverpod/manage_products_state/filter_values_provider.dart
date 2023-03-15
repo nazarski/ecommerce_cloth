@@ -28,8 +28,10 @@ class FilterValuesProvider extends StateNotifier<ProductFilterEntity> {
   }
 
   void setProductTypes({required List<String> productTypes}) {
-    state = state.copyWith(productTypes: productTypes);
-    print(state);
+    state = state.copyWith(
+      productTypes: productTypes,
+      page: 1,
+    );
   }
 
   void setSizes({required String size}) {
