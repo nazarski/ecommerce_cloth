@@ -17,10 +17,8 @@ class ProductListListItem extends StatefulWidget {
   State<ProductListListItem> createState() => _ProductListListItemState();
 }
 
-class _ProductListListItemState extends State<ProductListListItem>
-    with SingleTickerProviderStateMixin {
+class _ProductListListItemState extends State<ProductListListItem> with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-
   @override
   void initState() {
     super.initState();
@@ -35,7 +33,6 @@ class _ProductListListItemState extends State<ProductListListItem>
     _animationController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     final title = getTitle(
@@ -46,21 +43,20 @@ class _ProductListListItemState extends State<ProductListListItem>
     _animationController.forward();
     return FadeTransition(
       opacity: _animationController,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Container(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 1.0),
+        child: Stack(
+          children: [
+            Container(
               height: 112,
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onBackground,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      offset: const Offset(0, 5),
-                      blurRadius: 5,
-                    )
+                        color: Colors.black.withOpacity(0.1),
+                        offset: const Offset(0, 5),
+                        blurRadius: 5)
                   ]),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
@@ -99,15 +95,14 @@ class _ProductListListItemState extends State<ProductListListItem>
                 ),
               ),
             ),
-          ),
-          const Positioned(
-            bottom: 0,
-            right: 0,
-            child: HeartFavourite(
-              active: false,
+            const Align(
+              alignment: Alignment.bottomRight,
+              child: HeartFavourite(
+                active: false,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
