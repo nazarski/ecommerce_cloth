@@ -182,17 +182,17 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                         }
                       },
                       child: authProvider.when(
-                        data: (_) {
-                          return const Text('SIGN UP');
-                        },
-                        error: (error, stackTrace) {
-                          return const Text('Error');
-                        },
-                        loading: () => const CircularProgressIndicator.adaptive(
-                        ),
-                      )
-                    // const Text('SIGN UP'),
-                  )),
+                            data: (_) {
+                              return const Text('SIGN UP');
+                            },
+                            error: (error, stackTrace) {
+                              return const Text('Error');
+                            },
+                            loading: () => const CircularProgressIndicator.adaptive(
+                            ),
+                          )
+                      // const Text('SIGN UP'),
+                      )),
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 label: 'Or sign up with social account',
