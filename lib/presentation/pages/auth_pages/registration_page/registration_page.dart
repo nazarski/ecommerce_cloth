@@ -1,8 +1,8 @@
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
+import 'package:ecommerce_cloth/core/utils/helpers/auth_helpers.dart';
 
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
 
-import 'package:ecommerce_cloth/presentation/helpers/auth_helpers.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 
@@ -11,8 +11,8 @@ import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.d
 import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RegistrationPage extends ConsumerStatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -46,12 +46,12 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   Widget build(BuildContext context) {
 
     final authProvider = ref.watch(authControllerRegistrationProvider);
-ref.listen(authControllerRegistrationProvider, (previous, next) {
+    ref.listen(authControllerRegistrationProvider, (previous, next) {
 
-    if (next.hasError) {
-      showErrorSnackBar(context);
-      ref.invalidate(authControllerRegistrationProvider);
-    }
+      if (next.hasError) {
+        showErrorSnackBar(context);
+        ref.invalidate(authControllerRegistrationProvider);
+      }
 
       if(next.value != null && next.value!) {
         Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
@@ -59,7 +59,7 @@ ref.listen(authControllerRegistrationProvider, (previous, next) {
 
 
 
-});
+    });
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -177,8 +177,8 @@ ref.listen(authControllerRegistrationProvider, (previous, next) {
                         );
                         if (validateAndSaveHelper(formKey: formKey)) {
                           await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously(
-                                userInfo,
-                              );
+                            userInfo,
+                          );
                         }
                       },
                       child: authProvider.when(

@@ -4,6 +4,9 @@ import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_p
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/bag_page/bag_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/favourites_page/favourites_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/filter_pages/brands_page/brands_list_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/profile_card_page.dart';
@@ -27,16 +30,29 @@ class AppRouter {
     switch (settings.name) {
       case SplashScreen.routeName:
         return PageTransition(
-            child:  const SplashScreen(), type: PageTransitionType.fade);
+          child: const SplashScreen(),
+          type: PageTransitionType.fade,
+        );
       case LoginPage.routeName:
         return PageTransition(
-            child: const LoginPage(), type: PageTransitionType.fade);
+          child: const LoginPage(),
+          type: PageTransitionType.fade,
+        );
       case RegistrationPage.routeName:
         return PageTransition(
-            child: const RegistrationPage(), type: PageTransitionType.fade);
+          child: const RegistrationPage(),
+          type: PageTransitionType.fade,
+        );
       case MainPage.routeName:
         return PageTransition(
-            child: const MainPage(), type: PageTransitionType.fade);
+          child: const MainPage(),
+          type: PageTransitionType.fade,
+        );
+      case FilterNestPage.routeName:
+        return PageTransition(
+          child: const FilterNestPage(),
+          type: PageTransitionType.rightToLeft,
+        );
       default:
         throw Exception('Invalid route: ${settings.name}');
     }
@@ -85,7 +101,30 @@ class AppRouter {
         );
       case ProductListPage.routeName:
         return PageTransition(
-            child: const ProductListPage(), type: PageTransitionType.fade);
+          child: const ProductListPage(),
+          type: PageTransitionType.fade,
+        );
+      default:
+        throw Exception('Invalid route: ${settings.name}');
+    }
+  }
+
+  // Filter page nested routes
+  static Route<dynamic> generateFilterPageNestedRoutes(RouteSettings settings) {
+    final arguments = settings.arguments;
+    log(settings.name.toString());
+    WidgetBuilder builder;
+    switch (settings.name) {
+      case FiltersPage.routeName:
+        return PageTransition(
+          child: const FiltersPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+      case BrandsListPage.routeName:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const BrandsListPage(),
+        );
       default:
         throw Exception('Invalid route: ${settings.name}');
     }
