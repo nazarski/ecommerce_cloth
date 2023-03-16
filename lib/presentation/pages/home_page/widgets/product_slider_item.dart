@@ -1,4 +1,4 @@
-import 'package:ecommerce_cloth/core/utils/helper.dart';
+import 'package:ecommerce_cloth/core/utils/helpers/product_helpers.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';

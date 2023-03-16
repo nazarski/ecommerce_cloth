@@ -15,7 +15,7 @@ class ProductListPage extends StatefulWidget {
 }
 
 class _ProductListPageState extends State<ProductListPage> {
-  bool isGrid = false;
+  bool isGrid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +59,11 @@ class _ProductListPageState extends State<ProductListPage> {
               pinned: true,
               delegate: SliverHeaderDelegateWrap(
                 widget: ProductListToolBox(
-                  sortButton: (value) {},
                   changeView: () {
                     setState(() {
                       isGrid = !isGrid;
                     });
-                  },
-                  currentType: SortType.priceASC,
+                  }, isGrid: isGrid,
                 ),
                 widgetHeight: 52,
               ),

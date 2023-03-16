@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/manage_products_data.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
@@ -42,6 +43,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
     required List<String> brandNames,
     required List<String> productTypes,
     required int page,
+    required SortType sortType,
   }) async {
     try {
       final list = await ManageProductsData.getProductsByFilterValues(
@@ -52,6 +54,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
         brandNames: brandNames,
         productTypes: productTypes,
         page: page,
+        sortType: sortType,
       );
       return list.map((e) => e.toEntity()).toList();
     } catch (e) {

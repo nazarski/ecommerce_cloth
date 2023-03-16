@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
 abstract class ManageProductsRepository {
@@ -16,5 +17,6 @@ abstract class ManageProductsRepository {
     required List<String> colors,
     required List<String> brandNames,
     required List<String> productTypes,
+    required SortType sortType,
   });
 }

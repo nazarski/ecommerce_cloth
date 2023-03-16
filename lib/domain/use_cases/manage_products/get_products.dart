@@ -1,11 +1,9 @@
 import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
-import 'package:ecommerce_cloth/data/repositories/manare_products_repository_impl.dart';
+import 'package:ecommerce_cloth/data/repositories/manage_products_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/manage_products_repository.dart';
-import 'package:ecommerce_cloth/presentation/pages/home_page/widgets/product_slider.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class GetProducts {
   final ManageProductsRepository _productsRepository;
@@ -52,13 +50,14 @@ class GetProducts {
   Future<List<ProductEntity>> getProductsByFilter(
       ProductFilterEntity filter) async {
     final listOfProducts = await _productsRepository.getProductsFromFilter(
-      fromPrice: filter.toPrice ?? 0,
-      toPrice: filter.toPrice ?? 0,
-      sizes: filter.sizes ?? [],
-      colors: filter.colors ?? [],
-      brandNames: filter.brandNames ?? [],
-      productTypes: filter.productTypes ?? [],
-      page: filter.page ?? 1,
+      fromPrice: filter.fromPrice,
+      toPrice: filter.toPrice,
+      sizes: filter.sizes ,
+      colors: filter.colors ,
+      brandNames: filter.brandNames ,
+      productTypes: filter.productTypes,
+      page: filter.page,
+      sortType: filter.sortType,
     );
     return listOfProducts;
   }

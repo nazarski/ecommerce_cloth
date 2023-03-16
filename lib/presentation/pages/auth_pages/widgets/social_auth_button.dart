@@ -5,7 +5,6 @@ import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SocialAuthButton extends StatelessWidget {
 
@@ -64,7 +63,7 @@ class SocialMediaBlock extends ConsumerWidget {
           children: [
             GestureDetector(
               onTap: () async {
-                 typeRegister(ref: ref, type: AuthenticateType.google, context: context);
+                typeRegister(ref: ref, type: AuthenticateType.google, context: context);
               },
               child: const SocialAuthButton(
                 icon: AppIcons.googleIcon,
@@ -86,9 +85,9 @@ class SocialMediaBlock extends ConsumerWidget {
   }
   void typeRegister ({required WidgetRef ref, required AuthenticateType type, required BuildContext context}) async {
     await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously( UserCredentialEntity(type: type),
-    //         () {
-    //   Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
-    // }
+      //         () {
+      //   Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+      // }
     );
   }
 }
