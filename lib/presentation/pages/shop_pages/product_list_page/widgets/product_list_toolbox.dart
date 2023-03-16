@@ -8,11 +8,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ProductListToolBox extends StatelessWidget {
   const ProductListToolBox({
     super.key,
-    required this.sortButton,
-    required this.changeView,
+    required this.changeView, required this.isGrid,
   });
 
-  final ValueChanged sortButton;
+  final bool isGrid;
   final VoidCallback changeView;
 
   @override
