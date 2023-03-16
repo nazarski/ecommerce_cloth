@@ -1,11 +1,9 @@
+
 import 'package:flutter/material.dart';
 
-class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
+class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
   const AppBarSearchBack({
-    super.key,
-    this.title,
-    required this.search,
-    this.root,
+    super.key, required this.title,
   });
 
   final String? title;
@@ -16,10 +14,9 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        onPressed: root ??
-            () {
-              Navigator.pop(context);
-            },
+        onPressed: () {
+          Navigator.pop(context);
+        },
         icon: const Icon(
           Icons.arrow_back_ios_new_rounded,
         ),
@@ -27,14 +24,12 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
       title: const Text('Categories'),
       centerTitle: true,
       actions: [
-        if (search) ...[
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search_rounded,
-            ),
-          )
-        ]
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.search_rounded,
+          ),
+        )
       ],
     );
   }

@@ -95,6 +95,11 @@ class AppThemes {
         fontWeight: FontWeight.w400,
         color: AppColorsLight.black,
       ),
+      headlineMedium: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppColorsLight.grey,
+      ),
 
       // Descriptive items
       bodyMedium: TextStyle(

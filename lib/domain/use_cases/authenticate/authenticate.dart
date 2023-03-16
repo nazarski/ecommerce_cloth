@@ -204,4 +204,8 @@ class Authenticate {
     }
 
   }
+  Future<UserInfoEntity> getUserInfoFromSecureStorage() async {
+    final getUser = await _authRepository.getUserFromSecureStorage();
+    return getUser;
+  }
 }
