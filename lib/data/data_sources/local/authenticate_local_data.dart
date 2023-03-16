@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_info_model.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -13,7 +14,7 @@ class AuthenticateLocalData {
   AuthenticateLocalData._();
 
   static const FlutterSecureStorage _secureStorage = FlutterSecureStorage();
-
+  static const String endpoint = StrapiInitialize.endpoint;
   static Future<File> createTempFile() async {
     final tempDir = await getTemporaryDirectory();
     final tempFile = File('${tempDir.path}/temp.jpeg');
@@ -38,7 +39,7 @@ class AuthenticateLocalData {
       displayName: userData['username'],
       email: userData['email'],
       favorites: [],
-      photoUrl: userData['avatarUrl'],
+      photoUrl: '$endpoint${userData['avatarUrl']}',
     );
     log('✅ Successful: Update user');
     return updateUser;

@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 
-class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
+class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
   const AppBarSearchBack({
-    super.key, required this.title,
+    super.key, required String title,
   });
-  final String title;
 
   @override
   Widget build(BuildContext context) {

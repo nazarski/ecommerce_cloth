@@ -86,9 +86,6 @@ class SocialMediaBlock extends ConsumerWidget {
   }
   void typeRegister ({required WidgetRef ref, required AuthenticateType type, required BuildContext context}) async {
     await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously( UserCredentialEntity(type: type),
-    //         () {
-    //   Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
-    // }
     );
   }
 }
