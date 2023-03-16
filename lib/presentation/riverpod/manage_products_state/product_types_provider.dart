@@ -1,4 +1,3 @@
-import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

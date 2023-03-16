@@ -8,20 +8,23 @@ class ProductShimmerGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [
-          SizedBox(
-            height: 260,
-            child: Row(
-              children: const [
-                Expanded(child: ShimmerGridItem()),
-                SizedBox(
-                  width: 16,
-                ),
-                Expanded(child: ShimmerGridItem()),
-              ],
+        children: List.generate(4, (_){
+          return  Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: SizedBox(
+              height: 260,
+              child: Row(
+                children: const [
+                  Expanded(child: ShimmerGridItem()),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(child: ShimmerGridItem()),
+                ],
+              ),
             ),
-          )
-        ],
+          );
+        }),
       ),
     );
   }

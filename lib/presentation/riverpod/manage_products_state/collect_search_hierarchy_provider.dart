@@ -29,9 +29,4 @@ class CollectSearchHierarchyProvider
   }
 
   ProductTypeFindEntity get finder => state;
-// String get categoryId => state.categoryId;
-//
-// String get attribute => state.attribute;
-//
-// String get productGroup => state.productGroup;
 }
