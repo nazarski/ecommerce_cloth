@@ -8,12 +8,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ProductListToolBox extends StatelessWidget {
   const ProductListToolBox({
     super.key,
-    required this.sortButton,
-    required this.changeView,
+    required this.changeView, required this.isGrid,
   });
 
-  final ValueChanged sortButton;
   final VoidCallback changeView;
+  final bool isGrid;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +35,9 @@ class ProductListToolBox extends StatelessWidget {
           const SortTypeButton(),
           IconButton(
             onPressed: changeView,
-            icon: const Icon(
-              Icons.grid_view_rounded,
+            icon: Icon(
+              isGrid ?
+              Icons.grid_view_rounded : Icons.list_rounded,
             ),
           )
         ],
@@ -61,7 +61,10 @@ class SortTypeButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(filterValuesProvider);
-    final currentType = ref.read(filterValuesProvider.notifier).filter.sortType;
+    final currentType = ref
+        .read(filterValuesProvider.notifier)
+        .filter
+        .sortType;
     return TextButton.icon(
       onPressed: () {
         buildShowModalBottomSheet(
@@ -69,38 +72,47 @@ class SortTypeButton extends ConsumerWidget {
           header: 'Sort by',
           child: Column(
               children: List.generate(_typesToString.length, (index) {
-            final elementType = _typesToString.entries.elementAt(index);
-            final isActive = currentType == elementType.key;
-            return GestureDetector(
-              onTap: () {
-                final newFilter = ref.read(filterValuesProvider.notifier)
-                  ..setSortType(sortType: elementType.key);
-                ref
-                    .read(pagingControllerProvider.notifier)
-                    .newFilerValue(newFilter.filter);
-                Navigator.of(context, rootNavigator: true).pop();
-              },
-              child: Container(
-                width: double.infinity,
-                height: 48,
-                padding: const EdgeInsets.only(left: 16),
-                color: isActive ? Theme.of(context).colorScheme.primary : null,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    elementType.value,
-                    style: isActive
-                        ? TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                          )
-                        : Theme.of(context).textTheme.bodyLarge,
+                final elementType = _typesToString.entries.elementAt(index);
+                final isActive = currentType == elementType.key;
+                return GestureDetector(
+                  onTap: () {
+                    final newFilter = ref.read(filterValuesProvider.notifier)
+                      ..setSortType(sortType: elementType.key);
+                    ref
+                        .read(pagingControllerProvider.notifier)
+                        .newFilerValue(newFilter.filter);
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 48,
+                    padding: const EdgeInsets.only(left: 16),
+                    color: isActive ? Theme
+                        .of(context)
+                        .colorScheme
+                        .primary : null,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        elementType.value,
+                        style: isActive
+                            ? TextStyle(
+                          color: Theme
+                              .of(context)
+                              .colorScheme
+                              .onBackground,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        )
+                            : Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          })),
+                );
+              })),
         );
       },
       icon: const Icon(Icons.swap_vert_rounded),

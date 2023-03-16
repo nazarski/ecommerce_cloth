@@ -59,12 +59,11 @@ class _ProductListPageState extends State<ProductListPage> {
               pinned: true,
               delegate: SliverHeaderDelegateWrap(
                 widget: ProductListToolBox(
-                  sortButton: (value) {},
                   changeView: () {
                     setState(() {
                       isGrid = !isGrid;
                     });
-                  },
+                  }, isGrid: isGrid,
                 ),
                 widgetHeight: 52,
               ),
