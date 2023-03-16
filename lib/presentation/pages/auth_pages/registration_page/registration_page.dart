@@ -1,8 +1,8 @@
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
+import 'package:ecommerce_cloth/core/utils/helpers/auth_helpers.dart';
 
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
 
-import 'package:ecommerce_cloth/core/utils/helpers/auth_helpers.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
 
@@ -12,6 +12,7 @@ import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 
 class RegistrationPage extends ConsumerStatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -40,24 +41,26 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+
   @override
   Widget build(BuildContext context) {
+
     final authProvider = ref.watch(authControllerRegistrationProvider);
     ref.listen(authControllerRegistrationProvider, (previous, next) {
+
       if (next.hasError) {
         showErrorSnackBar(context);
         ref.invalidate(authControllerRegistrationProvider);
       }
 
-      if (next.value != null && next.value!) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+      if(next.value != null && next.value!) {
+        Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
       }
+
+
+
     });
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -73,10 +76,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             children: [
               Text(
                 'Sign up',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .displayLarge,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               SizedBox(
                 height: height / 10,
@@ -152,17 +152,11 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                   children: [
                     Text(
                       'Already have an account?',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Icon(
                       Icons.arrow_right_alt_outlined,
-                      color: Theme
-                          .of(context)
-                          .colorScheme
-                          .primary,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ],
                 ),
@@ -171,45 +165,35 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 40,
               ),
               SizedBox(
-                width: double.infinity,
-                height: height / 16,
-                child: ElevatedButton(
-                    onPressed: () async {
-                      final UserCredentialEntity userInfo =
-                      UserCredentialEntity(
-                        username: userNameController.text,
-                        email: emailController.text,
-                        password: passwordController.text,
-                        type: AuthenticateType.registration,
-                      );
-                      if (validateAndSaveHelper(formKey: formKey)) {
-                        await ref
-                            .read(authControllerRegistrationProvider.notifier)
-                            .signInAnonymously(
-                          userInfo,
+                  width: double.infinity,
+                  height: height / 16,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        final UserCredentialEntity userInfo = UserCredentialEntity(
+                          username: userNameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                          type: AuthenticateType.registration,
                         );
-                      }
-                    },
-                    child: authProvider.when(
-                      data: (_) {
-                        return const Text('SIGN UP');
+                        if (validateAndSaveHelper(formKey: formKey)) {
+                          await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously(
+                            userInfo,
+                          );
+                        }
                       },
-                      error: (error, stackTrace) {
-                        return const Text('Error');
-                      },
-                      loading: () =>
-                      const CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                    )
-                  // const Text('SIGN UP'),
-                ),
-              ),
+                      child: authProvider.when(
+                        data: (_) {
+                          return const Text('SIGN UP');
+                        },
+                        error: (error, stackTrace) {
+                          return const Text('Error');
+                        },
+                        loading: () => const CircularProgressIndicator.adaptive(
+                        ),
+                      )
+                    // const Text('SIGN UP'),
+                  )),
               SizedBox(height: height / 8),
-              TextButton(onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    MainPage.routeName, (route) => false);
-              }, child: Text('To main page')),
               SocialMediaBlock(
                 label: 'Or sign up with social account',
                 ref: ref,
@@ -226,8 +210,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Center(
-              child: Text('User with this email or login already exists')),
+          content: Center(child: Text('User with this email or login already exists')),
           duration: Duration(seconds: 3),
         ),
       );
