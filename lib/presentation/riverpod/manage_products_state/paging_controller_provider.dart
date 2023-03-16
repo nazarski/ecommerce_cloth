@@ -37,7 +37,7 @@ class PagingControllerProvider
     }
   }
 
-  void firstLaunch(ProductFilterEntity filter) {
+  void initialLaunch(ProductFilterEntity filter) {
     _filter = filter;
     getProductsFromFilter();
   }

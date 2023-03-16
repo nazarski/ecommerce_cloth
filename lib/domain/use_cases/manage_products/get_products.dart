@@ -1,5 +1,5 @@
 import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
-import 'package:ecommerce_cloth/data/repositories/manare_products_repository_impl.dart';
+import 'package:ecommerce_cloth/data/repositories/manage_products_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
@@ -57,6 +57,7 @@ class GetProducts {
       brandNames: filter.brandNames ,
       productTypes: filter.productTypes,
       page: filter.page,
+      sortType: filter.sortType,
     );
     return listOfProducts;
   }

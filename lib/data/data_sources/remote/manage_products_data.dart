@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
@@ -53,6 +54,7 @@ class ManageProductsData {
     required List<String> brandNames,
     required List<String> productTypes,
     required int page,
+    required SortType sortType,
   }) async {
     // dont forget to fix priceQuery
     final priceQuery = {
@@ -77,6 +79,7 @@ class ManageProductsData {
         ...brandQuery,
         ...sizeQuery,
         ...productTypesQuery,
+        'sort': _sortTypes[sortType],
         'pagination[page]': page,
         'pagination[pageSize]': 10,
         'populate': '*',
@@ -89,6 +92,7 @@ class ManageProductsData {
         ...brandQuery,
         ...sizeQuery,
         ...productTypesQuery,
+        'sort': _sortTypes[sortType],
         'pagination[page]': page,
         'pagination[pageSize]': 10,
         'populate': '*',
@@ -101,16 +105,10 @@ class ManageProductsData {
     return result;
   }
 
-  static Future<List<ProductEntity>> testPagination(int page) async {
-    final response = await _dio.get('$_endpoint/products', queryParameters: {
-      'pagination[page]': page,
-      'pagination[pageSize]': 10,
-      'populate': '*'
-    });
-    final values = List<Map<String, dynamic>>.from(response.data['data']);
-    final result = values.map((e) {
-      return ProductModel.fromMap(e['attributes']).toEntity();
-    }).toList();
-    return result;
-  }
+  static const _sortTypes = {
+    SortType.novelty: 'additionDate:desc',
+    SortType.priceASC: 'price',
+    SortType.priceDESC: 'price:desc',
+    SortType.saleFirst: 'sale',
+  };
 }

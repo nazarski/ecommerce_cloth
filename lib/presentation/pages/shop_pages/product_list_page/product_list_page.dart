@@ -65,7 +65,6 @@ class _ProductListPageState extends State<ProductListPage> {
                       isGrid = !isGrid;
                     });
                   },
-                  currentType: SortType.priceASC,
                 ),
                 widgetHeight: 52,
               ),
