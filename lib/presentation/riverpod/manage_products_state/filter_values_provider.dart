@@ -17,7 +17,7 @@ class FilterValuesProvider extends StateNotifier<ProductFilterEntity> {
   }
 
   void setColors({required String color}) {
-    final List<String> colors = state.colors;
+    final Set<String> colors = state.colors;
     if (colors.contains(color)) {
       colors.remove(color);
       state = state.copyWith(colors: colors);

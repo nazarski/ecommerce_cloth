@@ -21,7 +21,8 @@ class FilterNestPage extends ConsumerWidget {
           search: false,
           root: () {
             Navigator.of(context, rootNavigator: true).pop();
-          }, title: 'Filter',
+          },
+          title: 'Filter',
         ),
         body: Navigator(
           key: _navigatorKey,
@@ -52,8 +53,11 @@ class FilterNestPage extends ConsumerWidget {
                 width: 16,
               ),
               Expanded(
-                  child: ElevatedButton(
-                      onPressed: () {}, child: const Text('Apply')))
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Apply'),
+                ),
+              ),
             ],
           ),
         ),

@@ -17,14 +17,14 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         onPressed: root ??
-            () {
+                () {
               Navigator.pop(context);
             },
         icon: const Icon(
           Icons.arrow_back_ios_new_rounded,
         ),
       ),
-      title: const Text('Categories'),
+      title: Text(title ?? ''),
       centerTitle: true,
       actions: [
         if (search) ...[

@@ -47,7 +47,7 @@ class ManageFilterValuesData {
 
   static Future<List<ColorModel>> getColorsList() async {
     final response = await _dio.get('$_endpoint/colors-table');
-    final listOfValues = List<Map<String, String>>.from(
+    final listOfValues = List<Map<String, dynamic>>.from(
       response.data['data']['attributes']['table'],
     );
     return listOfValues.map((e) => ColorModel.fromMap(e)).toList();
