@@ -53,7 +53,7 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
               itemCount: data.length,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemBuilder: (context, i) {
-                return ProductTypeChip(
+                return _ProductTypeChip(
                   type: data[i],
                   // active: isActive,
                 );
@@ -93,8 +93,8 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
   }
 }
 
-class ProductTypeChip extends ConsumerWidget {
-  const ProductTypeChip({
+class _ProductTypeChip extends ConsumerWidget {
+  const _ProductTypeChip({
     super.key,
     required this.type,
   });
