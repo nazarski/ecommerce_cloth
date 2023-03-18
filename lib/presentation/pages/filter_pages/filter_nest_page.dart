@@ -21,7 +21,7 @@ class FilterNestPage extends ConsumerWidget {
           search: false,
           root: () {
             Navigator.of(context, rootNavigator: true).pop();
-          },
+          }, title: 'Filter',
         ),
         body: Navigator(
           key: _navigatorKey,
