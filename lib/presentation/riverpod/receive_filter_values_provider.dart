@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final receiveFilterValuesProvider =
-    StateNotifierProvider<ReceiveFilterValues, ProductFilterEntity>(
+    StateNotifierProvider.autoDispose<ReceiveFilterValues, ProductFilterEntity>(
         (ref) => ReceiveFilterValues());
 
 class ReceiveFilterValues extends StateNotifier<ProductFilterEntity> {
