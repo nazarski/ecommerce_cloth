@@ -1,6 +1,8 @@
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/brands_page/brands_list_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/available_filters_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/receive_filter_values_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,7 +16,7 @@ class FiltersPage extends ConsumerWidget {
   static const routeName = 'filters-page';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final filters = ref.watch(availableFiltersProvider);
     return filters.when(
       data: (data) => Scaffold(
@@ -51,21 +53,7 @@ class FiltersPage extends ConsumerWidget {
                   BrandsListPage.routeName,
                 );
               },
-              child: ListTile(
-                title: Text(
-                  'Brands',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                subtitle: Text(
-                  'Puma Puma Puma Puma Puma Puma Puma Puma Puma Puma Puma ',
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 20,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
+              child: const _BrandsTile(),
             ),
           ],
         ),
@@ -75,5 +63,35 @@ class FiltersPage extends ConsumerWidget {
         child: CircularProgressIndicator.adaptive(),
       ),
     );
+  }
+}
+
+class _BrandsTile extends StatelessWidget {
+  const _BrandsTile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+      final subtitle =
+          ref.watch(receiveFilterValuesProvider).brandNames.toString();
+      return ListTile(
+        title: Text(
+          'Brands',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        subtitle: Text(
+          subtitle,
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 20,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      );
+    });
   }
 }
