@@ -9,16 +9,22 @@ class GetFilters {
 
   Future<AvailableFilterEntity> getAvailableFilters(
       List<String> productTypes) async {
-    final brands = await _filterRepository.getAllBrands();
     final colors = await _filterRepository.getColorsList();
-    final maxPrice =
-        await _filterRepository.getMaxPriceByTypes(productTypes: productTypes,);
-    final minPrice =
-        await _filterRepository.getMinPriceByTypes(productTypes: productTypes,);
-    return AvailableFilterEntity(
-      brands,
-      RangeValues(minPrice.toDouble(), maxPrice.toDouble()),
-      colors.map((e) => e.toEntity()).toList(),
+    final maxPrice = await _filterRepository.getMaxPriceByTypes(
+      productTypes: productTypes,
     );
+    final minPrice = await _filterRepository.getMinPriceByTypes(
+      productTypes: productTypes,
+    );
+    return AvailableFilterEntity(
+      priceRange: RangeValues(minPrice.toDouble(), maxPrice.toDouble()),
+      colors: colors.map((e) => e.toEntity()).toList(),
+    );
+  }
+  Future<List<String>>getBrandsByValue(String searchValue)async{
+    return await _filterRepository.getBrandsByValue(searchValue);
+  }
+  Future<List<String>>getAllBrands()async{
+    return await _filterRepository.getAllBrands();
   }
 }

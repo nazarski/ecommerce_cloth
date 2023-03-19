@@ -2,7 +2,8 @@ import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final filterValuesProvider = StateNotifierProvider.autoDispose((ref) {
+final filterValuesProvider = StateNotifierProvider.autoDispose<
+    FilterValuesProvider, ProductFilterEntity>((ref) {
   return FilterValuesProvider();
 });
 

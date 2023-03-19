@@ -59,4 +59,15 @@ class ManageFilterValuesData {
         'filters[productType][typeName][$i]': types[i]
     };
   }
+
+  static Future<List<String>> getBrandsByValue(String searchValue) async {
+    final response = await _dio.get('$_endpoint/brands', queryParameters: {
+      'filters[brandName][\$contains]': searchValue,
+      'fields': 'brandName',
+    });
+    final converted = List<Map<String, dynamic>>.from(response.data['data']);
+    return converted
+        .map((e) => e['attributes']['brandName'].toString())
+        .toList();
+  }
 }

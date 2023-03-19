@@ -24,5 +24,25 @@ class ReceiveFilterValues extends StateNotifier<ProductFilterEntity> {
       state = state.copyWith(colors: colors);
     }
   }
+  void selectSize(String size) {
+    final sizes = state.sizes.toList();
+    if (sizes.contains(size)) {
+      sizes.remove(size);
+      state = state.copyWith(sizes: sizes);
+    } else {
+      sizes.add(size);
+      state = state.copyWith(sizes: sizes);
+    }
+  }
+  void selectBrand(String size) {
+    final brands = state.brandNames.toList();
+    if (brands.contains(size)) {
+      brands.remove(size);
+      state = state.copyWith(brandNames: brands);
+    } else {
+      brands.add(size);
+      state = state.copyWith(brandNames: brands);
+    }
+  }
 
 }

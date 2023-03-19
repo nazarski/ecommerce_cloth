@@ -10,7 +10,6 @@ class ColorList extends ConsumerWidget {
   });
 
   final List<ColorEntity> colors;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final receiver = ref.watch(receiveFilterValuesProvider);
@@ -67,8 +66,7 @@ class _ColorItem extends StatelessWidget {
             : null,
       ),
       child: Container(
-        height: 24,
-        width: 24,
+        width: 28,
         decoration: BoxDecoration(
           color: color.colorValue,
           shape: BoxShape.circle,

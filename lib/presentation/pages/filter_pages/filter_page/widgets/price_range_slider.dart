@@ -15,32 +15,35 @@ class PriceRangeSlider extends ConsumerWidget {
     final receiver = ref.watch(receiveFilterValuesProvider);
     final receiverRange =
         RangeValues(receiver.fromPrice.toDouble(), receiver.toPrice.toDouble());
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            if (receiver.fromPrice == 0) ...[
-              Text('\$${priceRange.start.toInt()}'),
-              Text('\$${priceRange.end.toInt()}'),
-            ] else ...[
-              Text('\$${receiver.fromPrice}'),
-              Text('\$${receiver.toPrice}'),
-            ]
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: RangeSlider(
-            min: priceRange.start,
-            max: priceRange.end,
-            values: receiver.fromPrice == 0 ? priceRange : receiverRange,
-            onChanged: (RangeValues range) {
-              ref.read(receiveFilterValuesProvider.notifier).setRange(range);
-            },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (receiver.fromPrice == 0) ...[
+                Text('\$${priceRange.start.toInt()}'),
+                Text('\$${priceRange.end.toInt()}'),
+              ] else ...[
+                Text('\$${receiver.fromPrice}'),
+                Text('\$${receiver.toPrice}'),
+              ]
+            ],
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RangeSlider(
+              min: priceRange.start,
+              max: priceRange.end,
+              values: receiver.fromPrice == 0 ? priceRange : receiverRange,
+              onChanged: (RangeValues range) {
+                ref.read(receiveFilterValuesProvider.notifier).setRange(range);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

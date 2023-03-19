@@ -12,4 +12,5 @@ abstract class ManageFilterValuesRepository {
   Future<List<String>> getAllBrands();
 
   Future<List<ColorModel>> getColorsList();
+  Future<List<String>> getBrandsByValue(String searchValue);
 }

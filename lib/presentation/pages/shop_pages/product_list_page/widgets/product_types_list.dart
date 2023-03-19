@@ -104,8 +104,7 @@ class _ProductTypeChip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(filterValuesProvider);
-    final filter = ref.watch(filterValuesProvider.notifier).filter;
+    final filter = ref.watch(filterValuesProvider);
     final isActive =
         filter.productTypes.length == 1 && filter.productTypes.first == type;
     return InkWell(

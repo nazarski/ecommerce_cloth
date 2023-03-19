@@ -238,10 +238,10 @@ class AppThemes {
     )),
     checkboxTheme: const CheckboxThemeData(
       fillColor: MaterialStatePropertyAll(
-        AppColorsDark.primary,
+        AppColorsLight.primary,
       ),
       checkColor: MaterialStatePropertyAll(
-        AppColorsDark.white,
+        AppColorsLight.white,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(

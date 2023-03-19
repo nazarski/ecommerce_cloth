@@ -4,9 +4,11 @@ import 'package:ecommerce_cloth/domain/use_cases/manage_filters/manage_filters.d
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _getFilters = GetFilters(ManageFilterValuesRepositoryImpl());
-final availableFiltersProvider = StateNotifierProvider<
-    FilterValuesProvider,
-    AsyncValue<AvailableFilterEntity>>((ref) => FilterValuesProvider());
+final availableFiltersProvider = StateNotifierProvider.autoDispose<FilterValuesProvider,
+    AsyncValue<AvailableFilterEntity>>((ref) {
+      // ref.watch(availableBrandsProvider);
+      return FilterValuesProvider();
+    });
 
 class FilterValuesProvider
     extends StateNotifier<AsyncValue<AvailableFilterEntity>> {
@@ -16,6 +18,34 @@ class FilterValuesProvider
     try {
       final filterEntity = await _getFilters.getAvailableFilters(productTypes);
       state = AsyncData(filterEntity);
+    } on Exception catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
+  }
+}
+
+final availableBrandsProvider = StateNotifierProvider.autoDispose<BrandsProvider,
+    AsyncValue<List<String>>>((ref) => BrandsProvider());
+
+class BrandsProvider
+    extends StateNotifier<AsyncValue<List<String>>> {
+  BrandsProvider() : super(const AsyncLoading()){
+    _getAllBrands();
+  }
+
+  Future<void>_getAllBrands()async{
+    try {
+      final brands = await _getFilters.getAllBrands();
+      state = AsyncData(brands);
+    } on Exception catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
+  }
+
+  Future<void> searchBrands(String searchValue) async {
+    try {
+      final brands = await _getFilters.getBrandsByValue(searchValue);
+      state = AsyncData(brands);
     } on Exception catch (e) {
       state = AsyncError(e, StackTrace.current);
     }
