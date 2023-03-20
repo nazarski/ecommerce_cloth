@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 class TextFieldValidator extends StatefulWidget {
   const TextFieldValidator({
+    this.initialValue,
     required this.labelText,
     super.key,
     this.validator,
@@ -29,6 +30,8 @@ class TextFieldValidator extends StatefulWidget {
   final FocusNode focusPush;
   final TextInputType keyboardType;
   final bool autofocus;
+  final String? initialValue;
+
 
   final TextInputAction textInputAction;
   final List<TextInputFormatter> inputFormatters;
@@ -45,7 +48,10 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Column(
       children: [
         FocusScope(
@@ -53,7 +59,10 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
             if (!focus) {
               setState(() {
                 if (widget.checkOfErrorOnFocusChange &&
-                        widget.validation(widget.tempTextEditingController.text).toString().isNotEmpty ||
+                    widget
+                        .validation(widget.tempTextEditingController.text)
+                        .toString()
+                        .isNotEmpty ||
                     widget.tempTextEditingController.text.isEmpty) {
                   isError = true;
                   suffixIcon = const Icon(Icons.close);
@@ -84,13 +93,13 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 color: AppColorsLight.white,
               ),
               child: TextFormField(
+                initialValue: widget.initialValue,
                 onFieldSubmitted: (v) {
-                  if(widget.textInputAction == TextInputAction.done) {
+                  if (widget.textInputAction == TextInputAction.done) {
                     FocusScope.of(context).unfocus();
                   } else {
                     FocusScope.of(context).requestFocus(widget.focusPush);
                   }
-
                 },
                 obscureText: widget.passwordVisible,
                 focusNode: widget.focusNode,
@@ -100,7 +109,10 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 textInputAction: widget.textInputAction,
                 inputFormatters: widget.inputFormatters,
                 validator: (string) {
-                  if (widget.validation(widget.tempTextEditingController.text).toString().isNotEmpty) {
+                  if (widget
+                      .validation(widget.tempTextEditingController.text)
+                      .toString()
+                      .isNotEmpty) {
                     setState(() {
                       isError = true;
                       errorString = widget.validation(widget.tempTextEditingController.text);
@@ -118,7 +130,13 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 },
                 decoration: InputDecoration(
                   suffixIconColor:
-                      isError ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onError,
+                  isError ? Theme
+                      .of(context)
+                      .colorScheme
+                      .error : Theme
+                      .of(context)
+                      .colorScheme
+                      .onError,
                   suffixIcon: suffixIcon,
                   errorStyle: const TextStyle(height: 0),
                   labelText: widget.labelText,
@@ -136,7 +154,10 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 padding: const EdgeInsets.only(left: 15.0, top: 2.0),
                 child: Text(
                   errorString,
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .titleSmall,
                 ),
               ),
             ],

@@ -1,6 +1,9 @@
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
+import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/widgets/setting_item.dart';
-import 'package:ecommerce_cloth/presentation/pages/widgets/app_bars/app_bar_search.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/user_info_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +22,12 @@ class ProfileCardPage extends ConsumerWidget {
     } else if (userFromLocal is AsyncData) {
       final user = userFromLocal.value;
       return Scaffold(
-        appBar: const AppBarSearch(),
+        appBar: const AppBarSearchBack(
+          title: '',
+          search: true,
+          elevation: false,
+          back: false,
+        ),
         body: Column(
           children: [
             Padding(
@@ -71,12 +79,17 @@ class ProfileCardPage extends ConsumerWidget {
                     SettingItem(
                       title: 'My orders',
                       subtitle: 'Already have ?? orders',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(OrderPage.routeName);
+                      },
                     ),
                     SettingItem(
                       title: 'Shipping addresses',
                       subtitle: '? addresses',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed(AddressNestPage.routeName);
+                      },
                     ),
                     SettingItem(
                       title: 'Payment methods',
@@ -96,7 +109,11 @@ class ProfileCardPage extends ConsumerWidget {
                     SettingItem(
                       title: 'Settings',
                       subtitle: 'Notifications, password',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed(SettingNestPage.routeName);
+
+                      },
                     ),
                   ],
                 ),

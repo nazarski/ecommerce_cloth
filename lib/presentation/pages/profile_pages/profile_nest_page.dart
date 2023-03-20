@@ -14,10 +14,12 @@ class ProfilePage extends StatelessWidget {
       onWillPop: () async {
         return !await _navigatorKey.currentState!.maybePop();
       },
-      child: Navigator(
-        key: _navigatorKey,
-        initialRoute: ProfileCardPage.routeName,
-        onGenerateRoute: AppRouter.generateProfilePageNestedRoutes,
+      child: Scaffold(
+        body: Navigator(
+          key: _navigatorKey,
+          initialRoute: ProfileCardPage.routeName,
+          onGenerateRoute: AppRouter.generateProfilePageNestedRoutes,
+        ),
       ),
     );
   }
