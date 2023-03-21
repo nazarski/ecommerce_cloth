@@ -42,4 +42,13 @@ class ManageFilterValuesRepositoryImpl implements ManageFilterValuesRepository {
       return Future.error(e.toString());
     }
   }
+  @override
+  Future<List<String>> getBrandsByValue(String searchValue) async {
+    try {
+      return await ManageFilterValuesData.getBrandsByValue(searchValue);
+    } on Exception catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
 }

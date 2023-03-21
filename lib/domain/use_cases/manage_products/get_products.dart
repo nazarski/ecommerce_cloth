@@ -53,7 +53,7 @@ class GetProducts {
       fromPrice: filter.fromPrice,
       toPrice: filter.toPrice,
       sizes: filter.sizes ,
-      colors: filter.colors ,
+      colors: filter.colors.toList() ,
       brandNames: filter.brandNames ,
       productTypes: filter.productTypes,
       page: filter.page,

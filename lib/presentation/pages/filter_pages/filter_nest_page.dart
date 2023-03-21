@@ -1,5 +1,8 @@
+import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/receive_filter_values_provider.dart';
 import 'package:ecommerce_cloth/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,20 +20,30 @@ class FilterNestPage extends ConsumerWidget {
         return !await _navigatorKey.currentState!.maybePop();
       },
       child: Scaffold(
-        appBar: AppBarSearchBack(
-          search: false,
-          root: () {
-            Navigator.of(context, rootNavigator: true).pop();
-          },
-        ),
         body: Navigator(
           key: _navigatorKey,
           initialRoute: FiltersPage.routeName,
           onGenerateRoute: AppRouter.generateFilterPageNestedRoutes,
         ),
-        bottomSheet: Container(
-          height: 104,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        bottomNavigationBar: const _FilterBottomSheet(),
+      ),
+    );
+  }
+}
+
+class _FilterBottomSheet extends ConsumerWidget {
+  const _FilterBottomSheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final height = constraints.constrainHeight() * 0.15;
+        return Container(
+          height: height,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
               boxShadow: [
@@ -44,7 +57,14 @@ class FilterNestPage extends ConsumerWidget {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final filter = ref.read(filterValuesProvider.notifier)
+                      ..acceptReceiver(receiver: const ProductFilterEntity());
+                    ref
+                        .read(pagingControllerProvider.notifier)
+                        .newFilerValue(filter.filter);
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
                   child: const Text('Discard'),
                 ),
               ),
@@ -52,12 +72,23 @@ class FilterNestPage extends ConsumerWidget {
                 width: 16,
               ),
               Expanded(
-                  child: ElevatedButton(
-                      onPressed: () {}, child: const Text('Apply')))
+                child: ElevatedButton(
+                  onPressed: () {
+                    final receiver = ref.read(receiveFilterValuesProvider);
+                    final filter = ref.read(filterValuesProvider.notifier)
+                      ..acceptReceiver(receiver: receiver);
+                    ref
+                        .read(pagingControllerProvider.notifier)
+                        .newFilerValue(filter.filter);
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
+                  child: const Text('Apply'),
+                ),
+              ),
             ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

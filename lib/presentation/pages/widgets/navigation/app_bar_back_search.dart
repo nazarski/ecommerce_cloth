@@ -14,14 +14,15 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: root ??
+                () {
+              Navigator.pop(context);
+            },
         icon: const Icon(
           Icons.arrow_back_ios_new_rounded,
         ),
       ),
-      title: const Text('Categories'),
+      title: Text(title ?? ''),
       centerTitle: true,
       actions: [
         IconButton(

@@ -47,7 +47,7 @@ class ManageFilterValuesData {
 
   static Future<List<ColorModel>> getColorsList() async {
     final response = await _dio.get('$_endpoint/colors-table');
-    final listOfValues = List<Map<String, String>>.from(
+    final listOfValues = List<Map<String, dynamic>>.from(
       response.data['data']['attributes']['table'],
     );
     return listOfValues.map((e) => ColorModel.fromMap(e)).toList();
@@ -58,5 +58,16 @@ class ManageFilterValuesData {
       for (int i = 0; i < types.length; i++)
         'filters[productType][typeName][$i]': types[i]
     };
+  }
+
+  static Future<List<String>> getBrandsByValue(String searchValue) async {
+    final response = await _dio.get('$_endpoint/brands', queryParameters: {
+      'filters[brandName][\$contains]': searchValue,
+      'fields': 'brandName',
+    });
+    final converted = List<Map<String, dynamic>>.from(response.data['data']);
+    return converted
+        .map((e) => e['attributes']['brandName'].toString())
+        .toList();
   }
 }

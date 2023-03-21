@@ -1,195 +1,97 @@
+import 'package:ecommerce_cloth/presentation/pages/filter_pages/brands_page/brands_list_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/available_filters_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/receive_filter_values_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FiltersPage extends StatelessWidget {
+import 'widgets/color_list.dart';
+import 'widgets/filter_item_container.dart';
+import 'widgets/price_range_slider.dart';
+import 'widgets/sizes_list.dart';
+
+class FiltersPage extends ConsumerWidget {
   const FiltersPage({Key? key}) : super(key: key);
   static const routeName = 'filters-page';
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 16,
-            ),
-            child: Text(
-              'Price range',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          const FilterItemContainer(
-            child: PriceRangeSlider(),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 16,
-            ),
-            child: Text(
-              'Colors',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          FilterItemContainer(
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                        color: Theme.of(context).colorScheme.primary, width: 1),
-                  ),
-                  child: Container(
-                    height: 24,
-                    width: 24,
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 16,
-            ),
-            child: Text(
-              'Sizes',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          const FilterItemContainer(
-            child: SizesList(),
-          ),
-          ListTile(
-            title: Text(
-              'Brands',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            subtitle: Text(
-              'Puma Puma Puma Puma Puma Puma Puma Puma Puma Puma Puma ',
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 20,
-                color: Theme.of(context).colorScheme.secondary,
+  Widget build(BuildContext context,WidgetRef ref) {
+    final filters = ref.watch(availableFiltersProvider);
+    return filters.when(
+      data: (data) => Scaffold(
+        appBar: AppBarSearchBack(
+          root: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+          search: false,
+          title: 'Filter',
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FilterItemContainer(
+              title: 'Price range',
+              child: PriceRangeSlider(
+                priceRange: data.priceRange,
               ),
             ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class SizesList extends StatelessWidget {
-  const SizesList({
-    super.key,
-  });
-
-  static const _listOfSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXL'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: _listOfSizes.map((e) {
-        return Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.surface,
+            FilterItemContainer(
+              title: 'Colors',
+              child: ColorList(
+                colors: data.colors,
+              ),
             ),
-          ),
-          child: Center(
-            child: Text(
-              e,
-              style: Theme.of(context).textTheme.bodyMedium,
+            const FilterItemContainer(
+              title: 'Sizes',
+              child: SizesList(),
             ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-}
-
-class PriceRangeSlider extends StatefulWidget {
-  const PriceRangeSlider({
-    super.key,
-  });
-
-  @override
-  State<PriceRangeSlider> createState() => _PriceRangeSliderState();
-}
-
-class _PriceRangeSliderState extends State<PriceRangeSlider> {
-  RangeValues rangeValues = const RangeValues(20, 140);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('\$${rangeValues.start.toInt()}'),
-            Text('\$${rangeValues.end.toInt()}')
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  BrandsListPage.routeName,
+                );
+              },
+              child: const _BrandsTile(),
+            ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: RangeSlider(
-            min: 20,
-            max: 140,
-            values: rangeValues,
-            onChanged: (RangeValues range) {
-              setState(() {
-                rangeValues = range;
-              });
-            },
-          ),
-        ),
-      ],
+      ),
+      error: (error, stackTrace) => Text(error.toString()),
+      loading: () => const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
     );
   }
 }
 
-class FilterItemContainer extends StatelessWidget {
-  const FilterItemContainer({Key? key, required this.child}) : super(key: key);
-  final Widget child;
+class _BrandsTile extends StatelessWidget {
+  const _BrandsTile({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(
-        top: 24,
-        bottom: 20,
-        left: 16,
-        right: 16,
-      ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onPrimary,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 5,
-          ),
-        ],
-      ),
-      child: child,
-    );
+    return Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+      final subtitle =
+          ref.watch(receiveFilterValuesProvider).brandNames.toString();
+      return ListTile(
+        title: Text(
+          'Brands',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        subtitle: Text(
+          subtitle,
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 20,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      );
+    });
   }
 }
