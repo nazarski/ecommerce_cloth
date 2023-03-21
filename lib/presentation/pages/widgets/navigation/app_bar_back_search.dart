@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 
 class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
   const AppBarSearchBack({
-    super.key, required this.title,
+    super.key, required this.title, required this.search, this.root, this.share,
   });
 
   final String? title;
   final bool search;
   final VoidCallback? root;
+  final Widget? share;
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +26,13 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
       title: Text(title ?? ''),
       centerTitle: true,
       actions: [
+        if(search)
         IconButton(
           onPressed: () {},
           icon: const Icon(
             Icons.search_rounded,
           ),
-        )
+        ),
       ],
     );
   }

@@ -305,6 +305,8 @@ class AppThemes {
         inactiveTrackColor: AppColorsLight.grey,
         overlayShape: SliderComponentShape.noOverlay,
     ),
+    dropdownMenuTheme: DropdownMenuThemeData(
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(

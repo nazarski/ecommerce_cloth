@@ -10,7 +10,6 @@ class ProductModel {
   final String productType;
   final String description;
   final String thumbnail;
-
   // final List<String> favorites;
   final String id;
   final List images;

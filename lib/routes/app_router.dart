@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/bag_page/bag_page.dart';
@@ -9,6 +10,7 @@ import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_nest_page
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/product_page/product_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/profile_card_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/categories_page.dart';
@@ -51,6 +53,13 @@ class AppRouter {
         return PageTransition(
           child: const FilterNestPage(),
           type: PageTransitionType.rightToLeft,
+        );
+      case ProductPage.routeName:
+        return PageTransition(
+          settings: settings,
+          childCurrent: const ProductListPage(),
+          child: ProductPage(settings.arguments as ProductEntity),
+          type: PageTransitionType.fade,
         );
       default:
         throw Exception('Invalid route: ${settings.name}');
