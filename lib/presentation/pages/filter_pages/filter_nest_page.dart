@@ -1,4 +1,8 @@
+import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/receive_filter_values_provider.dart';
 import 'package:ecommerce_cloth/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +11,7 @@ class FilterNestPage extends ConsumerWidget {
   const FilterNestPage({Key? key}) : super(key: key);
   static const routeName = 'filter-nest-page';
   static final GlobalKey<NavigatorState> _navigatorKey =
-  GlobalKey<NavigatorState>();
+      GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,13 +31,13 @@ class FilterNestPage extends ConsumerWidget {
   }
 }
 
-class _FilterBottomSheet extends StatelessWidget {
+class _FilterBottomSheet extends ConsumerWidget {
   const _FilterBottomSheet({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final height = constraints.constrainHeight() * 0.15;
@@ -41,10 +45,7 @@ class _FilterBottomSheet extends StatelessWidget {
           height: height,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-              color: Theme
-                  .of(context)
-                  .colorScheme
-                  .background,
+              color: Theme.of(context).colorScheme.background,
               boxShadow: [
                 BoxShadow(
                     color: Colors.black.withOpacity(0.1),
@@ -56,7 +57,14 @@ class _FilterBottomSheet extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final filter = ref.read(filterValuesProvider.notifier)
+                      ..acceptReceiver(receiver: const ProductFilterEntity());
+                    ref
+                        .read(pagingControllerProvider.notifier)
+                        .newFilerValue(filter.filter);
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
                   child: const Text('Discard'),
                 ),
               ),
@@ -65,7 +73,15 @@ class _FilterBottomSheet extends StatelessWidget {
               ),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final receiver = ref.read(receiveFilterValuesProvider);
+                    final filter = ref.read(filterValuesProvider.notifier)
+                      ..acceptReceiver(receiver: receiver);
+                    ref
+                        .read(pagingControllerProvider.notifier)
+                        .newFilerValue(filter.filter);
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
                   child: const Text('Apply'),
                 ),
               ),

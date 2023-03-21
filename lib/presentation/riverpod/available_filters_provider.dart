@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final _getFilters = GetFilters(ManageFilterValuesRepositoryImpl());
 final availableFiltersProvider = StateNotifierProvider.autoDispose<FilterValuesProvider,
     AsyncValue<AvailableFilterEntity>>((ref) {
-      // ref.watch(availableBrandsProvider);
       return FilterValuesProvider();
     });
 

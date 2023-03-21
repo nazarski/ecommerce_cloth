@@ -22,13 +22,13 @@ class PriceRangeSlider extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (receiver.fromPrice == 0) ...[
-                Text('\$${priceRange.start.toInt()}'),
-                Text('\$${priceRange.end.toInt()}'),
-              ] else ...[
+              // if (receiver.fromPrice == 0) ...[
+              //   Text('\$${priceRange.start.toInt()}'),
+              //   Text('\$${priceRange.end.toInt()}'),
+              // ] else ...[
                 Text('\$${receiver.fromPrice}'),
                 Text('\$${receiver.toPrice}'),
-              ]
+              // ]
             ],
           ),
           Padding(
@@ -36,7 +36,7 @@ class PriceRangeSlider extends ConsumerWidget {
             child: RangeSlider(
               min: priceRange.start,
               max: priceRange.end,
-              values: receiver.fromPrice == 0 ? priceRange : receiverRange,
+              values: receiverRange,
               onChanged: (RangeValues range) {
                 ref.read(receiveFilterValuesProvider.notifier).setRange(range);
               },
