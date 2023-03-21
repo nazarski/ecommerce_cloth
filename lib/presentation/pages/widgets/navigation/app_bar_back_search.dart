@@ -1,11 +1,9 @@
+
 import 'package:flutter/material.dart';
 
-class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
+class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
   const AppBarSearchBack({
-    super.key,
-    this.title,
-    required this.search,
-    this.root,
+    super.key, required this.title,
   });
 
   final String? title;
@@ -27,14 +25,12 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title ?? ''),
       centerTitle: true,
       actions: [
-        if (search) ...[
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search_rounded,
-            ),
-          )
-        ]
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.search_rounded,
+          ),
+        )
       ],
     );
   }
