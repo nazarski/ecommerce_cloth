@@ -19,4 +19,13 @@ abstract class ManageProductsRepository {
     required List<String> productTypes,
     required SortType sortType,
   });
+
+  Future<List<ProductEntity>> getSimilarProducts({
+    required int fromPrice,
+    required int toPrice,
+    required List<String> sizes,
+    required List<String> colors,
+    required List<String> productTypes,
+    required String productId,
+  });
 }

@@ -10,16 +10,19 @@ class ProductModel {
   final String productType;
   final String description;
   final String thumbnail;
+
   // final List<String> favorites;
   final String id;
   final List images;
   final String name;
   final bool popular;
   final int price;
+  final List colors;
   final Map<String, dynamic> rating;
   final Map<String, dynamic> sale;
 
   const ProductModel({
+    required this.colors,
     required this.additionDate,
     required this.attributes,
     required this.availableQuantity,
@@ -53,6 +56,7 @@ class ProductModel {
         '\nprice: $price, '
         '\nrating: $rating, '
         '\nsale: $sale,'
+        '\nsale: $colors,'
         '}';
   }
 
@@ -72,11 +76,13 @@ class ProductModel {
       price: price,
       rating: rating,
       sale: sale,
+      colors: List<String>.from(colors),
     );
   }
 
   factory ProductModel.fromEntity({required ProductEntity entity}) {
     return ProductModel(
+      colors: entity.colors,
       additionDate: entity.additionDate,
       attributes: entity.attributes,
       availableQuantity: entity.availableQuantity,
@@ -110,6 +116,7 @@ class ProductModel {
       'rating': rating,
       'sale': sale,
       'description': description,
+      'colors': colors,
     };
   }
 
@@ -123,19 +130,20 @@ class ProductModel {
         description: map['description'] ?? '',
         images: (map['images']['data'] as List).map((image) {
           return image['attributes']['formats']['large']['url'];
-
         }).toList(),
         availableQuantity: (map['availableQuantity'] as List)
             .fold(<String, int>{}, (previousValue, element) {
-          previousValue.addAll({element['size'] : element['quantity']});
+          previousValue.addAll({element['size']: element['quantity']});
           return previousValue;
         }),
         productType: map['productType']['data']['attributes']['typeName'],
         brand: map['brand']['data']['attributes']['brandName'],
-        attributes: (map['attributes']['data'] as List).map((element){
+        attributes: (map['attributes']['data'] as List).map((element) {
           return element['attributes']['title'];
         }).toList(),
-        thumbnail: map['images']['data'].first['attributes']['formats']['small']['url'],
+        thumbnail: map['images']['data'].first['attributes']['formats']['small']
+            ['url'],
+        colors: map['color'].map((e) => e['color']).toList(),
         rating: {},
         sale: {});
   }

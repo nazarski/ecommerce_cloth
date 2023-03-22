@@ -7,6 +7,7 @@ class ProductEntity extends Equatable {
   final String brand;
   final String productType;
   final String description;
+  final List<String> colors;
 
   // final List<String> favorites;
   final String thumbnail;
@@ -19,6 +20,7 @@ class ProductEntity extends Equatable {
   final Map<String, dynamic> sale;
 
   const ProductEntity({
+    required this.colors,
     required this.additionDate,
     required this.attributes,
     required this.availableQuantity,
@@ -50,6 +52,7 @@ class ProductEntity extends Equatable {
         price,
         rating,
         sale,
-        description
+        description,
+        colors,
       ];
 }

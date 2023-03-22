@@ -43,7 +43,7 @@ class _ProductListWidgetState extends ConsumerState<ProductListWidget> {
                       const ProductShimmerGrid(),
                   itemBuilder: (BuildContext context, item, int index) {
                     return ProductListGridItem(
-                      product: item as ProductEntity,
+                      product: item as ProductEntity, hero: true,
                     );
                   }),
             ),

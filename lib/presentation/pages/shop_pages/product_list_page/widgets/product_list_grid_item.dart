@@ -2,20 +2,22 @@ import 'package:ecommerce_cloth/core/utils/helpers/product_helpers.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/product_page/product_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductListGridItem extends ConsumerStatefulWidget {
-  const ProductListGridItem({
+  const ProductListGridItem( {
     super.key,
-    required this.product,
+    required this.product,required this.hero,
   });
-
+final bool hero;
   final ProductEntity product;
 
   @override
-  ConsumerState<ProductListGridItem> createState() => _ProductListGridItemState();
+  ConsumerState<ProductListGridItem> createState() =>
+      _ProductListGridItemState();
 }
 
 class _ProductListGridItemState extends ConsumerState<ProductListGridItem>
@@ -44,6 +46,10 @@ class _ProductListGridItemState extends ConsumerState<ProductListGridItem>
       brand: widget.product.brand,
       type: widget.product.productType,
     );
+    final String chipValue = getChipValue(
+      widget.product.additionDate,
+      widget.product.sale,
+    );
     _animationController.forward();
     return FadeTransition(
       opacity: _animationController,
@@ -62,15 +68,18 @@ class _ProductListGridItemState extends ConsumerState<ProductListGridItem>
                     padding: const EdgeInsets.only(bottom: 20.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Hero(
-                        tag: widget.product.id,
-                        child: Image(
-                          image: NetworkImage(
-                              '${StrapiInitialize.endpoint}${widget.product.thumbnail}'),
-                          width: double.infinity,
-                          height: 184,
-                          alignment: Alignment.topCenter,
-                          fit: BoxFit.cover,
+                      child: HeroMode(
+                        enabled: widget.hero,
+                        child: Hero(
+                          tag: widget.product.id,
+                          child: Image(
+                            image: NetworkImage(
+                                '${StrapiInitialize.endpoint}${widget.product.thumbnail}'),
+                            width: double.infinity,
+                            height: 184,
+                            alignment: Alignment.topCenter,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -103,7 +112,15 @@ class _ProductListGridItemState extends ConsumerState<ProductListGridItem>
                       rating: 4,
                       reviews: 10,
                     ),
-                  )
+                  ),
+                  if(chipValue.isNotEmpty)
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: ProductItemChip(
+                      value: chipValue,
+                    ),
+                  ),
                 ],
               ),
               Text(

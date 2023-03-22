@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce_cloth/core/utils/helpers/data_helpers.dart';
 import 'package:ecommerce_cloth/data/models/color_model/color_model.dart';
 
 import 'strapi_initialize.dart';
@@ -12,7 +13,7 @@ class ManageFilterValuesData {
   static Future<int> getMaxPriceByTypes({
     required List<String> productTypes,
   }) async {
-    final productTypesQuery = _generateProductTypesQuery(productTypes);
+    final productTypesQuery = generateProductTypesQuery(productTypes);
     final response = await _dio.get('$_endpoint/products', queryParameters: {
       ...productTypesQuery,
       'sort': 'price:desc',
@@ -25,7 +26,7 @@ class ManageFilterValuesData {
   static Future<int> getMinPriceByTypes({
     required List<String> productTypes,
   }) async {
-    final productTypesQuery = _generateProductTypesQuery(productTypes);
+    final productTypesQuery = generateProductTypesQuery(productTypes);
     final response = await _dio.get('$_endpoint/products', queryParameters: {
       ...productTypesQuery,
       'sort': 'price',
@@ -51,13 +52,6 @@ class ManageFilterValuesData {
       response.data['data']['attributes']['table'],
     );
     return listOfValues.map((e) => ColorModel.fromMap(e)).toList();
-  }
-
-  static Map<String, String> _generateProductTypesQuery(List<String> types) {
-    return {
-      for (int i = 0; i < types.length; i++)
-        'filters[productType][typeName][$i]': types[i]
-    };
   }
 
   static Future<List<String>> getBrandsByValue(String searchValue) async {

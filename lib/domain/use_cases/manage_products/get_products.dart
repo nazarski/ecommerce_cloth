@@ -1,5 +1,4 @@
 import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
-import 'package:ecommerce_cloth/data/repositories/manage_products_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
@@ -52,12 +51,28 @@ class GetProducts {
     final listOfProducts = await _productsRepository.getProductsFromFilter(
       fromPrice: filter.fromPrice,
       toPrice: filter.toPrice,
-      sizes: filter.sizes ,
-      colors: filter.colors.toList() ,
-      brandNames: filter.brandNames ,
+      sizes: filter.sizes,
+      colors: filter.colors.toList(),
+      brandNames: filter.brandNames,
       productTypes: filter.productTypes,
       page: filter.page,
       sortType: filter.sortType,
+    );
+    return listOfProducts;
+  }
+
+  Future<List<ProductEntity>> getProductsForYMAL(
+      ProductEntity fromSelected) async {
+    final fromPrice =
+        fromSelected.price - 300 >= 0 ? fromSelected.price - 300 : 0;
+    final toPrice = fromSelected.price + 300;
+    final listOfProducts = await _productsRepository.getSimilarProducts(
+      productId: fromSelected.id,
+      fromPrice: fromPrice,
+      toPrice: toPrice,
+      sizes: fromSelected.availableQuantity.keys.toList(),
+      colors: fromSelected.colors.toList(),
+      productTypes: [fromSelected.productType],
     );
     return listOfProducts;
   }

@@ -1,10 +1,10 @@
 import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
-import 'package:ecommerce_cloth/presentation/pages/home_page/widgets/product_item_shimmer.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_shimmer.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/new_products_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'product_slider_item.dart';
+import '../../widgets/product_slider_item.dart';
 
 class ProductSlider extends ConsumerWidget {
   const ProductSlider({
@@ -67,8 +67,7 @@ class ProductSlider extends ConsumerWidget {
                     padding: const EdgeInsets.only(left: 14, bottom: 20, right: 14),
                     itemCount: data.length,
                     itemBuilder: (context, i) {
-                      return ProductSliderItem(
-                        value: title, product: data[i],
+                      return ProductSliderItem(product: data[i],
                       );
                     },
                     separatorBuilder: (_, __) => const SizedBox(
