@@ -97,7 +97,7 @@ class AppThemes {
       ),
       headlineMedium: TextStyle(
         fontSize: 14,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         color: AppColorsLight.grey,
       ),
 

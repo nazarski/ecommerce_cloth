@@ -1,5 +1,6 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
+import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/rating_reviews_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/heart_favourite.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,8 @@ import 'widgets/product_share_app_bar.dart';
 import 'widgets/you_may_also_like_widget.dart';
 
 class ProductPage extends ConsumerStatefulWidget {
-  const ProductPage(this.selectedProduct, {Key? key}) : super(key: key);
+  const ProductPage({Key? key, required this.selectedProduct})
+      : super(key: key);
   static const routeName = 'product-page';
   final ProductEntity selectedProduct;
 
@@ -55,7 +57,7 @@ class _ProductPageState extends ConsumerState<ProductPage> {
                           return Hero(
                             tag: widget.selectedProduct.id,
                             child: Padding(
-                              padding: EdgeInsets.only(right: 12),
+                              padding: const EdgeInsets.only(right: 12),
                               child: Image(
                                 width: width,
                                 fit: BoxFit.cover,
@@ -67,9 +69,10 @@ class _ProductPageState extends ConsumerState<ProductPage> {
                         }
                         return Padding(
                           padding: EdgeInsets.only(
-                              right: widget.selectedProduct.images.length-1 > i
-                                  ? 12
-                                  : 0),
+                            right: widget.selectedProduct.images.length - 1 > i
+                                ? 12
+                                : 0,
+                          ),
                           child: Image(
                             width: width,
                             fit: BoxFit.cover,
@@ -137,7 +140,18 @@ class _ProductPageState extends ConsumerState<ProductPage> {
                     const SizedBox(
                       height: 4,
                     ),
-                    const StarsViewWidget(rating: 4, reviews: 16),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).pushNamed(
+                          RatingReviewPage.routeName,
+                          arguments: widget.selectedProduct.rating,
+                        );
+                      },
+                      child: StarsViewWidget(
+                        rating: widget.selectedProduct.rating.averageRating,
+                        reviews: widget.selectedProduct.rating.totalReviews,
+                      ),
+                    ),
                     const SizedBox(
                       height: 16,
                     ),

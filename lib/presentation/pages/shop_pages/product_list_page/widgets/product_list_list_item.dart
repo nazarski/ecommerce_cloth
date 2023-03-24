@@ -2,6 +2,7 @@ import 'package:ecommerce_cloth/core/utils/helpers/product_helpers.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/heart_favourite.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,10 @@ class ProductListListItem extends StatefulWidget {
   State<ProductListListItem> createState() => _ProductListListItemState();
 }
 
-class _ProductListListItemState extends State<ProductListListItem> with SingleTickerProviderStateMixin {
+class _ProductListListItemState extends State<ProductListListItem>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +36,7 @@ class _ProductListListItemState extends State<ProductListListItem> with SingleTi
     _animationController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final title = getTitle(
@@ -40,14 +44,18 @@ class _ProductListListItemState extends State<ProductListListItem> with SingleTi
       brand: widget.product.brand,
       type: widget.product.productType,
     );
+    final String chipValue = getChipValue(
+      widget.product.additionDate,
+      widget.product.sale,
+    );
     _animationController.forward();
     return FadeTransition(
       opacity: _animationController,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 1.0),
-        child: Stack(
-          children: [
-            Container(
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Container(
               height: 112,
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onBackground,
@@ -84,7 +92,10 @@ class _ProductListListItemState extends State<ProductListListItem> with SingleTi
                           widget.product.brand,
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
-                        const StarsViewWidget(rating: 4, reviews: 12),
+                        StarsViewWidget(
+                          rating: widget.product.rating.averageRating,
+                          reviews: widget.product.rating.totalReviews,
+                        ),
                         Text(
                           '${widget.product.price}\$',
                           style: Theme.of(context).textTheme.bodyMedium,
@@ -95,14 +106,23 @@ class _ProductListListItemState extends State<ProductListListItem> with SingleTi
                 ),
               ),
             ),
-            const Align(
-              alignment: Alignment.bottomRight,
-              child: HeartFavourite(
-                active: false,
+          ),
+          const Positioned(
+            bottom: 0,
+            right: 0,
+            child: HeartFavourite(
+              active: false,
+            ),
+          ),
+          if (chipValue.isNotEmpty)
+            Positioned(
+              top: 8,
+              left: 8,
+              child: ProductItemChip(
+                value: chipValue,
               ),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }

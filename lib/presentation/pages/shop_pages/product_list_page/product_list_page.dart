@@ -1,15 +1,14 @@
-import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:flutter/material.dart';
 import 'widgets/product_list_toolbox.dart';
 import 'widgets/product_list_widget.dart';
 import 'widgets/product_types_list.dart';
 import 'widgets/sliver_header_delegate_wrap.dart';
-import 'widgets/transforming_app_bar.dart';
+import '../../widgets/transforming_app_bar.dart';
 
 class ProductListPage extends StatefulWidget {
-  const ProductListPage({Key? key}) : super(key: key);
+  const ProductListPage({Key? key, required this.title}) : super(key: key);
   static const routeName = 'product-list-page';
-
+final String title;
   @override
   State<ProductListPage> createState() => _ProductListPageState();
 }
@@ -45,6 +44,7 @@ class _ProductListPageState extends State<ProductListPage> {
             SliverPersistentHeader(
               delegate: TransformingAppBar(
                 expandedHeight: MediaQuery.of(context).size.height * .16,
+                title: widget.title,
               ),
               pinned: true,
             ),

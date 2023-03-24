@@ -5,10 +5,10 @@ class StarsViewWidget extends StatelessWidget {
   const StarsViewWidget({
     Key? key,
     required this.rating,
-    required this.reviews,
+    this.reviews,
   }) : super(key: key);
   final double rating;
-  final int reviews;
+  final int? reviews;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,7 @@ class StarsViewWidget extends StatelessWidget {
           size: 14,
         );
       }),
+      if(reviews != null)
       Text(
         '($reviews)',
         style: Theme.of(context).textTheme.labelMedium,

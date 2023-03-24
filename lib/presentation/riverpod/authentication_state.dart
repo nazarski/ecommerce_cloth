@@ -9,10 +9,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final _authenticate = Authenticate(AuthRepositoryImpl());
 
 final authControllerRegistrationProvider =
-    StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>((ref) {
+    StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>(
+        (ref) {
   return AuthRegisterController();
 });
-final authControllerLoginProvider = StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>((ref) {
+final authControllerLoginProvider =
+    StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>(
+        (ref) {
   return AuthRegisterController();
 });
 
@@ -57,11 +60,14 @@ final userLoggedInProvider = FutureProvider<bool?>((ref) async {
   return user;
 });
 
-class UserFromLocalStateNotifier extends StateNotifier<AsyncValue<UserInfoEntity>> {
-  UserFromLocalStateNotifier() : super( AsyncValue.data(UserInfoEntity as UserInfoEntity));
+class UserFromLocalStateNotifier
+    extends StateNotifier<AsyncValue<UserInfoEntity>> {
+  UserFromLocalStateNotifier()
+      : super(AsyncValue.data(UserInfoEntity as UserInfoEntity));
 
-  Future<void>getUser() async {
-state = (await _authenticate.getUserInfoFromSecureStorage()) as AsyncValue<UserInfoEntity>;
+  Future<void> getUser() async {
+    state = (await _authenticate.getUserInfoFromSecureStorage())
+        as AsyncValue<UserInfoEntity>;
   }
 
   FutureOr<void> build() {}

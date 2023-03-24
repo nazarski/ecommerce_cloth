@@ -10,8 +10,10 @@ class ReviewEntity extends Equatable{
   final List <String> reviewPictures;
   final String userAvatar;
   final String userName;
+  final double rating;
 
   const ReviewEntity({
+    required this.rating,
     required this.reviewId,
     required this.helpful,
     required this.productId,
@@ -26,6 +28,7 @@ class ReviewEntity extends Equatable{
   @override
   // TODO: implement props
   List<Object?> get props => [
+    rating,
     reviewId,
     helpful,
     productId,

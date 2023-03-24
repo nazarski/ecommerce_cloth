@@ -105,12 +105,12 @@ class _ProductListGridItemState extends ConsumerState<ProductListGridItem>
                       ),
                     ),
                   ),
-                  const Positioned(
+                   Positioned(
                     left: 0,
                     bottom: 0,
                     child: StarsViewWidget(
-                      rating: 4,
-                      reviews: 10,
+                      rating: widget.product.rating.averageRating,
+                      reviews: widget.product.rating.totalReviews,
                     ),
                   ),
                   if(chipValue.isNotEmpty)

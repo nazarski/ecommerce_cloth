@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/bag_page/bag_page.dart';
@@ -13,6 +14,7 @@ import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/product_page/product_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/profile_card_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/rating_reviews_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/categories_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
@@ -57,9 +59,15 @@ class AppRouter {
       case ProductPage.routeName:
         return PageTransition(
           settings: settings,
-          childCurrent: const ProductListPage(),
-          child: ProductPage(settings.arguments as ProductEntity),
-          type: PageTransitionType.fade,
+          child:
+              ProductPage(selectedProduct: settings.arguments as ProductEntity),
+          type: PageTransitionType.rightToLeft,
+        );
+      case RatingReviewPage.routeName:
+        return PageTransition(
+          settings: settings,
+          child: RatingReviewPage(rating: settings.arguments as RatingEntity),
+          type: PageTransitionType.rightToLeft,
         );
       default:
         throw Exception('Invalid route: ${settings.name}');
@@ -107,7 +115,10 @@ class AppRouter {
         );
       case ProductListPage.routeName:
         return PageTransition(
-          child: const ProductListPage(),
+          settings: settings,
+          child: ProductListPage(
+            title: arguments as String,
+          ),
           type: PageTransitionType.fade,
         );
       default:
@@ -135,7 +146,9 @@ class AppRouter {
         throw Exception('Invalid route: ${settings.name}');
     }
   }
-  static Route<dynamic> generateProfilePageNestedRoutes(RouteSettings settings) {
+
+  static Route<dynamic> generateProfilePageNestedRoutes(
+      RouteSettings settings) {
     final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
     WidgetBuilder builder;

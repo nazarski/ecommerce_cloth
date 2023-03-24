@@ -1,4 +1,3 @@
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,16 +5,14 @@ class TransformingAppBarContent extends ConsumerWidget {
   const TransformingAppBarContent({
     super.key,
     required this.progress,
+    required this.title,
   });
 
   final double progress;
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String attribute =
-        ref.read(collectSearchHierarchyProvider.notifier).finder.attribute;
-    final String productGroup =
-        ref.read(collectSearchHierarchyProvider.notifier).finder.productGroup;
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -50,7 +47,7 @@ class TransformingAppBarContent extends ConsumerWidget {
             progress,
           ),
           child: Text(
-            '${attribute[0].toUpperCase()}${attribute.substring(1)}`s ${productGroup.toLowerCase()}',
+            title,
             style: TextStyle.lerp(
               Theme.of(context).textTheme.displayLarge,
               Theme.of(context).textTheme.displaySmall,

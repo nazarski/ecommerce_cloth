@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ecommerce_cloth/data/models/rating_model/rating_model.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
 class ProductModel {
@@ -18,7 +19,7 @@ class ProductModel {
   final bool popular;
   final int price;
   final List colors;
-  final Map<String, dynamic> rating;
+  final RatingModel rating;
   final Map<String, dynamic> sale;
 
   const ProductModel({
@@ -74,7 +75,7 @@ class ProductModel {
       name: name,
       popular: popular,
       price: price,
-      rating: rating,
+      rating: rating.toEntity(),
       sale: sale,
       colors: List<String>.from(colors),
     );
@@ -95,29 +96,32 @@ class ProductModel {
       name: entity.name,
       popular: entity.popular,
       price: entity.price,
-      rating: entity.rating,
+      rating: RatingModel.fromEntity(entity: entity.rating),
       sale: entity.sale,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'additionDate': additionDate,
-      'attributes': attributes,
-      'availableQuantity': availableQuantity,
-      'brand': brand,
-      'productType': productType,
-      'id': id,
-      'images': images,
-      'name': name,
-      'popular': popular,
-      'thumbnail': thumbnail,
-      'price': price,
-      'rating': rating,
-      'sale': sale,
-      'description': description,
-      'colors': colors,
-    };
+    'additionDate': additionDate,
+    'attributes': attributes,
+    'availableQuantity': availableQuantity,
+    'brand': brand,
+    'productType': productType,
+    'id': id,
+    'images': images,
+    'name': name,
+    'popular': popular,
+    'thumbnail': thumbnail,
+    'price': price,
+    'rating': rating,
+    'sale': sale,
+    'description': description,
+    'colors'
+    :
+    colors
+    ,
+  };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
@@ -142,9 +146,9 @@ class ProductModel {
           return element['attributes']['title'];
         }).toList(),
         thumbnail: map['images']['data'].first['attributes']['formats']['small']
-            ['url'],
+        ['url'],
         colors: map['color'].map((e) => e['color']).toList(),
-        rating: {},
+        rating: RatingModel.fromMap(map['rating']),
         sale: {});
   }
 }
