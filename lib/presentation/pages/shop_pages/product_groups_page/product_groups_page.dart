@@ -20,6 +20,8 @@ class ProductGroupPage extends ConsumerWidget {
       data: (data) => Scaffold(
         appBar: const AppBarSearchBack(
           title: 'Categories',
+          elevation: true,
+          back: true,
           search: true,
         ),
         body: Column(

@@ -69,6 +69,7 @@ class Authenticate {
     required String email,
     required String password,
   }) async {
+
     final userData = _authRepository.requestUserLogin(
       email: email,
       password: password,
@@ -142,6 +143,7 @@ class Authenticate {
     required String email,
     required String password,
   }) async {
+    print('aaaaa');
     final UserInfoEntity? userdata = await _loginUser(
       email: email,
       password: password,
@@ -198,13 +200,13 @@ class Authenticate {
     final loggedIn = await _authRepository.isUserLoggedIn();
     if (loggedIn) {
       final getUser = await _authRepository.getUserFromSecureStorage();
-      return  _authRepository.isExpired(jwt: getUser.jwt);
+      return  _authRepository.isExpired(jwt: getUser!.jwt);
     } else {
       return false;
     }
 
   }
-  Future<UserInfoEntity> getUserInfoFromSecureStorage() async {
+  Future<UserInfoEntity?> getUserInfoFromSecureStorage() async {
     final getUser = await _authRepository.getUserFromSecureStorage();
     return getUser;
   }

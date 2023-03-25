@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 
 class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
   const AppBarSearchBack({
-    super.key, required this.title, required this.search, this.root, this.share,
+    super.key,
+    required this.title,
+    required this.search,
+    this.root,
+    required this.elevation,
+    required this.back,
+    this.share,
   });
 
   final String? title;
   final bool search;
   final VoidCallback? root;
+  final bool elevation;
+  final bool back;
   final Widget? share;
 
   @override
@@ -38,6 +46,5 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(60);
 }

@@ -49,7 +49,7 @@ abstract class AuthRepository {
     required UserInfoEntity? userModel,
   });
 
-  Future<UserInfoEntity> getUserFromSecureStorage();
+  Future<UserInfoEntity?> getUserFromSecureStorage();
 
   Future<bool> isUserLoggedIn();
 

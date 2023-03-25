@@ -4,7 +4,7 @@ import 'package:ecommerce_cloth/data/models/user_model/user_address_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_cart_item_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_info_model.dart';
 import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
-
+//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
 class OrderModel {
   final DateTime dateOfSubmission;
   final String orderId;
@@ -14,7 +14,8 @@ class OrderModel {
   final UserAddressModel shippingAddress;
   final UserInfoModel user;
   final int totalAmount;
-
+//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
+//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   const OrderModel({
     required this.dateOfSubmission,
     required this.orderId,
@@ -25,7 +26,7 @@ class OrderModel {
     required this.user,
     required this.totalAmount,
   });
-
+//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   @override
   String toString() {
     return 'OrderModel{ '
@@ -39,7 +40,7 @@ class OrderModel {
         'totalAmount: $totalAmount,'
         '}';
   }
-
+//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   OrderEntity toEntity() {
     return OrderEntity(
       dateOfSubmission: dateOfSubmission,
@@ -49,10 +50,10 @@ class OrderModel {
       payment: payment.toEntity(),
       shippingAddress: shippingAddress.toEntity(),
       user: user.toEntity(),
-      totalAmount: totalAmount,
+      totalAmount: totalAmount, quantity: 0, trackingNumber: '', status: '',
     );
   }
-
+//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   factory OrderModel.fromEntity({required OrderEntity entity}) {
     return OrderModel(
       dateOfSubmission: entity.dateOfSubmission,
@@ -69,7 +70,7 @@ class OrderModel {
       totalAmount: entity.totalAmount,
     );
   }
-
+//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   Map<String, dynamic> toMap() {
     return {
       'dateOfSubmission': dateOfSubmission,

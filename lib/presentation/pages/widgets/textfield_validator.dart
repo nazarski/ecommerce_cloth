@@ -4,9 +4,13 @@ import 'package:flutter/services.dart';
 
 class TextFieldValidator extends StatefulWidget {
   const TextFieldValidator({
+    this.onChanged,
+    this.initialValue,
+    this.saveButton,
     required this.labelText,
     super.key,
     this.validator,
+    this.maxLength,
     required this.checkOfErrorOnFocusChange,
     required this.validation,
     required this.tempTextEditingController,
@@ -17,7 +21,7 @@ class TextFieldValidator extends StatefulWidget {
     required this.inputFormatters,
     required this.passwordVisible,
     required this.focusPush,
-
+    required this.readOnly,
   });
 
   final String labelText;
@@ -29,6 +33,11 @@ class TextFieldValidator extends StatefulWidget {
   final FocusNode focusPush;
   final TextInputType keyboardType;
   final bool autofocus;
+  final String? initialValue;
+  final int? maxLength;
+  final VoidCallback? saveButton;
+  final VoidCallback? onChanged;
+  final bool readOnly;
 
   final TextInputAction textInputAction;
   final List<TextInputFormatter> inputFormatters;
@@ -84,13 +93,18 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 color: AppColorsLight.white,
               ),
               child: TextFormField(
+                readOnly: widget.readOnly,
+                onChanged: (string) {
+                  widget.onChanged;
+                },
+                maxLength: widget.maxLength,
+                initialValue: widget.initialValue,
                 onFieldSubmitted: (v) {
-                  if(widget.textInputAction == TextInputAction.done) {
+                  if (widget.textInputAction == TextInputAction.done) {
                     FocusScope.of(context).unfocus();
                   } else {
                     FocusScope.of(context).requestFocus(widget.focusPush);
                   }
-
                 },
                 obscureText: widget.passwordVisible,
                 focusNode: widget.focusNode,
@@ -111,7 +125,7 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                     setState(() {
                       isError = false;
                       errorString = widget.validation(widget.tempTextEditingController.text);
-                      suffixIcon = const Icon(Icons.check);
+                      suffixIcon = IconButton(onPressed: widget.saveButton, icon: const Icon(Icons.check));
                     });
                   }
                   return null;
