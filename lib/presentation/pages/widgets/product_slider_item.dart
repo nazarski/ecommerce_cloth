@@ -8,41 +8,33 @@ import 'package:flutter/material.dart';
 class ProductSliderItem extends StatelessWidget {
   const ProductSliderItem({
     super.key,
-    required this.value,
     required this.product,
   });
 
-  final String value;
   final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
     final String title = getTitle(
         name: product.name, brand: product.brand, type: product.productType);
+    final chipValue = getChipValue(product.additionDate, product.sale);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
-            const SizedBox(
-              height: 204,
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image(
-                image: NetworkImage(
-                    '${StrapiInitialize.endpoint}${product.thumbnail}'),
-                height: 184,
-                width: 148,
-                alignment: Alignment.topCenter,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-              top: 8,
-              left: 8,
-              child: ProductItemChip(
-                value: value,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image(
+                  image: NetworkImage(
+                      '${StrapiInitialize.endpoint}${product.thumbnail}'),
+                  height: 184,
+                  width: 148,
+                  alignment: Alignment.topCenter,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Positioned(
@@ -73,7 +65,15 @@ class ProductSliderItem extends StatelessWidget {
                 rating: 4,
                 reviews: 10,
               ),
-            )
+            ),
+            if(chipValue.isNotEmpty)
+              Positioned(
+                top: 8,
+                left: 8,
+                child: ProductItemChip(
+                  value: chipValue,
+                ),
+              ),
           ],
         ),
         const SizedBox(

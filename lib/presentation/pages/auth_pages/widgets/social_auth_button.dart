@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-
 class SocialAuthButton extends StatelessWidget {
 
   const SocialAuthButton({Key? key, required this.icon,}) : super(key: key);

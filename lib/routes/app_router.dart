@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/addresses_page/addresses_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/create_address_page/create_address_page.dart';
@@ -12,8 +14,12 @@ import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_nest_page
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/product_page/product_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/profile_card_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/gallery_page/gallery_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/rating_reviews_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/categories_page.dart';
@@ -69,6 +75,19 @@ class AppRouter {
           child: const SettingNestPage(),
           type: PageTransitionType.rightToLeft,
         );
+      case ProductPage.routeName:
+        return PageTransition(
+          settings: settings,
+          child:
+              ProductPage(selectedProduct: settings.arguments as ProductEntity),
+          type: PageTransitionType.rightToLeft,
+        );
+      case RatingReviewPage.routeName:
+        return PageTransition(
+          settings: settings,
+          child: RatingReviewPage(rating: settings.arguments as RatingEntity),
+          type: PageTransitionType.rightToLeft,
+        );
       default:
         throw Exception('Invalid route: ${settings.name}');
     }
@@ -115,7 +134,10 @@ class AppRouter {
         );
       case ProductListPage.routeName:
         return PageTransition(
-          child: const ProductListPage(),
+          settings: settings,
+          child: ProductListPage(
+            title: arguments as String,
+          ),
           type: PageTransitionType.fade,
         );
       default:

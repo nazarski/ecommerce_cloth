@@ -61,4 +61,27 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
       return Future.error(e.toString());
     }
   }
+  @override
+  Future<List<ProductEntity>> getSimilarProducts({
+    required int fromPrice,
+    required int toPrice,
+    required List<String> sizes,
+    required List<String> colors,
+    required List<String> productTypes,
+    required String productId
+  }) async {
+    try {
+      final list = await ManageProductsData.getLimitedProductsByFilterValue(
+        fromPrice: fromPrice,
+        toPrice: toPrice,
+        sizes: sizes,
+        colors: colors,
+        productTypes: productTypes,
+        productId: productId
+      );
+      return list.map((e) => e.toEntity()).toList();
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
 }

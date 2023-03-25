@@ -1,6 +1,7 @@
+
 import 'package:flutter/material.dart';
 
-class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
+class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
   const AppBarSearchBack({
     super.key,
     required this.title,
@@ -8,6 +9,7 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
     this.root,
     required this.elevation,
     required this.back,
+    this.share,
   });
 
   final String? title;
@@ -15,38 +17,34 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? root;
   final bool elevation;
   final bool back;
+  final Widget? share;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: !elevation ? 0 : 10,
-      leading: back
-          ? IconButton(
-              onPressed: root ??
-                  () {
-                    Navigator.pop(context);
-                  },
-              icon: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-              ),
-            )
-          : null,
-      title: Text(title!),
+      leading: IconButton(
+        onPressed: root ??
+                () {
+              Navigator.pop(context);
+            },
+        icon: const Icon(
+          Icons.arrow_back_ios_new_rounded,
+        ),
+      ),
+      title: Text(title ?? ''),
       centerTitle: true,
       actions: [
-        search
-            ? IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search_rounded,
-                ),
-              )
-            : const SizedBox.shrink(),
+        if(search)
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.search_rounded,
+          ),
+        ),
       ],
     );
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(60);
 }

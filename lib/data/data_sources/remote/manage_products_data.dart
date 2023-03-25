@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/core/enums/sort_type.dart';
+import 'package:ecommerce_cloth/core/utils/helpers/data_helpers.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 
@@ -56,34 +57,12 @@ class ManageProductsData {
     required SortType sortType,
   }) async {
     // dont forget to fix priceQuery
-    final priceQuery = {
-      'filters[price][\$lte]': toPrice,
-      'filters[price][\$gte]': fromPrice,
-    };
-    final brandQuery = {
-      for (int i = 0; i < brandNames.length; i++)
-        'filters[brand][brandName][$i]': brandNames[i]
-    };
-    final sizeQuery = {
-      for (int i = 0; i < sizes.length; i++)
-        'filters[availableQuantity][size][$i]': sizes[i]
-    };
-    final productTypesQuery = {
-      for (int i = 0; i < productTypes.length; i++)
-        'filters[productType][typeName][$i]': productTypes[i]
-    };
-    print(
-      {
-        ...priceQuery,
-        ...brandQuery,
-        ...sizeQuery,
-        ...productTypesQuery,
-        'sort': _sortTypes[sortType],
-        'pagination[page]': page,
-        'pagination[pageSize]': 10,
-        'populate': '*',
-      },
-    );
+    final priceQuery = generatePriceQuery(fromPrice, toPrice);
+    final brandQuery = generateBrandNameQuery(brandNames);
+    final sizeQuery = generateSizesQuery(sizes);
+    final productTypesQuery = generateProductTypesQuery(productTypes);
+    final colorsQuery = generateColorsQuery(colors);
+
     final response = await _dio.get(
       '$_endpoint/products',
       queryParameters: {
@@ -94,6 +73,37 @@ class ManageProductsData {
         'sort': _sortTypes[sortType],
         'pagination[page]': page,
         'pagination[pageSize]': 10,
+        'populate': '*',
+      },
+    );
+    final values = List<Map<String, dynamic>>.from(response.data['data']);
+    final result = values.map((e) {
+      return ProductModel.fromMap(e['attributes']);
+    }).toList();
+    return result;
+  }
+
+  static Future<List<ProductModel>> getLimitedProductsByFilterValue({
+    required int fromPrice,
+    required int toPrice,
+    required List<String> sizes,
+    required List<String> colors,
+    required List<String> productTypes,
+    required String productId,
+  }) async {
+    final priceQuery = generatePriceQuery(fromPrice, toPrice);
+    final sizeQuery = generateSizesQuery(sizes);
+    final productTypesQuery = generateProductTypesQuery(productTypes);
+    final colorsQuery = generateColorsQuery(colors);
+
+    final response = await _dio.get(
+      '$_endpoint/products',
+      queryParameters: {
+        ...priceQuery,
+        ...sizeQuery,
+        ...productTypesQuery,
+        'filters[productId][\$ne]': productId,
+        'pagination[pageSize]': 12,
         'populate': '*',
       },
     );

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ecommerce_cloth/data/models/rating_model/rating_model.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
 class ProductModel {
@@ -17,10 +18,12 @@ class ProductModel {
   final String name;
   final bool popular;
   final int price;
-  final Map<String, dynamic> rating;
+  final List colors;
+  final RatingModel rating;
   final Map<String, dynamic> sale;
 
   const ProductModel({
+    required this.colors,
     required this.additionDate,
     required this.attributes,
     required this.availableQuantity,
@@ -54,6 +57,7 @@ class ProductModel {
         '\nprice: $price, '
         '\nrating: $rating, '
         '\nsale: $sale,'
+        '\nsale: $colors,'
         '}';
   }
 
@@ -71,13 +75,15 @@ class ProductModel {
       name: name,
       popular: popular,
       price: price,
-      rating: rating,
+      rating: rating.toEntity(),
       sale: sale,
+      colors: List<String>.from(colors),
     );
   }
 
   factory ProductModel.fromEntity({required ProductEntity entity}) {
     return ProductModel(
+      colors: entity.colors,
       additionDate: entity.additionDate,
       attributes: entity.attributes,
       availableQuantity: entity.availableQuantity,
@@ -90,28 +96,32 @@ class ProductModel {
       name: entity.name,
       popular: entity.popular,
       price: entity.price,
-      rating: entity.rating,
+      rating: RatingModel.fromEntity(entity: entity.rating),
       sale: entity.sale,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'additionDate': additionDate,
-      'attributes': attributes,
-      'availableQuantity': availableQuantity,
-      'brand': brand,
-      'productType': productType,
-      'id': id,
-      'images': images,
-      'name': name,
-      'popular': popular,
-      'thumbnail': thumbnail,
-      'price': price,
-      'rating': rating,
-      'sale': sale,
-      'description': description,
-    };
+    'additionDate': additionDate,
+    'attributes': attributes,
+    'availableQuantity': availableQuantity,
+    'brand': brand,
+    'productType': productType,
+    'id': id,
+    'images': images,
+    'name': name,
+    'popular': popular,
+    'thumbnail': thumbnail,
+    'price': price,
+    'rating': rating,
+    'sale': sale,
+    'description': description,
+    'colors'
+    :
+    colors
+    ,
+  };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
@@ -124,20 +134,21 @@ class ProductModel {
         description: map['description'] ?? '',
         images: (map['images']['data'] as List).map((image) {
           return image['attributes']['formats']['large']['url'];
-
         }).toList(),
         availableQuantity: (map['availableQuantity'] as List)
             .fold(<String, int>{}, (previousValue, element) {
-          previousValue.addAll({element['size'] : element['quantity']});
+          previousValue.addAll({element['size']: element['quantity']});
           return previousValue;
         }),
         productType: map['productType']['data']['attributes']['typeName'],
         brand: map['brand']['data']['attributes']['brandName'],
-        attributes: (map['attributes']['data'] as List).map((element){
+        attributes: (map['attributes']['data'] as List).map((element) {
           return element['attributes']['title'];
         }).toList(),
-        thumbnail: map['images']['data'].first['attributes']['formats']['small']['url'],
-        rating: {},
+        thumbnail: map['images']['data'].first['attributes']['formats']['small']
+        ['url'],
+        colors: map['color'].map((e) => e['color']).toList(),
+        rating: RatingModel.fromMap(map['rating']),
         sale: {});
   }
 }

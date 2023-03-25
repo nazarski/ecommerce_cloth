@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class ProductEntity extends Equatable {
@@ -7,6 +8,7 @@ class ProductEntity extends Equatable {
   final String brand;
   final String productType;
   final String description;
+  final List<String> colors;
 
   // final List<String> favorites;
   final String thumbnail;
@@ -15,10 +17,11 @@ class ProductEntity extends Equatable {
   final String name;
   final bool popular;
   final int price;
-  final Map<String, dynamic> rating;
+  final RatingEntity rating;
   final Map<String, dynamic> sale;
 
   const ProductEntity({
+    required this.colors,
     required this.additionDate,
     required this.attributes,
     required this.availableQuantity,
@@ -50,6 +53,7 @@ class ProductEntity extends Equatable {
         price,
         rating,
         sale,
-        description
+        description,
+        colors,
       ];
 }

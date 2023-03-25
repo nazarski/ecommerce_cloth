@@ -97,7 +97,7 @@ class AppThemes {
       ),
       headlineMedium: TextStyle(
         fontSize: 14,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         color: AppColorsLight.grey,
       ),
 
@@ -305,6 +305,14 @@ class AppThemes {
         inactiveTrackColor: AppColorsLight.grey,
         overlayShape: SliderComponentShape.noOverlay,
     ),
+    scrollbarTheme: const ScrollbarThemeData(
+      thumbColor: MaterialStatePropertyAll(AppColorsLight.black),
+      thickness: MaterialStatePropertyAll(3),
+        radius: Radius.circular(50),
+        crossAxisMargin: 0,
+        mainAxisMargin: 1,
+        thumbVisibility: MaterialStatePropertyAll(true)
+    )
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -583,5 +591,13 @@ class AppThemes {
       inactiveTrackColor: AppColorsDark.grey,
       overlayShape: SliderComponentShape.noOverlay,
     ),
+      scrollbarTheme: const ScrollbarThemeData(
+          thumbColor: MaterialStatePropertyAll(AppColorsDark.white),
+          thickness: MaterialStatePropertyAll(3),
+          radius: Radius.circular(50),
+          crossAxisMargin: 0,
+          mainAxisMargin: 1,
+          thumbVisibility: MaterialStatePropertyAll(true)
+      )
   );
 }

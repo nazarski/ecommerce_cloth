@@ -13,15 +13,16 @@ class ProductGroupPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String categoryId = ref.read(collectSearchHierarchyProvider.notifier).finder.categoryId;
+    final String categoryId =
+        ref.read(collectSearchHierarchyProvider.notifier).finder.categoryId;
     final productGroups = ref.watch(productGroupsProvider(categoryId));
     return productGroups.when(
       data: (data) => Scaffold(
         appBar: const AppBarSearchBack(
           title: 'Categories',
-          search: true,
           elevation: true,
           back: true,
+          search: true,
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,13 +52,25 @@ class ProductGroupPage extends ConsumerWidget {
               child: ListView.separated(
                 itemBuilder: (context, i) => InkWell(
                   onTap: () {
-                    ref.read(collectSearchHierarchyProvider.notifier).addProductGroup(
-                          productGroup: data[i],
-                        );
-                    Navigator.of(context).pushNamed(ProductListPage.routeName);
+                    ref
+                        .read(collectSearchHierarchyProvider.notifier)
+                        .addProductGroup(
+                      productGroup: data[i],
+                    );
+                    final finder = ref
+                        .read(collectSearchHierarchyProvider.notifier)
+                        .finder;
+                    final title =
+                        '${finder.attribute[0].toUpperCase()}${finder.attribute.substring(1)}`s ${finder.productGroup.toLowerCase()}';
+
+                    Navigator.of(context).pushNamed(
+                      ProductListPage.routeName,
+                      arguments: title,
+                    );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 40),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 40),
                     child: Text(
                       data[i],
                       style: Theme.of(context).textTheme.bodyLarge,
