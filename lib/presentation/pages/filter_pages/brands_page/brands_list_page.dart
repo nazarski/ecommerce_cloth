@@ -18,6 +18,8 @@ class BrandsListPage extends ConsumerWidget {
       appBar: const AppBarSearchBack(
         search: false,
         title: 'Brands',
+        elevation: false,
+        back: true,
       ),
       body: Column(
         children: [
