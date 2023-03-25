@@ -8,11 +8,13 @@ class ReviewModel {
   final String userId;
   final String review;
   final List<String> reviewPictures;
+  final List<String> reviewThumbnailPictures;
   final String userAvatar;
   final String userName;
   final double rating;
 
   const ReviewModel({
+    required this.reviewThumbnailPictures,
     required this.rating,
     required this.reviewId,
     required this.helpful,
@@ -28,7 +30,8 @@ class ReviewModel {
   @override
   String toString() {
     return 'ReviewModel{'
-        'rating;$rating,'
+        'reviewThumbnailPictures: $reviewThumbnailPictures,'
+        'rating:$rating,'
         'reviewId: $reviewId, '
         'helpful: $helpful, '
         'productId: $productId, '
@@ -43,6 +46,7 @@ class ReviewModel {
 
   ReviewEntity toEntity() {
     return ReviewEntity(
+      reviewThumbnailPictures: reviewThumbnailPictures,
       rating: rating,
       reviewId: reviewId,
       helpful: helpful,
@@ -58,6 +62,7 @@ class ReviewModel {
 
   factory ReviewModel.fromEntity({required ReviewEntity entity}) {
     return ReviewModel(
+      reviewThumbnailPictures: entity.reviewThumbnailPictures,
       rating: entity.rating,
       reviewId: entity.reviewId,
       helpful: entity.helpful,
@@ -73,7 +78,8 @@ class ReviewModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'rating':rating,
+      'reviewThumbnailPictures': reviewThumbnailPictures,
+      'rating': rating,
       'reviewId': reviewId,
       'helpful': helpful,
       'productId': productId,
@@ -88,6 +94,7 @@ class ReviewModel {
 
   factory ReviewModel.fromMap(Map<String, dynamic> map) {
     return ReviewModel(
+      reviewThumbnailPictures: map['reviewThumbnailPictures'] as List<String>,
       rating: map['rating'].toDouble(),
       reviewId: map['reviewId'] as String,
       helpful: map['helpful'] as int,

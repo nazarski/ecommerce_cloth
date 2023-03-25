@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
@@ -10,29 +9,24 @@ class ManageCategoriesData {
   static final _dio = Dio();
   static const _endpoint = StrapiInitialize.apiEndpoint;
 
-  static Future<List<String>?> getAvailableCategories(String attribute) async {
+  static Future<List<String>> getAvailableCategories(String attribute) async {
     final response = await _dio.get('$_endpoint/attributes', queryParameters: {
       'filters[title][\$eq]': attribute,
       'populate': 'categories',
     });
-    if (response.statusCode == 200) {
-      final values = List<Map<String, dynamic>>.from(
-          response.data['data'].first['attributes']['categories']['data']);
-      final result = values.map((e) {
-        return e['attributes']['categoryId'] as String;
-      }).toList();
-      return result;
-    } else {
-      log(response.statusCode.toString());
-    }
-    return null;
+    final values = List<Map<String, dynamic>>.from(
+        response.data['data'].first['attributes']['categories']['data']);
+    final result = values.map((e) {
+      return e['attributes']['categoryId'] as String;
+    }).toList();
+    return result;
   }
 
-  static Future<List<CategoryModel>?> getCategories(List<String> list) async {
-    final Map<String, dynamic> searchValue = {};
-    for (int i = 0; i < list.length; i++) {
-      searchValue.addAll({'filters[categoryId][\$in][$i]': list[i]});
-    }
+  static Future<List<CategoryModel>> getCategories(List<String> list) async {
+    final Map<String, dynamic> searchValue = {
+      for (int i = 0; i < list.length; i++)
+        'filters[categoryId][\$in][$i]': list[i]
+    };
     final response = await _dio.get(
       '$_endpoint/categories',
       queryParameters: {
@@ -40,19 +34,14 @@ class ManageCategoriesData {
         'populate': 'categoryImage',
       },
     );
-    if (response.statusCode == 200) {
-      final values = List<Map<String, dynamic>>.from(response.data['data']);
-      final result = values.map((e) {
-        return CategoryModel.fromMap(e['attributes']);
-      }).toList();
-      return result;
-    } else {
-      log(response.statusCode.toString());
-    }
-    return null;
+    final values = List<Map<String, dynamic>>.from(response.data['data']);
+    final result = values.map((e) {
+      return CategoryModel.fromMap(e['attributes']);
+    }).toList();
+    return result;
   }
 
-  static Future<List<String>?> getProductGroups(String categoryId) async {
+  static Future<List<String>> getProductGroups(String categoryId) async {
     final response = await _dio.get(
       '$_endpoint/categories',
       queryParameters: {
@@ -60,16 +49,11 @@ class ManageCategoriesData {
         'populate': 'productGroups',
       },
     );
-    if (response.statusCode == 200) {
-      final values = List<Map<String, dynamic>>.from(
-          response.data['data'].first['attributes']['productGroups']['data']);
-      final result = values.map((e) {
-        return e['attributes']['groupTitle'] as String;
-      }).toList();
-      return result;
-    } else {
-      log(response.statusCode.toString());
-    }
-    return null;
+    final values = List<Map<String, dynamic>>.from(
+        response.data['data'].first['attributes']['productGroups']['data']);
+    final result = values.map((e) {
+      return e['attributes']['groupTitle'] as String;
+    }).toList();
+    return result;
   }
 }
