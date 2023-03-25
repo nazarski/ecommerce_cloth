@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/address_pages/addresses_page/addresses_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/address_pages/create_address_page/create_address_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/bag_page/bag_page.dart';
@@ -9,8 +12,10 @@ import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_nest_page
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/profile_card_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/categories_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
@@ -18,6 +23,8 @@ import 'package:ecommerce_cloth/presentation/pages/shop_pages/shop_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../presentation/pages/profile_pages/setting_page/setting_page.dart';
 
 class AppRouter {
   const AppRouter._();
@@ -50,6 +57,16 @@ class AppRouter {
       case FilterNestPage.routeName:
         return PageTransition(
           child: const FilterNestPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+      case AddressNestPage.routeName:
+        return PageTransition(
+          child: const AddressNestPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+      case SettingNestPage.routeName:
+        return PageTransition(
+          child: const SettingNestPage(),
           type: PageTransitionType.rightToLeft,
         );
       default:
@@ -137,6 +154,48 @@ class AppRouter {
           // settings: settings,
           child: const ProfileCardPage(),
         );
+      case OrderPage.routeName:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          // settings: settings,
+          child: const OrderPage(),
+        );
+      default:
+        throw Exception('Invalid route: ${settings.name}');
+    }
+  }
+  // Filter page nested routes
+  static Route<dynamic> generateAddressesPageNestedRoutes(RouteSettings settings) {
+    final arguments = settings.arguments;
+    log('⤴️ ${settings.name.toString()}');
+    WidgetBuilder builder;
+    switch (settings.name) {
+      case AddressesPage.routeName:
+        return PageTransition(
+          child: const AddressesPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+      case CreateAddressPage.routeName:
+        return PageTransition(
+          settings: settings,
+          child:  const CreateAddressPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+      default:
+        throw Exception('Invalid route: ${settings.name}');
+    }
+  }
+  static Route<dynamic> generateSettingPageNestedRoutes(RouteSettings settings) {
+    final arguments = settings.arguments;
+    log(settings.name.toString());
+    WidgetBuilder builder;
+    switch (settings.name) {
+      case SettingPage.routeName:
+        return PageTransition(
+          child:  const SettingPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+
       default:
         throw Exception('Invalid route: ${settings.name}');
     }

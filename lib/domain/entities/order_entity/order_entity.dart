@@ -14,8 +14,14 @@ class OrderEntity extends Equatable{
   final UserAddressEntity shippingAddress;
   final UserInfoEntity user;
   final int totalAmount;
+  final String trackingNumber;
+  final int quantity;
+  final String status;
 
   const OrderEntity({
+    required this.status,
+    required this.quantity,
+    required this.trackingNumber,
     required this.dateOfSubmission,
     required this.orderId,
     required this.deliveryMethod,
@@ -28,6 +34,9 @@ class OrderEntity extends Equatable{
 
   @override
   List<Object?> get props => [
+    status,
+    quantity,
+    trackingNumber,
     dateOfSubmission,
     orderId,
     deliveryMethod,

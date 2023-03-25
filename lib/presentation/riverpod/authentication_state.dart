@@ -40,6 +40,7 @@ class AuthLoginController extends StateNotifier<AsyncValue<bool>> {
   Future<void> signInAnonymously(
     UserCredentialEntity? userCredential,
   ) async {
+    await Future((){});
     try {
       state = const AsyncValue.loading();
       await _authenticate.authenticateByType(userCredential: userCredential!);

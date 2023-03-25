@@ -36,6 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     try {
+      print('ccccc');
       final UserInfoModel? postRequestLoginUser = await AuthenticateRemoteData.postUserLogin(
         email: email,
         password: password,

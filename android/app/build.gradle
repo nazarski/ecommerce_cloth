@@ -21,6 +21,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+
 apply plugin: 'com.android.application'
 // START: FlutterFire Configuration
 apply plugin: 'com.google.gms.google-services'
@@ -70,7 +71,10 @@ flutter {
 }
 
 dependencies {
-
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+    implementation 'com.google.android.gms:play-services-base:17.6.0'
+    implementation platform('com.google.firebase:firebase-bom:31.3.0')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 }
+apply plugin: 'com.google.gms.google-services'

@@ -55,16 +55,7 @@ class AuthenticateRemoteData {
     if (response.statusCode == 200) {
       final userData = response.data;
 
-      final user = UserInfoModel(
-        email: userData['user']['email'],
-        createdAt: DateTime.parse(userData['user']['createdAt']),
-        displayName: userData['user']['username'],
-        favorites: [],
-        photoUrl: userData['user']['avatarUrl'],
-        id: userData['user']['id'],
-        jwt: userData['jwt'],
-      );
-      print(user.jwt);
+      final user = UserInfoModel.fromResponse(userData);
       log('✅ Successful: Registration user on server');
       return user;
     } else {
@@ -85,18 +76,9 @@ class AuthenticateRemoteData {
     );
     if (response.statusCode == 200) {
       final userData = response.data;
-      final user = UserInfoModel(
-        jwt: userData['jwt'],
-        id: userData['user']['id'],
-        email: userData['user']['email'],
-        createdAt: DateTime.parse(userData['user']['createdAt']),
-        displayName: userData['user']['username'],
-        favorites: [],
-        photoUrl: '',
-      );
+      final user = UserInfoModel.fromResponse(userData);
       log('✅ Successful: Authorization');
       return user;
-
     } else {
       throw Exception('failed to load user $email');
     }
@@ -164,6 +146,9 @@ class AuthenticateRemoteData {
     log('✅ Successful: Avatar-field is updated on server');
     return response;
   }
+
+
+
   bool isExpired(String? token) {
     if (token == null) return true;
     final jwt = JwtDecoder.decode(token);
@@ -172,6 +157,4 @@ class AuthenticateRemoteData {
     final expiry = DateTime.fromMillisecondsSinceEpoch(expiryTime * 1000);
     return DateTime.now().isAfter(expiry);
   }
-
-
 }

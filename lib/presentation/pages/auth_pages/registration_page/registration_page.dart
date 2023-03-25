@@ -1,5 +1,6 @@
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/auth_helpers.dart';
+import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
 
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
 
@@ -82,6 +83,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 10,
               ),
               TextFieldValidator(
+                readOnly: false,
                 labelText: 'Name',
                 checkOfErrorOnFocusChange: true,
                 validation: (userName) {
@@ -102,6 +104,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 60,
               ),
               TextFieldValidator(
+                readOnly: false,
                 labelText: 'Email',
                 checkOfErrorOnFocusChange: true,
                 validation: (email) {
@@ -122,6 +125,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 60,
               ),
               TextFieldValidator(
+                readOnly: false,
                 labelText: 'Password',
                 checkOfErrorOnFocusChange: true,
                 validation: (password) {

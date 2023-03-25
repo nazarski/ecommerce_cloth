@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class UserInfoEntity extends Equatable{
+  final String fullName;
+  final String dateOfBirth;
   final DateTime createdAt;
   final String displayName;
   final String email;
@@ -10,6 +12,8 @@ class UserInfoEntity extends Equatable{
   final int id;
 
   const UserInfoEntity({
+    required this.fullName,
+    required this.dateOfBirth,
     required this.jwt,
     required this.id,
     required this.createdAt,
@@ -22,6 +26,8 @@ class UserInfoEntity extends Equatable{
   @override
   // TODO: implement props
   List<Object?> get props => [
+    dateOfBirth,
+    fullName,
     jwt,
     id,
     createdAt,

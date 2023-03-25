@@ -13,5 +13,6 @@ class AppIcons{
   static const String bagFilled = '$path/bag_filled.svg';
   static const String facebookIcon = '$path/facebook_icon.svg';
   static const String googleIcon = '$path/google_icon.svg';
+  static const String avatar = '$path/avatar.svg';
 
 }

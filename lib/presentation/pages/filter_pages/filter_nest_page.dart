@@ -1,8 +1,5 @@
-import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/receive_filter_values_provider.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +17,12 @@ class FilterNestPage extends ConsumerWidget {
         return !await _navigatorKey.currentState!.maybePop();
       },
       child: Scaffold(
+        appBar: AppBarSearchBack(
+          search: false,
+          root: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          }, title: '', elevation: true, back: true,
+        ),
         body: Navigator(
           key: _navigatorKey,
           initialRoute: FiltersPage.routeName,
@@ -57,14 +60,7 @@ class _FilterBottomSheet extends ConsumerWidget {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () {
-                    final filter = ref.read(filterValuesProvider.notifier)
-                      ..acceptReceiver(receiver: const ProductFilterEntity());
-                    ref
-                        .read(pagingControllerProvider.notifier)
-                        .newFilerValue(filter.filter);
-                    Navigator.of(context, rootNavigator: true).pop();
-                  },
+                  onPressed: () {},
                   child: const Text('Discard'),
                 ),
               ),
