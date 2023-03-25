@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/available_filters_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
@@ -53,7 +54,7 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
               itemCount: data.length,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemBuilder: (context, i) {
-                return ProductTypeChip(
+                return _ProductTypeChip(
                   type: data[i],
                   // active: isActive,
                 );
@@ -93,8 +94,8 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
   }
 }
 
-class ProductTypeChip extends ConsumerWidget {
-  const ProductTypeChip({
+class _ProductTypeChip extends ConsumerWidget {
+  const _ProductTypeChip({
     super.key,
     required this.type,
   });
@@ -103,20 +104,21 @@ class ProductTypeChip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(filterValuesProvider);
-    final filter = ref.watch(filterValuesProvider.notifier).filter;
+    final filter = ref.watch(filterValuesProvider);
     final isActive =
         filter.productTypes.length == 1 && filter.productTypes.first == type;
     return InkWell(
       onTap: isActive
           ? null
           : () {
-              final filter = ref
-                  .read(filterValuesProvider.notifier)
-                  ..setProductTypes(productTypes: [type]);
+              final filter = ref.read(filterValuesProvider.notifier)
+                ..setProductTypes(productTypes: [type]);
               ref
                   .read(pagingControllerProvider.notifier)
                   .newFilerValue(filter.filter);
+              ref
+                  .read(availableFiltersProvider.notifier)
+                  .getAvailableFilters([type]);
             },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),

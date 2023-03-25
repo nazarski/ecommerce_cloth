@@ -28,9 +28,25 @@ class FilterNestPage extends ConsumerWidget {
           initialRoute: FiltersPage.routeName,
           onGenerateRoute: AppRouter.generateFilterPageNestedRoutes,
         ),
-        bottomSheet: Container(
-          height: 104,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        bottomNavigationBar: const _FilterBottomSheet(),
+      ),
+    );
+  }
+}
+
+class _FilterBottomSheet extends ConsumerWidget {
+  const _FilterBottomSheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final height = constraints.constrainHeight() * 0.15;
+        return Container(
+          height: height,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
               boxShadow: [
@@ -52,12 +68,23 @@ class FilterNestPage extends ConsumerWidget {
                 width: 16,
               ),
               Expanded(
-                  child: ElevatedButton(
-                      onPressed: () {}, child: const Text('Apply')))
+                child: ElevatedButton(
+                  onPressed: () {
+                    final receiver = ref.read(receiveFilterValuesProvider);
+                    final filter = ref.read(filterValuesProvider.notifier)
+                      ..acceptReceiver(receiver: receiver);
+                    ref
+                        .read(pagingControllerProvider.notifier)
+                        .newFilerValue(filter.filter);
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
+                  child: const Text('Apply'),
+                ),
+              ),
             ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

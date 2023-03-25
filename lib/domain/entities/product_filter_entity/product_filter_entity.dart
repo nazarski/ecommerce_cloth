@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class ProductFilterEntity extends Equatable {
   final int fromPrice;
   final int toPrice;
-  final List<String> colors;
+  final Set<String> colors;
   final List<String> productTypes;
   final List<String> sizes;
   final List<String> brandNames;
@@ -14,7 +14,7 @@ class ProductFilterEntity extends Equatable {
   const ProductFilterEntity({
     this.fromPrice = 0,
     this.toPrice = 99999999,
-    this.colors = const [],
+    this.colors = const {},
     this.sizes = const [],
     this.brandNames = const [],
     this.sortType = SortType.novelty,
@@ -37,7 +37,7 @@ class ProductFilterEntity extends Equatable {
   ProductFilterEntity copyWith({
     int? fromPrice,
     int? toPrice,
-    List<String>? colors,
+    Set<String>? colors,
     List<String>? productTypes,
     List<String>? sizes,
     List<String>? attributes,

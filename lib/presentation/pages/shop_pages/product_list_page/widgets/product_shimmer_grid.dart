@@ -15,11 +15,11 @@ class ProductShimmerGrid extends StatelessWidget {
               height: 260,
               child: Row(
                 children: const [
-                  Expanded(child: ShimmerGridItem()),
+                  Expanded(child: _ShimmerGridItem()),
                   SizedBox(
                     width: 16,
                   ),
-                  Expanded(child: ShimmerGridItem()),
+                  Expanded(child: _ShimmerGridItem()),
                 ],
               ),
             ),
@@ -30,8 +30,8 @@ class ProductShimmerGrid extends StatelessWidget {
   }
 }
 
-class ShimmerGridItem extends StatelessWidget {
-  const ShimmerGridItem({
+class _ShimmerGridItem extends StatelessWidget {
+  const _ShimmerGridItem({
     super.key,
   });
 

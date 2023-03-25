@@ -37,7 +37,7 @@ class ProductListToolBox extends StatelessWidget {
             icon: const Icon(Icons.filter_list_rounded),
             label: const Text('Filters'),
           ),
-          const SortTypeButton(),
+          const _SortTypeButton(),
           IconButton(
             onPressed: changeView,
             icon: Icon(
@@ -50,8 +50,8 @@ class ProductListToolBox extends StatelessWidget {
   }
 }
 
-class SortTypeButton extends ConsumerWidget {
-  const SortTypeButton({
+class _SortTypeButton extends ConsumerWidget {
+  const _SortTypeButton({
     super.key,
   });
 
@@ -72,39 +72,41 @@ class SortTypeButton extends ConsumerWidget {
           context: context,
           header: 'Sort by',
           child: Column(
-              children: List.generate(_typesToString.length, (index) {
-            final elementType = _typesToString.entries.elementAt(index);
-            final isActive = currentType == elementType.key;
-            return GestureDetector(
-              onTap: () {
-                final newFilter = ref.read(filterValuesProvider.notifier)
-                  ..setSortType(sortType: elementType.key);
-                ref
-                    .read(pagingControllerProvider.notifier)
-                    .newFilerValue(newFilter.filter);
-                Navigator.of(context, rootNavigator: true).pop();
-              },
-              child: Container(
-                width: double.infinity,
-                height: 48,
-                padding: const EdgeInsets.only(left: 16),
-                color: isActive ? Theme.of(context).colorScheme.primary : null,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    elementType.value,
-                    style: isActive
-                        ? TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                          )
-                        : Theme.of(context).textTheme.bodyLarge,
+            children: List.generate(_typesToString.length, (index) {
+              final elementType = _typesToString.entries.elementAt(index);
+              final isActive = currentType == elementType.key;
+              return GestureDetector(
+                onTap: () {
+                  final newFilter = ref.read(filterValuesProvider.notifier)
+                    ..setSortType(sortType: elementType.key);
+                  ref
+                      .read(pagingControllerProvider.notifier)
+                      .newFilerValue(newFilter.filter);
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 48,
+                  padding: const EdgeInsets.only(left: 16),
+                  color:
+                      isActive ? Theme.of(context).colorScheme.primary : null,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      elementType.value,
+                      style: isActive
+                          ? TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            )
+                          : Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ),
                 ),
-              ),
-            );
-          })),
+              );
+            }),
+          ),
         );
       },
       icon: const Icon(Icons.swap_vert_rounded),

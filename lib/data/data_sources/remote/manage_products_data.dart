@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
-import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
 class ManageProductsData {
   ManageProductsData._();
@@ -17,7 +16,7 @@ class ManageProductsData {
     final response = await _dio.get('$_endpoint/products', queryParameters: {
       'filters[additionDate][\$gt]':
           '${startDate.year}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}',
-      'populate': '*'
+      'populate': '*',
     });
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     if (values.isEmpty) {

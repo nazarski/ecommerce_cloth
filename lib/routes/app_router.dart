@@ -33,7 +33,6 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
-    WidgetBuilder builder;
     switch (settings.name) {
       case SplashScreen.routeName:
         return PageTransition(
@@ -79,7 +78,6 @@ class AppRouter {
   static Route<dynamic> generateHomePageNestedRoutes(RouteSettings settings) {
     final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
-    WidgetBuilder builder;
     switch (settings.name) {
       case HomePage.routeName:
         return PageTransition(
@@ -105,7 +103,6 @@ class AppRouter {
   static Route<dynamic> generateShopPageNestedRoutes(RouteSettings settings) {
     final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
-    WidgetBuilder builder;
     switch (settings.name) {
       case CategoriesPage.routeName:
         return PageTransition(
@@ -130,7 +127,6 @@ class AppRouter {
   static Route<dynamic> generateFilterPageNestedRoutes(RouteSettings settings) {
     final arguments = settings.arguments;
     log(settings.name.toString());
-    WidgetBuilder builder;
     switch (settings.name) {
       case FiltersPage.routeName:
         return PageTransition(
@@ -139,6 +135,7 @@ class AppRouter {
         );
       case BrandsListPage.routeName:
         return PageTransition(
+          settings: settings,
           type: PageTransitionType.rightToLeft,
           child: const BrandsListPage(),
         );
