@@ -1,5 +1,7 @@
 
+import 'package:ecommerce_cloth/data/data_sources/remote/notifacation_test.dart';
 import 'package:ecommerce_cloth/routes/app_router.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +9,8 @@ import 'core/resources/app_themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // await PushNotificationService().initialise();
   runApp(
     const ECommerceApp(),
   );

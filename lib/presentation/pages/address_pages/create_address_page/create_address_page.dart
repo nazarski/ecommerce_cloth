@@ -63,130 +63,138 @@ class _CreateAddressPageState extends State<CreateAddressPage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const SizedBox(height: 15),
-            TextFieldValidator(
-              labelText: 'Full name',
-              checkOfErrorOnFocusChange: true,
-              validation: (fullName) {
-                return validateFullNameHelper(fullName);
-              },
-              focusNode: fullNameFocus,
-              textInputAction: TextInputAction.next,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(30),
-              ],
-              tempTextEditingController: fullNameController,
-              keyboardType: TextInputType.name,
-              autofocus: false,
-              passwordVisible: false,
-              focusPush: addressFocus,
-            ),
-            const SizedBox(height: 15),
-            TextFieldValidator(
-              labelText: 'Address',
-              checkOfErrorOnFocusChange: true,
-              validation: (address) {
-                return validateAddressHelper(address);
-              },
-              focusNode: addressFocus,
-              textInputAction: TextInputAction.next,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(30),
-              ],
-              tempTextEditingController: addressController,
-              keyboardType: TextInputType.streetAddress,
-              autofocus: false,
-              passwordVisible: false,
-              focusPush: addressFocus,
-            ),
-            const SizedBox(height: 15),
-            TextFieldValidator(
-              labelText: 'City',
-              checkOfErrorOnFocusChange: true,
-              validation: (city) {
-                return validateCityHelper(city);
-              },
-              focusNode: cityFocus,
-              textInputAction: TextInputAction.next,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(30),
-              ],
-              tempTextEditingController: cityController,
-              keyboardType: TextInputType.text,
-              autofocus: false,
-              passwordVisible: false,
-              focusPush: regionFocus,
-            ),
-            const SizedBox(height: 15),
-            TextFieldValidator(
-              labelText: 'Region',
-              checkOfErrorOnFocusChange: true,
-              validation: (region) {
-                return validateRegionHelper(region);
-              },
-              focusNode: regionFocus,
-              textInputAction: TextInputAction.next,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(30),
-              ],
-              tempTextEditingController: regionController,
-              keyboardType: TextInputType.text,
-              autofocus: false,
-              passwordVisible: false,
-              focusPush: zipCodeFocus,
-            ),
-            const SizedBox(height: 15),
-            TextFieldValidator(
-              labelText: 'Zip-Code',
-              checkOfErrorOnFocusChange: true,
-              validation: (zipCode) {
-                return validateZipCodeHelper(zipCode);
-              },
-              focusNode: zipCodeFocus,
-              textInputAction: TextInputAction.next,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(5),
-              ],
-              tempTextEditingController: zipCodeController,
-              keyboardType: TextInputType.number,
-              autofocus: false,
-              passwordVisible: false,
-              focusPush: zipCodeFocus,
-            ),
-            const SizedBox(height: 15),
-            TextFieldValidator(
-              labelText: 'Country',
-              checkOfErrorOnFocusChange: true,
-              validation: (region) {
-                return validateRegionHelper(region);
-              },
-              focusNode: countryFocus,
-              textInputAction: TextInputAction.next,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(30),
-              ],
-              tempTextEditingController: countryController,
-              keyboardType: TextInputType.text,
-              autofocus: false,
-              passwordVisible: false,
-              focusPush: countryFocus,
-            ),
-            const SizedBox(height: 25),
-            SizedBox(
-              width: double.infinity,
-              height: 55,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (validateAndSaveHelper(formKey: formKey)) {
-                    Navigator.pop(context);
-                  }
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              const SizedBox(height: 15),
+              TextFieldValidator(
+                labelText: 'Full name',
+                checkOfErrorOnFocusChange: true,
+                validation: (fullName) {
+                  return validateFullNameHelper(fullName);
                 },
-                child: const Text('SAVE ADDRESS'),
+                focusNode: fullNameFocus,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                tempTextEditingController: fullNameController,
+                keyboardType: TextInputType.name,
+                autofocus: false,
+                passwordVisible: false,
+                focusPush: addressFocus, readOnly: false,
               ),
-            )
-          ],
+              const SizedBox(height: 15),
+              TextFieldValidator(
+                labelText: 'Address',
+                checkOfErrorOnFocusChange: true,
+                validation: (address) {
+                  return validateAddressHelper(address);
+                },
+                focusNode: addressFocus,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                tempTextEditingController: addressController,
+                keyboardType: TextInputType.streetAddress,
+                autofocus: false,
+                passwordVisible: false,
+                focusPush: addressFocus,
+                readOnly: false,
+              ),
+              const SizedBox(height: 15),
+              TextFieldValidator(
+                labelText: 'City',
+                checkOfErrorOnFocusChange: true,
+                validation: (city) {
+                  return validateCityHelper(city);
+                },
+                focusNode: cityFocus,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                tempTextEditingController: cityController,
+                keyboardType: TextInputType.text,
+                autofocus: false,
+                passwordVisible: false,
+                focusPush: regionFocus,
+                readOnly: false,
+              ),
+              const SizedBox(height: 15),
+              TextFieldValidator(
+                labelText: 'Region',
+                checkOfErrorOnFocusChange: true,
+                validation: (region) {
+                  return validateRegionHelper(region);
+                },
+                focusNode: regionFocus,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                tempTextEditingController: regionController,
+                keyboardType: TextInputType.text,
+                autofocus: false,
+                passwordVisible: false,
+                focusPush: zipCodeFocus,
+                readOnly: false,
+              ),
+              const SizedBox(height: 15),
+              TextFieldValidator(
+                labelText: 'Zip-Code',
+                checkOfErrorOnFocusChange: true,
+                validation: (zipCode) {
+                  return validateZipCodeHelper(zipCode);
+                },
+                focusNode: zipCodeFocus,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(5),
+                ],
+                tempTextEditingController: zipCodeController,
+                keyboardType: TextInputType.number,
+                autofocus: false,
+                passwordVisible: false,
+                focusPush: zipCodeFocus,
+                readOnly: false,
+              ),
+              const SizedBox(height: 15),
+              TextFieldValidator(
+                labelText: 'Country',
+                checkOfErrorOnFocusChange: true,
+                validation: (region) {
+                  return validateRegionHelper(region);
+                },
+                focusNode: countryFocus,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                tempTextEditingController: countryController,
+                keyboardType: TextInputType.text,
+                autofocus: false,
+                passwordVisible: false,
+                focusPush: countryFocus,
+                readOnly: false,
+              ),
+              const SizedBox(height: 25),
+              SizedBox(
+                width: double.infinity,
+                height: 55,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (validateAndSaveHelper(formKey: formKey)) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: const Text('SAVE ADDRESS'),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

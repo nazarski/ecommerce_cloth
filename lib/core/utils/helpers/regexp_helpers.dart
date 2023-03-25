@@ -72,3 +72,15 @@ String validateZipCodeHelper(String? zipCode) {
     return '';
   }
 }
+
+String validateDateHelper(String? date) {
+  const pattern = r'^\d{2}\/\d{2}\/\d{4}$';
+  final regex = RegExp(pattern);
+  if(date!.isEmpty) {
+    return 'This field is required and cannot be empty';
+  } else if(!regex.hasMatch(date)) {
+    return 'Not a valid date. Should be "12/12/2010';
+  } else {
+    return '';
+  }
+}

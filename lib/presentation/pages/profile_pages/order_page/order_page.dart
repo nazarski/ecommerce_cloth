@@ -31,7 +31,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
-          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: ''),
+          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: '', fullName: '', dateOfBirth: ''),
       totalAmount: 140,
       status: 'Delivered',
     ),
@@ -46,7 +46,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
-          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: ''),
+          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: '', fullName: '', dateOfBirth: ''),
       totalAmount: 140,
       status: 'Delivered',
     ),
@@ -63,7 +63,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
-          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: ''),
+          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: '', fullName: '', dateOfBirth: ''),
       totalAmount: 140,
       status: 'Processed',
     ),
@@ -78,7 +78,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
-          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: ''),
+          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: '', fullName: '', dateOfBirth: ''),
       totalAmount: 140,
       status: 'Processed',
     ),
@@ -95,7 +95,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
-          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: ''),
+          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: '', fullName: '', dateOfBirth: ''),
       totalAmount: 140,
       status: 'Canceled',
     ),
@@ -110,7 +110,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
-          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: ''),
+          jwt: '', id: 1, createdAt: DateTime.now(), displayName: '', email: '', favorites: [], photoUrl: '', fullName: '', dateOfBirth: ''),
       totalAmount: 140,
       status: 'Canceled',
     ),
@@ -156,6 +156,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
               ),
               Expanded(
                 child: TabBarView(
+
                   children: [
                     TabViewItem(
                       listOfOrders: fakeListDelivered,

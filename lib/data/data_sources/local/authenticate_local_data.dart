@@ -39,7 +39,7 @@ class AuthenticateLocalData {
       displayName: userData['username'],
       email: userData['email'],
       favorites: [],
-      photoUrl: '$endpoint${userData['avatarUrl']}',
+      photoUrl: '$endpoint${userData['avatarUrl']}', fullName: '', dateOfBirth: '',
     );
     log('✅ Successful: Update user');
     return updateUser;

@@ -83,6 +83,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 10,
               ),
               TextFieldValidator(
+                readOnly: false,
                 labelText: 'Name',
                 checkOfErrorOnFocusChange: true,
                 validation: (userName) {
@@ -103,6 +104,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 60,
               ),
               TextFieldValidator(
+                readOnly: false,
                 labelText: 'Email',
                 checkOfErrorOnFocusChange: true,
                 validation: (email) {
@@ -123,6 +125,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 60,
               ),
               TextFieldValidator(
+                readOnly: false,
                 labelText: 'Password',
                 checkOfErrorOnFocusChange: true,
                 validation: (password) {

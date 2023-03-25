@@ -4,10 +4,13 @@ import 'package:flutter/services.dart';
 
 class TextFieldValidator extends StatefulWidget {
   const TextFieldValidator({
+    this.onChanged,
     this.initialValue,
+    this.saveButton,
     required this.labelText,
     super.key,
     this.validator,
+    this.maxLength,
     required this.checkOfErrorOnFocusChange,
     required this.validation,
     required this.tempTextEditingController,
@@ -18,7 +21,7 @@ class TextFieldValidator extends StatefulWidget {
     required this.inputFormatters,
     required this.passwordVisible,
     required this.focusPush,
-
+    required this.readOnly,
   });
 
   final String labelText;
@@ -31,7 +34,10 @@ class TextFieldValidator extends StatefulWidget {
   final TextInputType keyboardType;
   final bool autofocus;
   final String? initialValue;
-
+  final int? maxLength;
+  final VoidCallback? saveButton;
+  final VoidCallback? onChanged;
+  final bool readOnly;
 
   final TextInputAction textInputAction;
   final List<TextInputFormatter> inputFormatters;
@@ -48,10 +54,7 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final height = MediaQuery.of(context).size.height;
     return Column(
       children: [
         FocusScope(
@@ -59,10 +62,7 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
             if (!focus) {
               setState(() {
                 if (widget.checkOfErrorOnFocusChange &&
-                    widget
-                        .validation(widget.tempTextEditingController.text)
-                        .toString()
-                        .isNotEmpty ||
+                        widget.validation(widget.tempTextEditingController.text).toString().isNotEmpty ||
                     widget.tempTextEditingController.text.isEmpty) {
                   isError = true;
                   suffixIcon = const Icon(Icons.close);
@@ -93,6 +93,11 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 color: AppColorsLight.white,
               ),
               child: TextFormField(
+                readOnly: widget.readOnly,
+                onChanged: (string) {
+                  widget.onChanged;
+                },
+                maxLength: widget.maxLength,
                 initialValue: widget.initialValue,
                 onFieldSubmitted: (v) {
                   if (widget.textInputAction == TextInputAction.done) {
@@ -109,10 +114,7 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 textInputAction: widget.textInputAction,
                 inputFormatters: widget.inputFormatters,
                 validator: (string) {
-                  if (widget
-                      .validation(widget.tempTextEditingController.text)
-                      .toString()
-                      .isNotEmpty) {
+                  if (widget.validation(widget.tempTextEditingController.text).toString().isNotEmpty) {
                     setState(() {
                       isError = true;
                       errorString = widget.validation(widget.tempTextEditingController.text);
@@ -123,20 +125,14 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                     setState(() {
                       isError = false;
                       errorString = widget.validation(widget.tempTextEditingController.text);
-                      suffixIcon = const Icon(Icons.check);
+                      suffixIcon = IconButton(onPressed: widget.saveButton, icon: const Icon(Icons.check));
                     });
                   }
                   return null;
                 },
                 decoration: InputDecoration(
                   suffixIconColor:
-                  isError ? Theme
-                      .of(context)
-                      .colorScheme
-                      .error : Theme
-                      .of(context)
-                      .colorScheme
-                      .onError,
+                      isError ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onError,
                   suffixIcon: suffixIcon,
                   errorStyle: const TextStyle(height: 0),
                   labelText: widget.labelText,
@@ -154,10 +150,7 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 padding: const EdgeInsets.only(left: 15.0, top: 2.0),
                 child: Text(
                   errorString,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleSmall,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
             ],

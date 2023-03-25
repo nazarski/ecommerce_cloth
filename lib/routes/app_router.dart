@@ -195,7 +195,7 @@ class AppRouter {
     switch (settings.name) {
       case SettingPage.routeName:
         return PageTransition(
-          child: const SettingPage(),
+          child:  const SettingPage(),
           type: PageTransitionType.rightToLeft,
         );
 

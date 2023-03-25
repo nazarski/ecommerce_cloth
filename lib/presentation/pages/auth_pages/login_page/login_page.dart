@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
@@ -43,7 +42,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         showErrorSnackBarLogin(context);
         ref.invalidate(authControllerLoginProvider);
       }
-      if (next.value != null && next.value!) {
+      if (next.value != null && next.value == true) {
         Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
       }
     });
@@ -89,6 +88,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 autofocus: false,
                 passwordVisible: false,
                 focusPush: passwordFocus,
+                readOnly: false,
               ),
               SizedBox(
                 height: height / 60,
@@ -109,11 +109,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 autofocus: false,
                 passwordVisible: true,
                 focusPush: passwordFocus,
+                readOnly: false,
               ),
               SizedBox(
                 height: height / 50,
               ),
-
               SizedBox(
                 height: height / 40,
               ),
@@ -121,27 +121,28 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 width: double.infinity,
                 height: height / 16,
                 child: ElevatedButton(
-                    onPressed: () async {
-                      final UserCredentialEntity userInfo = UserCredentialEntity(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        type: AuthenticateType.authorization,
-                      );
-                      if (validateAndSaveHelper(formKey: formKey)) {
-                        await ref.read(authControllerLoginProvider.notifier).signInAnonymously(userInfo);
-                      }
+                  onPressed: () async {
+                    final UserCredentialEntity userInfo = UserCredentialEntity(
+                      email: emailController.text,
+                      password: passwordController.text,
+                      type: AuthenticateType.authorization,
+                    );
+                    if (validateAndSaveHelper(formKey: formKey)) {
+                      await ref.read(authControllerLoginProvider.notifier).signInAnonymously(userInfo);
+                    }
+                  },
+                  child: authProvider.when(
+                    data: (_) {
+                      return const Text('SIGN UP');
                     },
-                    child: authProvider.when(
-                          data: (_) {
-                            return const Text('SIGN UP');
-                          },
-                          error: (error, stackTrace) {
-                            return const Text('Error');
-                          },
-                          loading: () => const CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        )),
+                    error: (error, stackTrace) {
+                      return const Text('Error');
+                    },
+                    loading: () => const CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
               SizedBox(height: height / 4.5),
               SocialMediaBlock(
