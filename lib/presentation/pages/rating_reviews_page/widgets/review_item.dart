@@ -13,7 +13,7 @@ class ReviewItem extends StatelessWidget {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 16, left: 16),
+          padding: const EdgeInsets.only(top: 16, left: 16,bottom: 16),
           child: Container(
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.onPrimary,
@@ -22,93 +22,99 @@ class ReviewItem extends StatelessWidget {
                   BoxShadow(
                       color: Colors.black.withOpacity(0.1), blurRadius: 20)
                 ]),
-            padding: const EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  review.userName,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontSize: 14,
-                      ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    StarsViewWidget(rating: review.rating),
-                    Text(
-                      '${review.publicationDate.year}-${review.publicationDate.month}-${review.publicationDate.day}',
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  review.review,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                if (review.reviewPictures.isEmpty) ...[
-                  const SizedBox(
-                    height: 12,
-                  ),
-                ] else ...[
-                  ListView.separated(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    itemBuilder: (context, i) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) {
-                              return GalleryPage(
-                                  index: i,
-                                  listOfImages: review.reviewPictures);
-                            }),
-                          );
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image(
-                            height: 104,
-                            width: 104,
-                            image: NetworkImage(
-                                '${StrapiInitialize.endpoint}${review.reviewThumbnailPictures[i]}'),
-                          ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 8),
+                  child: Text(
+                    review.userName,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontSize: 14,
                         ),
-                      );
-                    },
-                    separatorBuilder: (_, __) => const SizedBox(
-                      width: 16,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      StarsViewWidget(rating: review.rating),
+                      Text(
+                        '${review.publicationDate.year}-${review.publicationDate.month}-${review.publicationDate.day}',
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, bottom: 16, left: 24, right: 24.0),
+                  child: Text(
+                    review.review,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                if (review.reviewPictures.isNotEmpty) ...[
+                  SizedBox(
+                    height: 120,
+                    child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
+                      itemBuilder: (context, i) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (_) {
+                                return GalleryPage(
+                                    index: i,
+                                    listOfImages: review.reviewPictures);
+                              }),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image(
+                              fit: BoxFit.cover,
+                              width: 104,
+                              image: NetworkImage(
+                                  '${StrapiInitialize.endpoint}${review.reviewThumbnailPictures[i]}'),
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (_, __) => const SizedBox(
+                        width: 16,
+                      ),
+                      itemCount: review.reviewPictures.length,
                     ),
-                    itemCount: review.reviewPictures.length,
                   )
                 ],
-                GestureDetector(
-                  onTap: () {},
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Helpful',
-                        style:
-                            Theme.of(context).textTheme.labelMedium?.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Icon(
-                        Icons.thumb_up_alt_rounded,
-                        size: 16,
-                        color: Theme.of(context).colorScheme.surface,
-                      )
-                    ],
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Helpful',
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Icon(
+                          Icons.thumb_up_alt_rounded,
+                          size: 16,
+                          color: Theme.of(context).colorScheme.surface,
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
@@ -122,7 +128,11 @@ class ReviewItem extends StatelessWidget {
             height: 32,
             alignment: Alignment.topCenter,
             fit: BoxFit.cover,
-            image: NetworkImage(review.userAvatar),
+            image: review.userAvatar.isNotEmpty
+                ? NetworkImage(
+                    '${StrapiInitialize.endpoint}${review.userAvatar}')
+                : const AssetImage('assets/images/no_avatar.png')
+                    as ImageProvider,
           ),
         )
       ],

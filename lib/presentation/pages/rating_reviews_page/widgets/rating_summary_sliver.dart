@@ -67,7 +67,7 @@ class RatingSummarySliver extends StatelessWidget {
                   children: List.generate(5, (index) {
                     return ReviewsCountIndicator(
                         width: _countWidth(
-                            _initializeReviewCount(5 - index)));
+                            _initializeReviewCount(5 - index),),);
                   }),
                 ),
               ],

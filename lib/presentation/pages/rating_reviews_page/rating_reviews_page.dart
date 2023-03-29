@@ -18,7 +18,13 @@ class RatingReviewPage extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {},
+          label: const Text('Write a review'),
+          icon: const Icon(Icons.edit),
+        ),
         body: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
             SliverPersistentHeader(
               pinned: true,
@@ -39,5 +45,3 @@ class RatingReviewPage extends StatelessWidget {
     );
   }
 }
-
-

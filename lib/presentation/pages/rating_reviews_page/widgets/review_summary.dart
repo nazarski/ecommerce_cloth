@@ -32,7 +32,6 @@ class ReviewSummary extends ConsumerWidget {
                             .read(productReviewsProvider.notifier)
                             .getReviewsWithPhotos(value!);
                       }),
-                  const SizedBox(width: 12,),
                   Text(
                     'With photo',
                     style: Theme.of(context).textTheme.bodySmall,

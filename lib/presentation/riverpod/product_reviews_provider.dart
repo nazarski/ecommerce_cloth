@@ -1,5 +1,9 @@
+import 'package:ecommerce_cloth/data/repositories/manage_reviews_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
+import 'package:ecommerce_cloth/domain/use_cases/manage_reviews/manage_reviews.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final _manageReviewsUseCases = ManageReviews(ManageReviewsRepositoryImpl());
 
 final productReviewsProvider = StateNotifierProvider.autoDispose<
     ProductReviewsProvider, AsyncValue<List<ReviewEntity>>>((ref) {
@@ -9,14 +13,14 @@ final productReviewsProvider = StateNotifierProvider.autoDispose<
 class ProductReviewsProvider
     extends StateNotifier<AsyncValue<List<ReviewEntity>>> {
   ProductReviewsProvider() : super(const AsyncLoading());
-  late final String _productId;
   bool _withPhotoOnly = false;
+  List<ReviewEntity>? _reviews;
 
-  Future<void> getReviewsFromProductId({String? productId}) async {
-    if (productId != null) _productId = productId;
+  Future<void> getReviewsFromProductId(String productId) async {
     try {
-      final id = productId;
-      state = AsyncData([]);
+      _reviews ??=
+          await _manageReviewsUseCases.getAllReviews(productId: productId);
+      state = AsyncData(_reviews ?? []);
     } on Exception catch (e) {
       state = AsyncError(e, StackTrace.current);
     }
@@ -24,8 +28,19 @@ class ProductReviewsProvider
 
   void getReviewsWithPhotos(bool value) {
     _withPhotoOnly = value;
-    state = const AsyncLoading();
-    getReviewsFromProductId();
+    _emitFilteredReviews();
   }
+
+// Strapi failed to filter non-null nested fields
+  void _emitFilteredReviews() {
+    if (_withPhotoOnly) {
+      final filtered = _manageReviewsUseCases.filterReviewsWherePhoto(
+          reviews: _reviews ?? []);
+      state = AsyncData(filtered);
+    } else {
+      state = AsyncData(_reviews ?? []);
+    }
+  }
+
   bool get withPhotoOnly => _withPhotoOnly;
 }

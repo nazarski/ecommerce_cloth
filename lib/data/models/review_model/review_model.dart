@@ -7,8 +7,8 @@ class ReviewModel {
   final DateTime publicationDate;
   final String userId;
   final String review;
-  final List<String> reviewPictures;
-  final List<String> reviewThumbnailPictures;
+  final Iterable reviewPictures;
+  final Iterable reviewThumbnailPictures;
   final String userAvatar;
   final String userName;
   final double rating;
@@ -46,7 +46,7 @@ class ReviewModel {
 
   ReviewEntity toEntity() {
     return ReviewEntity(
-      reviewThumbnailPictures: reviewThumbnailPictures,
+      reviewThumbnailPictures: List<String>.from(reviewThumbnailPictures),
       rating: rating,
       reviewId: reviewId,
       helpful: helpful,
@@ -54,7 +54,7 @@ class ReviewModel {
       publicationDate: publicationDate,
       userId: userId,
       review: review,
-      reviewPictures: reviewPictures,
+      reviewPictures: List<String>.from(reviewPictures),
       userAvatar: userAvatar,
       userName: userName,
     );
@@ -94,17 +94,24 @@ class ReviewModel {
 
   factory ReviewModel.fromMap(Map<String, dynamic> map) {
     return ReviewModel(
-      reviewThumbnailPictures: map['reviewThumbnailPictures'] as List<String>,
+      reviewThumbnailPictures: map['images']['data']?.map((e) {
+            return e['attributes']['formats']['thumbnail']['url'];
+          }) ??
+          [],
       rating: map['rating'].toDouble(),
       reviewId: map['reviewId'] as String,
       helpful: map['helpful'] as int,
-      productId: map['productId'] as String,
-      publicationDate: map['publicationDate'] as DateTime,
-      userId: map['userId'] as String,
+      productId: '',
+      publicationDate: DateTime.parse(map['publicationDate']),
+      userId: map['user']['data']['attributes']['username'] as String,
       review: map['review'] as String,
-      reviewPictures: map['reviewPictures'] as List<String>,
-      userAvatar: map['userAvatar'] as String,
-      userName: map['userName'] as String,
+      reviewPictures: map['images']['data']?.map((e) {
+            return e['attributes']['formats']['medium']['url'];
+          }) ??
+          [],
+      userAvatar:
+          map['user']['data']['attributes']['photoUrl']['data']?['attributes']['formats']['thumbnail']['url'] ?? '',
+      userName: map['user']['data']['attributes']['username'] as String,
     );
   }
 }

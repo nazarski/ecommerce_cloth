@@ -312,6 +312,9 @@ class AppThemes {
         crossAxisMargin: 0,
         mainAxisMargin: 1,
         thumbVisibility: MaterialStatePropertyAll(true)
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: AppColorsLight.primary
     )
   );
 
@@ -598,6 +601,9 @@ class AppThemes {
           crossAxisMargin: 0,
           mainAxisMargin: 1,
           thumbVisibility: MaterialStatePropertyAll(true)
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: AppColorsDark.primary
       )
   );
 }

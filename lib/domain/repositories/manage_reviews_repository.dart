@@ -5,9 +5,6 @@ abstract class ManageReviewsRepository {
     required String productId,
   });
 
-  Future<List<ReviewEntity>> getProductReviewsWithPhotoOnly({
-    required String productId,
-  });
 
   Future<void> markAsHelpful();
 

@@ -5,7 +5,7 @@ import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.da
 
 class ProductModel {
   final DateTime additionDate;
-  final List attributes;
+  final Iterable attributes;
   final Map<String, int> availableQuantity;
   final String brand;
   final String productType;
@@ -14,11 +14,11 @@ class ProductModel {
 
   // final List<String> favorites;
   final String id;
-  final List images;
+  final Iterable images;
   final String name;
   final bool popular;
   final int price;
-  final List colors;
+  final Iterable colors;
   final RatingModel rating;
   final Map<String, dynamic> sale;
 
@@ -134,7 +134,7 @@ class ProductModel {
         description: map['description'] ?? '',
         images: (map['images']['data'] as List).map((image) {
           return image['attributes']['formats']['large']['url'];
-        }).toList(),
+        }),
         availableQuantity: (map['availableQuantity'] as List)
             .fold(<String, int>{}, (previousValue, element) {
           previousValue.addAll({element['size']: element['quantity']});
@@ -144,10 +144,10 @@ class ProductModel {
         brand: map['brand']['data']['attributes']['brandName'],
         attributes: (map['attributes']['data'] as List).map((element) {
           return element['attributes']['title'];
-        }).toList(),
+        }),
         thumbnail: map['images']['data'].first['attributes']['formats']['small']
         ['url'],
-        colors: map['color'].map((e) => e['color']).toList(),
+        colors: map['color'].map((e) => e['color']),
         rating: RatingModel.fromMap(map['rating']),
         sale: {});
   }

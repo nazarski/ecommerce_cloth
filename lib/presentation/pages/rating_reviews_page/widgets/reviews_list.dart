@@ -18,12 +18,12 @@ class ReviewsList extends ConsumerWidget {
       sliver: reviews.when(
         data: (data) => SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, i) {
+            childCount: data.length,
+                (context, i) {
               return ReviewItem(
                 review: data[i],
               );
             },
-            childCount: data.length,
           ),
         ),
         error: (error, stackTrace) {
