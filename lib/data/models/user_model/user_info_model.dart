@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 
 class UserInfoModel {
@@ -62,7 +63,7 @@ class UserInfoModel {
       displayName: entity.displayName,
       email: entity.email,
       favorites: entity.favorites,
-      photoUrl: entity.photoUrl,
+      photoUrl: StrapiInitialize.endpoint + entity.photoUrl,
     );
   }
 
@@ -89,7 +90,7 @@ class UserInfoModel {
       createdAt: DateTime.parse(map['user']['createdAt']),
       displayName: map['user']['username'] as String,
       favorites: [],
-      photoUrl: map['user']['avatarUrl'] as String,
+      photoUrl: map['user']['avatarUrl'],
       dateOfBirth: '',
     );
   }
@@ -104,7 +105,7 @@ class UserInfoModel {
       displayName: map['displayName'] as String,
       email: map['email'] as String,
       favorites: map['favorites'] as List,
-      photoUrl: map['photoUrl'] as String,
+      photoUrl: map['photoUrl'],
     );
   }
 }

@@ -32,7 +32,9 @@ class AuthenticateRemoteData {
   static Future<UserModelFromSocial> fetchUserModelFromGoogle() async {
     final UserDataAdapterFromSocial googleAdapter = GoogleUserAdapter();
     final account = await _googleSignIn.signIn();
-
+    final pr = _googleSignIn.clientId;
+    print(pr);
+    print(account!.displayName);
     return googleAdapter.adaptData(account);
   }
 

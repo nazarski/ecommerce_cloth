@@ -9,8 +9,12 @@ class OrderInfoItem extends StatelessWidget {
     required this.quantity,
     required this.totalAmount,
     required this.status,
+    required this.width,
+    required this.height,
   });
 
+  final double width;
+  final double height;
   final String numberOfOrder;
   final String date;
   final String trackingNumber;
@@ -22,8 +26,8 @@ class OrderInfoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-      width: 380,
-      height: 180,
+      width: width,
+      height: height,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(8),

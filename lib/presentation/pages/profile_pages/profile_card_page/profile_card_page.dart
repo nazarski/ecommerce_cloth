@@ -53,10 +53,9 @@ class ProfileCardPage extends ConsumerWidget {
                         radius: 30,
                         backgroundColor: user!.photoUrl.isNotEmpty ? Colors.transparent : Colors.grey,
                         child: user.photoUrl.isNotEmpty
-                            ? Image.network(user.photoUrl)
+                            ? ClipOval(child: SizedBox(width: 100, height: 50, child: Image.network(user.photoUrl)))
                             : SvgPicture.asset(AppIcons.avatar),
                       ),
-
                       const SizedBox(width: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,8 +91,7 @@ class ProfileCardPage extends ConsumerWidget {
                       title: 'Shipping addresses',
                       subtitle: '? addresses',
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamed(AddressNestPage.routeName);
+                        Navigator.of(context, rootNavigator: true).pushNamed(AddressNestPage.routeName);
                       },
                     ),
                     SettingItem(
@@ -115,9 +113,7 @@ class ProfileCardPage extends ConsumerWidget {
                       title: 'Settings',
                       subtitle: 'Notifications, password',
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamed(SettingNestPage.routeName);
-
+                        Navigator.of(context, rootNavigator: true).pushNamed(SettingNestPage.routeName);
                       },
                     ),
                   ],

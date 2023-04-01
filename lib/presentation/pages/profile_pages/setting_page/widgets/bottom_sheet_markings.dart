@@ -46,100 +46,100 @@ class _BottomSheetResetPasswordState extends ConsumerState<BottomSheetResetPassw
     });
 
     return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            TextFieldValidator(
-              labelText: 'Old Password',
-              checkOfErrorOnFocusChange: true,
-              validation: (password) {
-                return validatePasswordHelper(password);
-              },
-              focusNode: _oldPasswordFocus,
-              textInputAction: TextInputAction.next,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(18),
-              ],
-              tempTextEditingController: _oldPasswordController,
-              keyboardType: TextInputType.emailAddress,
-              autofocus: false,
-              passwordVisible: true,
-              focusPush: _newPasswordFocus,
-              readOnly: false,
-            ),
-            const SizedBox(height: 40),
-            TextFieldValidator(
-              labelText: 'New Password',
-              checkOfErrorOnFocusChange: true,
-              validation: (password) {
-                return validatePasswordHelper(password);
-              },
-              focusNode: _newPasswordFocus,
-              textInputAction: TextInputAction.next,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(18),
-              ],
-              tempTextEditingController: _newPasswordController,
-              keyboardType: TextInputType.emailAddress,
-              autofocus: false,
-              passwordVisible: true,
-              focusPush: _repeatPasswordFocus,
-              readOnly: false,
-            ),
-            const SizedBox(height: 20),
-            TextFieldValidator(
-              labelText: 'Repeat New Password',
-              checkOfErrorOnFocusChange: true,
-              validation: (validator) {
-                if (validator.isEmpty) return 'This field is required and cannot be empty';
-                if (validator != _newPasswordController.text) {
-                  return 'The passwords do not match';
-                }
-                return '';
-              },
-              focusNode: _repeatPasswordFocus,
-              textInputAction: TextInputAction.done,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(18),
-              ],
-              tempTextEditingController: _repeatPasswordController,
-              keyboardType: TextInputType.emailAddress,
-              autofocus: false,
-              passwordVisible: true,
-              focusPush: _repeatPasswordFocus,
-              readOnly: false,
-            ),
-            const SizedBox(height: 30),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () async {
-                  final String currentPassword = _oldPasswordController.text;
-                  final String newPassword = _newPasswordController.text;
-                  if (validateAndSaveHelper(formKey: formKey)) {
-                    await ref.read(resetPasswordProvider.notifier).resetPassword(currentPassword, newPassword);
-                    print('ok');
-                  }
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom, top: 16, left: 16, right: 15),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              TextFieldValidator(
+                labelText: 'Old Password',
+                checkOfErrorOnFocusChange: true,
+                validation: (password) {
+                  return validatePasswordHelper(password);
                 },
-                child: resetPassword.when(
-                  data: (_) {
-                    return const Text('SAVE PASSWORD');
+                focusNode: _oldPasswordFocus,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(18),
+                ],
+                tempTextEditingController: _oldPasswordController,
+                keyboardType: TextInputType.emailAddress,
+                autofocus: false,
+                passwordVisible: true,
+                focusPush: _newPasswordFocus,
+                readOnly: false,
+              ),
+              const SizedBox(height: 40),
+              TextFieldValidator(
+                labelText: 'New Password',
+                checkOfErrorOnFocusChange: true,
+                validation: (password) {
+                  return validatePasswordHelper(password);
+                },
+                focusNode: _newPasswordFocus,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(18),
+                ],
+                tempTextEditingController: _newPasswordController,
+                keyboardType: TextInputType.emailAddress,
+                autofocus: false,
+                passwordVisible: true,
+                focusPush: _repeatPasswordFocus,
+                readOnly: false,
+              ),
+              const SizedBox(height: 20),
+              TextFieldValidator(
+                labelText: 'Repeat New Password',
+                checkOfErrorOnFocusChange: true,
+                validation: (validator) {
+                  if (validator.isEmpty) return 'This field is required and cannot be empty';
+                  if (validator != _newPasswordController.text) {
+                    return 'The passwords do not match';
+                  }
+                  return '';
+                },
+                focusNode: _repeatPasswordFocus,
+                textInputAction: TextInputAction.done,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(18),
+                ],
+                tempTextEditingController: _repeatPasswordController,
+                keyboardType: TextInputType.emailAddress,
+                autofocus: false,
+                passwordVisible: true,
+                focusPush: _repeatPasswordFocus,
+                readOnly: false,
+              ),
+              const SizedBox(height: 30),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final String currentPassword = _oldPasswordController.text;
+                    final String newPassword = _newPasswordController.text;
+                    if (validateAndSaveHelper(formKey: formKey)) {
+                      await ref.read(resetPasswordProvider.notifier).resetPassword(currentPassword, newPassword);
+                      print('ok');
+                    }
                   },
-                  error: (error, stackTrace) {
-                    return const Text('Error');
-                  },
-                  loading: () => const CircularProgressIndicator(
-                    color: Colors.white,
+                  child: resetPassword.when(
+                    data: (_) {
+                      return const Text('SAVE PASSWORD');
+                    },
+                    error: (error, stackTrace) {
+                      return const Text('Error');
+                    },
+                    loading: () => const CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
-      ),
     );
   }
 
