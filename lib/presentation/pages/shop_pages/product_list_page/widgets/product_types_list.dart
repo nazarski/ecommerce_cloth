@@ -1,12 +1,11 @@
 import 'dart:developer';
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/available_filters_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/product_types_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'product_type_chip.dart';
 
 class ProductTypesList extends ConsumerStatefulWidget {
   const ProductTypesList({Key? key}) : super(key: key);
@@ -54,7 +53,7 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
               itemCount: data.length,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemBuilder: (context, i) {
-                return _ProductTypeChip(
+                return ProductTypeChip(
                   type: data[i],
                   // active: isActive,
                 );
@@ -94,49 +93,4 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
   }
 }
 
-class _ProductTypeChip extends ConsumerWidget {
-  const _ProductTypeChip({
-    super.key,
-    required this.type,
-  });
 
-  final String type;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(filterValuesProvider);
-    final isActive =
-        filter.productTypes.length == 1 && filter.productTypes.first == type;
-    return InkWell(
-      onTap: isActive
-          ? null
-          : () {
-              final filter = ref.read(filterValuesProvider.notifier)
-                ..setProductTypes(productTypes: [type]);
-              ref
-                  .read(pagingControllerProvider.notifier)
-                  .newFilerValue(filter.filter);
-              ref
-                  .read(availableFiltersProvider.notifier)
-                  .getAvailableFilters([type]);
-            },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-            color: isActive
-                ? Theme.of(context).colorScheme.onSurface
-                : Theme.of(context).colorScheme.onSurfaceVariant,
-            borderRadius: BorderRadius.circular(50)),
-        child: Center(
-          child: Text(
-            '${type}s',
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.surfaceTint),
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -41,4 +41,33 @@ class ReviewEntity extends Equatable {
         userAvatar,
         userName,
       ];
+
+  ReviewEntity copyWith({
+    List<String>? reviewThumbnailPictures,
+    String? reviewId,
+    int? helpful,
+    String? productId,
+    DateTime? publicationDate,
+    String? userId,
+    String? review,
+    List<String>? reviewPictures,
+    String? userAvatar,
+    String? userName,
+    double? rating,
+  }) {
+    return ReviewEntity(
+      reviewThumbnailPictures:
+          reviewThumbnailPictures ?? this.reviewThumbnailPictures,
+      reviewId: reviewId ?? this.reviewId,
+      helpful: helpful ?? this.helpful,
+      productId: productId ?? this.productId,
+      publicationDate: publicationDate ?? this.publicationDate,
+      userId: userId ?? this.userId,
+      review: review ?? this.review,
+      reviewPictures: reviewPictures ?? this.reviewPictures,
+      userAvatar: userAvatar ?? this.userAvatar,
+      userName: userName ?? this.userName,
+      rating: rating ?? this.rating,
+    );
+  }
 }

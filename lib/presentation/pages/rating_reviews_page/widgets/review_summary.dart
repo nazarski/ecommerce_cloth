@@ -1,4 +1,4 @@
-import 'package:ecommerce_cloth/presentation/riverpod/product_reviews_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/product_reviews_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

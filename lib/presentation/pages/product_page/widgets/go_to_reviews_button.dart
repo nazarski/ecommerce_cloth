@@ -1,7 +1,7 @@
 import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/rating_reviews_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/product_reviews_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/product_reviews_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

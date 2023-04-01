@@ -4,6 +4,7 @@ import 'package:ecommerce_cloth/domain/use_cases/manage_filters/manage_filters.d
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _getFilters = GetFilters(ManageFilterValuesRepositoryImpl());
+
 final availableFiltersProvider = StateNotifierProvider.autoDispose<FilterValuesProvider,
     AsyncValue<AvailableFilterEntity>>((ref) {
       return FilterValuesProvider();

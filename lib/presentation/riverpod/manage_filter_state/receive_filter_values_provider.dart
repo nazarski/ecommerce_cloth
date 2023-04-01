@@ -1,9 +1,10 @@
 import 'package:ecommerce_cloth/domain/entities/available_filter_entity/available_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/available_filters_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'available_filters_provider.dart';
+import 'filter_values_provider.dart';
 
 final receiveFilterValuesProvider =
     StateNotifierProvider.autoDispose<ReceiveFilterValues, ProductFilterEntity>(
