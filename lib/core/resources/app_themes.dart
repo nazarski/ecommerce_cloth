@@ -466,11 +466,6 @@ class AppThemes {
     ),
     elevatedButtonTheme: const ElevatedButtonThemeData(
       style: ButtonStyle(
-        minimumSize: MaterialStatePropertyAll(
-          Size.fromWidth(
-            double.infinity,
-          ),
-        ),
         backgroundColor: MaterialStatePropertyAll(
           AppColorsDark.primary,
         ),

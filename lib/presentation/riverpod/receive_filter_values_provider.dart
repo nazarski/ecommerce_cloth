@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/domain/entities/available_filter_entity/available_filter_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/available_filters_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/filter_values_provider.dart';
@@ -7,11 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final receiveFilterValuesProvider =
     StateNotifierProvider.autoDispose<ReceiveFilterValues, ProductFilterEntity>(
         (ref) {
-  final available = ref.watch(availableFiltersProvider).value!;
+  final available = ref.watch(availableFiltersProvider).value ??
+      const AvailableFilterEntity(priceRange: RangeValues(0, 1), colors: []);
   final submittedFilter = ref.watch(filterValuesProvider);
   if (submittedFilter.toPrice > available.priceRange.end ||
       submittedFilter.fromPrice < available.priceRange.start) {
-    return ReceiveFilterValues(submittedFilter.copyWith(
+    return ReceiveFilterValues(
+      submittedFilter.copyWith(
         fromPrice: available.priceRange.start.toInt(),
         toPrice: available.priceRange.end.toInt(),
       ),
@@ -61,13 +64,3 @@ class ReceiveFilterValues extends StateNotifier<ProductFilterEntity> {
     }
   }
 }
-
-// void setInitial(ProductFilterEntity submitted) {
-//   state = state.copyWith(
-//     fromPrice: submitted.fromPrice,
-//     toPrice: submitted.toPrice,
-//     colors: submitted.colors,
-//     sizes: submitted.sizes,
-//     brandNames: submitted.brandNames,
-//   );
-// }

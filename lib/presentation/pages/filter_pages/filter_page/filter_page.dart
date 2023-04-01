@@ -46,7 +46,9 @@ class FiltersPage extends ConsumerWidget {
             ),
             const FilterItemContainer(
               title: 'Sizes',
-              child: SizesList(),
+              child: SizesList(
+                listOfSizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
+              ),
             ),
             InkWell(
               onTap: () {
@@ -68,9 +70,7 @@ class FiltersPage extends ConsumerWidget {
 }
 
 class _BrandsTile extends StatelessWidget {
-  const _BrandsTile({
-    super.key,
-  });
+  const _BrandsTile();
 
   @override
   Widget build(BuildContext context) {

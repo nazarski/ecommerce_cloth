@@ -4,22 +4,20 @@ import 'package:flutter/material.dart';
 class PicturesView extends StatelessWidget {
   PicturesView({
     super.key,
-    required this.height,
-    required this.width,
     required this.images,
     required this.productId,
   }) : _controller = PageController(viewportFraction: 0.8);
 
-  final double height;
   final PageController _controller;
-  final double width;
   final List<String> images;
   final String productId;
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: height * .7,
+      height: height * .5,
       child: Scrollbar(
         controller: _controller,
         child: PageView.builder(

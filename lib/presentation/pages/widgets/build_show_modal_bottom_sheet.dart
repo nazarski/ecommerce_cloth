@@ -10,33 +10,37 @@ Future<dynamic> buildShowModalBottomSheet({
     isScrollControlled: true,
     context: context,
     builder: (context) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 14,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 6,
-              width: 60,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(3),
+      final ifPadding = MediaQuery.of(context).viewPadding.bottom > 0;
+      return SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 16,
+            bottom: ifPadding ? 0 : 16,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 6,
+                width: 60,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: BorderRadius.circular(3),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              header,
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            child
-          ],
+              const SizedBox(
+                height: 16,
+              ),
+              Text(
+                header,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              child
+            ],
+          ),
         ),
       );
     },
