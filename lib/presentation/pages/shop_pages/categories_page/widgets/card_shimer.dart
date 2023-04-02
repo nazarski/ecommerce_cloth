@@ -8,18 +8,20 @@ class CardShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: List.generate(5, (index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: const ShimmerWidget(height: 100,),
-            ),
-          );
-        }),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: List.generate(5, (index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: const ShimmerWidget(height: 100,),
+              ),
+            );
+          }),
+        ),
       ),
     );
   }
