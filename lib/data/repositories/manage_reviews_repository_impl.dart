@@ -4,9 +4,14 @@ import 'package:ecommerce_cloth/domain/repositories/manage_reviews_repository.da
 
 class ManageReviewsRepositoryImpl implements ManageReviewsRepository {
   @override
-  Future<void> addReview() {
-    // TODO: implement addReview
-    throw UnimplementedError();
+  Future<void> addReview({
+    required String productId,
+    required DateTime publicationDate,
+    required String userId,
+    required String review,
+    required List<String> reviewPictures,
+    required double rating,
+  }) async {
   }
 
   @override
