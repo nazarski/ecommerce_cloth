@@ -315,7 +315,7 @@ class AppThemes {
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: AppColorsLight.primary
-    )
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(

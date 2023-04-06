@@ -1,7 +1,7 @@
 import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 
 class RatingModel {
-  final int id;
+  // final String id;
   final int totalReviews;
   final double averageRating;
   final int oneStar;
@@ -11,7 +11,7 @@ class RatingModel {
   final int fiveStar;
 
   const RatingModel({
-    required this.id,
+    // required this.id,
     required this.totalReviews,
     required this.averageRating,
     required this.oneStar,
@@ -24,7 +24,7 @@ class RatingModel {
   @override
   String toString() {
     return 'RatingModel{' +
-        ' id: $id,' +
+        // ' id: $id,' +
         ' totalReview: $totalReviews,' +
         ' averageRating: $averageRating,' +
         ' oneStar: $oneStar,' +
@@ -37,7 +37,7 @@ class RatingModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      // 'id': id,
       'totalReview': totalReviews,
       'averageRating': averageRating,
       'oneStar': oneStar,
@@ -50,7 +50,7 @@ class RatingModel {
 
   factory RatingModel.fromMap(Map<String, dynamic> map) {
     return RatingModel(
-      id: map['id'] as int,
+      // id: map['id'] as String,
       totalReviews: map['totalReviews'] as int,
       averageRating: map['averageRating'].toDouble(),
       oneStar: map['oneStar'] as int,
@@ -63,7 +63,7 @@ class RatingModel {
 
   RatingEntity toEntity() {
     return RatingEntity(
-      id: id,
+      // id: id,
       totalReviews: totalReviews,
       averageRating: averageRating,
       oneStar: oneStar,
@@ -76,7 +76,7 @@ class RatingModel {
 
   factory RatingModel.fromEntity({required RatingEntity entity}) {
     return RatingModel(
-      id: entity.id,
+      // id: entity.id,
       totalReviews: entity.totalReviews,
       averageRating: entity.averageRating,
       oneStar: entity.oneStar,

@@ -1,6 +1,6 @@
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

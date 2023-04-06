@@ -15,8 +15,10 @@ class ProductReviewsProvider
   ProductReviewsProvider() : super(const AsyncLoading());
   bool _withPhotoOnly = false;
   List<ReviewEntity>? _reviews;
+  String? _productId;
 
   Future<void> getReviewsFromProductId(String productId) async {
+    _productId = productId;
     try {
       _reviews ??=
           await _manageReviewsUseCases.getAllReviews(productId: productId);
@@ -43,4 +45,6 @@ class ProductReviewsProvider
   }
 
   bool get withPhotoOnly => _withPhotoOnly;
+
+  String get productId => _productId ?? '';
 }

@@ -1,6 +1,6 @@
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/available_filters_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/receive_filter_values_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_filter_state/available_filters_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_filter_state/receive_filter_values_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -14,5 +14,8 @@ class AppIcons{
   static const String facebookIcon = '$path/facebook_icon.svg';
   static const String googleIcon = '$path/google_icon.svg';
   static const String avatar = '$path/avatar.svg';
+  static const String hollowStar = '$path/hollow_star.svg';
+  static const String yellowStar = '$path/yellow_star.svg';
+
 
 }

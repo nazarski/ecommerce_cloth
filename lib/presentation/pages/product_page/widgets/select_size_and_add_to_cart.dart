@@ -22,7 +22,7 @@ class SelectSizeAndAddToCart extends StatelessWidget {
               onTap: () {},
               child: Container(
                 width: 100,
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onBackground,
                   borderRadius: BorderRadius.circular(8),

@@ -33,7 +33,7 @@ Future<dynamic> buildShowModalBottomSheet({
               ),
               Text(
                 header,
-                style: Theme.of(context).textTheme.displayMedium,
+                style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(
                 height: 20,

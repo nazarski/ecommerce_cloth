@@ -95,23 +95,30 @@ class ReviewItem extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {},
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Helpful',
-                          style:
-                              Theme.of(context).textTheme.labelMedium?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                        InkWell(
+                          child: Icon(Icons.report_outlined, color: Theme.of(context).colorScheme.primary,),
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Icon(
-                          Icons.thumb_up_alt_rounded,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.surface,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Helpful',
+                              style:
+                                  Theme.of(context).textTheme.labelMedium?.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Icon(
+                              Icons.thumb_up_alt_rounded,
+                              size: 16,
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
+                          ],
                         )
                       ],
                     ),
