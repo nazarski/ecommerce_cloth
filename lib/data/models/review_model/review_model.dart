@@ -1,11 +1,13 @@
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
 
 class ReviewModel {
+  final int productSystemId;
   final String reviewId;
   final int helpful;
   final String productId;
   final DateTime publicationDate;
-  final String userId;
+  final int userId;
   final String review;
   final Iterable reviewPictures;
   final Iterable reviewThumbnailPictures;
@@ -14,6 +16,7 @@ class ReviewModel {
   final double rating;
 
   const ReviewModel({
+    required this.productSystemId,
     required this.reviewThumbnailPictures,
     required this.rating,
     required this.reviewId,
@@ -46,6 +49,7 @@ class ReviewModel {
 
   ReviewEntity toEntity() {
     return ReviewEntity(
+        productSystemId: productSystemId,
       reviewThumbnailPictures: List<String>.from(reviewThumbnailPictures),
       rating: rating,
       reviewId: reviewId,
@@ -62,6 +66,7 @@ class ReviewModel {
 
   factory ReviewModel.fromEntity({required ReviewEntity entity}) {
     return ReviewModel(
+      productSystemId: entity.productSystemId,
       reviewThumbnailPictures: entity.reviewThumbnailPictures,
       rating: entity.rating,
       reviewId: entity.reviewId,
@@ -101,16 +106,18 @@ class ReviewModel {
       rating: map['rating'].toDouble(),
       reviewId: map['reviewId'] as String,
       helpful: map['helpful'] as int,
-      productId: '',
+      productSystemId: map['product']['data']['id'],
+      productId: map['product']['data']['attributes']['productId'],
       publicationDate: DateTime.parse(map['publicationDate']),
-      userId: map['user']['data']?['attributes']['username'] ?? '',
+      userId: map['user']['data']?['attributes']['id'] ?? 0,
       review: map['review'] as String,
       reviewPictures: map['images']['data']?.map((e) {
-            return e['attributes']['formats']['medium']['url'];
+            return StrapiInitialize.endpoint + e['formats']['medium']['url'];
           }) ??
           [],
-      userAvatar:
-          map['user']['data']?['attributes']['photoUrl']['data']?['attributes']['formats']['thumbnail']['url'] ?? '',
+      userAvatar: StrapiInitialize.endpoint +
+              map['user']['data']?['attributes']['photoUrl']['data']
+                  ?['attributes']['formats']['thumbnail']['url'],
       userName: map['user']['data']?['attributes']['username'] ?? 'Anonymous',
     );
   }

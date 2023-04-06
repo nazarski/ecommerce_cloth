@@ -9,6 +9,7 @@ class ProductEntity extends Equatable {
   final String productType;
   final String description;
   final List<String> colors;
+  final int systemId;
 
   // final List<String> favorites;
   final String thumbnail;
@@ -21,6 +22,7 @@ class ProductEntity extends Equatable {
   final Map<String, dynamic> sale;
 
   const ProductEntity({
+    required this.systemId,
     required this.colors,
     required this.additionDate,
     required this.attributes,
@@ -40,6 +42,7 @@ class ProductEntity extends Equatable {
 
   @override
   List<Object> get props => [
+        systemId,
         additionDate,
         attributes,
         availableQuantity,

@@ -28,8 +28,7 @@ class ProductSliderItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image(
-                  image: NetworkImage(
-                      '${StrapiInitialize.endpoint}${product.thumbnail}'),
+                  image: NetworkImage(product.thumbnail),
                   height: 184,
                   width: 148,
                   alignment: Alignment.topCenter,

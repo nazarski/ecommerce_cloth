@@ -1,5 +1,4 @@
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_filter_state/filter_values_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_filter_state/receive_filter_values_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
@@ -20,12 +19,6 @@ class FilterNestPage extends ConsumerWidget {
         return !await _navigatorKey.currentState!.maybePop();
       },
       child: Scaffold(
-        appBar: AppBarSearchBack(
-          search: false,
-          root: () {
-            Navigator.of(context, rootNavigator: true).pop();
-          }, title: '', elevation: true, back: true,
-        ),
         body: Navigator(
           key: _navigatorKey,
           initialRoute: FiltersPage.routeName,

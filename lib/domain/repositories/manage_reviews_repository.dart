@@ -8,11 +8,12 @@ abstract class ManageReviewsRepository {
   Future<void> markAsHelpful();
 
   Future<void> addReview({
-    required String productId,
+    required int systemId,
     required DateTime publicationDate,
-    required String userId,
+    required int userId,
     required String review,
     required List<String> reviewPictures,
-    required double rating,
+    required int rating,
+    required String jwt,
   });
 }

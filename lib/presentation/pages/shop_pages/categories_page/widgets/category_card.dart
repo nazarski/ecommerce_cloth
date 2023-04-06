@@ -1,9 +1,5 @@
-import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
-import 'package:ecommerce_cloth/domain/entities/product_type_find_entity/product_type_find_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/new_products_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -64,7 +60,7 @@ class CategoryCard extends ConsumerWidget {
                     const BorderRadius.horizontal(right: Radius.circular(8)),
                 child: Image(
                   fit: BoxFit.cover,
-                  image: NetworkImage('${StrapiInitialize.endpoint}$imageLink'),
+                  image: NetworkImage(imageLink),
                 ),
               ),
             ),

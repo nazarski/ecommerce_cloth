@@ -42,4 +42,15 @@ class ManageReviews {
     }
   }
 
+  Future<void> createReview(ReviewEntity review, String jwt, int systemId) async {
+    _reviewsRepository.addReview(
+      systemId: systemId,
+      publicationDate: review.publicationDate,
+      userId: review.userId,
+      review: review.review,
+      reviewPictures: review.reviewPictures,
+      rating: review.rating.toInt(),
+      jwt: jwt,
+    );
+  }
 }

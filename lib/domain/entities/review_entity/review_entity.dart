@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class ReviewEntity extends Equatable {
+  final int productSystemId;
   final List<String> reviewThumbnailPictures;
   final String reviewId;
   final int helpful;
   final String productId;
   final DateTime publicationDate;
-  final String userId;
+  final int userId;
   final String review;
   final List<String> reviewPictures;
   final String userAvatar;
@@ -14,6 +15,7 @@ class ReviewEntity extends Equatable {
   final double rating;
 
   const ReviewEntity({
+    required this.productSystemId,
     required this.reviewThumbnailPictures,
     required this.rating,
     required this.reviewId,
@@ -29,6 +31,7 @@ class ReviewEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+        productSystemId,
         reviewThumbnailPictures,
         rating,
         reviewId,
@@ -43,12 +46,13 @@ class ReviewEntity extends Equatable {
       ];
 
   ReviewEntity copyWith({
+    int? productSystemId,
     List<String>? reviewThumbnailPictures,
     String? reviewId,
     int? helpful,
     String? productId,
     DateTime? publicationDate,
-    String? userId,
+    int? userId,
     String? review,
     List<String>? reviewPictures,
     String? userAvatar,
@@ -56,6 +60,7 @@ class ReviewEntity extends Equatable {
     double? rating,
   }) {
     return ReviewEntity(
+      productSystemId: productSystemId ?? this.productSystemId,
       reviewThumbnailPictures:
           reviewThumbnailPictures ?? this.reviewThumbnailPictures,
       reviewId: reviewId ?? this.reviewId,

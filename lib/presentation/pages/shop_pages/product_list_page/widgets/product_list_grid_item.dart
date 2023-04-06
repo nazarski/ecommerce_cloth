@@ -73,8 +73,7 @@ class _ProductListGridItemState extends ConsumerState<ProductListGridItem>
                         child: Hero(
                           tag: widget.product.id,
                           child: Image(
-                            image: NetworkImage(
-                                '${StrapiInitialize.endpoint}${widget.product.thumbnail}'),
+                            image: NetworkImage(widget.product.thumbnail),
                             width: double.infinity,
                             height: 184,
                             alignment: Alignment.topCenter,

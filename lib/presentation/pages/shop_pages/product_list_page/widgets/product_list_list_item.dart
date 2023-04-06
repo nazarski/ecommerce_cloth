@@ -71,8 +71,7 @@ class _ProductListListItemState extends State<ProductListListItem>
                 child: Row(
                   children: [
                     Image(
-                      image: NetworkImage(
-                          '${StrapiInitialize.endpoint}${widget.product.thumbnail}'),
+                      image: NetworkImage(widget.product.thumbnail),
                       width: MediaQuery.of(context).size.width * .33,
                       alignment: Alignment.topCenter,
                       fit: BoxFit.cover,

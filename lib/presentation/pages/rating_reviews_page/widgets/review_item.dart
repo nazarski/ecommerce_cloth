@@ -77,8 +77,7 @@ class ReviewItem extends StatelessWidget {
                             child: Image(
                               fit: BoxFit.cover,
                               width: 104,
-                              image: NetworkImage(
-                                  '${StrapiInitialize.endpoint}${review.reviewThumbnailPictures[i]}'),
+                              image: NetworkImage(review.reviewThumbnailPictures[i]),
                             ),
                           ),
                         );
@@ -136,8 +135,7 @@ class ReviewItem extends StatelessWidget {
             alignment: Alignment.topCenter,
             fit: BoxFit.cover,
             image: review.userAvatar.isNotEmpty
-                ? NetworkImage(
-                    '${StrapiInitialize.endpoint}${review.userAvatar}')
+                ? NetworkImage(review.userAvatar)
                 : const AssetImage('assets/images/no_avatar.png')
                     as ImageProvider,
           ),

@@ -1,5 +1,5 @@
-import 'dart:developer';
 
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/rating_model/rating_model.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 
@@ -11,6 +11,7 @@ class ProductModel {
   final String productType;
   final String description;
   final String thumbnail;
+  final int systemId;
 
   // final List<String> favorites;
   final String id;
@@ -23,6 +24,7 @@ class ProductModel {
   final Map<String, dynamic> sale;
 
   const ProductModel({
+    required this.systemId,
     required this.colors,
     required this.additionDate,
     required this.attributes,
@@ -63,6 +65,7 @@ class ProductModel {
 
   ProductEntity toEntity() {
     return ProductEntity(
+      systemId: systemId,
       additionDate: additionDate,
       description: description,
       attributes: List<String>.from(attributes),
@@ -83,6 +86,7 @@ class ProductModel {
 
   factory ProductModel.fromEntity({required ProductEntity entity}) {
     return ProductModel(
+      systemId: entity.systemId,
       colors: entity.colors,
       additionDate: entity.additionDate,
       attributes: entity.attributes,
@@ -103,52 +107,55 @@ class ProductModel {
 
   Map<String, dynamic> toMap() {
     return {
-    'additionDate': additionDate,
-    'attributes': attributes,
-    'availableQuantity': availableQuantity,
-    'brand': brand,
-    'productType': productType,
-    'id': id,
-    'images': images,
-    'name': name,
-    'popular': popular,
-    'thumbnail': thumbnail,
-    'price': price,
-    'rating': rating,
-    'sale': sale,
-    'description': description,
-    'colors'
-    :
-    colors
-    ,
-  };
+      'additionDate': additionDate,
+      'attributes': attributes,
+      'availableQuantity': availableQuantity,
+      'brand': brand,
+      'productType': productType,
+      'id': id,
+      'images': images,
+      'name': name,
+      'popular': popular,
+      'thumbnail': thumbnail,
+      'price': price,
+      'rating': rating,
+      'sale': sale,
+      'description': description,
+      'colors': colors,
+    };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-        id: map['productId'],
-        additionDate: DateTime.tryParse(map['additionDate']) ?? DateTime.now(),
-        popular: map['popular'],
-        name: map['productTitle'] ?? '',
-        price: map['price'],
-        description: map['description'] ?? '',
-        images: (map['images']['data'] as List).map((image) {
-          return image['attributes']['formats']['large']['url'];
+        systemId: map['id'],
+        id: map['attributes']['productId'],
+        additionDate: DateTime.tryParse(map['attributes']['additionDate']) ??
+            DateTime.now(),
+        popular: map['attributes']['popular'],
+        name: map['attributes']['productTitle'] ?? '',
+        price: map['attributes']['price'],
+        description: map['attributes']['description'] ?? '',
+        images: (map['attributes']['images']['data'] as List).map((image) {
+          return StrapiInitialize.endpoint +
+              image['attributes']['formats']['large']['url'];
         }),
-        availableQuantity: (map['availableQuantity'] as List)
+        availableQuantity: (map['attributes']['availableQuantity'] as List)
             .fold(<String, int>{}, (previousValue, element) {
           previousValue.addAll({element['size']: element['quantity']});
           return previousValue;
         }),
-        productType: map['productType']['data']['attributes']['typeName'],
-        brand: map['brand']['data']['attributes']['brandName'],
-        attributes: (map['attributes']['data'] as List).map((element) {
+        productType: map['attributes']['productType']['data']['attributes']
+            ['typeName'],
+        brand: map['attributes']['brand']['data']['attributes']['brandName'],
+        attributes:
+            (map['attributes']['attributes']['data'] as List).map((element) {
           return element['attributes']['title'];
         }),
-        thumbnail: map['images']['data'].first['attributes']['formats']['small']
-        ['url'],
-        colors: map['color'].map((e) => e['color']),
-        rating: RatingModel.fromMap(map['rating']),
+        thumbnail: StrapiInitialize.endpoint +
+            map['attributes']['images']['data'].first['attributes']['formats']
+                ['small']['url'],
+        colors: map['attributes']['color'].map((e) => e['color']),
+        rating: RatingModel.fromMap(map['attributes']['rating']),
         sale: {});
   }
 }

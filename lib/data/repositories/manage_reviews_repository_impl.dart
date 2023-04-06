@@ -5,13 +5,27 @@ import 'package:ecommerce_cloth/domain/repositories/manage_reviews_repository.da
 class ManageReviewsRepositoryImpl implements ManageReviewsRepository {
   @override
   Future<void> addReview({
-    required String productId,
+    required int systemId,
     required DateTime publicationDate,
-    required String userId,
+    required int userId,
     required String review,
     required List<String> reviewPictures,
-    required double rating,
+    required int rating,
+    required String jwt,
   }) async {
+    try {
+      await ManageReviewsData.addReview(
+        systemId: systemId,
+        publicationDate: publicationDate,
+        userId: userId,
+        review: review,
+        reviewPictures: reviewPictures,
+        rating: rating,
+        jwt: jwt,
+      );
+    } on Exception catch (e) {
+      throw Future.error(e.toString());
+    }
   }
 
   @override
