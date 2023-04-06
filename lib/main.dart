@@ -1,8 +1,5 @@
 
 import 'dart:developer';
-import 'dart:io';
-
-import 'package:ecommerce_cloth/data/data_sources/remote/notifacation_test.dart';
 import 'package:ecommerce_cloth/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,21 +7,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/resources/app_themes.dart';
 import 'firebase_options.dart';
 @pragma('vm:entry-point')
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(Platform.isAndroid) {
+
     try {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-      FCM fcm = FCM();
-      fcm.setupFCM();
     } catch (e) {
       log(e.toString());
     }
-  }
+
   runApp(
     const ECommerceApp(),
   );

@@ -1,12 +1,10 @@
 import 'dart:developer';
 
-import 'package:ecommerce_cloth/data/data_sources/remote/notifacation_test.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/widgets/splash_banner_widget.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

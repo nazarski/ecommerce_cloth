@@ -36,7 +36,10 @@ class LocalNotification {
 
 class FCM {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin
+  = FlutterLocalNotificationsPlugin();
+
+
 
   void setupFCM() async {
     NotificationSettings settings = await messaging.requestPermission(

@@ -1,11 +1,12 @@
 import 'package:ecommerce_cloth/core/resources/app_icons.dart';
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/widgets/setting_item.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/user_info_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -49,19 +50,29 @@ class ProfileCardPage extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundColor: user!.photoUrl.isNotEmpty ? Colors.transparent : Colors.grey,
-                        child: user.photoUrl.isNotEmpty
-                            ? ClipOval(child: SizedBox(width: 100, height: 50, child: Image.network(user.photoUrl)))
-                            : SvgPicture.asset(AppIcons.avatar),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: user!.photoUrl.isNotEmpty
+                            ? Image.network(
+                                StrapiInitialize.endpoint + user.photoUrl,
+                                alignment: Alignment.topCenter,
+                                width: 64,
+                                height: 64,
+                                fit: BoxFit.cover,
+                              )
+                            : SvgPicture.asset(
+                                AppIcons.avatar,
+                                width: 64,
+                                height: 64,
+                              ),
                       ),
+
                       const SizedBox(width: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            user!.displayName.toString(),
+                            user.displayName.toString(),
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
                           const SizedBox(height: 8),

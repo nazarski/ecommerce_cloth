@@ -70,6 +70,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+
             const ProductSlider(
               type: ProductSliderType.newProducts,
               subtitle: 'You\'ve never seen it before!',

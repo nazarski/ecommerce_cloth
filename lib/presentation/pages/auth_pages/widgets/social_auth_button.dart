@@ -1,7 +1,7 @@
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
 import 'package:ecommerce_cloth/core/resources/app_icons.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';

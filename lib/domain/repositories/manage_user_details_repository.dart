@@ -10,4 +10,18 @@ abstract class ManageUserRepository {
     required String currentPassword,
     required String newPassword,
   });
+
+  Future<void> updateFcmToken({required UserInfoEntity userInfoEntity, required String fcmToken});
+
+  // Future<UserInfoEntity?> universalUpdateUserModelFromSecureStorage({
+  //   required UserInfoEntity userInfoEntity,
+  //   String? fcmToken,
+  //   String? fullName,
+  //   String? dateOfBirth,
+  //   bool? notification,
+  // });
+
+  UserInfoEntity? updateFcmTokenForSecureStorage({required UserInfoEntity userInfoEntity, required String fcmToken, });
+
+  UserInfoEntity? updatePermissionForSecureStorage({required UserInfoEntity userInfoEntity, required bool permission, });
 }

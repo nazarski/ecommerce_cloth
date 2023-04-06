@@ -1,12 +1,12 @@
-import 'package:ecommerce_cloth/core/resources/app_icons.dart';
+
 import 'package:ecommerce_cloth/core/utils/helpers/auth_helpers.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/snack_bars.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/user_info_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
+
 
 class BottomSheetResetPassword extends ConsumerStatefulWidget {
   const BottomSheetResetPassword({

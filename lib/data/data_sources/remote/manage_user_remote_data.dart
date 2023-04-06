@@ -29,6 +29,24 @@ class ManageUserRemoteData {
     log('✅ Successful: The fields are updated on server');
   }
 
+  static Future<void> updateFcmToken({
+    required UserInfoModel userInfoModel,
+    required String fcmToken,
+  }) async {
+    final data = {
+      'fcm': fcmToken,
+    };
+    final headers = {
+      HttpHeaders.authorizationHeader: 'Bearer ${userInfoModel.jwt}',
+    };
+    final response = await _dio.put('$_apiEndpoint/users/${userInfoModel.id}',
+        data: data,
+        options: Options(
+          headers: headers,
+        ));
+    log('✅ Successful: The fields are updated on server');
+  }
+
   static Future<void> resetPassword({
     required String jwt,
     required String currentPassword,

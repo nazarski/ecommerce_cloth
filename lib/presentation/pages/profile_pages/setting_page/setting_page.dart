@@ -1,15 +1,18 @@
-import 'package:ecommerce_cloth/core/resources/app_icons.dart';
+
 import 'package:ecommerce_cloth/core/utils/helpers/date_input_formatter.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/widgets/bottom_sheet_markings.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/widgets/custom_switch.dart';
+import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/user_info_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
+
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
+
 
 import '../../widgets/build_show_modal_bottom_sheet.dart';
 
@@ -41,6 +44,7 @@ class _SettingPageState extends ConsumerState<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
+
     final updateUserWatch = ref.watch(updateUserProvider);
     ref.listen(updateUserProvider, (previous, next) {
       if (next.hasError) {
@@ -190,46 +194,32 @@ class _SettingPageState extends ConsumerState<SettingPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Sales', style: Theme.of(context).textTheme.bodySmall),
-                    CustomSwitch(
-                      switchValue: switchSales,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          switchSales = value ?? false;
-                        });
-                      },
+                    const CustomSwitch(
                     )
                   ],
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('New arrivals', style: Theme.of(context).textTheme.bodySmall),
-                    CustomSwitch(
-                      switchValue: switchNewArrivals,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          switchSales = value ?? false;
-                        });
-                      },
-                    )
-                  ],
+                const SizedBox(height: 50),
+                Text(
+                  'Managements',
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Delivery status changes', style: Theme.of(context).textTheme.bodySmall),
-                    CustomSwitch(
-                      switchValue: switchDeliveryStatus,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          switchSales = value ?? false;
-                        });
-                      },
-                    )
-                  ],
-                ),
+                const SizedBox(height: 15),
+                GestureDetector(
+                  onTap: () {
+                    ref.read(logOutProvider);
+                    Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(SplashScreen.routeName, (route) => false);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Log Out', style: Theme.of(context).textTheme.bodySmall),
+                      Icon(
+                        Icons.logout,
+                        color: Theme.of(context).colorScheme.surface,
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           ),

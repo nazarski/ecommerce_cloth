@@ -9,7 +9,7 @@ import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_aut
 
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

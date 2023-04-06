@@ -8,6 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _authenticate = Authenticate(AuthRepositoryImpl());
 
+final logOutProvider = Provider((ref) => _authenticate.logOut());
+
 final authControllerRegistrationProvider =
     StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>(
         (ref) {

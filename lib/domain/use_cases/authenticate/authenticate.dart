@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/user_model_from_social.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
@@ -12,6 +13,8 @@ class Authenticate {
   final AuthRepository _authRepository;
 
   const Authenticate(this._authRepository);
+
+  static const String endpoint = StrapiInitialize.endpoint;
 
   Future<UserModelFromSocial> _getUserFromGoogle() async {
     final userFromGoogle = _authRepository.requestUserFromGoogle();
@@ -51,14 +54,14 @@ class Authenticate {
   }
 
   Future<String> _uploadAvatar({
-    required String photoUrl,
+    required String? photoUrl,
     required String jwt,
     required int id,
     required File tempFile,
   }) async {
     final String urlAvatar = await _authRepository.uploadPhoto(
       tempFile: tempFile,
-      photoUrl: photoUrl,
+      photoUrl: photoUrl!,
       jwt: jwt,
       id: id,
     );
@@ -69,7 +72,6 @@ class Authenticate {
     required String email,
     required String password,
   }) async {
-
     final userData = _authRepository.requestUserLogin(
       email: email,
       password: password,
@@ -108,12 +110,13 @@ class Authenticate {
       await _saveUserToSecureStorage(userData: updatedLoginUser);
     } else {
       final UserInfoEntity? userdata = await _registerUser(
-        avatarUrl: getUserFromGoogle.photoUrl,
+        avatarUrl:getUserFromGoogle.photoUrl,
         email: getUserFromGoogle.email,
         username: getUserFromGoogle.userName,
         password: getUserFromGoogle.email,
       );
       final UserInfoEntity? updatedUser = await _uploadAvatarProcess(userData: userdata);
+
       await _saveUserToSecureStorage(userData: updatedUser);
     }
   }
@@ -135,6 +138,7 @@ class Authenticate {
         password: getUserFromFacebook.email,
       );
       final UserInfoEntity? updatedUser = await _uploadAvatarProcess(userData: userdata);
+
       await _saveUserToSecureStorage(userData: updatedUser);
     }
   }
@@ -200,14 +204,18 @@ class Authenticate {
     final loggedIn = await _authRepository.isUserLoggedIn();
     if (loggedIn) {
       final getUser = await _authRepository.getUserFromSecureStorage();
-      return  _authRepository.isExpired(jwt: getUser!.jwt);
+      return _authRepository.isExpired(jwt: getUser!.jwt);
     } else {
       return false;
     }
-
   }
+
   Future<UserInfoEntity?> getUserInfoFromSecureStorage() async {
     final getUser = await _authRepository.getUserFromSecureStorage();
     return getUser;
+  }
+
+  Future<void> logOut() async {
+    await _authRepository.clearSecureStorage();
   }
 }
