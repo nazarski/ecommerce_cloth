@@ -41,4 +41,5 @@ class ManageReviews {
         return pickImageFromGallery();
     }
   }
+
 }

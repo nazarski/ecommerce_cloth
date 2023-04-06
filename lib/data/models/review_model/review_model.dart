@@ -103,15 +103,15 @@ class ReviewModel {
       helpful: map['helpful'] as int,
       productId: '',
       publicationDate: DateTime.parse(map['publicationDate']),
-      userId: map['user']['data']['attributes']['username'] as String,
+      userId: map['user']['data']?['attributes']['username'] ?? '',
       review: map['review'] as String,
       reviewPictures: map['images']['data']?.map((e) {
             return e['attributes']['formats']['medium']['url'];
           }) ??
           [],
       userAvatar:
-          map['user']['data']['attributes']['photoUrl']['data']?['attributes']['formats']['thumbnail']['url'] ?? '',
-      userName: map['user']['data']['attributes']['username'] as String,
+          map['user']['data']?['attributes']['photoUrl']['data']?['attributes']['formats']['thumbnail']['url'] ?? '',
+      userName: map['user']['data']?['attributes']['username'] ?? 'Anonymous',
     );
   }
 }
