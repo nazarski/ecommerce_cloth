@@ -1,48 +1,77 @@
-// import 'dart:io';
-// import 'package:firebase_messaging/firebase_messaging.dart';
-//
-// class PushNotificationService {
-//   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-//
-//   Future initialise() async {
-//
-//     if (Platform.isIOS) {
-//       // Запрашиваем разрешение на получение уведомлений для iOS
-//       await _fcm.requestPermission(
-//         sound: true,
-//         badge: true,
-//         alert: true,
-//         announcement: false,
-//       );
-//     } else {
-//       // Запрашиваем разрешение на получение уведомлений для Android
-//       await _fcm.requestPermission();
-//     }
-//
-//     // Получаем FCM-токен
-//     String? token = await _fcm.getToken();
-//
-//     // Выводим FCM-токен в консоль
-//     print('FirebaseMessaging token: $token');
-//
-//     // Обработка входящих сообщений
-//     // FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-//     //   print("onMessage: ${message.data}");
-//     //   // Обрабатываем входящее уведомление
-//     //   _handleMessage(message.data);
-//     // });
-//
-//     // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-//     //   print("onResume: ${message.data}");
-//     //   // Обрабатываем уведомление, если приложение открыто в данный момент
-//     //   _handleMessage(message.data);
-//     // });
-//
-//     FirebaseMessaging.onBackgroundMessage(_handleMessage );
-//   }
-//
-//   Future<void> _handleMessage(RemoteMessage message) async {
-//     // Обрабатываем входящее уведомление
-//     print('Handling a background message: $message');
-//   }
-// }
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+class LocalNotification {
+  static final FlutterLocalNotificationsPlugin _notificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  static void initialize() {
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: AndroidInitializationSettings('ic_launcher'));
+    _notificationsPlugin.initialize(
+      initializationSettings,
+    );
+  }
+
+  static Future<void> showNotification(RemoteMessage message) async {
+    const NotificationDetails notificationDetails = NotificationDetails(
+      android: AndroidNotificationDetails(
+
+        'com.example.ecommerce_cloth',
+        'ecommerce_cloth',
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: true,
+        sound: RawResourceAndroidNotificationSound('sound'),
+      ),
+    );
+    _notificationsPlugin.show(
+      DateTime.now().microsecond,
+      message.notification!.title,
+      message.notification!.body,
+      notificationDetails,
+      payload: message.data.toString(),
+    );
+  }
+}
+
+class FCM {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin
+  = FlutterLocalNotificationsPlugin();
+
+
+
+  void setupFCM() async {
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      messaging.getToken().then((token) {
+        print('FCM Token: $token');
+      });
+      await messaging.setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      LocalNotification.initialize();
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+        LocalNotification.showNotification(message);
+      });
+
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        print('A new onMessageOpenedApp event was published!');
+        print('Message data: ${message.data}');
+      });
+    } else {
+      print('User declined permission or has no authorization!');
+    }
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+
+  static Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    print('Handling a background message ${message.messageId}');
+  }
+}

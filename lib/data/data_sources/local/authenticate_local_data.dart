@@ -15,6 +15,7 @@ class AuthenticateLocalData {
 
   static const FlutterSecureStorage _secureStorage = FlutterSecureStorage();
   static const String endpoint = StrapiInitialize.endpoint;
+
   static Future<File> createTempFile() async {
     final tempDir = await getTemporaryDirectory();
     final tempFile = File('${tempDir.path}/temp.jpeg');
@@ -38,8 +39,10 @@ class AuthenticateLocalData {
       createdAt: DateTime.parse(userData['createdAt']),
       displayName: userData['username'],
       email: userData['email'],
-      favorites: [],
-      photoUrl: '$endpoint${userData['avatarUrl']}', fullName: '', dateOfBirth: '',
+      favorites: const {},
+      photoUrl: userData['avatarUrl'],
+      fullName: '',
+      dateOfBirth: '', fcmToken: '', notification: true,
     );
     log('✅ Successful: Update user');
     return updateUser;
@@ -52,6 +55,7 @@ class AuthenticateLocalData {
     final modelFromMap = userModelFromEntity.toMap();
     final jsonUserModel = jsonEncode(modelFromMap);
     await _secureStorage.write(key: 'user', value: jsonUserModel);
+    log(jsonUserModel);
     log('✅ Successful: User saved successfully');
   }
 
@@ -86,17 +90,7 @@ class AuthenticateLocalData {
     log('⚠️ The expiration date of the token is equal to $formattedDate');
     return actualExpire;
   }
+
+
 }
 
-// String test () {
-//   final String jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc0LCJpYXQiOjE2Nzg4MDE4NzMsImV4cCI6MTY4MTM5Mzg3M30.OQUtpIMHlMNjfK_0XshJdgXnJ73xYtbBGzE12VhuRl8';
-//   final decode = JwtDecoder.decode(jwt);
-//   final expireTime = decode['exp'];
-//   final dateTime = DateTime.fromMillisecondsSinceEpoch(expireTime * 1000).subtract(Duration(days: 1));
-//   final formatter = DateFormat('dd.MM.yyyy');
-//   final formattedDate = formatter.format(dateTime);
-//   print(formattedDate);
-//   final after = DateTime.now().isAfter(dateTime);
-//   print(after.toString());
-//   return expireTime.toString();
-// }

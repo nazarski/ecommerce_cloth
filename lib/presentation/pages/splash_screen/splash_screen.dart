@@ -4,7 +4,8 @@ import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/widgets/splash_banner_widget.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/authentication_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,25 +17,14 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userLoggedIn =  ref.watch(userLoggedInProvider);
-    // Future<void> _requestPermission() async {
-    //   final status = await Permission.notification.request();
-    //
-    //   if (status != PermissionStatus.granted) {
-    //     // Handle the case if the user has not granted permission
-    //   }
-    // }
-
-
     return
       userLoggedIn.maybeWhen(
       data: (value) {
         Future.microtask(()async {
           if (value!) {
-            // await _requestPermission();
             log('✅ This user is authorized');
             Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
           } else {
-            // await _requestPermission();
             log('🚫 This user is not register');
             Navigator.of(context).pushNamedAndRemoveUntil(RegistrationPage.routeName, (route) => false);
 

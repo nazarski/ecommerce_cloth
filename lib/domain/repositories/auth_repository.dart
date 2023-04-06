@@ -54,4 +54,6 @@ abstract class AuthRepository {
   Future<bool> isUserLoggedIn();
 
   bool? isExpired({required String jwt});
+
+  Future<void> clearSecureStorage();
 }

@@ -1,17 +1,22 @@
+
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 
 class UserInfoModel {
   final DateTime createdAt;
   final String displayName;
   final String email;
-  final List favorites;
+  final Set favorites;
   final String photoUrl;
   final String jwt;
   final int id;
   final String fullName;
   final String dateOfBirth;
+  final bool notification;
+  final String fcmToken;
 
   const UserInfoModel({
+    required this.fcmToken,
+    required this.notification,
     required this.fullName,
     required this.dateOfBirth,
     required this.id,
@@ -26,6 +31,8 @@ class UserInfoModel {
   @override
   String toString() {
     return 'UserInfoModel {'
+        'fcmToken: $fcmToken,'
+        'notification: $notification,'
         'fullName: $fullName,'
         'dateOfBirth: $dateOfBirth,'
         'createdAt: $createdAt, '
@@ -40,6 +47,8 @@ class UserInfoModel {
 
   UserInfoEntity toEntity() {
     return UserInfoEntity(
+      fcmToken: fcmToken,
+      notification: notification,
       fullName: fullName,
       dateOfBirth: dateOfBirth,
       createdAt: createdAt,
@@ -53,12 +62,15 @@ class UserInfoModel {
   }
 
   factory UserInfoModel.fromEntity({required UserInfoEntity entity}) {
+
     return UserInfoModel(
+      notification: entity.notification,
+      fcmToken: entity.fcmToken,
       fullName: entity.fullName,
       dateOfBirth: entity.dateOfBirth,
       jwt: entity.jwt,
       id: entity.id,
-      createdAt: entity.createdAt,
+      createdAt: entity.createdAt ?? DateTime.now(),
       displayName: entity.displayName,
       email: entity.email,
       favorites: entity.favorites,
@@ -68,6 +80,8 @@ class UserInfoModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'fcmToken': fcmToken,
+      'notification': notification,
       'fullName': fullName,
       'dateOfBirth': dateOfBirth,
       'jwt': jwt,
@@ -75,21 +89,23 @@ class UserInfoModel {
       'createdAt': createdAt.toString(),
       'displayName': displayName,
       'email': email,
-      'favorites': favorites,
+      'favorites': favorites.toList(),
       'photoUrl': photoUrl,
     };
   }
 
   factory UserInfoModel.fromResponse(Map<String, dynamic> map) {
     return UserInfoModel(
+      notification: true,
+      fcmToken: '',
       fullName: '',
       jwt: map['jwt'] as String,
       id: map['user']['id'] as int,
       email: map['user']['email'] as String,
       createdAt: DateTime.parse(map['user']['createdAt']),
       displayName: map['user']['username'] as String,
-      favorites: [],
-      photoUrl: map['user']['avatarUrl'] as String,
+      favorites: const {},
+      photoUrl: map['user']['avatarUrl'],
       dateOfBirth: '',
     );
   }
@@ -103,8 +119,10 @@ class UserInfoModel {
       createdAt: DateTime.parse(map['createdAt']),
       displayName: map['displayName'] as String,
       email: map['email'] as String,
-      favorites: map['favorites'] as List,
-      photoUrl: map['photoUrl'] as String,
+      favorites: map['favorites'].toSet(),
+      photoUrl: map['photoUrl'],
+      fcmToken: map['fcmToken'] as String,
+      notification: map['notification'] as bool,
     );
   }
 }

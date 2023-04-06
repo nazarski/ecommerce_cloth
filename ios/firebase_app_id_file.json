@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:180329192292:ios:c90ad1c7ba7266c5cb7871",
-  "FIREBASE_PROJECT_ID": "ecommerce-cloth-fae40",
-  "GCM_SENDER_ID": "180329192292"
+  "GOOGLE_APP_ID": "1:377716233524:ios:67eca861d23e0883bd4161",
+  "FIREBASE_PROJECT_ID": "lambda-new-ecom",
+  "GCM_SENDER_ID": "377716233524"
 }

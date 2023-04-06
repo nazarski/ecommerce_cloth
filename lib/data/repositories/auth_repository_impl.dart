@@ -191,4 +191,15 @@ class AuthRepositoryImpl implements AuthRepository {
       return null;
     }
   }
+
+  @override
+  Future<void> clearSecureStorage() async {
+   try {
+     AuthenticateLocalData.clearSecureStorage();
+   } catch (error) {
+     log(error.toString());
+   }
+  }
+
+
 }

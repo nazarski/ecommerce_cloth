@@ -82,7 +82,7 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
+                    color: AppColorsLight.grey.withOpacity(0.1),
                     spreadRadius: 1,
                     blurRadius: 1,
                     offset: const Offset(0, 0.5),
@@ -90,7 +90,7 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 ],
                 border: isError ? Border.all(color: Colors.red) : null,
                 borderRadius: BorderRadius.circular(4),
-                color: AppColorsLight.white,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
               child: TextFormField(
                 readOnly: widget.readOnly,

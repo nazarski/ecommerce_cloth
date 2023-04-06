@@ -22,6 +22,7 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      elevation: !elevation ? 0 : 10,
       leading: IconButton(
         onPressed: root ??
                 () {

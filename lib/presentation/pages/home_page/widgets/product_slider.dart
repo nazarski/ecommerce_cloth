@@ -1,10 +1,12 @@
 import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_shimmer.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/product_slider_item.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/new_products_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../widgets/product_slider_item.dart';
+
 
 class ProductSlider extends ConsumerWidget {
   const ProductSlider({
@@ -26,6 +28,7 @@ class ProductSlider extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(userInfoProvider);
     final listOfProducts = ref.watch(newProductsProvider(type));
     final String title = getTitle();
     return listOfProducts.when(

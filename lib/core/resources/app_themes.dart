@@ -430,6 +430,11 @@ class AppThemes {
         fontWeight: FontWeight.w600,
         color: AppColorsDark.white,
       ),
+      headlineMedium: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: AppColorsLight.grey,
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       suffixIconColor: MaterialStateColor.resolveWith((states) {

@@ -50,22 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAZ1QBwuzJZlYnaa5x0VqrJzBv8vsYXXYo',
-    appId: '1:180329192292:android:ede4a3e109dbbed0cb7871',
-    messagingSenderId: '180329192292',
-    projectId: 'ecommerce-cloth-fae40',
-    databaseURL: 'https://ecommerce-cloth-fae40-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'ecommerce-cloth-fae40.appspot.com',
+    apiKey: 'AIzaSyC7T_bRyYUJWmmN827bUNBNp7E_fggXshk',
+    appId: '1:377716233524:android:34476e52e8fd4bdfbd4161',
+    messagingSenderId: '377716233524',
+    projectId: 'lambda-new-ecom',
+    storageBucket: 'lambda-new-ecom.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDoV4Sf4NKcB8MnQai7Z5JC9n5gTRU_qOE',
-    appId: '1:180329192292:ios:c90ad1c7ba7266c5cb7871',
-    messagingSenderId: '180329192292',
-    projectId: 'ecommerce-cloth-fae40',
-    databaseURL: 'https://ecommerce-cloth-fae40-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'ecommerce-cloth-fae40.appspot.com',
-    iosClientId: '180329192292-4td66f78ntihfkr60a1fm7041cfpcpg0.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDJQAkrgrldgg4LbYe5Wyf6Ocy0Qg0Ftmw',
+    appId: '1:377716233524:ios:67eca861d23e0883bd4161',
+    messagingSenderId: '377716233524',
+    projectId: 'lambda-new-ecom',
+    storageBucket: 'lambda-new-ecom.appspot.com',
+    iosClientId: '377716233524-jbf3dc71rd8cuiuj6oqe4ebv09r5q0nj.apps.googleusercontent.com',
     iosBundleId: 'com.example.ecommerceCloth',
   );
 }

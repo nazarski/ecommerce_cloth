@@ -23,6 +23,8 @@ class ManageUser {
       email: userInfoEntity.displayName,
       favorites: userInfoEntity.favorites,
       photoUrl: userInfoEntity.photoUrl,
+      notification: userInfoEntity.notification,
+      fcmToken: userInfoEntity.fcmToken,
     );
     await _manageUserRepository.updateFullNameAndDateOfBirth(userInfoEntity: updatedUserEntity);
     await _authRepository.saveUserToSecureStorage(userModel: updatedUserEntity);

@@ -14,9 +14,8 @@ final _manageUser = ManageUser(ManageUserRepositoryImpl(), AuthRepositoryImpl())
 final getUserInfo = FutureProvider<UserInfoEntity>((ref) async {
   final UserInfoEntity? userInfo = await _authenticate.getUserInfoFromSecureStorage();
   return userInfo!;
-
-
 });
+
 
 final updateUserProvider = StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>((ref) {
   return AuthRegisterController();
@@ -26,8 +25,9 @@ class AuthRegisterController extends StateNotifier<AsyncValue<bool>> {
   AuthRegisterController() : super(const AsyncValue.data(false));
 
   Future<void> updateUser(
-      String fullName, String dateOfBirth,
-      ) async {
+    String fullName,
+    String dateOfBirth,
+  ) async {
     try {
       state = const AsyncValue.loading();
       await _manageUser.updateUserInfo(fullName: fullName, dateOfBirth: dateOfBirth);
@@ -48,8 +48,9 @@ class ResetPasswordController extends StateNotifier<AsyncValue<bool>> {
   ResetPasswordController() : super(const AsyncValue.data(false));
 
   Future<void> resetPassword(
-      String currentPassword, String newPassword,
-      ) async {
+    String currentPassword,
+    String newPassword,
+  ) async {
     try {
       state = const AsyncValue.loading();
       await _manageUser.resetPassword(currentPassword: currentPassword, newPassword: newPassword);
@@ -61,5 +62,3 @@ class ResetPasswordController extends StateNotifier<AsyncValue<bool>> {
 
   FutureOr<void> build() {}
 }
-
-
