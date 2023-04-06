@@ -23,6 +23,9 @@ class ManageReviewsData {
     );
     return listOfValues.map((e) => ReviewModel.fromMap(e['attributes']));
   }
+  static Future<void> addReview(String productId)async{
+
+  }
 
 // static Future<List<ReviewModel>> getProductReviewsWithPhotoOnly({
 //   required String productId,

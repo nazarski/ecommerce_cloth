@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/create_review_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -21,7 +22,7 @@ class ReviewPicturesListView extends ConsumerWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, i) {
-          if (i == pictureList.length && pictureList.length <= 5) {
+          if (i == pictureList.length && pictureList.length < 5) {
             return AddPictureButton(
               action: () {
                 showDialog(
@@ -45,18 +46,24 @@ class ReviewPicturesListView extends ConsumerWidget {
           }
           return ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image.file(
-              File(pictureList[i],),
-              fit: BoxFit.cover,
-              height: 104,
-              width: 104,
+            child: GestureDetector(
+              onLongPress: (){
+                HapticFeedback.vibrate();
+                ref.read(createReviewProvider.notifier).removePicture(i);
+              },
+              child: Image.file(
+                File(pictureList[i],),
+                fit: BoxFit.cover,
+                height: 104,
+                width: 104,
+              ),
             ),
           );
         },
         separatorBuilder: (_, __) => const SizedBox(
           width: 16,
         ),
-        itemCount: pictureList.length <= 5
+        itemCount: pictureList.length < 5
             ? pictureList.length + 1
             : pictureList.length,
       ),
