@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/create_review_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,9 +8,9 @@ import 'star_review_selection.dart';
 
 class AddReviewSheet extends StatefulWidget {
   const AddReviewSheet({
-    super.key,
+    super.key, required this.ratingEntity,
   });
-
+final RatingEntity ratingEntity;
   @override
   State<AddReviewSheet> createState() => _AddReviewSheetState();
 }
@@ -70,7 +71,8 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
                   ? () {
                       ref
                           .read(createReviewProvider.notifier)
-                          .createReview(_controller.text);
+                          .createReview(_controller.text, widget.ratingEntity);
+                      Navigator.pop(context);
                     }
                   : null,
               child: Center(

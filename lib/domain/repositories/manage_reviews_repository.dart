@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
 
 abstract class ManageReviewsRepository {
@@ -6,6 +7,12 @@ abstract class ManageReviewsRepository {
   });
 
   Future<void> markAsHelpful();
+
+  Future<void> updateProductRating({
+    required RatingEntity rating,
+    required int productSystemId,
+    required String jwt,
+  });
 
   Future<void> addReview({
     required int systemId,

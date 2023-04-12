@@ -1,4 +1,3 @@
-import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/gallery_page/gallery_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';

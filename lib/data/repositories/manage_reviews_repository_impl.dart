@@ -1,4 +1,6 @@
 import 'package:ecommerce_cloth/data/data_sources/remote/manage_reviews_data.dart';
+import 'package:ecommerce_cloth/data/models/rating_model/rating_model.dart';
+import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/manage_reviews_repository.dart';
 
@@ -26,6 +28,20 @@ class ManageReviewsRepositoryImpl implements ManageReviewsRepository {
     } on Exception catch (e) {
       throw Future.error(e.toString());
     }
+  }
+
+  @override
+  Future<void> updateProductRating({
+    required RatingEntity rating,
+    required int productSystemId,
+    required String jwt,
+  }) async {
+    final ratingModel = RatingModel.fromEntity(entity: rating);
+    await ManageReviewsData.updateProductRating(
+      ratingModel,
+      productSystemId,
+      jwt,
+    );
   }
 
   @override

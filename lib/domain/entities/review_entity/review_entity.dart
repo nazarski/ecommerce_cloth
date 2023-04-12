@@ -15,18 +15,18 @@ class ReviewEntity extends Equatable {
   final double rating;
 
   const ReviewEntity({
-    required this.productSystemId,
-    required this.reviewThumbnailPictures,
-    required this.rating,
-    required this.reviewId,
-    required this.helpful,
-    required this.productId,
+    this.productSystemId = 0,
+    this.reviewThumbnailPictures = const [],
+    this.rating = 0.0,
+    this.reviewId = '',
+    this.helpful = 0,
+    this.productId = '',
     required this.publicationDate,
-    required this.userId,
-    required this.review,
-    required this.reviewPictures,
-    required this.userAvatar,
-    required this.userName,
+    this.userId = 0,
+    this.review = '',
+    this.reviewPictures = const [],
+    this.userAvatar = '',
+    this.userName = '',
   });
 
   @override

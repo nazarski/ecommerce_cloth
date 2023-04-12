@@ -1,12 +1,11 @@
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/card_shimer.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/category_card.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/new_card.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/sale_card.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/new_products_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'card_shimer.dart';
-import 'category_card.dart';
-import 'new_card.dart';
-import 'sale_card.dart';
 
 class TabViewCategories extends ConsumerWidget {
   const TabViewCategories({

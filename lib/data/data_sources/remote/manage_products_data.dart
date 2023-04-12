@@ -78,7 +78,6 @@ class ManageProductsData {
     );
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     final result = values.map((e) {
-      print(e);
       return ProductModel.fromMap(e);
     }).toList();
     return result;

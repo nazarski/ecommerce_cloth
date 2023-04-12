@@ -14,7 +14,7 @@ final String title;
 }
 
 class _ProductListPageState extends State<ProductListPage> {
-  bool isGrid = true;
+  bool isGrid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _ProductListPageState extends State<ProductListPage> {
                     setState(() {
                       isGrid = !isGrid;
                     });
-                  }, isGrid: isGrid,
+                  },
                 ),
                 widgetHeight: 52,
               ),

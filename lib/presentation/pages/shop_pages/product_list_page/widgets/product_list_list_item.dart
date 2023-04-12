@@ -1,5 +1,4 @@
 import 'package:ecommerce_cloth/core/utils/helpers/product_helpers.dart';
-import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/heart_favourite.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
@@ -106,11 +105,10 @@ class _ProductListListItemState extends State<ProductListListItem>
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 0,
             right: 0,
-            child: HeartFavourite(
-              active: false,
+            child: HeartFavourite(systemProductId: widget.product.systemId,
             ),
           ),
           if (chipValue.isNotEmpty)

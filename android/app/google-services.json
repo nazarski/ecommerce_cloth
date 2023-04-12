@@ -1,38 +1,45 @@
 {
   "project_info": {
-    "project_number": "180329192292",
-    "firebase_url": "https://ecommerce-cloth-fae40-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "ecommerce-cloth-fae40",
-    "storage_bucket": "ecommerce-cloth-fae40.appspot.com"
+    "project_number": "377716233524",
+    "project_id": "lambda-new-ecom",
+    "storage_bucket": "lambda-new-ecom.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:180329192292:android:7b14c876b417b161cb7871",
+        "mobilesdk_app_id": "1:377716233524:android:34476e52e8fd4bdfbd4161",
         "android_client_info": {
           "package_name": "com.example.ecommerce_cloth"
         }
       },
       "oauth_client": [
         {
-          "client_id": "180329192292-v9q4e4titqsrnp9ndrrdm2m5nnrhp72e.apps.googleusercontent.com",
+          "client_id": "377716233524-u2b8ocrq4s9kqqbjco18s2bqbpeub55i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecommerce_cloth",
+            "certificate_hash": "d7aefab070d6f32739e086bdb201fafdbdcc7e9f"
+          }
+        },
+        {
+          "client_id": "377716233524-rk5oaouapan7gl7rgotjtu9s7j186uot.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAZ1QBwuzJZlYnaa5x0VqrJzBv8vsYXXYo"
+          "current_key": "AIzaSyC7T_bRyYUJWmmN827bUNBNp7E_fggXshk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "180329192292-v9q4e4titqsrnp9ndrrdm2m5nnrhp72e.apps.googleusercontent.com",
+              "client_id": "377716233524-il1jj93a0d8htgocit1rqldptlmfld8g.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "180329192292-4td66f78ntihfkr60a1fm7041cfpcpg0.apps.googleusercontent.com",
+              "client_id": "377716233524-jbf3dc71rd8cuiuj6oqe4ebv09r5q0nj.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.ecommerceCloth"

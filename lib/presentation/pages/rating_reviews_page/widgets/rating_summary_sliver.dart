@@ -1,8 +1,8 @@
 import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
+import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/widgets/review_count_indicator.dart';
+import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/widgets/stars_row.dart';
 import 'package:flutter/material.dart';
 
-import 'review_count_indicator.dart';
-import 'stars_row.dart';
 
 class RatingSummarySliver extends StatelessWidget {
   const RatingSummarySliver({Key? key, required this.rating, required this.width}) : super(key: key);

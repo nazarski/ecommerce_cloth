@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/rating_model/rating_model.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
@@ -12,8 +11,6 @@ class ProductModel {
   final String description;
   final String thumbnail;
   final int systemId;
-
-  // final List<String> favorites;
   final String id;
   final Iterable images;
   final String name;

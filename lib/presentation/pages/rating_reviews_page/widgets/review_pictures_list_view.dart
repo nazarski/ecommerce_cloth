@@ -1,13 +1,12 @@
 import 'dart:io';
 
+import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/widgets/add_picture_button.dart';
+import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/widgets/image_source_selection.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/create_review_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'add_picture_button.dart';
-import 'image_source_selection.dart';
 
 class ReviewPicturesListView extends ConsumerWidget {
   const ReviewPicturesListView({

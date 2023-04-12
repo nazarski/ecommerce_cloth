@@ -10,8 +10,6 @@ class ProductEntity extends Equatable {
   final String description;
   final List<String> colors;
   final int systemId;
-
-  // final List<String> favorites;
   final String thumbnail;
   final String id;
   final List<String> images;

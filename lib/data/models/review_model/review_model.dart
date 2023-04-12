@@ -49,7 +49,7 @@ class ReviewModel {
 
   ReviewEntity toEntity() {
     return ReviewEntity(
-        productSystemId: productSystemId,
+      productSystemId: productSystemId,
       reviewThumbnailPictures: List<String>.from(reviewThumbnailPictures),
       rating: rating,
       reviewId: reviewId,
@@ -100,7 +100,8 @@ class ReviewModel {
   factory ReviewModel.fromMap(Map<String, dynamic> map) {
     return ReviewModel(
       reviewThumbnailPictures: map['images']['data']?.map((e) {
-            return e['attributes']['formats']['thumbnail']['url'];
+            return StrapiInitialize.endpoint +
+                e['attributes']['formats']['thumbnail']['url'];
           }) ??
           [],
       rating: map['rating'].toDouble(),
@@ -112,12 +113,15 @@ class ReviewModel {
       userId: map['user']['data']?['attributes']['id'] ?? 0,
       review: map['review'] as String,
       reviewPictures: map['images']['data']?.map((e) {
-            return StrapiInitialize.endpoint + e['formats']['medium']['url'];
+            return StrapiInitialize.endpoint +
+                e['attributes']['formats']['medium']['url'];
           }) ??
           [],
-      userAvatar: StrapiInitialize.endpoint +
-              map['user']['data']?['attributes']['photoUrl']['data']
-                  ?['attributes']['formats']['thumbnail']['url'],
+      userAvatar: map['user']['data']['attributes']['photoUrl']['data'] == null
+          ? ''
+          : StrapiInitialize.endpoint +
+              map['user']['data']['attributes']['photoUrl']?['data']
+                  ['attributes']['formats']['thumbnail']['url'],
       userName: map['user']['data']?['attributes']['username'] ?? 'Anonymous',
     );
   }
