@@ -16,7 +16,8 @@ final _notificationService = NotificationService(
   AuthRepositoryImpl(),
 );
 
-final userInfoProvider = StateNotifierProvider<UserInfoProvider, UserInfoEntity>((ref) {
+final userInfoProvider =
+    StateNotifierProvider<UserInfoProvider, UserInfoEntity>((ref) {
   return UserInfoProvider();
 });
 
@@ -36,6 +37,24 @@ class UserInfoProvider extends StateNotifier<UserInfoEntity> {
     print(state.notification);
     print(state);
     _updateUserPermission();
+  }
+
+  void addToFavourites({required int systemProductId}) {
+    if (!state.favorites.contains(systemProductId)) {
+      state = state.copyWith(
+        favorites: state.favorites
+          ..add(
+            systemProductId,
+          ),
+      );
+    } else {
+      state = state.copyWith(
+        favorites: state.favorites
+          ..remove(
+            systemProductId,
+          ),
+      );
+    }
   }
 
   Future<void> _updateUserPermission() async {

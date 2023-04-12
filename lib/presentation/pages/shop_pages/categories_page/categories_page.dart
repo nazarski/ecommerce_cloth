@@ -1,5 +1,5 @@
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/tab_view_categories.dart';
 import 'package:flutter/material.dart';
-import 'widgets/tab_view_categories.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key}) : super(key: key);

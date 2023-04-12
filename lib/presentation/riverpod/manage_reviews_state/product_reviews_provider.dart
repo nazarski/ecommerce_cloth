@@ -15,10 +15,10 @@ class ProductReviewsProvider
   ProductReviewsProvider() : super(const AsyncLoading());
   bool _withPhotoOnly = false;
   List<ReviewEntity>? _reviews;
-  String? _productId;
+  int? _systemId;
 
-  Future<void> getReviewsFromProductId(String productId) async {
-    _productId = productId;
+  Future<void> getReviewsFromProductId(String productId, int systemId) async {
+    _systemId ??= systemId;
     try {
       _reviews ??=
           await _manageReviewsUseCases.getAllReviews(productId: productId);
@@ -44,7 +44,7 @@ class ProductReviewsProvider
     }
   }
 
-  bool get withPhotoOnly => _withPhotoOnly;
+  int get systemId => _systemId ?? 0;
 
-  String get productId => _productId ?? '';
+  bool get withPhotoOnly => _withPhotoOnly;
 }

@@ -6,7 +6,7 @@ class UserInfoEntity extends Equatable {
   final DateTime? createdAt;
   final String displayName;
   final String email;
-  final Set favorites;
+  final Set<int> favorites;
   final String photoUrl;
   final String jwt;
   final int id;
@@ -49,7 +49,7 @@ class UserInfoEntity extends Equatable {
     DateTime? createdAt,
     String? displayName,
     String? email,
-    Set? favorites,
+    Set<int>? favorites,
     String? photoUrl,
     String? jwt,
     int? id,

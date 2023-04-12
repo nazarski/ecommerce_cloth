@@ -34,8 +34,7 @@ class PicturesView extends StatelessWidget {
                     child: Image(
                       width: width,
                       fit: BoxFit.cover,
-                      image: NetworkImage(
-                          '${StrapiInitialize.endpoint}${images[i]}'),
+                      image: NetworkImage(images[i]),
                     ),
                   ),
                 );
@@ -47,8 +46,7 @@ class PicturesView extends StatelessWidget {
                 child: Image(
                   width: width,
                   fit: BoxFit.cover,
-                  image: NetworkImage(
-                      '${StrapiInitialize.endpoint}${images[i]}'),
+                  image: NetworkImage(images[i]),
                 ),
               );
             }),

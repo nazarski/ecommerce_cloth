@@ -22,8 +22,7 @@ class GalleryPage extends StatelessWidget {
         return PhotoViewGalleryPageOptions(
           maxScale: PhotoViewComputedScale.covered,
           minScale: PhotoViewComputedScale.contained,
-          imageProvider: NetworkImage(
-              '${StrapiInitialize.endpoint}${listOfImages[index]}'),
+          imageProvider: NetworkImage(listOfImages[index]),
         );
       },
     );

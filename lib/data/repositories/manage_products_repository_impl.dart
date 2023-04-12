@@ -12,7 +12,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
           await ManageProductsData.getProductsFromDate(startDate);
       return models.map((e) => e.toEntity()).toList();
     } catch (e) {
-      return Future.error(e.toString());
+      throw Future.error(e.toString());
     }
   }
 
@@ -30,7 +30,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
           attribute: attribute,
           categoryId: categoryId);
     } catch (e) {
-      return Future.error(e.toString());
+      throw Future.error(e.toString());
     }
   }
 
@@ -58,7 +58,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
       );
       return list.map((e) => e.toEntity()).toList();
     } catch (e) {
-      return Future.error(e.toString());
+      throw Future.error(e.toString());
     }
   }
   @override
@@ -81,7 +81,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
       );
       return list.map((e) => e.toEntity()).toList();
     } catch (e) {
-      return Future.error(e.toString());
+      throw Future.error(e.toString());
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/widgets/red_wrap_circle_icon.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddPictureButton extends StatelessWidget {

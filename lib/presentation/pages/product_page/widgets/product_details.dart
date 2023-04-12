@@ -40,7 +40,9 @@ class ProductDetails extends StatelessWidget {
                   ColorLabel(color: selectedProduct.colors.first),
                 ],
               ),
-              const HeartFavourite(active: false),
+              HeartFavourite(
+                systemProductId: selectedProduct.systemId,
+              ),
             ],
           ),
           const SizedBox(
@@ -70,6 +72,7 @@ class ProductDetails extends StatelessWidget {
             height: 4,
           ),
           GoToReviewsButton(
+            systemId: selectedProduct.systemId,
             rating: selectedProduct.rating,
             productId: selectedProduct.id,
           ),

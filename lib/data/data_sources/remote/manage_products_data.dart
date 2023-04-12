@@ -24,7 +24,7 @@ class ManageProductsData {
       return getProductsFromDate(startDate.subtract(const Duration(days: 7)));
     }
     final result = values.map((e) {
-      return ProductModel.fromMap(e['attributes']);
+      return ProductModel.fromMap(e);
     }).toList();
     return result;
   }
@@ -78,7 +78,7 @@ class ManageProductsData {
     );
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     final result = values.map((e) {
-      return ProductModel.fromMap(e['attributes']);
+      return ProductModel.fromMap(e);
     }).toList();
     return result;
   }
@@ -109,7 +109,7 @@ class ManageProductsData {
     );
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     final result = values.map((e) {
-      return ProductModel.fromMap(e['attributes']);
+      return ProductModel.fromMap(e);
     }).toList();
     return result;
   }

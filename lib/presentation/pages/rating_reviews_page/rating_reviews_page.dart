@@ -25,7 +25,7 @@ class RatingReviewPage extends StatelessWidget {
             buildShowModalBottomSheet(
               context: context,
               header: 'What is your rate?',
-              child: const AddReviewSheet(),
+              child: AddReviewSheet(ratingEntity: rating,),
             );
           },
           label: const Text('Write a review'),

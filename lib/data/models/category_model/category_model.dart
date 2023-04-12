@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/category_entity/category_entity.dart';
 
 class CategoryModel {
@@ -47,12 +48,13 @@ class CategoryModel {
     return CategoryModel(
       categoryTitle: map['categoryTitle'] as String,
       categoryId: map['categoryId'] as String,
-      categoryImage: map['categoryImage']['data']['attributes']['formats']
-                  ['small'] !=
-              null
-          ? map['categoryImage']['data']['attributes']['formats']['small']
-              ['url'] as String
-          : map['categoryImage']['data']['attributes']['url'],
+      categoryImage:
+          map['categoryImage']['data']['attributes']['formats']['small'] != null
+              ? StrapiInitialize.endpoint +
+                  map['categoryImage']['data']['attributes']['formats']['small']
+                      ['url']
+              : StrapiInitialize.endpoint +
+                  map['categoryImage']['data']['attributes']['url'],
     );
   }
 }
