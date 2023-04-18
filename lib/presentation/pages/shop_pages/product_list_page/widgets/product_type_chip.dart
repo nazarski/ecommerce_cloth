@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/presentation/pages/widgets/type_chip_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_filter_state/available_filters_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_filter_state/filter_values_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
@@ -30,23 +31,7 @@ class ProductTypeChip extends ConsumerWidget {
             .read(availableFiltersProvider.notifier)
             .getAvailableFilters([type]);
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-            color: isActive
-                ? Theme.of(context).colorScheme.onSurface
-                : Theme.of(context).colorScheme.onSurfaceVariant,
-            borderRadius: BorderRadius.circular(50)),
-        child: Center(
-          child: Text(
-            '${type}s',
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.surfaceTint),
-          ),
-        ),
-      ),
+      child: TypeChipWidget(isActive: isActive, type: type),
     );
   }
 }

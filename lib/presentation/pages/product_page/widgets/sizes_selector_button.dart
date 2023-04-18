@@ -2,7 +2,7 @@ import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bott
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'select_size_and_add_to_cart.dart';
+import '../../widgets/select_size_sheet.dart';
 
 class SizesSelectorButton extends ConsumerStatefulWidget {
   const SizesSelectorButton({
@@ -30,7 +30,9 @@ class _SizesSelectorButtonState extends ConsumerState<SizesSelectorButton> {
         buildShowModalBottomSheet(
           context: context,
           header: 'Select size',
-          child: SelectSizeAndAddToCart(
+          child: SelectSizeSheet(
+            onPressed: (){},
+            buttonText: 'add to cart',
             sizes: widget.sizes,
           ),
         );

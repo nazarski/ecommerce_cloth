@@ -90,24 +90,8 @@ class _ProductListGridItemState extends ConsumerState<ProductListGridItem>
                       bottom: 2,
                       child: HeartFavourite(
                         systemProductId: widget.product.systemId,
+                        listOfSizes: widget.product.availableQuantity.keys.toList(),
                       )
-                      // Container(
-                      //   padding: const EdgeInsets.all(8),
-                      //   decoration: BoxDecoration(
-                      //       shape: BoxShape.circle,
-                      //       color: Theme.of(context).colorScheme.onPrimary,
-                      //       boxShadow: [
-                      //         BoxShadow(
-                      //             color: Colors.black.withOpacity(0.3),
-                      //             offset: const Offset(0, 4),
-                      //             blurRadius: 4),
-                      //       ]),
-                      //   child: Icon(
-                      //     Icons.favorite_border,
-                      //     size: 18,
-                      //     color: Theme.of(context).colorScheme.surface,
-                      //   ),
-                      // ),
                       ),
                   Positioned(
                     left: 0,

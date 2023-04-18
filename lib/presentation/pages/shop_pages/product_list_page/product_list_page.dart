@@ -1,19 +1,23 @@
+import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/product_list_toolbox.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/product_list_widget.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/product_types_list.dart';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/sliver_header_delegate_wrap.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/transforming_app_bar.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
 import 'package:flutter/material.dart';
-import 'widgets/product_list_toolbox.dart';
-import 'widgets/product_list_widget.dart';
-import 'widgets/product_types_list.dart';
-import 'widgets/sliver_header_delegate_wrap.dart';
-import '../../widgets/transforming_app_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductListPage extends StatefulWidget {
+class ProductListPage extends ConsumerStatefulWidget {
   const ProductListPage({Key? key, required this.title}) : super(key: key);
   static const routeName = 'product-list-page';
-final String title;
+  final String title;
+
   @override
-  State<ProductListPage> createState() => _ProductListPageState();
+  ConsumerState<ProductListPage> createState() => _ProductListPageState();
 }
 
-class _ProductListPageState extends State<ProductListPage> {
+class _ProductListPageState extends ConsumerState<ProductListPage> {
   bool isGrid = false;
 
   @override
@@ -43,6 +47,7 @@ class _ProductListPageState extends State<ProductListPage> {
             // ),
             SliverPersistentHeader(
               delegate: TransformingAppBar(
+                ifPop: true,
                 expandedHeight: MediaQuery.of(context).size.height * .16,
                 title: widget.title,
               ),
@@ -58,13 +63,15 @@ class _ProductListPageState extends State<ProductListPage> {
             SliverPersistentHeader(
               pinned: true,
               delegate: SliverHeaderDelegateWrap(
-                widget: ProductListToolBox(
-                  changeView: () {
-                    setState(() {
-                      isGrid = !isGrid;
-                    });
-                  },
-                ),
+                widget: ProductListToolBox(changeView: () {
+                  setState(() {
+                    isGrid = !isGrid;
+                  });
+                }, changeSortType: (ProductFilterEntity value) {
+                  ref
+                      .read(pagingControllerProvider.notifier)
+                      .newFilerValue(value);
+                }),
                 widgetHeight: 52,
               ),
             ),

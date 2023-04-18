@@ -108,7 +108,9 @@ class _ProductListListItemState extends State<ProductListListItem>
           Positioned(
             bottom: 0,
             right: 0,
-            child: HeartFavourite(systemProductId: widget.product.systemId,
+            child: HeartFavourite(
+              systemProductId: widget.product.systemId,
+              listOfSizes: widget.product.availableQuantity.keys.toList(),
             ),
           ),
           if (chipValue.isNotEmpty)

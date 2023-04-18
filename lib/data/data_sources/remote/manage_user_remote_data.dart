@@ -67,11 +67,4 @@ class ManageUserRemoteData {
         ));
   }
 
-  static Future<void> addToFavourites({
-    required int userId,
-    required int systemProductId,
-  }) async {
-    final response = await _dio.put('$_apiEndpoint/users/$userId',
-        queryParameters: {'favourites': '[systemProductId]'});
-  }
 }

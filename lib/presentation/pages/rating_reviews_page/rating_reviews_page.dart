@@ -37,6 +37,7 @@ class RatingReviewPage extends StatelessWidget {
             SliverPersistentHeader(
               pinned: true,
               delegate: TransformingAppBar(
+                ifPop: true,
                 expandedHeight: height * .16,
                 title: 'Rating&Reviews',
               ),

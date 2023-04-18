@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'details_item.dart';
+import '../product_page/widgets/details_item.dart';
 
-class SelectSizeAndAddToCart extends StatelessWidget {
-  const SelectSizeAndAddToCart({
+class SelectSizeSheet extends StatelessWidget {
+  const SelectSizeSheet({
     super.key,
     required this.sizes,
+    required this.onPressed,
+    required this.buttonText,
   });
 
   final List<String> sizes;
+  final VoidCallback onPressed;
+  final String buttonText;
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +58,11 @@ class SelectSizeAndAddToCart extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
-            onPressed: (){},
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+            onPressed: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Center(
-                child: Text('ADD TO CART'),
+                child: Text(buttonText.toUpperCase()),
               ),
             ),
           ),

@@ -1,20 +1,21 @@
 import 'dart:developer';
+import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/product_type_chip.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/product_types_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/favourites_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'product_type_chip.dart';
-
-class ProductTypesList extends ConsumerStatefulWidget {
-  const ProductTypesList({Key? key}) : super(key: key);
+class FavouritesTypesList extends ConsumerStatefulWidget {
+  const FavouritesTypesList({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ProductTypesList> createState() => _ProductTypesListState();
+  ConsumerState<FavouritesTypesList> createState() => _ProductTypesListState();
 }
 
-class _ProductTypesListState extends ConsumerState<ProductTypesList>
+class _ProductTypesListState extends ConsumerState<FavouritesTypesList>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
 
@@ -35,8 +36,8 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
 
   @override
   Widget build(BuildContext context) {
-    final finder = ref.watch(collectSearchHierarchyProvider.notifier).finder;
-    final typesList = ref.watch(productTypesProvider(finder));
+    final userId = ref.read(userInfoProvider).id;
+    final typesList = ref.watch(favouritesTypesProvider(userId));
     return typesList.when(
       data: (data) {
         _animationController.forward();
@@ -75,9 +76,8 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
           itemCount: 5,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           itemBuilder: (context, i) {
-            return Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(50)),
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(50),
               child: const ShimmerWidget(
                 width: 100,
                 height: 30,
@@ -89,5 +89,3 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
     );
   }
 }
-
-

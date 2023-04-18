@@ -1,35 +1,23 @@
+import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class UserCartItemEntity extends Equatable{
   final DateTime additionDate;
-  final String product;
-  final String productImage;
-  final int price;
-  final int totalAmount;
-  final String productTitle;
+  final ProductEntity product;
   final int quantity;
   final String size;
 
   const UserCartItemEntity({
     required this.additionDate,
     required this.product,
-    required this.productImage,
-    required this.price,
-    required this.totalAmount,
-    required this.productTitle,
     required this.quantity,
     required this.size,
   });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [
+  List<Object> get props => [
    additionDate,
    product,
-   productImage,
-   price,
-   totalAmount,
-   productTitle,
    quantity,
    size,
   ];
