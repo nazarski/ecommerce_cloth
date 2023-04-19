@@ -1,4 +1,3 @@
-import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/gallery_page/gallery_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
@@ -77,8 +76,7 @@ class ReviewItem extends StatelessWidget {
                             child: Image(
                               fit: BoxFit.cover,
                               width: 104,
-                              image: NetworkImage(
-                                  '${StrapiInitialize.endpoint}${review.reviewThumbnailPictures[i]}'),
+                              image: NetworkImage(review.reviewThumbnailPictures[i]),
                             ),
                           ),
                         );
@@ -136,8 +134,7 @@ class ReviewItem extends StatelessWidget {
             alignment: Alignment.topCenter,
             fit: BoxFit.cover,
             image: review.userAvatar.isNotEmpty
-                ? NetworkImage(
-                    '${StrapiInitialize.endpoint}${review.userAvatar}')
+                ? NetworkImage(review.userAvatar)
                 : const AssetImage('assets/images/no_avatar.png')
                     as ImageProvider,
           ),

@@ -6,21 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class GoToReviewsButton extends ConsumerWidget {
-  const GoToReviewsButton({super.key,
+  const GoToReviewsButton({
+    super.key,
+    required this.systemId,
     required this.rating,
     required this.productId,
   });
 
   final RatingEntity rating;
   final String productId;
+  final int systemId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
-        ref
-            .watch(productReviewsProvider.notifier)
-            .getReviewsFromProductId(productId);
+        ref.watch(productReviewsProvider.notifier).getReviewsFromProductId(
+              productId,
+              systemId,
+            );
         Navigator.of(context, rootNavigator: true).pushNamed(
           RatingReviewPage.routeName,
           arguments: rating,

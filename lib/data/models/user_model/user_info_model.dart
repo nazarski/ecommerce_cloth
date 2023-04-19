@@ -5,7 +5,7 @@ class UserInfoModel {
   final DateTime createdAt;
   final String displayName;
   final String email;
-  final Set favorites;
+  final Iterable favorites;
   final String photoUrl;
   final String jwt;
   final int id;
@@ -54,7 +54,7 @@ class UserInfoModel {
       createdAt: createdAt,
       displayName: displayName,
       email: email,
-      favorites: favorites,
+      favorites: Set<int>.from(favorites),
       photoUrl: photoUrl,
       jwt: jwt,
       id: id,
@@ -62,7 +62,6 @@ class UserInfoModel {
   }
 
   factory UserInfoModel.fromEntity({required UserInfoEntity entity}) {
-
     return UserInfoModel(
       notification: entity.notification,
       fcmToken: entity.fcmToken,
@@ -119,7 +118,7 @@ class UserInfoModel {
       createdAt: DateTime.parse(map['createdAt']),
       displayName: map['displayName'] as String,
       email: map['email'] as String,
-      favorites: map['favorites'].toSet(),
+      favorites: {},
       photoUrl: map['photoUrl'],
       fcmToken: map['fcmToken'] as String,
       notification: map['notification'] as bool,

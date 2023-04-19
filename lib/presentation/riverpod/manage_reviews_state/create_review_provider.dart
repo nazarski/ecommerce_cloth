@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:ecommerce_cloth/data/repositories/manage_reviews_repository_impl.dart';
+import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_reviews/manage_reviews.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/product_reviews_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,29 +15,30 @@ final _manageReviewsUseCases = ManageReviews(ManageReviewsRepositoryImpl());
 final createReviewProvider =
     StateNotifierProvider.autoDispose<CreateReviewProvider, ReviewEntity>(
         (ref) {
-  final productId = ref.read(productReviewsProvider.notifier).productId;
-  final userId = ref.read(getUserInfo).value?.id;
-  return CreateReviewProvider(productId: productId, userId: userId.toString());
+  final systemId = ref.read(productReviewsProvider.notifier).systemId;
+  final user = ref.read(userInfoProvider);
+  return CreateReviewProvider(
+    userId: user.id,
+    jwt: user.jwt,
+    systemId: systemId,
+  );
 });
 
 class CreateReviewProvider extends StateNotifier<ReviewEntity> {
-  CreateReviewProvider({required this.productId, required this.userId})
-      : super(
+  CreateReviewProvider({
+    required this.systemId,
+    required this.userId,
+    required this.jwt,
+  }) : super(
           ReviewEntity(
-              reviewThumbnailPictures: const [],
-              rating: 0,
-              reviewId: '',
-              helpful: 0,
-              productId: '',
-              publicationDate: DateTime.now(),
-              userId: '',
-              review: '',
-              reviewPictures: const [],
-              userAvatar: '',
-              userName: ''),
+            productSystemId: systemId,
+            publicationDate: DateTime.now(),
+            userId: userId,
+          ),
         );
-  final String productId;
-  final String userId;
+  final int systemId;
+  final int userId;
+  final String jwt;
 
   void setRating(int rate) {
     state = state.copyWith(rating: rate.toDouble());
@@ -61,7 +64,8 @@ class CreateReviewProvider extends StateNotifier<ReviewEntity> {
     );
   }
 
-  Future<void> createReview(String review) async {
-    print('posting');
+  Future<void> createReview(String review, RatingEntity rating) async {
+    _manageReviewsUseCases.createReview(
+        state.copyWith(review: review), jwt, systemId, rating);
   }
 }
