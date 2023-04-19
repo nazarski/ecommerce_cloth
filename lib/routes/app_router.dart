@@ -14,6 +14,8 @@ import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_nest_page
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_page/filter_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/payment_pages/payments_methods_page/payments_method_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/payment_pages/payments_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/product_page/product_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/profile_card_page.dart';
@@ -72,6 +74,11 @@ class AppRouter {
       case SettingNestPage.routeName:
         return PageTransition(
           child: const SettingNestPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+      case PaymentsNestPage.routeName:
+        return PageTransition(
+          child: const PaymentsMethodsPage(),
           type: PageTransitionType.rightToLeft,
         );
       case ProductPage.routeName:
@@ -214,6 +221,23 @@ class AppRouter {
       case SettingPage.routeName:
         return PageTransition(
           child:  const SettingPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      default:
+        throw Exception('Invalid route: ${settings.name}');
+    }
+  }
+
+  // Payments page nested routes
+  static Route<dynamic> generatePaymentsPageNestedRoutes(RouteSettings settings) {
+    final arguments = settings.arguments;
+    log(settings.name.toString());
+    WidgetBuilder builder;
+    switch (settings.name) {
+      case PaymentsMethodsPage.routeName:
+        return PageTransition(
+          child:  const PaymentsMethodsPage(),
           type: PageTransitionType.rightToLeft,
         );
 

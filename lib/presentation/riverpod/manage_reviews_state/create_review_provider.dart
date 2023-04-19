@@ -4,9 +4,10 @@ import 'package:ecommerce_cloth/data/repositories/manage_reviews_repository_impl
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_reviews/manage_reviews.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/product_reviews_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/user_info_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../manage_user_state/user_info_state.dart';
 
 final _manageReviewsUseCases = ManageReviews(ManageReviewsRepositoryImpl());
 final createReviewProvider =
