@@ -5,23 +5,6 @@ class ManageUserLocalData {
   ManageUserLocalData._();
 
   static const FlutterSecureStorage _secureStorage = FlutterSecureStorage();
-
-  // static Future<UserInfoEntity> universalUpdateUserModel({
-  //   required UserInfoEntity userInfoEntity,
-  //   String? fullMame,
-  //   String? dateOfBirth,
-  //   bool? notification,
-  //   String? fcmToken,
-  // }) async {
-  //   final UserInfoEntity user = userInfoEntity;
-  //   if(fullMame != null) user.copyWith(fullName: fullMame);
-  //   if(dateOfBirth != null) user.copyWith(dateOfBirth: dateOfBirth);
-  //   if(notification != null) user.copyWith(notification: notification);
-  //   if(fcmToken != null) user.copyWith(fcmToken: fcmToken);
-  //   print(user);
-  //   return user;
-  // }
-
   static UserInfoEntity updateFcmToken({ required UserInfoEntity userInfoEntity, required String fcmToken}) {
     final userModel = userInfoEntity;
     userModel.copyWith(fcmToken: fcmToken);

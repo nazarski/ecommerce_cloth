@@ -27,7 +27,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       orderId: '121212',
       deliveryMethod: const DeliveryServiceEntity(id: '', estimated: '', icon: '', price: 2, service: ''),
       orderedProducts: [],
-      payment: const CardEntity(cardNumber: 1, cardDate: 1, cvvCode: 1, cardType: '', cardIcon: ''),
+      payment:  const CardEntity(cardNumber: 1, cardDate: '', cardName: '', isDefault: false, cardId: '',),
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
@@ -42,7 +42,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       orderId: '4333434',
       deliveryMethod: const DeliveryServiceEntity(id: '', estimated: '', icon: '', price: 2, service: ''),
       orderedProducts: [],
-      payment: const CardEntity(cardNumber: 1, cardDate: 1, cvvCode: 1, cardType: '', cardIcon: ''),
+      payment:  const CardEntity(cardNumber: 1, cardDate: '', cardName: '', isDefault: false, cardId: '',),
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
@@ -59,7 +59,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       orderId: '121212',
       deliveryMethod: const DeliveryServiceEntity(id: '', estimated: '', icon: '', price: 2, service: ''),
       orderedProducts: [],
-      payment: const CardEntity(cardNumber: 1, cardDate: 1, cvvCode: 1, cardType: '', cardIcon: ''),
+      payment: const CardEntity(cardNumber: 1, cardDate: '', cardName: '', isDefault: false, cardId: ''),
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
@@ -74,7 +74,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       orderId: '4333434',
       deliveryMethod: const DeliveryServiceEntity(id: '', estimated: '', icon: '', price: 2, service: ''),
       orderedProducts: [],
-      payment: const CardEntity(cardNumber: 1, cardDate: 1, cvvCode: 1, cardType: '', cardIcon: ''),
+      payment:  const CardEntity(cardNumber: 1, cardDate: '',  cardName: '', isDefault: false, cardId: '',),
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
@@ -91,7 +91,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       orderId: '121212',
       deliveryMethod: const DeliveryServiceEntity(id: '', estimated: '', icon: '', price: 2, service: ''),
       orderedProducts: [],
-      payment: const CardEntity(cardNumber: 1, cardDate: 1, cvvCode: 1, cardType: '', cardIcon: ''),
+      payment:  const CardEntity(cardNumber: 1, cardDate: '',  cardName: '', isDefault: false, cardId: '',),
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(
@@ -106,7 +106,7 @@ class _OrderPageState extends ConsumerState<OrderPage> with SingleTickerProvider
       orderId: '4333434',
       deliveryMethod: const DeliveryServiceEntity(id: '', estimated: '', icon: '', price: 2, service: ''),
       orderedProducts: [],
-      payment: const CardEntity(cardNumber: 1, cardDate: 1, cvvCode: 1, cardType: '', cardIcon: ''),
+      payment:  const CardEntity(cardNumber: 1, cardDate: '', cardName: '', isDefault: false, cardId: ''),
       shippingAddress: const UserAddressEntity(
           addressId: '', address: '', city: '', country: '', fullName: '', primary: true, region: '', zipCode: ''),
       user: UserInfoEntity(

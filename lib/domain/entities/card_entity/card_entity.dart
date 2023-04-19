@@ -1,28 +1,42 @@
 import 'package:equatable/equatable.dart';
 
-class CardEntity extends Equatable{
+class CardEntity extends Equatable {
   final int cardNumber;
-  final int cardDate;
-  final int cvvCode;
-  final String cardType;
-  final String cardIcon;
+  final String cardDate;
+  final String cardName;
+  final bool isDefault;
+  final String cardId;
 
   const CardEntity({
+    required this.cardId,
     required this.cardNumber,
     required this.cardDate,
-    required this.cvvCode,
-    required this.cardType,
-    required this.cardIcon,
+    required this.cardName,
+    required this.isDefault,
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
-    cardNumber,
-    cardDate,
-    cvvCode,
-    cardType,
-    cardIcon,
-  ];
+        cardId,
+        cardNumber,
+        cardDate,
+        cardName,
+        isDefault,
+      ];
 
+  CardEntity copyWith({
+    int? cardNumber,
+    String? cardDate,
+    String? cardName,
+    bool? isDefault,
+    String? cardId,
+  }) {
+    return CardEntity(
+      cardNumber: cardNumber ?? this.cardNumber,
+      cardDate: cardDate ?? this.cardDate,
+      cardName: cardName ?? this.cardName,
+      isDefault: isDefault ?? this.isDefault,
+      cardId: cardId ?? this.cardId,
+    );
+  }
 }

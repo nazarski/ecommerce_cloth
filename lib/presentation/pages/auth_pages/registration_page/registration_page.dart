@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class RegistrationPage extends ConsumerStatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
   static const routeName = 'registration_page';
@@ -42,24 +41,18 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   @override
   Widget build(BuildContext context) {
-
     final authProvider = ref.watch(authControllerRegistrationProvider);
     ref.listen(authControllerRegistrationProvider, (previous, next) {
-
       if (next.hasError) {
         showErrorSnackBar(context);
         ref.invalidate(authControllerRegistrationProvider);
       }
 
-      if(next.value != null && next.value!) {
+      if (next.value != null && next.value!) {
         Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
       }
-
-
-
     });
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -169,34 +162,33 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 height: height / 40,
               ),
               SizedBox(
-                  width: double.infinity,
-                  height: height / 16,
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        final UserCredentialEntity userInfo = UserCredentialEntity(
-                          username: userNameController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
-                          type: AuthenticateType.registration,
-                        );
-                        if (validateAndSaveHelper(formKey: formKey)) {
-                          await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously(
+                width: double.infinity,
+                height: height / 16,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final UserCredentialEntity userInfo = UserCredentialEntity(
+                      username: userNameController.text,
+                      email: emailController.text,
+                      password: passwordController.text,
+                      type: AuthenticateType.registration,
+                    );
+                    if (validateAndSaveHelper(formKey: formKey)) {
+                      await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously(
                             userInfo,
                           );
-                        }
-                      },
-                      child: authProvider.when(
-                            data: (_) {
-                              return const Text('SIGN UP');
-                            },
-                            error: (error, stackTrace) {
-                              return const Text('Error');
-                            },
-                            loading: () => const CircularProgressIndicator.adaptive(
-                            ),
-                          )
-                      // const Text('SIGN UP'),
-                      )),
+                    }
+                  },
+                  child: authProvider.when(
+                    data: (_) {
+                      return const Text('SIGN UP');
+                    },
+                    error: (error, stackTrace) {
+                      return const Text('Error');
+                    },
+                    loading: () => const CircularProgressIndicator.adaptive(),
+                  ),
+                ),
+              ),
               SizedBox(height: height / 8),
               SocialMediaBlock(
                 label: 'Or sign up with social account',

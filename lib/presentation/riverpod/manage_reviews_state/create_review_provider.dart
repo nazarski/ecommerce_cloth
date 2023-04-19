@@ -9,6 +9,8 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_inf
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../manage_user_state/user_info_state.dart';
+
 final _manageReviewsUseCases = ManageReviews(ManageReviewsRepositoryImpl());
 final createReviewProvider =
     StateNotifierProvider.autoDispose<CreateReviewProvider, ReviewEntity>(

@@ -2,6 +2,7 @@ import 'package:ecommerce_cloth/core/resources/app_icons.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/payment_pages/payments_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/widgets/setting_item.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
@@ -108,7 +109,9 @@ class ProfileCardPage extends ConsumerWidget {
                     SettingItem(
                       title: 'Payment methods',
                       subtitle: 'Visa  **34',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).pushNamed(PaymentsNestPage.routeName);
+                      },
                     ),
                     SettingItem(
                       title: 'Promo-codes',

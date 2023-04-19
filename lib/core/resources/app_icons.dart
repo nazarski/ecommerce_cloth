@@ -16,6 +16,10 @@ class AppIcons{
   static const String avatar = '$path/avatar.svg';
   static const String hollowStar = '$path/hollow_star.svg';
   static const String yellowStar = '$path/yellow_star.svg';
-
-
+  static const String chip = '$path/chip.svg';
+  static const String masterCard = '$path/mastercard.svg';
+  static const String americanExpress = '$path/amex.svg';
+  static const String visa = '$path/visa.svg';
+  static const String bankCard = '$path/bankCard.svg';
+  static const String defaultCard = '$path/default_card.svg';
 }
