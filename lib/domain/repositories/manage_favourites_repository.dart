@@ -9,11 +9,13 @@ abstract class ManageFavouritesRepository {
   Future<List<int>> getFavouritesIds({
     required int userId,
   });
-  Future<void> removeFromFavourites({
+  Future<void> removeCartItem({
+    required int cartItemId,
+  });
+  Future<int> getCartItemIdFromProductId({
     required int userId,
     required int systemProductId,
   });
-
   Future<List<UserCartItemEntity>> getFavouriteProducts({
     required int userId,
   });

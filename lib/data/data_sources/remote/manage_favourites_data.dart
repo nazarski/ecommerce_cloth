@@ -50,10 +50,14 @@ class ManageFavouritesData {
     return response.data['data']['id'];
   }
 
-  static Future<List<int>> getFavouritesIds({required int userId}) async {
-    final response = await _dio.get('$_apiEndpoint/users/$userId',
-        queryParameters: {"populate[favourites][fields][0]": "id"});
-    return response.data['favourites'].map((element)=> element['id']);
+  static Future<Iterable<int>> getFavouritesIds({required int userId}) async {
+    final response =
+        await _dio.get('$_apiEndpoint/users/$userId', queryParameters: {
+      "fields": "id",
+      'populate[favourites][fields]': 'id',
+    });
+    final data = List.from(response.data['favourites']);
+    return data.map((element) => element['id']);
   }
 
   static Future<void> addToFavourites({
@@ -65,14 +69,26 @@ class ManageFavouritesData {
       HttpHeaders.authorizationHeader: 'Bearer $jwt',
       HttpHeaders.contentTypeHeader: 'application/json',
     });
-    log(newListOfIds.toString());
     final response = await _dio.put(
       '$_apiEndpoint/users/$userId',
-      data: {
-        'favourites': newListOfIds
-      },
+      data: {'favourites': newListOfIds},
+      options: options,
     );
-    log(response.data.toString());
+  }
+
+  static Future<int> getCartItemIdFromProductId(
+      {required int systemProductId, required int userId}) async {
+    final response = await _dio.get('$_apiEndpoint/users/$userId', queryParameters: {
+      'fields': 'id',
+      'populate[favourites][fields]': 'id',
+      'populate[favourites][populate][product][fields]': 'id',
+      'populate[favourites][filters][product][id]': systemProductId,
+    });
+    return response.data['favourites'].first['product']['id'] as int;
+  }
+  static Future<void>deleteCartItemFromId({required cartItemId})async{
+    final response = await _dio.delete('$_apiEndpoint/cart-items/$cartItemId');
+
   }
 
   static Future<void> deleteFromFavourites({
@@ -90,3 +106,4 @@ class ManageFavouritesData {
     log(response.data.toString());
   }
 }
+// 'populate[favourites][populate][product][fields]':'id',

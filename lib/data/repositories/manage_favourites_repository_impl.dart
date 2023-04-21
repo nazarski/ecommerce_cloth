@@ -29,13 +29,6 @@ class ManageFavouritesRepositoryImpl implements ManageFavouritesRepository {
   }
 
   @override
-  Future<void> removeFromFavourites(
-      {required int userId, required int systemProductId}) async {
-    // TODO: implement removeFromFavourites
-    throw UnimplementedError();
-  }
-
-  @override
   Future<List<String>> getFavouriteTypes({
     required int userId,
   }) async {
@@ -61,9 +54,27 @@ class ManageFavouritesRepositoryImpl implements ManageFavouritesRepository {
   @override
   Future<List<int>> getFavouritesIds({required int userId}) async {
     try {
-      return await ManageFavouritesData.getFavouritesIds(userId: userId);
+      final data = await ManageFavouritesData.getFavouritesIds(userId: userId);
+      return data.toList();
     } on Exception catch (error) {
       throw Future.error(error);
     }
+  }
+
+  @override
+  Future<int> getCartItemIdFromProductId({
+    required int userId,
+    required int systemProductId,
+  }) async {
+    final id = await ManageFavouritesData.getCartItemIdFromProductId(
+      systemProductId: systemProductId,
+      userId: userId,
+    );
+    return id;
+  }
+
+  @override
+  Future<void> removeCartItem({required int cartItemId}) async {
+    await ManageFavouritesData.deleteCartItemFromId(cartItemId: cartItemId);
   }
 }

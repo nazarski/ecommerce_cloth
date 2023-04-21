@@ -12,7 +12,7 @@ class ManageFavourites {
     required int userId,
     required String jwt,
   }) {
-    _addProduct(
+    _createItemAndAddToFavourites(
       favourites: favourites,
       systemProductId: systemProductId,
       size: size,
@@ -22,7 +22,7 @@ class ManageFavourites {
     return favourites..add(systemProductId);
   }
 
-  Future<void> _addProduct({
+  Future<void> _createItemAndAddToFavourites({
     required Set<int> favourites,
     required int systemProductId,
     required String size,
@@ -43,19 +43,28 @@ class ManageFavourites {
     );
   }
 
-  // Set<int> removeFromFavourites({
-  //   required Set<int> favourites,
-  //   required int systemProductId,
-  //   required int userId,
-  //   required String jwt,
-  // }) {
-  //   _favouritesRepository.addToFavourites(
-  //     jwt: jwt,
-  //     userId: userId,
-  //     newListOfIds: systemProductId,
-  //   );
-  //   return favourites..remove(systemProductId);
-  // }
+  Set<int> removeFromFavourites({
+    required Set<int> favourites,
+    required int systemProductId,
+    required int userId,
+    required String jwt,
+  }) {
+    _getIdAndRemove(userId: userId, systemProductId: systemProductId);
+    return favourites..remove(systemProductId);
+  }
+
+  Future<void> _getIdAndRemove({
+    required int userId,
+    required int systemProductId,
+  }) async {
+    final cartItemId = await _favouritesRepository.getCartItemIdFromProductId(
+      userId: userId,
+      systemProductId: systemProductId,
+    );
+    await _favouritesRepository.removeCartItem(
+      cartItemId: cartItemId,
+    );
+  }
 
   Future<List<String>> getFavouritesTypes({required int userId}) async {
     return await _favouritesRepository.getFavouriteTypes(
