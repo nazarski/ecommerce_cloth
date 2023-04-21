@@ -3,9 +3,12 @@ import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entit
 abstract class ManageFavouritesRepository {
   Future<void> addToFavourites({
     required int userId,
-    required int systemProductId,
+    required List<int> newListOfIds,
+    required String jwt,
   });
-
+  Future<List<int>> getFavouritesIds({
+    required int userId,
+  });
   Future<void> removeFromFavourites({
     required int userId,
     required int systemProductId,
@@ -17,4 +20,9 @@ abstract class ManageFavouritesRepository {
   Future<List<String>> getFavouriteTypes({
     required int userId,
   });
+  Future<int> createCartItem({
+    required int productSystemId,
+    required int userId,
+    required String size,
+});
 }

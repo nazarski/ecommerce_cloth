@@ -4,12 +4,16 @@ import 'package:ecommerce_cloth/domain/repositories/manage_favourites_repository
 
 class ManageFavouritesRepositoryImpl implements ManageFavouritesRepository {
   @override
-  Future<void> addToFavourites(
-      {required int userId, required int systemProductId}) async {
+  Future<void> addToFavourites({
+    required int userId,
+    required List<int> newListOfIds,
+    required String jwt,
+  }) async {
     try {
       await ManageFavouritesData.addToFavourites(
         userId: userId,
-        systemProductId: systemProductId,
+        newListOfIds: newListOfIds,
+        jwt: jwt,
       );
     } on Exception catch (error) {
       throw Future.error(error);
@@ -37,5 +41,29 @@ class ManageFavouritesRepositoryImpl implements ManageFavouritesRepository {
   }) async {
     // TODO: implement getFavouriteTypes
     throw UnimplementedError();
+  }
+
+  @override
+  Future<int> createCartItem({
+    required int productSystemId,
+    required int userId,
+    required String size,
+  }) async {
+    try {
+      final cartItemId = await ManageFavouritesData.createCartItem(
+          productSystemId: productSystemId, userId: userId, size: size);
+      return cartItemId;
+    } on Exception catch (error) {
+      throw Future.error(error);
+    }
+  }
+
+  @override
+  Future<List<int>> getFavouritesIds({required int userId}) async {
+    try {
+      return await ManageFavouritesData.getFavouritesIds(userId: userId);
+    } on Exception catch (error) {
+      throw Future.error(error);
+    }
   }
 }

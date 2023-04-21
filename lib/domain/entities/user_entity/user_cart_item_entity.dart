@@ -10,17 +10,29 @@ class UserCartItemEntity extends Equatable{
   const UserCartItemEntity({
     required this.additionDate,
     required this.product,
-    required this.quantity,
-    required this.size,
+    this.quantity = 1,
+    this.size = '',
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
    additionDate,
    product,
    quantity,
    size,
   ];
 
-
+  UserCartItemEntity copyWith({
+    DateTime? additionDate,
+    ProductEntity? product,
+    int? quantity,
+    String? size,
+  }) {
+    return UserCartItemEntity(
+      additionDate: additionDate ?? this.additionDate,
+      product: product ?? this.product,
+      quantity: quantity ?? this.quantity,
+      size: size ?? this.size,
+    );
+  }
 }

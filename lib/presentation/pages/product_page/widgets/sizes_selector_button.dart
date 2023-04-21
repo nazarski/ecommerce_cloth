@@ -31,7 +31,7 @@ class _SizesSelectorButtonState extends ConsumerState<SizesSelectorButton> {
           context: context,
           header: 'Select size',
           child: SelectSizeSheet(
-            onPressed: (){},
+            onPressed: (String size){},
             buttonText: 'add to cart',
             sizes: widget.sizes,
           ),

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HeartFavourite extends ConsumerWidget {
-  const HeartFavourite(
-    {
-    required this.systemProductId, required this.listOfSizes,
+  const HeartFavourite({
+    required this.systemProductId,
+    required this.listOfSizes,
     super.key,
   });
 
@@ -20,14 +20,21 @@ class HeartFavourite extends ConsumerWidget {
         ref.watch(userInfoProvider).favorites.contains(systemProductId);
     return GestureDetector(
       onTap: () {
-        buildShowModalBottomSheet(
-            context: context,
-            child: SelectSizeSheet(
-              sizes: listOfSizes,
-              onPressed: () {},
-              buttonText: 'add to favourites',
-            ),
-            header: 'Select size');
+        ifActive
+            ? ref
+                .read(userInfoProvider.notifier)
+                .removeFromFavourites(systemProductId: systemProductId)
+            : buildShowModalBottomSheet(
+                context: context,
+                child: SelectSizeSheet(
+                  sizes: listOfSizes,
+                  onPressed: (String size) {
+                    ref.read(userInfoProvider.notifier).addToFavourites(
+                        systemProductId: systemProductId, selectedSize: size);
+                  },
+                  buttonText: 'add to favourites',
+                ),
+                header: 'Select size');
       },
       child: Container(
         padding: const EdgeInsets.all(8),

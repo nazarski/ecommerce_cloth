@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
@@ -35,20 +36,45 @@ class ManageFavouritesData {
     }).toList();
   }
 
+  static Future<int> createCartItem({
+    required int productSystemId,
+    required int userId,
+    required String size,
+  }) async {
+    final response = await _dio.post('$_apiEndpoint/cart-items', data: {
+      'data': {
+        'product': productSystemId,
+        'size': size,
+      }
+    });
+    return response.data['data']['id'];
+  }
+
+  static Future<List<int>> getFavouritesIds({required int userId}) async {
+    final response = await _dio.get('$_apiEndpoint/users/$userId',
+        queryParameters: {"populate[favourites][fields][0]": "id"});
+    return response.data['favourites'].map((element)=> element['id']);
+  }
+
   static Future<void> addToFavourites({
     required int userId,
-    required int systemProductId,
+    required List<int> newListOfIds,
+    required String jwt,
   }) async {
+    final options = Options(headers: {
+      HttpHeaders.authorizationHeader: 'Bearer $jwt',
+      HttpHeaders.contentTypeHeader: 'application/json',
+    });
+    log(newListOfIds.toString());
     final response = await _dio.put(
       '$_apiEndpoint/users/$userId',
       data: {
-        "data": {
-          'favourites': [systemProductId]
-        }
+        'favourites': newListOfIds
       },
     );
     log(response.data.toString());
   }
+
   static Future<void> deleteFromFavourites({
     required int userId,
     required int systemProductId,
@@ -64,4 +90,3 @@ class ManageFavouritesData {
     log(response.data.toString());
   }
 }
-

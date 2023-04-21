@@ -1,7 +1,7 @@
 import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/select_size_sheet.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/select_size_sheet.dart';
 
 class ProductPageAddToCart extends StatelessWidget {
   const ProductPageAddToCart({
@@ -35,7 +35,7 @@ class ProductPageAddToCart extends StatelessWidget {
                 context: context,
                 header: 'Select size',
                 child: SelectSizeSheet(
-                  onPressed: (){},
+                  onPressed: (String size){},
                   buttonText: 'add to cart',
                   sizes: sizes,
                 ),

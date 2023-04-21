@@ -1,8 +1,8 @@
+import 'package:ecommerce_cloth/presentation/pages/product_page/widgets/details_item.dart';
 import 'package:flutter/material.dart';
 
-import '../product_page/widgets/details_item.dart';
 
-class SelectSizeSheet extends StatelessWidget {
+class SelectSizeSheet extends StatefulWidget {
   const SelectSizeSheet({
     super.key,
     required this.sizes,
@@ -11,8 +11,21 @@ class SelectSizeSheet extends StatelessWidget {
   });
 
   final List<String> sizes;
-  final VoidCallback onPressed;
+  final ValueChanged<String> onPressed;
   final String buttonText;
+
+  @override
+  State<SelectSizeSheet> createState() => _SelectSizeSheetState();
+}
+
+class _SelectSizeSheetState extends State<SelectSizeSheet> {
+  String selectedSize = '';
+
+  void _selectSize(String size) {
+    setState(() {
+      selectedSize = size;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,25 +34,14 @@ class SelectSizeSheet extends StatelessWidget {
         Wrap(
           spacing: 22,
           runSpacing: 16,
-          children: List.generate(sizes.length, (index) {
-            return GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: 100,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onBackground,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      width: 0.8, color: Theme.of(context).colorScheme.surface),
-                ),
-                child: Center(
-                  child: Text(
-                    sizes[index],
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-              ),
+          children: List.generate(widget.sizes.length, (index) {
+            final String size = widget.sizes[index];
+            return _SizeItem(
+              size: size,
+              action: () {
+                _selectSize(size);
+              },
+              isActive: selectedSize == size,
             );
           }),
         ),
@@ -58,16 +60,64 @@ class SelectSizeSheet extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: (){
+              widget.onPressed(selectedSize);
+              Navigator.pop(context);
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Center(
-                child: Text(buttonText.toUpperCase()),
+                child: Text(widget.buttonText.toUpperCase()),
               ),
             ),
           ),
         )
       ],
+    );
+  }
+}
+
+class _SizeItem extends StatelessWidget {
+  const _SizeItem({
+    required this.size,
+    required this.action,
+    required this.isActive,
+  });
+
+  final String size;
+  final VoidCallback action;
+  final bool isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: action,
+      child: Container(
+        width: 100,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: isActive
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onBackground,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+              width: 0.8,
+              color: isActive
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.surface),
+        ),
+        child: Center(
+          child: Text(
+            size,
+            style: isActive
+                ? Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Colors.white)
+                : Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      ),
     );
   }
 }

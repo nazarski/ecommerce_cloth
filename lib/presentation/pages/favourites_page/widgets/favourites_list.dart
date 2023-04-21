@@ -223,7 +223,6 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                   ),
                 ],
               ),
-
               Text(
                 '30\$',
                 style: Theme.of(context).textTheme.bodyMedium,

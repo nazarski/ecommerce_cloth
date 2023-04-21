@@ -44,7 +44,7 @@ class UserInfoProvider extends StateNotifier<UserInfoEntity> {
 
   void addToFavourites(
       {required int systemProductId, required String selectedSize}) {
-    final newSet = _favourites.toggleFavourites(
+    final newSet = _favourites.addToFavourites(
       favourites: state.favorites,
       systemProductId: systemProductId,
       size: selectedSize,
@@ -53,7 +53,16 @@ class UserInfoProvider extends StateNotifier<UserInfoEntity> {
     );
     state = state.copyWith(favorites: newSet);
   }
-
+  void removeFromFavourites(
+      {required int systemProductId}) {
+    // final newSet = _favourites.removeFromFavourites(
+    //   favourites: state.favorites,
+    //   systemProductId: systemProductId,
+    //   userId: state.id,
+    //   jwt: state.jwt,
+    // );
+    // state = state.copyWith(favorites: newSet);
+  }
   Future<void> _updateUserPermission() async {
     await _notificationService.togglePermission(state.notification);
   }
