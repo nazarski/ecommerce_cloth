@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
@@ -14,6 +14,10 @@ class ManageReviews {
 
   Future<List<ReviewEntity>> getAllReviews({required String productId}) async {
     return await _reviewsRepository.getAllProductReviews(productId: productId);
+  }
+
+  Future<List<ReviewEntity>> getUserReviews({required int userId}) async {
+    return await _reviewsRepository.getUserReviews(userId: userId);
   }
 
   List<ReviewEntity> filterReviewsWherePhoto(
