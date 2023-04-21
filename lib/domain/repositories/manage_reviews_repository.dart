@@ -14,6 +14,8 @@ abstract class ManageReviewsRepository {
     required String jwt,
   });
 
+  Future<List<ReviewEntity>> getUserReviews({required int userId});
+
   Future<void> addReview({
     required int systemId,
     required DateTime publicationDate,

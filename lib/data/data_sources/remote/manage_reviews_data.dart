@@ -13,19 +13,39 @@ class ManageReviewsData {
   static final _dio = Dio();
   static const _apiEndpoint = StrapiInitialize.apiEndpoint;
 
+  static Future<List<ReviewModel>> getUserReviews({
+    required int userId,
+  }) async {
+    final response = await _dio.get('$_apiEndpoint/reviews', queryParameters: {
+      'filters[user][id]': 210,
+      'populate': '*',
+    });
+    final data = response.data;
+    if (data == null) {
+      throw Exception('Data is null');
+    }
+    final listOfValues = List<Map<String, dynamic>>.from(
+      response.data['data'],
+    );
+    return listOfValues
+        .map(
+          (e) => ReviewModel.fromMapUser(e['attributes']),
+        )
+        .toList();
+  }
+
   static Future<Iterable<ReviewModel>> getAllProductReviews({
     required String productId,
   }) async {
-    final respond = await _dio.get('$_apiEndpoint/reviews', queryParameters: {
+    final response = await _dio.get('$_apiEndpoint/reviews', queryParameters: {
       'filters[product][productId]': productId,
       'populate[images][fields][0]': 'formats',
       'populate[user][fields][1]': 'username',
-      'populate[user][populate][photoUrl][formats][thumbnail][fields][2]':
-          'url',
+      'populate[user][populate][photoUrl][formats][thumbnail][fields][2]': 'url',
       'populate[product][fields][3]': 'productId',
     });
     final listOfValues = List<Map<String, dynamic>>.from(
-      respond.data['data'],
+      response.data['data'],
     );
     return listOfValues.map(
       (e) => ReviewModel.fromMap(
@@ -76,8 +96,7 @@ class ManageReviewsData {
     );
   }
 
-  static Future<void> updateProductRating(
-      RatingModel rating, int ratingId, String jwt) async {
+  static Future<void> updateProductRating(RatingModel rating, int ratingId, String jwt) async {
     final options = Options(headers: {
       HttpHeaders.authorizationHeader: 'Bearer $jwt',
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -87,9 +106,7 @@ class ManageReviewsData {
     final response = await _dio.put(
       '$_apiEndpoint/products/$ratingId',
       data: {
-        'data': {
-          'rating': data
-        }
+        'data': {'rating': data}
       },
       options: options,
     );

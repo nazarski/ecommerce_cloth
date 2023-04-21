@@ -96,13 +96,12 @@ class ReviewModel {
       'userName': userName,
     };
   }
-
   factory ReviewModel.fromMap(Map<String, dynamic> map) {
     return ReviewModel(
       reviewThumbnailPictures: map['images']['data']?.map((e) {
-            return StrapiInitialize.endpoint +
-                e['attributes']['formats']['thumbnail']['url'];
-          }) ??
+        return StrapiInitialize.endpoint +
+            e['attributes']['formats']['thumbnail']['url'];
+      }) ??
           [],
       rating: map['rating'].toDouble(),
       reviewId: map['reviewId'] as String,
@@ -113,16 +112,42 @@ class ReviewModel {
       userId: map['user']['data']?['attributes']['id'] ?? 0,
       review: map['review'] as String,
       reviewPictures: map['images']['data']?.map((e) {
-            return StrapiInitialize.endpoint +
-                e['attributes']['formats']['medium']['url'];
-          }) ??
+        return StrapiInitialize.endpoint +
+            e['attributes']['formats']['medium']['url'];
+      }) ??
           [],
       userAvatar: map['user']['data']['attributes']['photoUrl']['data'] == null
           ? ''
           : StrapiInitialize.endpoint +
-              map['user']['data']['attributes']['photoUrl']?['data']
-                  ['attributes']['formats']['thumbnail']['url'],
+          map['user']['data']['attributes']['photoUrl']?['data']
+          ['attributes']['formats']['thumbnail']['url'],
       userName: map['user']['data']?['attributes']['username'] ?? 'Anonymous',
+    );
+  }
+
+  factory ReviewModel.fromMapUser(Map<String, dynamic> map) {
+    return ReviewModel(
+      reviewThumbnailPictures: map['images']?['data']?.map((e) {
+        return StrapiInitialize.endpoint +
+            e['attributes']['formats']?['thumbnail']?['url'];
+      })?.toList() ?? [],
+      rating: map['rating']?.toDouble() ?? 0,
+      reviewId: map['reviewId'] as String? ?? '',
+      helpful: map['helpful'] as int? ?? 0,
+      productSystemId: map['product']?['data']?['id'] ?? 0,
+      productId: map['product']?['data']?['attributes']?['productId'] ?? '',
+      publicationDate: DateTime.tryParse(map['publicationDate'] ?? '') ?? DateTime.now(),
+      userId: map['user']?['data']?['attributes']?['id'] ?? 0,
+      review: map['review'] as String? ?? '',
+      reviewPictures: map['images']?['data']
+          ?.map((e) => StrapiInitialize.endpoint + e['attributes']['formats']?['medium']?['url'])
+          ?.toList() ??
+          [],
+      userAvatar: map['user']?['data']?['attributes']?['avatarUrl'] == null
+          ? ''
+          : StrapiInitialize.endpoint +
+          map['user']?['data']?['attributes']?['avatarUrl'] ?? '',
+      userName: map['user']?['data']?['attributes']?['username'] ?? 'Anonymous',
     );
   }
 }

@@ -9,6 +9,7 @@ class ReviewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   print(review.userAvatar);
     return Stack(
       children: [
         Padding(
@@ -134,9 +135,8 @@ class ReviewItem extends StatelessWidget {
             alignment: Alignment.topCenter,
             fit: BoxFit.cover,
             image: review.userAvatar.isNotEmpty
-                ? NetworkImage(review.userAvatar)
-                : const AssetImage('assets/images/no_avatar.png')
-                    as ImageProvider,
+                ? NetworkImage(review.userAvatar) as ImageProvider
+                : const AssetImage('assets/images/no_avatar.png'),
           ),
         )
       ],
