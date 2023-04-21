@@ -3,14 +3,18 @@ import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart'
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/payment_pages/payments_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/my_reviews_page/my_reviews_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/widgets/setting_item.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../promocodes_page/promocodes_page.dart';
 
 class ProfileCardPage extends ConsumerWidget {
   const ProfileCardPage({Key? key}) : super(key: key);
@@ -116,12 +120,18 @@ class ProfileCardPage extends ConsumerWidget {
                     SettingItem(
                       title: 'Promo-codes',
                       subtitle: 'You have special promo codes',
-                      onTap: () {},
+                      onTap: () {
+                        buildShowModalBottomSheet(
+                          context: context, child: const PromoCodesBodyPage(), header: 'Your Promo Codes',);
+
+                      }
                     ),
                     SettingItem(
                       title: 'My reviews',
                       subtitle: 'Reviews for ?? items',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).pushNamed(MyReviewsNestPage.routeName);
+                      },
                     ),
                     SettingItem(
                       title: 'Settings',
