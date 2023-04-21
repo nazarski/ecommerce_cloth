@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 
 class PromoCodeEntity extends Equatable{
   final int discount;
-  final String promoColor;
   final String promoImage;
   final String promoText;
   final String title;
+  final int daysLeft;
 
   const PromoCodeEntity({
     required this.discount,
-    required this.promoColor,
+    required this.daysLeft,
     required this.promoImage,
     required this.promoText,
     required this.title,
@@ -19,7 +19,7 @@ class PromoCodeEntity extends Equatable{
   // TODO: implement props
   List<Object?> get props => [
     discount,
-    promoColor,
+    daysLeft,
     promoImage,
     promoText,
     title,
