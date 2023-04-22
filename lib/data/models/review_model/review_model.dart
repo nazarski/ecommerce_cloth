@@ -146,7 +146,7 @@ class ReviewModel {
       userAvatar: map['user']?['data']?['attributes']?['avatarUrl'] == null
           ? ''
           : StrapiInitialize.endpoint +
-          map['user']?['data']?['attributes']?['avatarUrl'] ?? '',
+          map['user']?['data']?['attributes']?['avatarUrl'],
       userName: map['user']?['data']?['attributes']?['username'] ?? 'Anonymous',
     );
   }

@@ -124,4 +124,20 @@ class UserInfoModel {
       notification: map['notification'] as bool,
     );
   }
+
+  factory UserInfoModel.from(Map<String, dynamic> map) {
+    return UserInfoModel(
+      dateOfBirth: map['dateOfBirth'] ?? '',
+      fullName: map['fullName'] ?? '',
+      jwt: map['jwt'] ?? '',
+      id: map['id'] ?? 0,
+      createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
+      displayName: map['username'] ?? '',
+      email: map['email'] ?? '',
+      favorites: {},
+      photoUrl: map['avatarUrl'] ?? '',
+      fcmToken: map['fcm'] ?? '',
+      notification: map['notification'] ?? false,
+    );
+  }
 }
