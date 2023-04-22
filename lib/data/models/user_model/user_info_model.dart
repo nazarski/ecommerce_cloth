@@ -117,9 +117,7 @@ class UserInfoModel {
       createdAt: DateTime.parse(map['createdAt']),
       displayName: map['displayName'] as String,
       email: map['email'] as String,
-      favorites: map['favourites'].map((item) {
-        return item['product']['id'];
-      }),
+      favorites: {},
       photoUrl: map['photoUrl'],
       fcmToken: map['fcmToken'] as String,
       notification: map['notification'] as bool,
@@ -135,7 +133,9 @@ class UserInfoModel {
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
       displayName: map['username'] ?? '',
       email: map['email'] ?? '',
-      favorites: {},
+      favorites: map['favourites'].map((item) {
+        return item['product']['id'];
+      }),
       photoUrl: map['avatarUrl'] ?? '',
       fcmToken: map['fcm'] ?? '',
       notification: map['notification'] ?? false,

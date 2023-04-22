@@ -21,7 +21,13 @@ class ManageProductsData {
     });
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     if (values.isEmpty) {
-      return getProductsFromDate(startDate.subtract(const Duration(days: 7)));
+      return getProductsFromDate(
+        startDate.subtract(
+          const Duration(
+            days: 7,
+          ),
+        ),
+      );
     }
     final result = values.map((e) {
       return ProductModel.fromMap(e);

@@ -210,7 +210,7 @@ class Authenticate {
     }
   }
 
-Future<UserInfoEntity?> getUserFromStrapi({required String jwt, required int userId}) async {
+Future<UserInfoEntity> getUserFromStrapi({required String jwt, required int userId}) async {
     return await _authRepository.getUserFromStrapi(jwt: jwt, userId: userId);
 }
 

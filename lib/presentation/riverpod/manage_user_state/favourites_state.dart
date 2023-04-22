@@ -1,4 +1,5 @@
 import 'package:ecommerce_cloth/data/repositories/manage_favourites_repository_impl.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_favourites/manage_favourites.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,6 +12,11 @@ final favouritesTypesProvider =
 
   // await _favourites.getFavouritesTypes(userId: arg);
 });
+
+final favouritesListProvider = AutoDisposeFutureProviderFamily<List<UserCartItemEntity>, int>((ref, arg)async{
+  return await _favourites.getAllFavourites(userId: arg);
+});
+
 
 // final favouritesProvider =
 //     StateNotifierProvider.autoDispose<FavouritesProvider, UserCartItemEntity>(

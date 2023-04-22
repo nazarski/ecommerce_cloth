@@ -39,7 +39,6 @@ class UserInfoProvider extends StateNotifier<UserInfoEntity> {
   Future<void> getUserFromStrapi({required String jwt, required int userId}) async {
     final userModel = await _authenticate.getUserFromStrapi(jwt: jwt, userId: userId);
     state = userModel!;
-    print(state);
   }
   void toggleNotification({required bool notify}) {
     state = state.copyWith(notification: notify);
@@ -61,13 +60,13 @@ class UserInfoProvider extends StateNotifier<UserInfoEntity> {
   }
   void removeFromFavourites(
       {required int systemProductId}) {
-    // final newSet = _favourites.removeFromFavourites(
-    //   favourites: state.favorites,
-    //   systemProductId: systemProductId,
-    //   userId: state.id,
-    //   jwt: state.jwt,
-    // );
-    // state = state.copyWith(favorites: newSet);
+    final newSet = _favourites.removeFromFavourites(
+      favourites: state.favorites,
+      systemProductId: systemProductId,
+      userId: state.id,
+      jwt: state.jwt,
+    );
+    state = state.copyWith(favorites: newSet);
   }
   Future<void> _updateUserPermission() async {
     await _notificationService.togglePermission(state.notification);

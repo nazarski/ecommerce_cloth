@@ -24,8 +24,13 @@ class ManageFavouritesRepositoryImpl implements ManageFavouritesRepository {
   Future<List<UserCartItemEntity>> getFavouriteProducts({
     required int userId,
   }) async {
-    // TODO: implement getFavouriteProducts
-    throw UnimplementedError();
+    try {
+      final data =
+          await ManageFavouritesData.getFavouriteProducts(userId: userId);
+      return data.map((e) => e.toEntity()).toList();
+    } on Exception catch (error) {
+      return Future.error(error);
+    }
   }
 
   @override

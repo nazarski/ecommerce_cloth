@@ -3,8 +3,7 @@ import 'package:ecommerce_cloth/presentation/pages/favourites_page/favourites_pa
 import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_nest_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_page.dart';
+
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/shop_page.dart';
 import 'package:flutter/material.dart';
 
@@ -25,8 +24,6 @@ class _MainPageState extends State<MainPage> {
     BagPage(),
     FavouritesPage(),
     ProfilePage(),
-
-
   ];
   int _currentIndex = 0;
 

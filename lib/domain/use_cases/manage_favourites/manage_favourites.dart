@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/manage_favourites_repository.dart';
 
 class ManageFavourites {
@@ -61,6 +64,7 @@ class ManageFavourites {
       userId: userId,
       systemProductId: systemProductId,
     );
+    log(cartItemId.toString());
     await _favouritesRepository.removeCartItem(
       cartItemId: cartItemId,
     );
@@ -72,9 +76,11 @@ class ManageFavourites {
     );
   }
 
-  Future<List<String>> getAllFavourites({required int userId}) async {
-    return await _favouritesRepository.getFavouriteTypes(
-      userId: userId,
-    );
+  Future<List<UserCartItemEntity>> getAllFavourites({required int userId}) async {
+    try {
+      return await _favouritesRepository.getFavouriteProducts(userId: userId);
+    } on Exception catch (error) {
+      return Future.error(error);
+    }
   }
 }

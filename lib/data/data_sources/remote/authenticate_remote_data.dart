@@ -156,6 +156,11 @@ class AuthenticateRemoteData {
     };
     final response = await _dio.get(
       '$_apiEndpoint/users/$userId',
+      queryParameters: {
+        'fields': 'id',
+        'populate[favourites][fields]': 'id',
+        'populate[favourites][populate][product][fields]': 'id',
+      },
       options: Options(headers: headers),
     );
     return UserInfoModel.from(response.data);
