@@ -56,4 +56,6 @@ abstract class AuthRepository {
   bool? isExpired({required String jwt});
 
   Future<void> clearSecureStorage();
+
+  Future<UserInfoEntity?> getUserFromStrapi({required String jwt, required int userId});
 }

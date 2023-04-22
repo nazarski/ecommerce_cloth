@@ -13,6 +13,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class SplashScreen extends ConsumerWidget {
   static const routeName = '/';
 
+
+
   const SplashScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {

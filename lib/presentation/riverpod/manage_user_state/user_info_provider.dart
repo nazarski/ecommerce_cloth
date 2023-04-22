@@ -26,12 +26,18 @@ class UserInfoProvider extends StateNotifier<UserInfoEntity> {
     _getUserFromSecureStorage();
   }
 
+
   Future<void> _getUserFromSecureStorage() async {
     await _notificationService.enableNotification();
     final userModel = await _authenticate.getUserInfoFromSecureStorage();
     state = userModel!;
   }
 
+  Future<void> getUserFromStrapi({required String jwt, required int userId}) async {
+    final userModel = await _authenticate.getUserFromStrapi(jwt: jwt, userId: userId);
+    state = userModel!;
+    print(state);
+  }
   void toggleNotification({required bool notify}) {
     state = state.copyWith(notification: notify);
     print(state.notification);

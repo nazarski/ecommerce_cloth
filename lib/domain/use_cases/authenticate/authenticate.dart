@@ -210,6 +210,10 @@ class Authenticate {
     }
   }
 
+Future<UserInfoEntity?> getUserFromStrapi({required String jwt, required int userId}) async {
+    return await _authRepository.getUserFromStrapi(jwt: jwt, userId: userId);
+}
+
   Future<UserInfoEntity?> getUserInfoFromSecureStorage() async {
     final getUser = await _authRepository.getUserFromSecureStorage();
     return getUser;

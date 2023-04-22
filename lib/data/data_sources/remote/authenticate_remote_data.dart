@@ -149,6 +149,17 @@ class AuthenticateRemoteData {
     return response;
   }
 
+  static Future<UserInfoModel> getUserFromStrapi({required String jwt, required int userId}) async {
+    final headers = {
+      HttpHeaders.authorizationHeader: 'Bearer $jwt',
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    final response = await _dio.get(
+      '$_apiEndpoint/users/$userId',
+      options: Options(headers: headers),
+    );
+    return UserInfoModel.from(response.data);
+  }
 
 
   bool isExpired(String? token) {

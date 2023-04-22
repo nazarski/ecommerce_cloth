@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
@@ -17,9 +16,10 @@ import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/payment_pages/payments_methods_page/payments_method_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/payment_pages/payments_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/product_page/product_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/my_reviews_page/my_reviews_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/profile_pages/my_reviews_page/my_reviews_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/profile_card_page.dart';
-import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/gallery_page/gallery_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/rating_reviews_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
@@ -43,7 +43,7 @@ class AppRouter {
     switch (settings.name) {
       case SplashScreen.routeName:
         return PageTransition(
-          child: const SplashScreen(),
+          child:  const SplashScreen(),
           type: PageTransitionType.fade,
         );
       case LoginPage.routeName:
@@ -84,8 +84,13 @@ class AppRouter {
       case ProductPage.routeName:
         return PageTransition(
           settings: settings,
-          child:
-              ProductPage(selectedProduct: settings.arguments as ProductEntity),
+          child: ProductPage(selectedProduct: settings.arguments as ProductEntity),
+          type: PageTransitionType.rightToLeft,
+        );
+      case MyReviewsNestPage.routeName:
+        return PageTransition(
+          settings: settings,
+          child: const MyReviewsPage(),
           type: PageTransitionType.rightToLeft,
         );
       case RatingReviewPage.routeName:
@@ -105,20 +110,15 @@ class AppRouter {
     log('⤴️ ${settings.name.toString()}');
     switch (settings.name) {
       case HomePage.routeName:
-        return PageTransition(
-            child: const HomePage(), type: PageTransitionType.fade);
+        return PageTransition(child: const HomePage(), type: PageTransitionType.fade);
       case ShopPage.routeName:
-        return PageTransition(
-            child: const ShopPage(), type: PageTransitionType.fade);
+        return PageTransition(child: const ShopPage(), type: PageTransitionType.fade);
       case BagPage.routeName:
-        return PageTransition(
-            child: const BagPage(), type: PageTransitionType.fade);
+        return PageTransition(child: const BagPage(), type: PageTransitionType.fade);
       case FavouritesPage.routeName:
-        return PageTransition(
-            child: const FavouritesPage(), type: PageTransitionType.fade);
+        return PageTransition(child: const FavouritesPage(), type: PageTransitionType.fade);
       case ProfilePage.routeName:
-        return PageTransition(
-            child: const ProfilePage(), type: PageTransitionType.fade);
+        return PageTransition(child: const ProfilePage(), type: PageTransitionType.fade);
       default:
         throw Exception('Invalid route: ${settings.name}');
     }
@@ -130,8 +130,7 @@ class AppRouter {
     log('⤴️ ${settings.name.toString()}');
     switch (settings.name) {
       case CategoriesPage.routeName:
-        return PageTransition(
-            child: const CategoriesPage(), type: PageTransitionType.fade);
+        return PageTransition(child: const CategoriesPage(), type: PageTransitionType.fade);
       case ProductGroupPage.routeName:
         return PageTransition(
           type: PageTransitionType.fade,
@@ -171,6 +170,7 @@ class AppRouter {
         throw Exception('Invalid route: ${settings.name}');
     }
   }
+
   static Route<dynamic> generateProfilePageNestedRoutes(RouteSettings settings) {
     final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
@@ -192,6 +192,7 @@ class AppRouter {
         throw Exception('Invalid route: ${settings.name}');
     }
   }
+
   // Filter page nested routes
   static Route<dynamic> generateAddressesPageNestedRoutes(RouteSettings settings) {
     final arguments = settings.arguments;
@@ -206,13 +207,14 @@ class AppRouter {
       case CreateAddressPage.routeName:
         return PageTransition(
           settings: settings,
-          child:  const CreateAddressPage(),
+          child: const CreateAddressPage(),
           type: PageTransitionType.rightToLeft,
         );
       default:
         throw Exception('Invalid route: ${settings.name}');
     }
   }
+
   static Route<dynamic> generateSettingPageNestedRoutes(RouteSettings settings) {
     final arguments = settings.arguments;
     log(settings.name.toString());
@@ -220,7 +222,7 @@ class AppRouter {
     switch (settings.name) {
       case SettingPage.routeName:
         return PageTransition(
-          child:  const SettingPage(),
+          child: const SettingPage(),
           type: PageTransitionType.rightToLeft,
         );
 
@@ -237,7 +239,24 @@ class AppRouter {
     switch (settings.name) {
       case PaymentsMethodsPage.routeName:
         return PageTransition(
-          child:  const PaymentsMethodsPage(),
+          child: const PaymentsMethodsPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      default:
+        throw Exception('Invalid route: ${settings.name}');
+    }
+  }
+
+  // My reviews page nested routes
+  static Route<dynamic> generateMyReviewsNestedRoutes(RouteSettings settings) {
+    final arguments = settings.arguments;
+    log(settings.name.toString());
+    WidgetBuilder builder;
+    switch (settings.name) {
+      case MyReviewsPage.routeName:
+        return PageTransition(
+          child: const MyReviewsPage(),
           type: PageTransitionType.rightToLeft,
         );
 
