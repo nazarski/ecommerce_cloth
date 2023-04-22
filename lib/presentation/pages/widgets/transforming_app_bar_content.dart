@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TransformingAppBarContent extends ConsumerWidget {
-  const TransformingAppBarContent({
+  const TransformingAppBarContent(
+    {
     super.key,
     required this.progress,
     required this.title,
-  });
+      required this.ifPop,
+    });
 
   final double progress;
   final String title;
+  final bool ifPop;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,14 +21,16 @@ class TransformingAppBarContent extends ConsumerWidget {
       children: [
         AppBar(
           backgroundColor: Theme.of(context).colorScheme.background,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-            ),
-          ),
+          leading: ifPop
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                  ),
+                )
+              : null,
           actions: [
             IconButton(
               icon: const Icon(Icons.search),

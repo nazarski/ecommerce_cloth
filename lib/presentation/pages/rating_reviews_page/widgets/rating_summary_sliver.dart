@@ -36,7 +36,7 @@ class RatingSummarySliver extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  rating.averageRating.toString(),
+                  '${rating.averageRating.roundToDouble()}',
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium

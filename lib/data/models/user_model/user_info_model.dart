@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 
 class UserInfoModel {
@@ -118,7 +117,9 @@ class UserInfoModel {
       createdAt: DateTime.parse(map['createdAt']),
       displayName: map['displayName'] as String,
       email: map['email'] as String,
-      favorites: {},
+      favorites: map['favourites'].map((item) {
+        return item['product']['id'];
+      }),
       photoUrl: map['photoUrl'],
       fcmToken: map['fcmToken'] as String,
       notification: map['notification'] as bool,

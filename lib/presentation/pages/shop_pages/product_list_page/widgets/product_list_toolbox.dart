@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/sort_type_button.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,9 @@ import 'package:flutter/material.dart';
 class ProductListToolBox extends StatelessWidget {
   const ProductListToolBox({
     super.key,
-    required this.changeView,
+    required this.changeView, required this.changeSortType,
   });
-
+final ValueChanged<ProductFilterEntity> changeSortType;
   final VoidCallback changeView;
 
   @override
@@ -31,24 +32,24 @@ class ProductListToolBox extends StatelessWidget {
             icon: const Icon(Icons.filter_list_rounded),
             label: const Text('Filters'),
           ),
-          const SortTypeButton(),
-          ChangeViewIconButton(changeView: changeView),
+          SortTypeButton(changeSortType: changeSortType,),
+          _ChangeViewIconButton(changeView: changeView),
         ],
       ),
     );
   }
 }
 
-class ChangeViewIconButton extends StatefulWidget {
-  const ChangeViewIconButton({Key? key, required this.changeView})
+class _ChangeViewIconButton extends StatefulWidget {
+  const _ChangeViewIconButton({Key? key, required this.changeView})
       : super(key: key);
   final VoidCallback changeView;
 
   @override
-  State<ChangeViewIconButton> createState() => _ChangeViewIconButtonState();
+  State<_ChangeViewIconButton> createState() => _ChangeViewIconButtonState();
 }
 
-class _ChangeViewIconButtonState extends State<ChangeViewIconButton>
+class _ChangeViewIconButtonState extends State<_ChangeViewIconButton>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   bool isGrid = false;
@@ -80,7 +81,7 @@ class _ChangeViewIconButtonState extends State<ChangeViewIconButton>
   Widget build(BuildContext context) {
     return MaterialButton(
       minWidth: 0,
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       shape: const CircleBorder(),
       onPressed:  _changeView,
       child: AnimatedIcon(

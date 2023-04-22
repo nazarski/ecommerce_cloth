@@ -1,4 +1,5 @@
 import 'package:ecommerce_cloth/core/enums/sort_type.dart';
+import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_filter_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_filter_state/filter_values_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/paging_controller_provider.dart';
@@ -6,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SortTypeButton extends ConsumerWidget {
-  const SortTypeButton({
+  const SortTypeButton({required this.changeSortType,
     super.key,
   });
-
+final ValueChanged<ProductFilterEntity> changeSortType;
   static const Map<SortType, String> _typesToString = {
     SortType.novelty: 'Date: new first',
     SortType.priceDESC: 'Price: highest to lowest',
@@ -19,8 +20,7 @@ class SortTypeButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(filterValuesProvider);
-    final currentType = ref.read(filterValuesProvider.notifier).filter.sortType;
+    final currentType = ref.watch(filterValuesProvider).sortType;
     return TextButton.icon(
       onPressed: () {
         buildShowModalBottomSheet(
@@ -34,9 +34,7 @@ class SortTypeButton extends ConsumerWidget {
                 onTap: () {
                   final newFilter = ref.read(filterValuesProvider.notifier)
                     ..setSortType(sortType: elementType.key);
-                  ref
-                      .read(pagingControllerProvider.notifier)
-                      .newFilerValue(newFilter.filter);
+                  changeSortType(newFilter.filter);
                   Navigator.of(context, rootNavigator: true).pop();
                 },
                 child: Container(

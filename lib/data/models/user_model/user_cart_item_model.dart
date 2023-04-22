@@ -1,22 +1,16 @@
+import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
 
 class UserCartItemModel {
   final DateTime additionDate;
-  final String product;
-  final String productImage;
-  final int price;
-  final int totalAmount;
-  final String productTitle;
+  final ProductModel product;
   final int quantity;
   final String size;
+
 
   const UserCartItemModel({
     required this.additionDate,
     required this.product,
-    required this.productImage,
-    required this.price,
-    required this.totalAmount,
-    required this.productTitle,
     required this.quantity,
     required this.size,
   });
@@ -26,10 +20,6 @@ class UserCartItemModel {
     return 'UserCartModel{'
         'additionDate: $additionDate, '
         'product: $product, '
-        'productImage: $productImage, '
-        'price: $price, '
-        'totalAmount: $totalAmount, '
-        'productTitle: $productTitle, '
         'quantity: $quantity, '
         'size: $size,'
         '}';
@@ -38,11 +28,7 @@ class UserCartItemModel {
   UserCartItemEntity toEntity() {
     return UserCartItemEntity(
       additionDate: additionDate,
-      product: product,
-      productImage: productImage,
-      price: price,
-      totalAmount: totalAmount,
-      productTitle: productTitle,
+      product: product.toEntity(),
       quantity: quantity,
       size: size,
     );
@@ -51,11 +37,7 @@ class UserCartItemModel {
   factory UserCartItemModel.fromEntity({required UserCartItemEntity entity}) {
     return UserCartItemModel(
       additionDate: entity.additionDate,
-      product: entity.product,
-      productImage: entity.productImage,
-      price: entity.price,
-      totalAmount: entity.totalAmount,
-      productTitle: entity.productTitle,
+      product: ProductModel.fromEntity(entity: entity.product),
       quantity: entity.quantity,
       size: entity.size,
     );
@@ -65,10 +47,6 @@ class UserCartItemModel {
     return {
       'additionDate': additionDate,
       'product': product,
-      'productImage': productImage,
-      'price': price,
-      'totalAmount': totalAmount,
-      'productTitle': productTitle,
       'quantity': quantity,
       'size': size,
     };
@@ -77,11 +55,7 @@ class UserCartItemModel {
   factory UserCartItemModel.fromMap(Map<String, dynamic> map) {
     return UserCartItemModel(
       additionDate: map['additionDate'] as DateTime,
-      product: map['product'] as String,
-      productImage: map['productImage'] as String,
-      price: map['price'] as int,
-      totalAmount: map['totalAmount'] as int,
-      productTitle: map['productTitle'] as String,
+      product: ProductModel.fromMap(map['product']),
       quantity: map['quantity'] as int,
       size: map['size'] as String,
     );

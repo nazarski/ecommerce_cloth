@@ -6,11 +6,12 @@ class TransformingAppBar extends SliverPersistentHeaderDelegate {
   const TransformingAppBar({
     required this.expandedHeight,
     required this.title,
+  required this.ifPop,
   });
 
   final double expandedHeight;
   final String title;
-
+final bool ifPop;
   @override
   Widget build(
     BuildContext context,
@@ -21,7 +22,7 @@ class TransformingAppBar extends SliverPersistentHeaderDelegate {
 
     return TransformingAppBarContent(
       progress: progress,
-      title: title,
+      title: title, ifPop: ifPop,
     );
   }
 
