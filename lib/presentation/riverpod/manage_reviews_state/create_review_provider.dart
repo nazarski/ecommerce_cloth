@@ -1,5 +1,5 @@
-import 'dart:developer';
 
+import 'package:ecommerce_cloth/data/repositories/manage_products_repository_impl.dart';
 import 'package:ecommerce_cloth/data/repositories/manage_reviews_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
@@ -9,9 +9,8 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_inf
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../manage_user_state/user_info_state.dart';
 
-final _manageReviewsUseCases = ManageReviews(ManageReviewsRepositoryImpl());
+final _manageReviewsUseCases = ManageReviews(ManageReviewsRepositoryImpl(), const ManageProductsRepositoryImpl());
 final createReviewProvider =
     StateNotifierProvider.autoDispose<CreateReviewProvider, ReviewEntity>(
         (ref) {

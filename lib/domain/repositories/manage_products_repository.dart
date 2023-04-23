@@ -5,9 +5,7 @@ abstract class ManageProductsRepository {
   Future<List<ProductEntity>> getProductsFromDate(DateTime startDate);
 
   Future<List<String>> getProductTypes(
-      {required String productGroup,
-      required String attribute,
-      required String categoryId});
+      {required String productGroup, required String attribute, required String categoryId});
 
   Future<List<ProductEntity>> getProductsFromFilter({
     required int page,
@@ -18,6 +16,10 @@ abstract class ManageProductsRepository {
     required List<String> brandNames,
     required List<String> productTypes,
     required SortType sortType,
+  });
+
+  Future<ProductEntity> getProductById({
+    required String productId,
   });
 
   Future<List<ProductEntity>> getSimilarProducts({

@@ -8,8 +8,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
   @override
   Future<List<ProductEntity>> getProductsFromDate(DateTime startDate) async {
     try {
-      final List<ProductModel> models =
-          await ManageProductsData.getProductsFromDate(startDate);
+      final List<ProductModel> models = await ManageProductsData.getProductsFromDate(startDate);
       return models.map((e) => e.toEntity()).toList();
     } catch (e) {
       throw Future.error(e.toString());
@@ -26,9 +25,7 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
   }) async {
     try {
       return await ManageProductsData.getProductTypes(
-          productGroup: productGroup,
-          attribute: attribute,
-          categoryId: categoryId);
+          productGroup: productGroup, attribute: attribute, categoryId: categoryId);
     } catch (e) {
       throw Future.error(e.toString());
     }
@@ -61,25 +58,36 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
       throw Future.error(e.toString());
     }
   }
+
   @override
-  Future<List<ProductEntity>> getSimilarProducts({
-    required int fromPrice,
-    required int toPrice,
-    required List<String> sizes,
-    required List<String> colors,
-    required List<String> productTypes,
-    required String productId
-  }) async {
+  Future<List<ProductEntity>> getSimilarProducts(
+      {required int fromPrice,
+      required int toPrice,
+      required List<String> sizes,
+      required List<String> colors,
+      required List<String> productTypes,
+      required String productId}) async {
     try {
       final list = await ManageProductsData.getLimitedProductsByFilterValue(
-        fromPrice: fromPrice,
-        toPrice: toPrice,
-        sizes: sizes,
-        colors: colors,
-        productTypes: productTypes,
-        productId: productId
-      );
+          fromPrice: fromPrice,
+          toPrice: toPrice,
+          sizes: sizes,
+          colors: colors,
+          productTypes: productTypes,
+          productId: productId);
       return list.map((e) => e.toEntity()).toList();
+    } catch (e) {
+      throw Future.error(e.toString());
+    }
+  }
+
+  @override
+  Future<ProductEntity> getProductById({
+    required String productId,
+  }) async {
+    try {
+      final currentModel = await ManageProductsData.getProductById(productId: productId);
+      return currentModel.toEntity();
     } catch (e) {
       throw Future.error(e.toString());
     }
