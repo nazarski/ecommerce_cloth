@@ -18,12 +18,12 @@ class SplashScreen extends ConsumerWidget {
   const SplashScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userLoggedIn =  ref.watch(userLoggedInProvider);
+    final userLoggedIn = ref.watch(userLoggedInProvider);
     return
       userLoggedIn.maybeWhen(
       data: (value) {
         Future.microtask(()async {
-          if (value!) {
+          if (value) {
             log('✅ This user is authorized');
             Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
           } else {
