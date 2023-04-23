@@ -1,14 +1,17 @@
 
 
+import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
+import 'package:ecommerce_cloth/domain/repositories/manage_products_repository.dart';
 import 'package:ecommerce_cloth/domain/repositories/manage_reviews_repository.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ManageReviews {
   final ManageReviewsRepository _reviewsRepository;
+  final ManageProductsRepository _productsRepository;
 
-  ManageReviews(this._reviewsRepository);
+  ManageReviews(this._reviewsRepository, this._productsRepository);
 
   final ImagePicker _picker = ImagePicker();
 
@@ -25,6 +28,10 @@ class ManageReviews {
     return reviews
         .where((element) => element.reviewThumbnailPictures.isNotEmpty)
         .toList();
+  }
+
+  Future<ProductEntity> getProductByReview({required String productId}) async {
+    return await _productsRepository.getProductById(productId: productId);
   }
 
   Future<List<String>> pickImageFromGallery() async {

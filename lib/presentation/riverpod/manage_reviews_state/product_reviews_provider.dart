@@ -1,10 +1,11 @@
+import 'package:ecommerce_cloth/data/repositories/manage_products_repository_impl.dart';
 import 'package:ecommerce_cloth/data/repositories/manage_reviews_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_reviews/manage_reviews.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _manageReviewsUseCases = ManageReviews(ManageReviewsRepositoryImpl());
+final _manageReviewsUseCases = ManageReviews(ManageReviewsRepositoryImpl(), const ManageProductsRepositoryImpl());
 
 final productReviewsProvider =
     StateNotifierProvider.autoDispose<ProductReviewsProvider, AsyncValue<List<ReviewEntity>>>((ref) {

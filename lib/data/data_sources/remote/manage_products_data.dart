@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/core/enums/sort_type.dart';
@@ -45,6 +44,13 @@ class ManageProductsData {
         values.map((e) => e['attributes']['typeName'] as String).toList();
     return data;
   }
+  
+  static Future<ProductModel> getProductById({required String productId}) async {
+    final response = await _dio.get('$_endpoint/products?filters[productId]=$productId&populate=*');
+    final values = List<Map<String, dynamic>>.from(response.data['data']);
+
+    return ProductModel.fromMap(values.first);
+}
 
   static Future<List<ProductModel>> getProductsByFilterValues({
     required int fromPrice,
