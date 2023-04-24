@@ -12,8 +12,7 @@ class FavouritesGridView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userId = ref.read(userInfoProvider).id;
-    final favouritesProvider = ref.watch(favouritesListProvider(userId));
+    final favouritesProvider = ref.watch(favouritesListProvider);
     return favouritesProvider.when(data: (data) {
       return SliverGrid(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -24,10 +23,15 @@ class FavouritesGridView extends ConsumerWidget {
           crossAxisCount: 2,
         ),
         delegate: SliverChildBuilderDelegate(
-              (context, index) {
+          (context, index) {
             return FavouritesListGridItem(
               hero: false,
               cartItem: data[index],
+              onRemove: () async {
+                await ref.read(userInfoProvider.notifier).removeFromFavourites(
+                    systemProductId: data[index].product.systemId);
+                final value = await ref.refresh(favouritesListProvider.future);
+              },
             );
           },
           childCount: data.length,
@@ -47,7 +51,7 @@ class FavouritesGridView extends ConsumerWidget {
           crossAxisCount: 2,
         ),
         delegate: SliverChildBuilderDelegate(
-              (context, index) {
+          (context, index) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
               child: ClipRRect(

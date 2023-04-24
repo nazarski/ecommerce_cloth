@@ -1,5 +1,7 @@
 import 'package:ecommerce_cloth/core/resources/app_icons.dart';
+import 'package:ecommerce_cloth/core/utils/helpers/product_helpers.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
+import 'package:ecommerce_cloth/presentation/pages/favourites_page/widgets/remove_from_favourites_button.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +9,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FavouritesListGridItem extends ConsumerStatefulWidget {
-  const FavouritesListGridItem({required this.cartItem,
+  const FavouritesListGridItem({required this.onRemove,
+    required this.cartItem,
     super.key,
     required this.hero,
   });
 
+  final VoidCallback onRemove;
   final bool hero;
-final UserCartItemEntity cartItem;
+  final UserCartItemEntity cartItem;
+
   @override
   ConsumerState<FavouritesListGridItem> createState() =>
       _ProductListGridItemState();
@@ -38,12 +43,15 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
     super.dispose();
   }
 
-  final String title = 'Shirt';
-  final String chipValue = '';
-
   @override
   Widget build(BuildContext context) {
     final product = widget.cartItem.product;
+    final title = getTitle(
+      name: product.name,
+      brand: product.brand,
+      type: product.productType,
+    );
+    final chipValue = getChipValue(product.additionDate, product.sale);
     _animationController.forward();
     return FadeTransition(
       opacity: _animationController,
@@ -74,6 +82,7 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                       ),
                     ),
                   ),
+                  /// Add to cart button
                   Positioned(
                     right: -10,
                     bottom: 0,
@@ -95,6 +104,7 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                       ),
                     ),
                   ),
+                  /// Stars rating widget
                   Positioned(
                     left: 0,
                     bottom: 0,
@@ -103,6 +113,14 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                       reviews: product.rating.totalReviews,
                     ),
                   ),
+                  /// "X" remove button
+                  Positioned(
+                    right: 0,
+                    child: RemoveFromFavouritesButton(
+                      action: widget.onRemove,
+                    ),
+                  ),
+                  /// If there should be "NEW" or sale label
                   if (chipValue.isNotEmpty)
                     Positioned(
                       top: 8,
@@ -136,7 +154,7 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                           ),
                         ),
                         TextSpan(
-                          text:  product.colors.first,
+                          text: product.colors.first,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium

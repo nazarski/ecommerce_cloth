@@ -12,15 +12,20 @@ class ManageFavouritesData {
 
   static const String _apiEndpoint = StrapiInitialize.apiEndpoint;
 
-  static Future<List<String>> getFavouriteTypes({required int userId}) async {
+  static Future<Iterable<String>> getFavouriteTypes({required int userId}) async {
     final response =
         await _dio.get('$_apiEndpoint/users/$userId', queryParameters: {
-      'populate[favourites][productTypes][fields][0]': 'productType',
+      'fields': 'id',
+      'populate[favourites][fields]': 'id',
+      'populate[favourites][populate][product][fields]': 'id',
+      'populate[favourites][populate][product][populate][productType][fields]':
+          'typeName',
     });
-    return List<Map<String, dynamic>>.from(response.data).map((e) {
-      return e['data']['attributes']['favourites']['attributes']['productTypes']
-          ['attributes']['productTypes'] as String;
-    }).toList();
+    final listOfData =
+    List<Map<String, dynamic>>.from(response.data['favourites']);
+    return listOfData.map((element){
+      return element['product']['productType']['typeName'].toString();
+    });
   }
 
   static Future<Iterable<UserCartItemModel>> getFavouriteProducts(
@@ -30,7 +35,8 @@ class ManageFavouritesData {
       'fields': 'id',
       'populate[favourites][populate][product][populate]': '*',
     });
-    final listOfData = List<Map<String, dynamic>>.from(response.data);
+    final listOfData =
+        List<Map<String, dynamic>>.from(response.data['favourites']);
     return listOfData.map((e) {
       return UserCartItemModel.fromMap(e);
     });
@@ -78,7 +84,8 @@ class ManageFavouritesData {
 
   static Future<int> getCartItemIdFromProductId(
       {required int systemProductId, required int userId}) async {
-    final response = await _dio.get('$_apiEndpoint/users/$userId', queryParameters: {
+    final response =
+        await _dio.get('$_apiEndpoint/users/$userId', queryParameters: {
       'fields': 'id',
       'populate[favourites][fields]': 'id',
       'populate[favourites][populate][product][fields]': 'id',
@@ -86,23 +93,24 @@ class ManageFavouritesData {
     });
     return response.data['favourites'].first['id'] as int;
   }
-  static Future<void>deleteCartItemFromId({required cartItemId})async{
+
+  static Future<void> deleteCartItemFromId({required cartItemId}) async {
     await _dio.delete('$_apiEndpoint/cart-items/$cartItemId');
   }
 
-  // static Future<void> deleteFromFavourites({
-  //   required int userId,
-  //   required int systemProductId,
-  // }) async {
-  //   final response = await _dio.put(
-  //     '$_apiEndpoint/users/$userId',
-  //     data: {
-  //       "data": {
-  //         'favourites': [systemProductId]
-  //       }
-  //     },
-  //   );
-  //   log(response.data.toString());
-  // }
+// static Future<void> deleteFromFavourites({
+//   required int userId,
+//   required int systemProductId,
+// }) async {
+//   final response = await _dio.put(
+//     '$_apiEndpoint/users/$userId',
+//     data: {
+//       "data": {
+//         'favourites': [systemProductId]
+//       }
+//     },
+//   );
+//   log(response.data.toString());
+// }
 }
 // 'populate[favourites][populate][product][fields]':'id',

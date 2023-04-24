@@ -46,17 +46,16 @@ class ManageFavourites {
     );
   }
 
-  Set<int> removeFromFavourites({
-    required Set<int> favourites,
-    required int systemProductId,
-    required int userId,
-    required String jwt,
-  }) {
-    _getIdAndRemove(userId: userId, systemProductId: systemProductId);
-    return favourites..remove(systemProductId);
-  }
+  // Set<int> removeFromFavourites({
+  //   required Set<int> favourites,
+  //   required int systemProductId,
+  //   required int userId,
+  //   required String jwt,
+  // }) {
+  //   return favourites..remove(systemProductId);
+  // }
 
-  Future<void> _getIdAndRemove({
+  Future<void> getIdAndRemove({
     required int userId,
     required int systemProductId,
   }) async {

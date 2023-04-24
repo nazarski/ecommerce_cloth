@@ -37,8 +37,12 @@ class ManageFavouritesRepositoryImpl implements ManageFavouritesRepository {
   Future<List<String>> getFavouriteTypes({
     required int userId,
   }) async {
-    // TODO: implement getFavouriteTypes
-    throw UnimplementedError();
+    try {
+      final data = await ManageFavouritesData.getFavouriteTypes(userId: userId);
+      return data.toSet().toList();
+    } on Exception catch (error) {
+      return Future.error(error);
+    }
   }
 
   @override
