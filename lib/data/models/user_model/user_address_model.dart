@@ -76,7 +76,7 @@ class UserAddressModel {
 
   factory UserAddressModel.fromMap(Map<String, dynamic> map) {
     return UserAddressModel(
-      addressId: map['addressId'] as String,
+      addressId: map['id'] as String,
       address: map['address'] as String,
       city: map['city'] as String,
       country: map['country'] as String,
