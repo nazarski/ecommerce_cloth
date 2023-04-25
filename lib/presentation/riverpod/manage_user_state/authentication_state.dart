@@ -56,12 +56,12 @@ class AuthLoginController extends StateNotifier<AsyncValue<bool>> {
   FutureOr<void> build() {}
 }
 
-final userLoggedInProvider = FutureProvider<bool?>((ref) async {
+final userLoggedInProvider = FutureProvider<bool>((ref) async {
   final user = await _authenticate.isExpired();
+if(user!) {
   final userModel = await _authenticate.getUserInfoFromSecureStorage();
-  if (user!) {
-    ref.read(userInfoProvider.notifier).getUserFromStrapi(jwt: userModel!.jwt, userId: userModel.id);
-  }
+  await ref.read(userInfoProvider.notifier).getUserFromStrapi(jwt: userModel!.jwt, userId: userModel.id);
+}
   return user;
 });
 
