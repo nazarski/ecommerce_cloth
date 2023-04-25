@@ -1,5 +1,6 @@
 import 'package:ecommerce_cloth/data/repositories/auth_repository_impl.dart';
 import 'package:ecommerce_cloth/data/repositories/manage_favourites_repository_impl.dart';
+import 'package:ecommerce_cloth/data/repositories/manage_shopping_cart_repository_impl.dart';
 import 'package:ecommerce_cloth/data/repositories/manage_user_repository_impl.dart';
 import 'package:ecommerce_cloth/data/repositories/notification_repository_impl.dart';
 
@@ -10,7 +11,7 @@ import 'package:ecommerce_cloth/domain/use_cases/notification_service/notificati
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _authenticate = Authenticate(AuthRepositoryImpl());
+final _authenticate = Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
 
 final _notificationService = NotificationService(
   NotificationRepositoryImpl(),

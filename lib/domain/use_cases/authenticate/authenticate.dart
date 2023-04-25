@@ -3,16 +3,20 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
+import 'package:ecommerce_cloth/data/data_sources/remote/manage_shopping_cart_data.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/user_model_from_social.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/auth_repository.dart';
+import 'package:ecommerce_cloth/domain/repositories/manage_bank_card_repository.dart';
+import 'package:ecommerce_cloth/domain/repositories/manage_shopping_cart_repository.dart';
 
 class Authenticate {
   final AuthRepository _authRepository;
+  final ManageShoppingCartRepository _cartRepository;
 
-  const Authenticate(this._authRepository);
+  const Authenticate(this._authRepository, this._cartRepository);
 
   static const String endpoint = StrapiInitialize.endpoint;
 
@@ -26,13 +30,15 @@ class Authenticate {
     return userFromFacebook;
   }
 
-  Future<void> _saveUserToSecureStorage({required UserInfoEntity? userData}) async {
+  Future<void> _saveUserToSecureStorage(
+      {required UserInfoEntity? userData}) async {
     await _authRepository.saveUserToSecureStorage(
       userModel: userData,
     );
   }
 
-  Future<UserInfoEntity?> _uploadAvatarProcess({required UserInfoEntity? userData}) async {
+  Future<UserInfoEntity?> _uploadAvatarProcess(
+      {required UserInfoEntity? userData}) async {
     final File tempFile = await _authRepository.createTempFile();
     final pathToAvatar = await _uploadAvatar(
       tempFile: tempFile,
@@ -90,13 +96,18 @@ class Authenticate {
     required String password,
     required String avatarUrl,
   }) async {
-    final userData = _authRepository.requestUserRegistration(
+    final userData = await _authRepository.requestUserRegistration(
       email: email,
       username: username,
       password: password,
       avatarUrl: avatarUrl,
     );
+    await _createUserCart(userId: userData!.id);
     return userData;
+  }
+
+  Future<void> _createUserCart({required int userId}) async {
+    await _cartRepository.createUserShoppingCart(userId: userId);
   }
 
   Future<void> _authenticateUserFromGoogle() async {
@@ -110,19 +121,21 @@ class Authenticate {
       await _saveUserToSecureStorage(userData: updatedLoginUser);
     } else {
       final UserInfoEntity? userdata = await _registerUser(
-        avatarUrl:getUserFromGoogle.photoUrl,
+        avatarUrl: getUserFromGoogle.photoUrl,
         email: getUserFromGoogle.email,
         username: getUserFromGoogle.userName,
         password: getUserFromGoogle.email,
       );
-      final UserInfoEntity? updatedUser = await _uploadAvatarProcess(userData: userdata);
+      final UserInfoEntity? updatedUser =
+          await _uploadAvatarProcess(userData: userdata);
 
       await _saveUserToSecureStorage(userData: updatedUser);
     }
   }
 
   Future<void> _authenticateUserFromFacebook() async {
-    final UserModelFromSocial getUserFromFacebook = await _getUserFromFacebook();
+    final UserModelFromSocial getUserFromFacebook =
+        await _getUserFromFacebook();
     final bool userExist = await _isUserExist(email: getUserFromFacebook.email);
     if (userExist) {
       final UserInfoEntity? updatedLoginUser = await _loginUser(
@@ -137,7 +150,8 @@ class Authenticate {
         username: getUserFromFacebook.userName,
         password: getUserFromFacebook.email,
       );
-      final UserInfoEntity? updatedUser = await _uploadAvatarProcess(userData: userdata);
+      final UserInfoEntity? updatedUser =
+          await _uploadAvatarProcess(userData: userdata);
 
       await _saveUserToSecureStorage(userData: updatedUser);
     }
@@ -210,9 +224,10 @@ class Authenticate {
     }
   }
 
-Future<UserInfoEntity> getUserFromStrapi({required String jwt, required int userId}) async {
+  Future<UserInfoEntity> getUserFromStrapi(
+      {required String jwt, required int userId}) async {
     return await _authRepository.getUserFromStrapi(jwt: jwt, userId: userId);
-}
+  }
 
   Future<UserInfoEntity?> getUserInfoFromSecureStorage() async {
     final getUser = await _authRepository.getUserFromSecureStorage();
