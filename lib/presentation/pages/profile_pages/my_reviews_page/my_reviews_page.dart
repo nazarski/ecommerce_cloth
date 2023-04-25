@@ -22,7 +22,7 @@ class MyReviewsPage extends ConsumerWidget {
               pinned: true,
               delegate: TransformingAppBar(
                 expandedHeight: height * .16,
-                title: 'My Reviews',
+                title: 'My Reviews', ifPop: true,
               ),
             ),
             const UserCountReviews(),
