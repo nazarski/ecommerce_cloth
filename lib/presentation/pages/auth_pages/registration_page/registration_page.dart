@@ -49,7 +49,6 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         showErrorSnackBar(context);
         ref.invalidate(authControllerRegistrationProvider);
       }
-
       if (next.value != null && next.value!) {
         Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
       }

@@ -17,7 +17,7 @@ class ManageReviewsData {
     required int userId,
   }) async {
     final response = await _dio.get('$_apiEndpoint/reviews', queryParameters: {
-      'filters[user][id]': 210,
+      'filters[user][id]': userId,
       'populate': '*',
     });
     final data = response.data;

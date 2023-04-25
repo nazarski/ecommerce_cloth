@@ -102,12 +102,15 @@ class Authenticate {
       password: password,
       avatarUrl: avatarUrl,
     );
-    await _createUserCart(userId: userData!.id);
+    await _createUserCart(userId: userData!.id, jwt: userData.jwt);
     return userData;
   }
 
-  Future<void> _createUserCart({required int userId}) async {
-    await _cartRepository.createUserShoppingCart(userId: userId);
+  Future<void> _createUserCart({
+    required int userId,
+    required String jwt,
+  }) async {
+    await _cartRepository.createUserShoppingCart(userId: userId, jwt: jwt);
   }
 
   Future<void> _authenticateUserFromGoogle() async {

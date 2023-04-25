@@ -22,6 +22,7 @@ class ProductPage extends StatelessWidget {
               '${selectedProduct.brand} ${selectedProduct.name} ${selectedProduct.productType}'),
       bottomNavigationBar: ProductPageAddToCart(
         sizes: selectedProduct.availableQuantity.keys.toList(),
+        systemProductId: selectedProduct.systemId,
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
@@ -40,5 +41,3 @@ class ProductPage extends StatelessWidget {
     );
   }
 }
-
-
