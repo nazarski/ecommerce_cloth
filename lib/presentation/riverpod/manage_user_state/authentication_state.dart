@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:ecommerce_cloth/data/repositories/auth_repository_impl.dart';
+import 'package:ecommerce_cloth/data/repositories/manage_shopping_cart_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/authenticate/authenticate.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _authenticate = Authenticate(AuthRepositoryImpl());
+final _authenticate = Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
 
 final logOutProvider = Provider((ref) => _authenticate.logOut());
 

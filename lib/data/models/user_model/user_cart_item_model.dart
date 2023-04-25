@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
 
@@ -54,9 +56,9 @@ class UserCartItemModel {
 
   factory UserCartItemModel.fromMap(Map<String, dynamic> map) {
     return UserCartItemModel(
-      additionDate: map['additionDate'] as DateTime,
-      product: ProductModel.fromMap(map['product']),
-      quantity: map['quantity'] as int,
+      additionDate: DateTime.parse(map['createdAt']),
+      product: ProductModel.fromCartItemMap(map['product']),
+      quantity: map['quantity'] ?? 0,
       size: map['size'] as String,
     );
   }

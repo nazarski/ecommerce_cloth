@@ -36,8 +36,7 @@ class _ProductTypesListState extends ConsumerState<FavouritesTypesList>
 
   @override
   Widget build(BuildContext context) {
-    final userId = ref.read(userInfoProvider).id;
-    final typesList = ref.watch(favouritesTypesProvider(userId));
+    final typesList = ref.watch(favouritesTypesProvider);
     return typesList.when(
       data: (data) {
         _animationController.forward();

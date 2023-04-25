@@ -201,14 +201,12 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserInfoEntity?> getUserFromStrapi({required String jwt, required int userId}) async {
+  Future<UserInfoEntity> getUserFromStrapi({required String jwt, required int userId}) async {
     try {
       final currentUser = await AuthenticateRemoteData.getUserFromStrapi(jwt: jwt, userId: userId);
       return currentUser.toEntity();
     } catch (error) {
-      log(error.toString());
-      return null;
-
+     return Future.error(error);
     }
   }
 
