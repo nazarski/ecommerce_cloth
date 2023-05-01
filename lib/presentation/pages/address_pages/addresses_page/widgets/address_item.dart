@@ -79,7 +79,7 @@ class _AddressItemState extends State<AddressItem> {
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.only(left: 16),
             child: Row(
@@ -106,7 +106,7 @@ class _AddressItemState extends State<AddressItem> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

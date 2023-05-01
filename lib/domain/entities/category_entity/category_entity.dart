@@ -1,4 +1,3 @@
-import 'package:ecommerce_cloth/domain/entities/card_entity/card_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class CategoryEntity extends Equatable {

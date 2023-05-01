@@ -1,10 +1,6 @@
-import 'dart:developer';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/product_type_chip.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/product_types_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/favourites_state.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

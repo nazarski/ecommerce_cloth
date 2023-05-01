@@ -1,4 +1,3 @@
-import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';

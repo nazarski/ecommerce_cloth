@@ -12,8 +12,8 @@ class ManageCategoriesRepositoryImpl implements ManageCategoriesRepository {
       final listOfCategoryIds =
           await ManageCategoriesData.getAvailableCategories(attribute);
       final listOfCategories =
-          await ManageCategoriesData.getCategories(listOfCategoryIds!);
-      return listOfCategories!.map((e) => e.toEntity()).toList();
+          await ManageCategoriesData.getCategories(listOfCategoryIds);
+      return listOfCategories.map((e) => e.toEntity()).toList();
     } on Exception catch (e) {
       return Future.error(e.toString());
     }
@@ -24,7 +24,7 @@ class ManageCategoriesRepositoryImpl implements ManageCategoriesRepository {
     try {
       final productGroups =
           await ManageCategoriesData.getProductGroups(categoryId);
-      return productGroups ?? [];
+      return productGroups;
     } on Exception catch (e) {
       return Future.error(e.toString());
     }

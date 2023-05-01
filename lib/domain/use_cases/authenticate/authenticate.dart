@@ -3,14 +3,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
-import 'package:ecommerce_cloth/data/data_sources/remote/manage_shopping_cart_data.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/user_model_from_social.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/auth_repository.dart';
-import 'package:ecommerce_cloth/domain/repositories/manage_bank_card_repository.dart';
 import 'package:ecommerce_cloth/domain/repositories/manage_shopping_cart_repository.dart';
+import 'package:flutter/material.dart';
 
 class Authenticate {
   final AuthRepository _authRepository;
@@ -164,7 +163,7 @@ class Authenticate {
     required String email,
     required String password,
   }) async {
-    print('aaaaa');
+    debugPrint('aaaaa');
     final UserInfoEntity? userdata = await _loginUser(
       email: email,
       password: password,

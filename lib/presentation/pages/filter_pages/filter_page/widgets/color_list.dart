@@ -44,7 +44,6 @@ class ColorList extends ConsumerWidget {
 
 class _ColorItem extends StatelessWidget {
   const _ColorItem({
-    super.key,
     required this.isActive,
     required this.color,
   });

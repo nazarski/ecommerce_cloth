@@ -197,7 +197,7 @@ class CartItem extends StatelessWidget {
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                   shadowColor: Colors.black,
-                                  shape: CircleBorder(),
+                                  shape: const CircleBorder(),
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                   padding: EdgeInsets.zero,
@@ -216,7 +216,7 @@ class CartItem extends StatelessWidget {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   shadowColor: Colors.black,
-                                  shape: CircleBorder(),
+                                  shape: const CircleBorder(),
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                   backgroundColor: Theme.of(context)

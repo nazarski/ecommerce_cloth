@@ -23,16 +23,7 @@ class RatingModel {
 
   @override
   String toString() {
-    return 'RatingModel{' +
-        ' id: $id,' +
-        ' totalReview: $totalReviews,' +
-        ' averageRating: $averageRating,' +
-        ' oneStar: $oneStar,' +
-        ' twoStar: $twoStar,' +
-        ' threeStar: $threeStar,' +
-        ' fourStar: $fourStar,' +
-        ' fiveStar: $fiveStar,' +
-        '}';
+    return 'RatingModel{ id: $id, totalReview: $totalReviews, averageRating: $averageRating, oneStar: $oneStar, twoStar: $twoStar, threeStar: $threeStar, fourStar: $fourStar, fiveStar: $fiveStar,}';
   }
 
   Map<String, dynamic> toMap() {

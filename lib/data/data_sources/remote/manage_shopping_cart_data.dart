@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -18,7 +17,7 @@ class ManageShoppingCartData {
       HttpHeaders.contentTypeHeader: 'application/json',
     });
 
-    final response = await _dio.post(
+    await _dio.post(
       '$_apiEndpoint/shopping-carts',
       data: {
         'data': {
