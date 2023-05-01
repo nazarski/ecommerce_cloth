@@ -1,3 +1,1 @@
-abstract class CreateOrderRepository{
-
-}
+abstract class CreateOrderRepository {}

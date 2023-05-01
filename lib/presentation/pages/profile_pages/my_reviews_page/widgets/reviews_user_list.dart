@@ -18,7 +18,7 @@ class ReviewsUserList extends ConsumerWidget {
         data: (data) => SliverList(
           delegate: SliverChildBuilderDelegate(
             childCount: data.length,
-                (context, i) {
+            (context, i) {
               return ReviewItem(
                 review: data[i],
               );
@@ -33,7 +33,7 @@ class ReviewsUserList extends ConsumerWidget {
         loading: () {
           return SliverFixedExtentList(
             delegate: SliverChildBuilderDelegate(
-                  (context, i) {
+              (context, i) {
                 return ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: const ShimmerWidget());

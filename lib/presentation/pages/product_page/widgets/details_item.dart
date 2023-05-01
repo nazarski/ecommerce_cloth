@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class DetailsItem extends StatelessWidget {
   const DetailsItem({
-    super.key, required this.title,
+    super.key,
+    required this.title,
   });
   final String title;
 

@@ -1,7 +1,6 @@
 import 'package:ecommerce_cloth/data/models/user_model/user_address_model.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/addresses_page/widgets/address_item.dart';
 import 'package:ecommerce_cloth/presentation/pages/address_pages/create_address_page/create_address_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddressesPage extends StatelessWidget {
@@ -55,11 +54,10 @@ class AddressesPage extends StatelessWidget {
                     primary: fakeAddresses[index].primary,
                     onTap: () {
                       Navigator.pushNamed(
-                          context,
-                          CreateAddressPage.routeName,
-                          arguments: fakeAddresses[index],
+                        context,
+                        CreateAddressPage.routeName,
+                        arguments: fakeAddresses[index],
                       );
-
                     },
                   );
                 },

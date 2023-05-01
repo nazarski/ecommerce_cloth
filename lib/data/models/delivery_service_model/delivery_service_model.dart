@@ -35,7 +35,8 @@ class DeliveryServiceModel {
         service: service);
   }
 
- factory DeliveryServiceModel.fromEntity({required DeliveryServiceEntity entity}) {
+  factory DeliveryServiceModel.fromEntity(
+      {required DeliveryServiceEntity entity}) {
     return DeliveryServiceModel(
         id: entity.id,
         estimated: entity.estimated,

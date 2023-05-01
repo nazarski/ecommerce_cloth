@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_cloth/core/utils/helpers/date_input_formatter.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/widgets/bottom_sheet_markings.dart';
@@ -12,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 
 import '../../widgets/build_show_modal_bottom_sheet.dart';
 
@@ -28,7 +26,8 @@ class _SettingPageState extends ConsumerState<SettingPage> {
   final FocusNode _fullNameFocus = FocusNode();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController(text: '************');
+  final TextEditingController _passwordController =
+      TextEditingController(text: '************');
   final DateInputFormatter _dateFormatter = DateInputFormatter();
   final FocusNode _dateFocus = FocusNode();
   final FocusNode _fakeFocus = FocusNode();
@@ -44,7 +43,6 @@ class _SettingPageState extends ConsumerState<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final updateUserWatch = ref.watch(updateUserProvider);
     ref.listen(updateUserProvider, (previous, next) {
       if (next.hasError) {
@@ -128,7 +126,8 @@ class _SettingPageState extends ConsumerState<SettingPage> {
                         onPressed: () async {
                           await ref
                               .read(updateUserProvider.notifier)
-                              .updateUser(_fullNameController.text, _dateController.text);
+                              .updateUser(_fullNameController.text,
+                                  _dateController.text);
                           setState(() {
                             isFieldDateValid = false;
                             isFieldsFullNameValid = false;
@@ -158,7 +157,9 @@ class _SettingPageState extends ConsumerState<SettingPage> {
                     CupertinoButton(
                       onPressed: () {
                         buildShowModalBottomSheet(
-                            context: context, child: const BottomSheetResetPassword(), header: 'Password Change');
+                            context: context,
+                            child: const BottomSheetResetPassword(),
+                            header: 'Password Change');
                       },
                       child: Text(
                         'Change',
@@ -194,8 +195,7 @@ class _SettingPageState extends ConsumerState<SettingPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Sales', style: Theme.of(context).textTheme.bodySmall),
-                    const CustomSwitch(
-                    )
+                    const CustomSwitch()
                   ],
                 ),
                 const SizedBox(height: 50),
@@ -207,12 +207,15 @@ class _SettingPageState extends ConsumerState<SettingPage> {
                 GestureDetector(
                   onTap: () {
                     ref.read(logOutProvider);
-                    Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(SplashScreen.routeName, (route) => false);
+                    Navigator.of(context, rootNavigator: true)
+                        .pushNamedAndRemoveUntil(
+                            SplashScreen.routeName, (route) => false);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Log Out', style: Theme.of(context).textTheme.bodySmall),
+                      Text('Log Out',
+                          style: Theme.of(context).textTheme.bodySmall),
                       Icon(
                         Icons.logout,
                         color: Theme.of(context).colorScheme.surface,

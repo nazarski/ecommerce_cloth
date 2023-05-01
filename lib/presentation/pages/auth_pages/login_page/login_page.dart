@@ -43,7 +43,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ref.invalidate(authControllerLoginProvider);
       }
       if (next.value != null && next.value == true) {
-        Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
       }
     });
 
@@ -128,7 +129,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       type: AuthenticateType.authorization,
                     );
                     if (validateAndSaveHelper(formKey: formKey)) {
-                      await ref.read(authControllerLoginProvider.notifier).signInAnonymously(userInfo);
+                      await ref
+                          .read(authControllerLoginProvider.notifier)
+                          .signInAnonymously(userInfo);
                     }
                   },
                   child: authProvider.when(
@@ -161,7 +164,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Center(child: Text('Oops, you have entered an incorrect password and email.')),
+          content: Center(
+              child: Text(
+                  'Oops, you have entered an incorrect password and email.')),
           duration: Duration(seconds: 3),
         ),
       );

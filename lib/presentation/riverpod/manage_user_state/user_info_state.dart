@@ -8,17 +8,21 @@ import 'package:ecommerce_cloth/domain/use_cases/authenticate/authenticate.dart'
 import 'package:ecommerce_cloth/domain/use_cases/manage_user/manage_user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _authenticate = Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
+final _authenticate =
+    Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
 
-final _manageUser = ManageUser(ManageUserRepositoryImpl(), AuthRepositoryImpl());
+final _manageUser =
+    ManageUser(ManageUserRepositoryImpl(), AuthRepositoryImpl());
 
 final getUserInfo = FutureProvider<UserInfoEntity>((ref) async {
-  final UserInfoEntity? userInfo = await _authenticate.getUserInfoFromSecureStorage();
+  final UserInfoEntity? userInfo =
+      await _authenticate.getUserInfoFromSecureStorage();
   return userInfo!;
 });
 
-
-final updateUserProvider = StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>((ref) {
+final updateUserProvider =
+    StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>(
+        (ref) {
   return AuthRegisterController();
 });
 
@@ -31,7 +35,8 @@ class AuthRegisterController extends StateNotifier<AsyncValue<bool>> {
   ) async {
     try {
       state = const AsyncValue.loading();
-      await _manageUser.updateUserInfo(fullName: fullName, dateOfBirth: dateOfBirth);
+      await _manageUser.updateUserInfo(
+          fullName: fullName, dateOfBirth: dateOfBirth);
       state = const AsyncData(true);
     } catch (e) {
       state = AsyncError(e, StackTrace.current);
@@ -41,7 +46,8 @@ class AuthRegisterController extends StateNotifier<AsyncValue<bool>> {
   FutureOr<void> build() {}
 }
 
-final resetPasswordProvider = StateNotifierProvider.autoDispose<ResetPasswordController, AsyncValue<bool>>((ref) {
+final resetPasswordProvider = StateNotifierProvider.autoDispose<
+    ResetPasswordController, AsyncValue<bool>>((ref) {
   return ResetPasswordController();
 });
 
@@ -54,7 +60,8 @@ class ResetPasswordController extends StateNotifier<AsyncValue<bool>> {
   ) async {
     try {
       state = const AsyncValue.loading();
-      await _manageUser.resetPassword(currentPassword: currentPassword, newPassword: newPassword);
+      await _manageUser.resetPassword(
+          currentPassword: currentPassword, newPassword: newPassword);
       state = const AsyncData(true);
     } catch (e) {
       state = AsyncError(e, StackTrace.current);

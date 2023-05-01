@@ -9,6 +9,7 @@ import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/fa
 import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/google_user_adapter.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/user_model_from_social.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_model_from_social/user_model_adapter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -31,11 +32,10 @@ class AuthenticateRemoteData {
 
   static Future<UserModelFromSocial> fetchUserModelFromGoogle() async {
     final UserDataAdapterFromSocial googleAdapter = GoogleUserAdapter();
-    final account = await _googleSignIn.signIn(
-    );
+    final account = await _googleSignIn.signIn();
     final pr = _googleSignIn.clientId;
-    print(pr);
-    print(account!.displayName);
+    debugPrint(pr);
+    debugPrint(account!.displayName);
     return googleAdapter.adaptData(account);
   }
 
@@ -150,7 +150,8 @@ class AuthenticateRemoteData {
     return response;
   }
 
-  static Future<UserInfoModel> getUserFromStrapi({required String jwt, required int userId}) async {
+  static Future<UserInfoModel> getUserFromStrapi(
+      {required String jwt, required int userId}) async {
     final headers = {
       HttpHeaders.authorizationHeader: 'Bearer $jwt',
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -166,7 +167,6 @@ class AuthenticateRemoteData {
     );
     return UserInfoModel.from(response.data);
   }
-
 
   bool isExpired(String? token) {
     if (token == null) return true;

@@ -162,15 +162,13 @@ class ProductModel {
     return ProductModel(
         systemId: map['id'],
         id: map['productId'],
-        additionDate: DateTime.tryParse(map['additionDate']) ??
-            DateTime.now(),
+        additionDate: DateTime.tryParse(map['additionDate']) ?? DateTime.now(),
         popular: map['popular'],
         name: map['productTitle'] ?? '',
         price: map['price'],
         description: map['description'] ?? '',
         images: (map['images'] as List).map((image) {
-          return StrapiInitialize.endpoint +
-              image['formats']['large']['url'];
+          return StrapiInitialize.endpoint + image['formats']['large']['url'];
         }),
         availableQuantity: (map['availableQuantity'] as List)
             .fold(<String, int>{}, (previousValue, element) {
@@ -179,16 +177,13 @@ class ProductModel {
         }),
         productType: map['productType']['typeName'],
         brand: map['brand']['brandName'],
-        attributes:
-        (map['attributes'] as List).map((element) {
+        attributes: (map['attributes'] as List).map((element) {
           return element['title'];
         }),
         thumbnail: StrapiInitialize.endpoint +
-            map['images'].first['formats']
-            ['small']['url'],
+            map['images'].first['formats']['small']['url'],
         colors: map['color'].map((e) => e['color']),
         rating: RatingModel.fromMap(map['rating']),
         sale: {});
   }
-
 }

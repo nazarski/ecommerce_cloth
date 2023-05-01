@@ -13,6 +13,8 @@ final productTypesProvider = FutureProvider.family
   final filter = ref.read(filterValuesProvider.notifier)
     ..setProductTypes(productTypes: productTypes);
   ref.watch(pagingControllerProvider.notifier).initialLaunch(filter.filter);
-  ref.watch(availableFiltersProvider.notifier).getAvailableFilters(productTypes);
+  ref
+      .watch(availableFiltersProvider.notifier)
+      .getAvailableFilters(productTypes);
   return productTypes;
 });

@@ -1,4 +1,3 @@
-import 'package:ecommerce_cloth/core/resources/app_colors.dart';
 import 'package:ecommerce_cloth/presentation/pages/payment_pages/widgets/bank_card_widget.dart';
 import 'package:ecommerce_cloth/presentation/pages/payment_pages/widgets/create_new_card_sheet.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
@@ -7,8 +6,6 @@ import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_bank_state/manage_bank_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../widgets/animated_card_list.dart';
 
 class PaymentsMethodsPage extends StatefulWidget {
   const PaymentsMethodsPage({Key? key}) : super(key: key);
@@ -25,7 +22,10 @@ class _PaymentsMethodsPageState extends State<PaymentsMethodsPage> {
       floatingActionButton: FloatingActionButton.small(
         child: const Icon(Icons.add),
         onPressed: () {
-          buildShowModalBottomSheet(context: context, child: const CreateNewCardSheet(), header: 'Add new card');
+          buildShowModalBottomSheet(
+              context: context,
+              child: const CreateNewCardSheet(),
+              header: 'Add new card');
         },
       ),
       appBar: const AppBarSearchBack(

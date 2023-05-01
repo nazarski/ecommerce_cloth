@@ -9,17 +9,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:android_intent_plus/android_intent.dart';
 
-
 class NotificationService {
   final NotificationRepository _notificationRepository;
   final ManageUserRepository _manageUserRepository;
   final AuthRepository _authRepository;
 
-  const NotificationService(this._notificationRepository, this._manageUserRepository, this._authRepository);
+  const NotificationService(this._notificationRepository,
+      this._manageUserRepository, this._authRepository);
 
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
-  static Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  static Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
     log('Handling a background message ${message.messageId}');
   }
 
@@ -44,32 +45,40 @@ class NotificationService {
       final bool permission = await requestPermission();
       LocalNotification.initialize();
       final fcmToken = await _notificationRepository.getFcmToken();
-      final userFromSecureStorage = await _authRepository.getUserFromSecureStorage();
+      final userFromSecureStorage =
+          await _authRepository.getUserFromSecureStorage();
       await _manageUserRepository.updateFcmToken(
-          userInfoEntity: userFromSecureStorage!, fcmToken: fcmToken!.toString());
-      final updatedFcmToken = _manageUserRepository.updateFcmTokenForSecureStorage(
+          userInfoEntity: userFromSecureStorage!,
+          fcmToken: fcmToken!.toString());
+      final updatedFcmToken =
+          _manageUserRepository.updateFcmTokenForSecureStorage(
         userInfoEntity: userFromSecureStorage,
         fcmToken: fcmToken,
       );
-      final updatedUserPermission = _manageUserRepository.updatePermissionForSecureStorage(
+      final updatedUserPermission =
+          _manageUserRepository.updatePermissionForSecureStorage(
         userInfoEntity: updatedFcmToken!,
         permission: permission,
       );
 
-      await _authRepository.saveUserToSecureStorage(userModel: updatedUserPermission);
-      Stream<RemoteMessage>? messageStream = await _notificationRepository.listenFcmMessage();
+      await _authRepository.saveUserToSecureStorage(
+          userModel: updatedUserPermission);
+      Stream<RemoteMessage>? messageStream =
+          await _notificationRepository.listenFcmMessage();
       messageStream?.listen((RemoteMessage message) {
         LocalNotification.showNotification(message);
       });
 
-      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+      FirebaseMessaging.onBackgroundMessage(
+          _firebaseMessagingBackgroundHandler);
     } else {
       log('❗️❗️❗️In the current version of the application, notifications are not available for iOS devices. If you want to test notifications, please run the application on an Android device.');
     }
   }
 
   Future<bool> togglePermission(bool isEnabled) async {
-    final UserInfoEntity? userInfoEntity = await _authRepository.getUserFromSecureStorage();
+    final UserInfoEntity? userInfoEntity =
+        await _authRepository.getUserFromSecureStorage();
     bool isAuthorized = false;
 
     if (isEnabled) {
@@ -83,8 +92,10 @@ class NotificationService {
         badge: true,
         sound: true,
       );
-      isAuthorized = generalRequest.authorizationStatus == AuthorizationStatus.authorized;
-      _manageUserRepository.updatePermissionForSecureStorage(userInfoEntity: userInfoEntity!, permission: isAuthorized);
+      isAuthorized =
+          generalRequest.authorizationStatus == AuthorizationStatus.authorized;
+      _manageUserRepository.updatePermissionForSecureStorage(
+          userInfoEntity: userInfoEntity!, permission: isAuthorized);
     } else {
       await _messaging.setForegroundNotificationPresentationOptions(
         alert: false,
@@ -94,14 +105,19 @@ class NotificationService {
       openNotificationSettings();
       isAuthorized = false;
     }
-    _manageUserRepository.updatePermissionForSecureStorage(userInfoEntity: userInfoEntity!, permission: isAuthorized);
+    _manageUserRepository.updatePermissionForSecureStorage(
+        userInfoEntity: userInfoEntity!, permission: isAuthorized);
     return isAuthorized;
   }
+
   void openNotificationSettings() {
     const String packageName = 'com.example.ecommerce_cloth';
     const AndroidIntent intent = AndroidIntent(
       action: 'android.settings.APP_NOTIFICATION_SETTINGS',
-      arguments: <String, dynamic>{'app_package': packageName, 'android.provider.extra.APP_PACKAGE': packageName},
+      arguments: <String, dynamic>{
+        'app_package': packageName,
+        'android.provider.extra.APP_PACKAGE': packageName
+      },
     );
     intent.launch();
     //   const AndroidIntent intent = AndroidIntent(
@@ -113,11 +129,13 @@ class NotificationService {
 }
 
 class LocalNotification {
-  static final FlutterLocalNotificationsPlugin _notificationsPlugin = FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin _notificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   static void initialize() {
     const InitializationSettings initializationSettings =
-        InitializationSettings(android: AndroidInitializationSettings('launcher_notification'));
+        InitializationSettings(
+            android: AndroidInitializationSettings('launcher_notification'));
     _notificationsPlugin.initialize(
       initializationSettings,
     );
@@ -142,6 +160,7 @@ class LocalNotification {
       payload: message.data.toString(),
     );
   }
+
   static Future<void> dismissPermission() async {
     await _notificationsPlugin.cancelAll();
   }

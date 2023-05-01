@@ -7,8 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SocialAuthButton extends StatelessWidget {
-
-  const SocialAuthButton({Key? key, required this.icon,}) : super(key: key);
+  const SocialAuthButton({
+    Key? key,
+    required this.icon,
+  }) : super(key: key);
   final String icon;
 
   @override
@@ -39,7 +41,6 @@ class SocialAuthButton extends StatelessWidget {
 class SocialMediaBlock extends ConsumerWidget {
   const SocialMediaBlock({
     Key? key,
-
     required this.label,
     required this.ref,
   }) : super(key: key);
@@ -63,7 +64,8 @@ class SocialMediaBlock extends ConsumerWidget {
           children: [
             GestureDetector(
               onTap: () async {
-                 typeRegister(ref: ref, type: AuthenticateType.google, context: context);
+                typeRegister(
+                    ref: ref, type: AuthenticateType.google, context: context);
               },
               child: const SocialAuthButton(
                 icon: AppIcons.googleIcon,
@@ -72,7 +74,10 @@ class SocialMediaBlock extends ConsumerWidget {
             SizedBox(width: screenSize.width / 30),
             GestureDetector(
               onTap: () async {
-                typeRegister(ref: ref, type: AuthenticateType.facebook, context: context);
+                typeRegister(
+                    ref: ref,
+                    type: AuthenticateType.facebook,
+                    context: context);
               },
               child: const SocialAuthButton(
                 icon: AppIcons.facebookIcon,
@@ -83,8 +88,15 @@ class SocialMediaBlock extends ConsumerWidget {
       ],
     );
   }
-  void typeRegister ({required WidgetRef ref, required AuthenticateType type, required BuildContext context}) async {
-    await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously( UserCredentialEntity(type: type),
-    );
+
+  void typeRegister(
+      {required WidgetRef ref,
+      required AuthenticateType type,
+      required BuildContext context}) async {
+    await ref
+        .read(authControllerRegistrationProvider.notifier)
+        .signInAnonymously(
+          UserCredentialEntity(type: type),
+        );
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -12,7 +11,8 @@ class ManageFavouritesData {
 
   static const String _apiEndpoint = StrapiInitialize.apiEndpoint;
 
-  static Future<Iterable<String>> getFavouriteTypes({required int userId}) async {
+  static Future<Iterable<String>> getFavouriteTypes(
+      {required int userId}) async {
     final response =
         await _dio.get('$_apiEndpoint/users/$userId', queryParameters: {
       'fields': 'id',
@@ -22,8 +22,8 @@ class ManageFavouritesData {
           'typeName',
     });
     final listOfData =
-    List<Map<String, dynamic>>.from(response.data['favourites']);
-    return listOfData.map((element){
+        List<Map<String, dynamic>>.from(response.data['favourites']);
+    return listOfData.map((element) {
       return element['product']['productType']['typeName'].toString();
     });
   }

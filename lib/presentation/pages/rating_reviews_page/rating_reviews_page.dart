@@ -25,7 +25,9 @@ class RatingReviewPage extends StatelessWidget {
             buildShowModalBottomSheet(
               context: context,
               header: 'What is your rate?',
-              child: AddReviewSheet(ratingEntity: rating,),
+              child: AddReviewSheet(
+                ratingEntity: rating,
+              ),
             );
           },
           label: const Text('Write a review'),
@@ -54,8 +56,3 @@ class RatingReviewPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

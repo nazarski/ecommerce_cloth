@@ -7,10 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final manageBankCard = ManageBankCard();
 
 final bankCardsProvider =
-    StateNotifierProvider<BankCardsProvider, AsyncValue<List<CardEntity>>>((ref) => BankCardsProvider());
+    StateNotifierProvider<BankCardsProvider, AsyncValue<List<CardEntity>>>(
+        (ref) => BankCardsProvider());
 
 class BankCardsProvider extends StateNotifier<AsyncValue<List<CardEntity>>> {
-  BankCardsProvider() : super(const AsyncLoading()){_getAllCards();}
+  BankCardsProvider() : super(const AsyncLoading()) {
+    _getAllCards();
+  }
 
   Future<void> _getAllCards() async {
     try {
@@ -23,15 +26,14 @@ class BankCardsProvider extends StateNotifier<AsyncValue<List<CardEntity>>> {
   }
 
   Future<void> addNewCard({required CardEntity newCard}) async {
-
-    await manageBankCard.addNewCards(allCards: state.value ?? [], newCard: newCard);
+    await manageBankCard.addNewCards(
+        allCards: state.value ?? [], newCard: newCard);
     state = const AsyncLoading();
     await _getAllCards();
   }
+
   Future<void> makeToDefault({required CardEntity makeDefault}) async {
     state = AsyncData(state.value!..remove(makeDefault));
     await addNewCard(newCard: makeDefault.copyWith(isDefault: true));
-
   }
-
 }

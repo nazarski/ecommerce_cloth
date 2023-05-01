@@ -9,7 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FavouritesListGridItem extends ConsumerStatefulWidget {
-  const FavouritesListGridItem({required this.onRemove,
+  const FavouritesListGridItem({
+    required this.onRemove,
     required this.cartItem,
     super.key,
     required this.hero,
@@ -82,6 +83,7 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                       ),
                     ),
                   ),
+
                   /// Add to cart button
                   Positioned(
                     right: -10,
@@ -104,6 +106,7 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                       ),
                     ),
                   ),
+
                   /// Stars rating widget
                   Positioned(
                     left: 0,
@@ -113,6 +116,7 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                       reviews: product.rating.totalReviews,
                     ),
                   ),
+
                   /// "X" remove button
                   Positioned(
                     right: 0,
@@ -120,6 +124,7 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                       action: widget.onRemove,
                     ),
                   ),
+
                   /// If there should be "NEW" or sale label
                   if (chipValue.isNotEmpty)
                     Positioned(

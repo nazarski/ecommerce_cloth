@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class PaymentsNestPage extends StatelessWidget {
   const PaymentsNestPage({Key? key}) : super(key: key);
   static const routeName = 'payments-nest-page';
-  static final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> _navigatorKey =
+      GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,6 @@ import 'package:ecommerce_cloth/domain/entities/card_entity/card_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_bank_card.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_bank_state/manage_bank_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -120,8 +119,8 @@ class _CreateNewCardSheetState extends State<CreateNewCardSheet> {
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
                   return ElevatedButton(
                     onPressed: () {
-              
-                      final String cardNumber = bankCardController.text.replaceAll(' ', '');
+                      final String cardNumber =
+                          bankCardController.text.replaceAll(' ', '');
                       final String cardId = cardNumber.substring(12);
                       final String cardDate = expireDateController.text;
                       if (validateAndSaveHelper(formKey: formKey)) {

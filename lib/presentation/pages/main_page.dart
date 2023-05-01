@@ -30,8 +30,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
-       return _currentIndex == 0;
+      onWillPop: () async {
+        return _currentIndex == 0;
       },
       child: Scaffold(
           body: IndexedStack(

@@ -9,4 +9,3 @@ class ManagePromoCodes {
     return await _promoCodesRepository.getPromoCodes();
   }
 }
-

@@ -3,27 +3,30 @@ import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/widgets/r
 import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/widgets/stars_row.dart';
 import 'package:flutter/material.dart';
 
-
 class RatingSummarySliver extends StatelessWidget {
-  const RatingSummarySliver({Key? key, required this.rating, required this.width}) : super(key: key);
+  const RatingSummarySliver(
+      {Key? key, required this.rating, required this.width})
+      : super(key: key);
   final RatingEntity rating;
   final double width;
   int _initializeReviewCount(int stars) {
     return {
-      "5_star": rating.fiveStar,
-      "4_star": rating.fourStar,
-      "3_star": rating.threeStar,
-      "2_star": rating.twoStar,
-      "1_star": rating.oneStar,
-    }['${stars}_star'] ??
+          "5_star": rating.fiveStar,
+          "4_star": rating.fourStar,
+          "3_star": rating.threeStar,
+          "2_star": rating.twoStar,
+          "1_star": rating.oneStar,
+        }['${stars}_star'] ??
         0;
   }
+
   double _countWidth(int count) {
     if (count == 0) {
       return 8;
     }
     return width * 0.4 * count / rating.totalReviews;
   }
+
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -54,7 +57,7 @@ class RatingSummarySliver extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: List.generate(
                     5,
-                        (index) {
+                    (index) {
                       return StarsRow(numberOfStars: 5 - index);
                     },
                   ),
@@ -66,8 +69,10 @@ class RatingSummarySliver extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: List.generate(5, (index) {
                     return ReviewsCountIndicator(
-                        width: _countWidth(
-                            _initializeReviewCount(5 - index),),);
+                      width: _countWidth(
+                        _initializeReviewCount(5 - index),
+                      ),
+                    );
                   }),
                 ),
               ],

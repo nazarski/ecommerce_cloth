@@ -57,5 +57,6 @@ abstract class AuthRepository {
 
   Future<void> clearSecureStorage();
 
-  Future<UserInfoEntity> getUserFromStrapi({required String jwt, required int userId});
+  Future<UserInfoEntity> getUserFromStrapi(
+      {required String jwt, required int userId});
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class TabMenuItem extends StatelessWidget {
@@ -17,7 +16,7 @@ class TabMenuItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
         ),
-        child:  Center(
+        child: Center(
           child: Text(
             nameTab,
             style: const TextStyle(

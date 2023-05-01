@@ -4,5 +4,4 @@ class AppImages {
   static const String _path = 'assets/images';
 
   static const String splashScreen = '$_path/splash_screen.png';
-
 }

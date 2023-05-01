@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 
-class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
+class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
   const AppBarSearchBack({
     super.key,
     required this.title,
@@ -25,7 +24,7 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
       elevation: !elevation ? 0 : 10,
       leading: IconButton(
         onPressed: root ??
-                () {
+            () {
               Navigator.pop(context);
             },
         icon: const Icon(
@@ -35,13 +34,13 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget{
       title: Text(title ?? ''),
       centerTitle: true,
       actions: [
-        if(search)
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.search_rounded,
+        if (search)
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.search_rounded,
+            ),
           ),
-        ),
       ],
     );
   }

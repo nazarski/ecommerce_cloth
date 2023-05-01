@@ -8,15 +8,19 @@ import 'package:ecommerce_cloth/domain/use_cases/authenticate/authenticate.dart'
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _authenticate = Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
+final _authenticate =
+    Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
 
 final logOutProvider = Provider((ref) => _authenticate.logOut());
 
 final authControllerRegistrationProvider =
-    StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>((ref) {
+    StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>(
+        (ref) {
   return AuthRegisterController();
 });
-final authControllerLoginProvider = StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>((ref) {
+final authControllerLoginProvider =
+    StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>(
+        (ref) {
   return AuthRegisterController();
 });
 
@@ -59,18 +63,23 @@ class AuthLoginController extends StateNotifier<AsyncValue<bool>> {
 
 final userLoggedInProvider = FutureProvider<bool>((ref) async {
   final user = await _authenticate.isExpired();
-if(user!) {
-  final userModel = await _authenticate.getUserInfoFromSecureStorage();
-  await ref.read(userInfoProvider.notifier).getUserFromStrapi(jwt: userModel!.jwt, userId: userModel.id);
-}
+  if (user!) {
+    final userModel = await _authenticate.getUserInfoFromSecureStorage();
+    await ref
+        .read(userInfoProvider.notifier)
+        .getUserFromStrapi(jwt: userModel!.jwt, userId: userModel.id);
+  }
   return user;
 });
 
-class UserFromLocalStateNotifier extends StateNotifier<AsyncValue<UserInfoEntity>> {
-  UserFromLocalStateNotifier() : super(AsyncValue.data(UserInfoEntity as UserInfoEntity));
+class UserFromLocalStateNotifier
+    extends StateNotifier<AsyncValue<UserInfoEntity>> {
+  UserFromLocalStateNotifier()
+      : super(AsyncValue.data(UserInfoEntity as UserInfoEntity));
 
   Future<void> getUser() async {
-    state = (await _authenticate.getUserInfoFromSecureStorage()) as AsyncValue<UserInfoEntity>;
+    state = (await _authenticate.getUserInfoFromSecureStorage())
+        as AsyncValue<UserInfoEntity>;
   }
 
   FutureOr<void> build() {}

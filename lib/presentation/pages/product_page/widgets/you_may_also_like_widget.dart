@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/product_list_grid_item.dart';
@@ -69,7 +68,10 @@ class _YMALProductList extends ConsumerWidget {
             itemBuilder: (context, i) {
               return SizedBox(
                 width: 150,
-                child: ProductListGridItem(product: data[i], hero: false,),
+                child: ProductListGridItem(
+                  product: data[i],
+                  hero: false,
+                ),
               );
             },
             separatorBuilder: (_, __) => const SizedBox(

@@ -9,33 +9,29 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authenti
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class SplashScreen extends ConsumerWidget {
   static const routeName = '/';
-
-
 
   const SplashScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userLoggedIn = ref.watch(userLoggedInProvider);
-    return
-      userLoggedIn.maybeWhen(
+    return userLoggedIn.maybeWhen(
       data: (value) {
-        Future.microtask(()async {
+        Future.microtask(() async {
           if (value) {
             log('✅ This user is authorized');
-            Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
           } else {
             log('🚫 This user is not register');
-            Navigator.of(context).pushNamedAndRemoveUntil(RegistrationPage.routeName, (route) => false);
-
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                RegistrationPage.routeName, (route) => false);
           }
         });
         return const SplashBannerWidget();
       },
       orElse: () {
-
         return const SplashBannerWidget();
       },
     );

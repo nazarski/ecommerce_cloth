@@ -8,9 +8,10 @@ import 'star_review_selection.dart';
 
 class AddReviewSheet extends StatefulWidget {
   const AddReviewSheet({
-    super.key, required this.ratingEntity,
+    super.key,
+    required this.ratingEntity,
   });
-final RatingEntity ratingEntity;
+  final RatingEntity ratingEntity;
   @override
   State<AddReviewSheet> createState() => _AddReviewSheetState();
 }

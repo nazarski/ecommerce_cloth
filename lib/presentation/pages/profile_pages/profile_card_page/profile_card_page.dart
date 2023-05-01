@@ -71,7 +71,6 @@ class ProfileCardPage extends ConsumerWidget {
                                 height: 64,
                               ),
                       ),
-
                       const SizedBox(width: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,37 +106,42 @@ class ProfileCardPage extends ConsumerWidget {
                       title: 'Shipping addresses',
                       subtitle: '? addresses',
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(AddressNestPage.routeName);
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed(AddressNestPage.routeName);
                       },
                     ),
                     SettingItem(
                       title: 'Payment methods',
                       subtitle: 'Visa  **34',
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(PaymentsNestPage.routeName);
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed(PaymentsNestPage.routeName);
                       },
                     ),
                     SettingItem(
-                      title: 'Promo-codes',
-                      subtitle: 'You have special promo codes',
-                      onTap: () {
-                        buildShowModalBottomSheet(
-                          context: context, child: const PromoCodesBodyPage(), header: 'Your Promo Codes',);
-
-                      }
-                    ),
+                        title: 'Promo-codes',
+                        subtitle: 'You have special promo codes',
+                        onTap: () {
+                          buildShowModalBottomSheet(
+                            context: context,
+                            child: const PromoCodesBodyPage(),
+                            header: 'Your Promo Codes',
+                          );
+                        }),
                     SettingItem(
                       title: 'My reviews',
                       subtitle: 'Reviews for ?? items',
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(MyReviewsNestPage.routeName);
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed(MyReviewsNestPage.routeName);
                       },
                     ),
                     SettingItem(
                       title: 'Settings',
                       subtitle: 'Notifications, password',
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(SettingNestPage.routeName);
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed(SettingNestPage.routeName);
                       },
                     ),
                   ],

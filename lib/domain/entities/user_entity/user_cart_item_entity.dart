@@ -1,7 +1,7 @@
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:equatable/equatable.dart';
 
-class UserCartItemEntity extends Equatable{
+class UserCartItemEntity extends Equatable {
   final DateTime additionDate;
   final ProductEntity product;
   final int quantity;
@@ -16,11 +16,11 @@ class UserCartItemEntity extends Equatable{
 
   @override
   List<Object?> get props => [
-   additionDate,
-   product,
-   quantity,
-   size,
-  ];
+        additionDate,
+        product,
+        quantity,
+        size,
+      ];
 
   UserCartItemEntity copyWith({
     DateTime? additionDate,

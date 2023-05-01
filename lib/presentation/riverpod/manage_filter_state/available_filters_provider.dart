@@ -5,10 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _getFilters = GetFilters(ManageFilterValuesRepositoryImpl());
 
-final availableFiltersProvider = StateNotifierProvider.autoDispose<FilterValuesProvider,
-    AsyncValue<AvailableFilterEntity>>((ref) {
-      return FilterValuesProvider();
-    });
+final availableFiltersProvider = StateNotifierProvider.autoDispose<
+    FilterValuesProvider, AsyncValue<AvailableFilterEntity>>((ref) {
+  return FilterValuesProvider();
+});
 
 class FilterValuesProvider
     extends StateNotifier<AsyncValue<AvailableFilterEntity>> {
@@ -24,16 +24,16 @@ class FilterValuesProvider
   }
 }
 
-final availableBrandsProvider = StateNotifierProvider.autoDispose<BrandsProvider,
-    AsyncValue<List<String>>>((ref) => BrandsProvider());
+final availableBrandsProvider =
+    StateNotifierProvider.autoDispose<BrandsProvider, AsyncValue<List<String>>>(
+        (ref) => BrandsProvider());
 
-class BrandsProvider
-    extends StateNotifier<AsyncValue<List<String>>> {
-  BrandsProvider() : super(const AsyncLoading()){
+class BrandsProvider extends StateNotifier<AsyncValue<List<String>>> {
+  BrandsProvider() : super(const AsyncLoading()) {
     _getAllBrands();
   }
 
-  Future<void>_getAllBrands()async{
+  Future<void> _getAllBrands() async {
     try {
       final brands = await _getFilters.getAllBrands();
       state = AsyncData(brands);

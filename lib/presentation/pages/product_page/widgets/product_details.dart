@@ -41,7 +41,8 @@ class ProductDetails extends StatelessWidget {
                 ],
               ),
               HeartFavourite(
-                systemProductId: selectedProduct.systemId, listOfSizes: selectedProduct.availableQuantity.keys.toList(),
+                systemProductId: selectedProduct.systemId,
+                listOfSizes: selectedProduct.availableQuantity.keys.toList(),
               ),
             ],
           ),

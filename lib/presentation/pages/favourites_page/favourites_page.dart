@@ -7,7 +7,6 @@ import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/sliver_header_delegate_wrap.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/transforming_app_bar.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/favourites_state.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,8 +26,7 @@ class _FavouritesPageState extends ConsumerState<FavouritesPage> {
 
   Future<void> _refreshFunction() async {
     final types = ref.refresh(favouritesTypesProvider);
-    final value =
-        await ref.refresh(favouritesListProvider.future);
+    final value = await ref.refresh(favouritesListProvider.future);
   }
 
   @override

@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SizesList extends ConsumerWidget {
-  const SizesList( {required this.listOfSizes,
+  const SizesList({
+    required this.listOfSizes,
     super.key,
   });
 
-final List<String> listOfSizes;
+  final List<String> listOfSizes;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,5 +32,3 @@ final List<String> listOfSizes;
     );
   }
 }
-
-

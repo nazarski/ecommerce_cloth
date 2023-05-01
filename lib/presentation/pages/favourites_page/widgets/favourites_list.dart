@@ -24,4 +24,3 @@ class FavouritesListWidget extends StatelessWidget {
     );
   }
 }
-

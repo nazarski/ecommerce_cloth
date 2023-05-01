@@ -1,5 +1,4 @@
 import 'package:ecommerce_cloth/core/utils/helpers/product_helpers.dart';
-import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
@@ -65,7 +64,7 @@ class ProductSliderItem extends StatelessWidget {
                 reviews: 10,
               ),
             ),
-            if(chipValue.isNotEmpty)
+            if (chipValue.isNotEmpty)
               Positioned(
                 top: 8,
                 left: 8,

@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TransformingAppBarContent extends ConsumerWidget {
-  const TransformingAppBarContent(
-    {
+  const TransformingAppBarContent({
     super.key,
     required this.progress,
     required this.title,
-      required this.ifPop,
-    });
+    required this.ifPop,
+  });
 
   final double progress;
   final String title;

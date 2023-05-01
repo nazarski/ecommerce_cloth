@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:ecommerce_cloth/data/data_sources/remote/notification_data.dart';
 import 'package:ecommerce_cloth/domain/repositories/notifacation_repository.dart';
-import 'package:firebase_messaging_platform_interface/src/remote_message.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class NotificationRepositoryImpl implements NotificationRepository {
   @override
@@ -19,12 +19,12 @@ class NotificationRepositoryImpl implements NotificationRepository {
   @override
   Future<Stream<RemoteMessage>?> listenFcmMessage() async {
     try {
-      final Stream<RemoteMessage> remoteMessage =  NotificationData.listenFcmMessage();
+      final Stream<RemoteMessage> remoteMessage =
+          NotificationData.listenFcmMessage();
       return remoteMessage;
     } catch (error) {
       log(error.toString());
       return null;
-
     }
   }
 }

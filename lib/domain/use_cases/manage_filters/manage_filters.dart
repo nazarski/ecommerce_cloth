@@ -21,10 +21,12 @@ class GetFilters {
       colors: colors.map((e) => e.toEntity()).toList(),
     );
   }
-  Future<List<String>>getBrandsByValue(String searchValue)async{
+
+  Future<List<String>> getBrandsByValue(String searchValue) async {
     return await _filterRepository.getBrandsByValue(searchValue);
   }
-  Future<List<String>>getAllBrands()async{
+
+  Future<List<String>> getAllBrands() async {
     return await _filterRepository.getAllBrands();
   }
 }

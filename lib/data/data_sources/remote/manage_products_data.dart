@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/core/enums/sort_type.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/data_helpers.dart';
@@ -50,13 +49,15 @@ class ManageProductsData {
         values.map((e) => e['attributes']['typeName'] as String).toList();
     return data;
   }
-  
-  static Future<ProductModel> getProductById({required String productId}) async {
-    final response = await _dio.get('$_endpoint/products?filters[productId]=$productId&populate=*');
+
+  static Future<ProductModel> getProductById(
+      {required String productId}) async {
+    final response = await _dio
+        .get('$_endpoint/products?filters[productId]=$productId&populate=*');
     final values = List<Map<String, dynamic>>.from(response.data['data']);
 
     return ProductModel.fromMap(values.first);
-}
+  }
 
   static Future<List<ProductModel>> getProductsByFilterValues({
     required int fromPrice,
@@ -73,7 +74,7 @@ class ManageProductsData {
     final brandQuery = generateBrandNameQuery(brandNames);
     final sizeQuery = generateSizesQuery(sizes);
     final productTypesQuery = generateProductTypesQuery(productTypes);
-    final colorsQuery = generateColorsQuery(colors);
+    // final colorsQuery = generateColorsQuery(colors);
 
     final response = await _dio.get(
       '$_endpoint/products',
@@ -106,7 +107,7 @@ class ManageProductsData {
     final priceQuery = generatePriceQuery(fromPrice, toPrice);
     final sizeQuery = generateSizesQuery(sizes);
     final productTypesQuery = generateProductTypesQuery(productTypes);
-    final colorsQuery = generateColorsQuery(colors);
+    // final colorsQuery = generateColorsQuery(colors);
 
     final response = await _dio.get(
       '$_endpoint/products',

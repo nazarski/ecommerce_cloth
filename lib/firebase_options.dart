@@ -63,8 +63,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '377716233524',
     projectId: 'lambda-new-ecom',
     storageBucket: 'lambda-new-ecom.appspot.com',
-    androidClientId: '377716233524-u2b8ocrq4s9kqqbjco18s2bqbpeub55i.apps.googleusercontent.com',
-    iosClientId: '377716233524-jbf3dc71rd8cuiuj6oqe4ebv09r5q0nj.apps.googleusercontent.com',
+    androidClientId:
+        '377716233524-u2b8ocrq4s9kqqbjco18s2bqbpeub55i.apps.googleusercontent.com',
+    iosClientId:
+        '377716233524-jbf3dc71rd8cuiuj6oqe4ebv09r5q0nj.apps.googleusercontent.com',
     iosBundleId: 'com.example.ecommerceCloth',
   );
 }

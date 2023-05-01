@@ -1,5 +1,3 @@
-
-
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/rating_entity/rating_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/review_entity/review_entity.dart';

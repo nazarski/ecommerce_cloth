@@ -12,9 +12,9 @@ class MyReviewsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
-    return  SafeArea(
+    return SafeArea(
       bottom: false,
-      child:  Scaffold(
+      child: Scaffold(
         body: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
@@ -22,7 +22,8 @@ class MyReviewsPage extends ConsumerWidget {
               pinned: true,
               delegate: TransformingAppBar(
                 expandedHeight: height * .16,
-                title: 'My Reviews', ifPop: true,
+                title: 'My Reviews',
+                ifPop: true,
               ),
             ),
             const UserCountReviews(),

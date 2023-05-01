@@ -90,9 +90,9 @@ class _ProductListGridItemState extends ConsumerState<ProductListGridItem>
                       bottom: 2,
                       child: HeartFavourite(
                         systemProductId: widget.product.systemId,
-                        listOfSizes: widget.product.availableQuantity.keys.toList(),
-                      )
-                      ),
+                        listOfSizes:
+                            widget.product.availableQuantity.keys.toList(),
+                      )),
                   Positioned(
                     left: 0,
                     bottom: 0,

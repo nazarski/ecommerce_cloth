@@ -55,8 +55,8 @@ class ProductGroupPage extends ConsumerWidget {
                     ref
                         .read(collectSearchHierarchyProvider.notifier)
                         .addProductGroup(
-                      productGroup: data[i],
-                    );
+                          productGroup: data[i],
+                        );
                     final finder = ref
                         .read(collectSearchHierarchyProvider.notifier)
                         .finder;

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
@@ -8,7 +7,6 @@ class UserCartItemModel {
   final ProductModel product;
   final int quantity;
   final String size;
-
 
   const UserCartItemModel({
     required this.additionDate,

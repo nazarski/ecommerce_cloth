@@ -8,10 +8,12 @@ import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dar
 import 'package:ecommerce_cloth/domain/use_cases/authenticate/authenticate.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_favourites/manage_favourites.dart';
 import 'package:ecommerce_cloth/domain/use_cases/notification_service/notification_service.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _authenticate = Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
+final _authenticate =
+    Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
 
 final _notificationService = NotificationService(
   NotificationRepositoryImpl(),
@@ -45,8 +47,8 @@ class UserInfoProvider extends StateNotifier<UserInfoEntity> {
 
   void toggleNotification({required bool notify}) {
     state = state.copyWith(notification: notify);
-    print(state.notification);
-    print(state);
+    debugPrint(state.notification.toString());
+    debugPrint(state.toString());
     _updateUserPermission();
   }
 

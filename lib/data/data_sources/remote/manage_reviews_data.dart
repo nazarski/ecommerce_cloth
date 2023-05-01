@@ -41,7 +41,8 @@ class ManageReviewsData {
       'filters[product][productId]': productId,
       'populate[images][fields][0]': 'formats',
       'populate[user][fields][1]': 'username',
-      'populate[user][populate][photoUrl][formats][thumbnail][fields][2]': 'url',
+      'populate[user][populate][photoUrl][formats][thumbnail][fields][2]':
+          'url',
       'populate[product][fields][3]': 'productId',
     });
     final listOfValues = List<Map<String, dynamic>>.from(
@@ -53,7 +54,6 @@ class ManageReviewsData {
       ),
     );
   }
-
 
   static Future<void> addReview({
     required int systemId,
@@ -97,7 +97,8 @@ class ManageReviewsData {
     );
   }
 
-  static Future<void> updateProductRating(RatingModel rating, int ratingId, String jwt) async {
+  static Future<void> updateProductRating(
+      RatingModel rating, int ratingId, String jwt) async {
     final options = Options(headers: {
       HttpHeaders.authorizationHeader: 'Bearer $jwt',
       HttpHeaders.contentTypeHeader: 'application/json',

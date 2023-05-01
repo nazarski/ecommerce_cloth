@@ -21,7 +21,7 @@ class ManageUserRemoteData {
     final headers = {
       HttpHeaders.authorizationHeader: 'Bearer ${userInfoModel.jwt}',
     };
-    final response = await _dio.put('$_apiEndpoint/users/${userInfoModel.id}',
+    await _dio.put('$_apiEndpoint/users/${userInfoModel.id}',
         data: data,
         options: Options(
           headers: headers,
@@ -39,7 +39,7 @@ class ManageUserRemoteData {
     final headers = {
       HttpHeaders.authorizationHeader: 'Bearer ${userInfoModel.jwt}',
     };
-    final response = await _dio.put('$_apiEndpoint/users/${userInfoModel.id}',
+    await _dio.put('$_apiEndpoint/users/${userInfoModel.id}',
         data: data,
         options: Options(
           headers: headers,
@@ -66,5 +66,4 @@ class ManageUserRemoteData {
           headers: headers,
         ));
   }
-
 }

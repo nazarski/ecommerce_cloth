@@ -18,7 +18,8 @@ class AuthRepositoryImpl implements AuthRepository {
     required String avatarUrl,
   }) async {
     try {
-      final UserInfoModel? postRequestRegistrationUser = await AuthenticateRemoteData.postUserRegistration(
+      final UserInfoModel? postRequestRegistrationUser =
+          await AuthenticateRemoteData.postUserRegistration(
         email: email,
         username: username,
         password: password,
@@ -36,7 +37,8 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     try {
-      final UserInfoModel? postRequestLoginUser = await AuthenticateRemoteData.postUserLogin(
+      final UserInfoModel? postRequestLoginUser =
+          await AuthenticateRemoteData.postUserLogin(
         email: email,
         password: password,
       );
@@ -49,7 +51,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserModelFromSocial> requestUserFromGoogle() async {
     try {
-      final UserModelFromSocial userModelFromGoogle = await AuthenticateRemoteData.fetchUserModelFromGoogle();
+      final UserModelFromSocial userModelFromGoogle =
+          await AuthenticateRemoteData.fetchUserModelFromGoogle();
       return userModelFromGoogle;
     } on Exception catch (error) {
       return Future.error(error.toString());
@@ -59,7 +62,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserModelFromSocial> requestUserFromFacebook() async {
     try {
-      final UserModelFromSocial userModelFromFacebook = await AuthenticateRemoteData.fetchUserModelFromFacebook();
+      final UserModelFromSocial userModelFromFacebook =
+          await AuthenticateRemoteData.fetchUserModelFromFacebook();
       return userModelFromFacebook;
     } on Exception catch (error) {
       return Future.error(error.toString());
@@ -121,10 +125,13 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Response> updateUserAvatar({required String jwt, required String photoUrl, required int userId}) async {
+  Future<Response> updateUserAvatar(
+      {required String jwt,
+      required String photoUrl,
+      required int userId}) async {
     try {
-      final Response response =
-          await AuthenticateRemoteData.updateUserAvatar(userId: userId, photoUrl: photoUrl, jwt: jwt);
+      final Response response = await AuthenticateRemoteData.updateUserAvatar(
+          userId: userId, photoUrl: photoUrl, jwt: jwt);
       return response;
     } on Exception catch (error) {
       return Future.error(error.toString());
@@ -149,7 +156,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> saveUserToSecureStorage({required UserInfoEntity? userModel}) async {
+  Future<void> saveUserToSecureStorage(
+      {required UserInfoEntity? userModel}) async {
     try {
       await AuthenticateLocalData.saveUserToSecureStorage(
         userModel: userModel!,
@@ -162,7 +170,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserInfoEntity> getUserFromSecureStorage() async {
     try {
-      final UserInfoModel userInfoModel = await AuthenticateLocalData.getUserFromSecureStorage();
+      final UserInfoModel userInfoModel =
+          await AuthenticateLocalData.getUserFromSecureStorage();
       final UserInfoEntity userInfoEntity = userInfoModel.toEntity();
       return userInfoEntity;
     } on Exception catch (error) {
@@ -193,22 +202,22 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> clearSecureStorage() async {
-   try {
-     AuthenticateLocalData.clearSecureStorage();
-   } catch (error) {
-     log(error.toString());
-   }
-  }
-
-  @override
-  Future<UserInfoEntity> getUserFromStrapi({required String jwt, required int userId}) async {
     try {
-      final currentUser = await AuthenticateRemoteData.getUserFromStrapi(jwt: jwt, userId: userId);
-      return currentUser.toEntity();
+      AuthenticateLocalData.clearSecureStorage();
     } catch (error) {
-     return Future.error(error);
+      log(error.toString());
     }
   }
 
-
+  @override
+  Future<UserInfoEntity> getUserFromStrapi(
+      {required String jwt, required int userId}) async {
+    try {
+      final currentUser = await AuthenticateRemoteData.getUserFromStrapi(
+          jwt: jwt, userId: userId);
+      return currentUser.toEntity();
+    } catch (error) {
+      return Future.error(error);
+    }
+  }
 }

@@ -33,9 +33,13 @@ class CustomSwitch extends ConsumerWidget {
         child: CupertinoSwitch(
           activeColor: Colors.grey.withOpacity(0.1),
           value: switchValue,
-          thumbColor: switchValue ? Theme.of(context).colorScheme.onError : Theme.of(context).colorScheme.background,
+          thumbColor: switchValue
+              ? Theme.of(context).colorScheme.onError
+              : Theme.of(context).colorScheme.background,
           onChanged: (bool changed) {
-            ref.watch(userInfoProvider.notifier).toggleNotification(notify: changed);
+            ref
+                .watch(userInfoProvider.notifier)
+                .toggleNotification(notify: changed);
           },
         ),
       ),

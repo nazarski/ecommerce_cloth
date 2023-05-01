@@ -6,12 +6,12 @@ class ShopPage extends StatelessWidget {
   const ShopPage({Key? key}) : super(key: key);
   static const routeName = 'empty-shop-page';
   static final GlobalKey<NavigatorState> _navigatorKey =
-  GlobalKey<NavigatorState>();
+      GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
-       return !await _navigatorKey.currentState!.maybePop();
+      onWillPop: () async {
+        return !await _navigatorKey.currentState!.maybePop();
       },
       child: Navigator(
         key: _navigatorKey,

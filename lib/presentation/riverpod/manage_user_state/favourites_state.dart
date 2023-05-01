@@ -9,16 +9,10 @@ final ManageFavourites _favourites =
 
 final favouritesTypesProvider =
     FutureProvider.autoDispose<List<String>>((ref) async {
-
   final userId = ref.read(userInfoProvider).id;
 
   return await _favourites.getFavouritesTypes(userId: userId);
 });
-
-
-
-
-
 
 final favouritesListProvider =
     AutoDisposeFutureProvider<List<UserCartItemEntity>>((ref) async {

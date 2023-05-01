@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 
-
-
 String validatePasswordHelper(String? password) {
   if (password!.isEmpty) {
     return 'This field is required and cannot be empty';
@@ -14,7 +12,9 @@ String validatePasswordHelper(String? password) {
 }
 
 String validateUserNameHelper(String? userName) {
-  return userName!.isEmpty || userName.length > 15 ? 'Please enter a correct username' : '';
+  return userName!.isEmpty || userName.length > 15
+      ? 'Please enter a correct username'
+      : '';
 }
 
 bool validateAndSaveUserHelper({required GlobalKey<FormState> formKey}) {

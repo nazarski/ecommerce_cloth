@@ -45,10 +45,11 @@ class ManageReviewsRepositoryImpl implements ManageReviewsRepository {
   }
 
   @override
-  Future<List<ReviewEntity>> getAllProductReviews({required String productId}) async {
+  Future<List<ReviewEntity>> getAllProductReviews(
+      {required String productId}) async {
     try {
       final models =
-      await ManageReviewsData.getAllProductReviews(productId: productId);
+          await ManageReviewsData.getAllProductReviews(productId: productId);
       return models.map((e) => e.toEntity()).toList();
     } on Exception catch (e) {
       throw Future.error(e.toString());
@@ -70,4 +71,4 @@ class ManageReviewsRepositoryImpl implements ManageReviewsRepository {
       throw Future.error(e.toString());
     }
   }
-  }
+}

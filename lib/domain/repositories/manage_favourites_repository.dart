@@ -26,5 +26,5 @@ abstract class ManageFavouritesRepository {
     required int productSystemId,
     required int userId,
     required String size,
-});
+  });
 }

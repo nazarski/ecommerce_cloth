@@ -5,7 +5,7 @@ import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entit
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:equatable/equatable.dart';
 
-class OrderEntity extends Equatable{
+class OrderEntity extends Equatable {
   final DateTime dateOfSubmission;
   final String orderId;
   final DeliveryServiceEntity deliveryMethod;
@@ -34,17 +34,16 @@ class OrderEntity extends Equatable{
 
   @override
   List<Object?> get props => [
-    status,
-    quantity,
-    trackingNumber,
-    dateOfSubmission,
-    orderId,
-    deliveryMethod,
-    orderedProducts,
-    payment,
-    shippingAddress,
-    user,
-    totalAmount,
-  ];
-
+        status,
+        quantity,
+        trackingNumber,
+        dateOfSubmission,
+        orderId,
+        deliveryMethod,
+        orderedProducts,
+        payment,
+        shippingAddress,
+        user,
+        totalAmount,
+      ];
 }

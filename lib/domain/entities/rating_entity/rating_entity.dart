@@ -50,7 +50,8 @@ class RatingEntity extends Equatable {
       twoStar: twoStar ?? this.twoStar,
       threeStar: threeStar ?? this.threeStar,
       fourStar: fourStar ?? this.fourStar,
-      fiveStar: fiveStar ?? this.fiveStar, id: id?? this.id,
+      fiveStar: fiveStar ?? this.fiveStar,
+      id: id ?? this.id,
     );
   }
 }

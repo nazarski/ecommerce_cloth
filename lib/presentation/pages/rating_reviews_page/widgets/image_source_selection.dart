@@ -2,13 +2,14 @@ import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/widgets/r
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class ImageSourceSelection extends StatelessWidget {
   const ImageSourceSelection({
-    super.key, required this.camera, required this.gallery,
+    super.key,
+    required this.camera,
+    required this.gallery,
   });
-final VoidCallback camera;
-final VoidCallback gallery;
+  final VoidCallback camera;
+  final VoidCallback gallery;
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
@@ -20,7 +21,7 @@ final VoidCallback gallery;
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.pop(context);
                 camera();
               },
@@ -29,14 +30,13 @@ final VoidCallback gallery;
                   const RedWrapCircleIcon(
                     icon: Icons.camera_alt_rounded,
                   ),
-                  const SizedBox(height: 8,),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   Text(
                     'Camera',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
                   )
                 ],
               ),
@@ -48,15 +48,15 @@ final VoidCallback gallery;
               },
               child: Column(
                 children: [
-                  const RedWrapCircleIcon(icon: CupertinoIcons.photo_fill_on_rectangle_fill),
-                  const SizedBox(height: 8,),
+                  const RedWrapCircleIcon(
+                      icon: CupertinoIcons.photo_fill_on_rectangle_fill),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   Text(
                     'Gallery',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
                   )
                 ],
               ),

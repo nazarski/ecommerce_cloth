@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class UserAddressEntity extends Equatable{
+class UserAddressEntity extends Equatable {
   final String addressId;
   final String address;
   final String city;
@@ -24,15 +24,13 @@ class UserAddressEntity extends Equatable{
   @override
   // TODO: implement props
   List<Object?> get props => [
-   addressId,
-   address,
-   city,
-   country,
-   fullName,
-   primary,
-   region,
-   zipCode,
-  ];
+        addressId,
+        address,
+        city,
+        country,
+        fullName,
+        primary,
+        region,
+        zipCode,
+      ];
 }
-
-

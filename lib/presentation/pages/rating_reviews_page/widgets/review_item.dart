@@ -18,7 +18,8 @@ class ReviewItem extends ConsumerWidget {
         final provider = ref.read(productByIdProvider(review.productId));
         provider.when(
           data: (data) {
-            Navigator.of(context, rootNavigator: true).pushNamed(ProductPage.routeName, arguments: data);
+            Navigator.of(context, rootNavigator: true)
+                .pushNamed(ProductPage.routeName, arguments: data);
           },
           loading: () {
             log('loading');
@@ -36,12 +37,16 @@ class ReviewItem extends ConsumerWidget {
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onPrimary,
                   borderRadius: BorderRadius.circular(8),
-                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20)]),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.1), blurRadius: 20)
+                  ]),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 8),
+                    padding: const EdgeInsets.only(
+                        top: 24, left: 24, right: 24, bottom: 8),
                     child: Text(
                       review.userName,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -62,7 +67,8 @@ class ReviewItem extends ConsumerWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8, bottom: 16, left: 24, right: 24.0),
+                    padding: const EdgeInsets.only(
+                        top: 8, bottom: 16, left: 24, right: 24.0),
                     child: Text(
                       review.review,
                       style: Theme.of(context).textTheme.bodySmall,
@@ -74,13 +80,16 @@ class ReviewItem extends ConsumerWidget {
                       child: ListView.separated(
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
                         itemBuilder: (context, i) {
                           return GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(builder: (_) {
-                                  return GalleryPage(index: i, listOfImages: review.reviewPictures);
+                                  return GalleryPage(
+                                      index: i,
+                                      listOfImages: review.reviewPictures);
                                 }),
                               );
                             },
@@ -89,7 +98,8 @@ class ReviewItem extends ConsumerWidget {
                               child: Image(
                                 fit: BoxFit.cover,
                                 width: 104,
-                                image: NetworkImage(review.reviewThumbnailPictures[i]),
+                                image: NetworkImage(
+                                    review.reviewThumbnailPictures[i]),
                               ),
                             ),
                           );
@@ -119,7 +129,10 @@ class ReviewItem extends ConsumerWidget {
                             children: [
                               Text(
                                 'Helpful',
-                                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium
+                                    ?.copyWith(
                                       fontWeight: FontWeight.w400,
                                     ),
                               ),

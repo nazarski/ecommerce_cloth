@@ -7,11 +7,11 @@ class ManagePromoCodesRepositoryImpl implements PromoCodesRepository {
   @override
   Future<List<PromoCodeEntity>> getPromoCodes() async {
     try {
-      final List<PromoCodeModel> models = await PromoCodesRemoteData.getPromoCodes();
+      final List<PromoCodeModel> models =
+          await PromoCodesRemoteData.getPromoCodes();
       return models.map((e) => e.toEntity()).toList();
     } catch (error) {
       throw Future.error(error.toString());
     }
   }
-
 }

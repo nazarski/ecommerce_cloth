@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 class ProductListToolBox extends StatelessWidget {
   const ProductListToolBox({
     super.key,
-    required this.changeView, required this.changeSortType,
+    required this.changeView,
+    required this.changeSortType,
   });
-final ValueChanged<ProductFilterEntity> changeSortType;
+  final ValueChanged<ProductFilterEntity> changeSortType;
   final VoidCallback changeView;
 
   @override
@@ -32,7 +33,9 @@ final ValueChanged<ProductFilterEntity> changeSortType;
             icon: const Icon(Icons.filter_list_rounded),
             label: const Text('Filters'),
           ),
-          SortTypeButton(changeSortType: changeSortType,),
+          SortTypeButton(
+            changeSortType: changeSortType,
+          ),
           _ChangeViewIconButton(changeView: changeView),
         ],
       ),
@@ -83,9 +86,9 @@ class _ChangeViewIconButtonState extends State<_ChangeViewIconButton>
       minWidth: 0,
       padding: const EdgeInsets.all(8),
       shape: const CircleBorder(),
-      onPressed:  _changeView,
+      onPressed: _changeView,
       child: AnimatedIcon(
-            icon: AnimatedIcons.list_view, progress: _animationController),
+          icon: AnimatedIcons.list_view, progress: _animationController),
     );
   }
 }

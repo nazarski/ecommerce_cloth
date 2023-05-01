@@ -8,8 +8,8 @@ class ProductShimmerGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: List.generate(4, (_){
-          return  Padding(
+        children: List.generate(4, (_) {
+          return Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: SizedBox(
               height: 260,
@@ -31,9 +31,7 @@ class ProductShimmerGrid extends StatelessWidget {
 }
 
 class _ShimmerGridItem extends StatelessWidget {
-  const _ShimmerGridItem({
-    super.key,
-  });
+  const _ShimmerGridItem();
 
   @override
   Widget build(BuildContext context) {

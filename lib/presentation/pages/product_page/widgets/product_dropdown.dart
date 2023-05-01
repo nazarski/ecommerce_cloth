@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProductDropdown extends StatelessWidget {
-  const ProductDropdown({super.key,
+  const ProductDropdown({
+    super.key,
     required this.listOfValues,
     required this.valueType,
   });

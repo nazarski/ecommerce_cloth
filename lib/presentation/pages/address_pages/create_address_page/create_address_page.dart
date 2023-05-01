@@ -16,7 +16,6 @@ class CreateAddressPage extends StatefulWidget {
 }
 
 class _CreateAddressPageState extends State<CreateAddressPage> {
-
   final FocusNode fullNameFocus = FocusNode();
   final FocusNode addressFocus = FocusNode();
   final FocusNode cityFocus = FocusNode();
@@ -36,7 +35,8 @@ class _CreateAddressPageState extends State<CreateAddressPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final args = ModalRoute.of(context)!.settings.arguments as UserAddressModel?;
+    final args =
+        ModalRoute.of(context)!.settings.arguments as UserAddressModel?;
     if (args != null) {
       addressModel = args;
       fullNameController.text = addressModel!.fullName;
@@ -47,7 +47,6 @@ class _CreateAddressPageState extends State<CreateAddressPage> {
       countryController.text = addressModel!.country;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +82,8 @@ class _CreateAddressPageState extends State<CreateAddressPage> {
                 keyboardType: TextInputType.name,
                 autofocus: false,
                 passwordVisible: false,
-                focusPush: addressFocus, readOnly: false,
+                focusPush: addressFocus,
+                readOnly: false,
               ),
               const SizedBox(height: 15),
               TextFieldValidator(

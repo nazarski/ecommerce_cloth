@@ -55,7 +55,7 @@ class _TextFieldBankCardState extends State<TextFieldBankCard> {
   Widget _suffixIcons = SvgPicture.asset(AppIcons.bankCard);
 
   void _onTextChanged(String value) {
-    print('vhod');
+    debugPrint('vhod');
     if (value.startsWith(RegExp(r'[4]'))) {
       //visa
       setState(() {
@@ -63,7 +63,8 @@ class _TextFieldBankCardState extends State<TextFieldBankCard> {
       });
       return;
     }
-    if (value.startsWith(RegExp(r'((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))'))) {
+    if (value.startsWith(RegExp(
+        r'((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))'))) {
       setState(() {
         //mastercard
         _suffixIcons = SvgPicture.asset(AppIcons.masterCard);
@@ -82,9 +83,9 @@ class _TextFieldBankCardState extends State<TextFieldBankCard> {
   @override
   void initState() {
     widget.tempTextEditingController.addListener(() {
-      print('listener');
+      debugPrint('listener');
       if (widget.tempTextEditingController.text.length == 4) {
-        print('controller');
+        debugPrint('controller');
         _onTextChanged(widget.tempTextEditingController.text);
       }
     });
@@ -101,14 +102,19 @@ class _TextFieldBankCardState extends State<TextFieldBankCard> {
             if (!focus) {
               setState(() {
                 if (widget.checkOfErrorOnFocusChange &&
-                        widget.validation(widget.tempTextEditingController.text).toString().isNotEmpty ||
+                        widget
+                            .validation(widget.tempTextEditingController.text)
+                            .toString()
+                            .isNotEmpty ||
                     widget.tempTextEditingController.text.isEmpty) {
                   isError = true;
 
-                  errorString = widget.validation(widget.tempTextEditingController.text);
+                  errorString =
+                      widget.validation(widget.tempTextEditingController.text);
                 } else if (widget.tempTextEditingController.text.isNotEmpty) {
                   isError = false;
-                  errorString = widget.validation(widget.tempTextEditingController.text);
+                  errorString =
+                      widget.validation(widget.tempTextEditingController.text);
                 }
               });
             }
@@ -152,16 +158,21 @@ class _TextFieldBankCardState extends State<TextFieldBankCard> {
                 textInputAction: widget.textInputAction,
                 inputFormatters: widget.inputFormatters,
                 validator: (string) {
-                  if (widget.validation(widget.tempTextEditingController.text).toString().isNotEmpty) {
+                  if (widget
+                      .validation(widget.tempTextEditingController.text)
+                      .toString()
+                      .isNotEmpty) {
                     setState(() {
                       isError = true;
-                      errorString = widget.validation(widget.tempTextEditingController.text);
+                      errorString = widget
+                          .validation(widget.tempTextEditingController.text);
                     });
                     return '';
                   } else {
                     setState(() {
                       isError = false;
-                      errorString = widget.validation(widget.tempTextEditingController.text);
+                      errorString = widget
+                          .validation(widget.tempTextEditingController.text);
                     });
                   }
                   return null;

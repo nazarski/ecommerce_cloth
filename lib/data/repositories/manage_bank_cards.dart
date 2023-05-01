@@ -9,7 +9,8 @@ class ManageBankCardsRepositoryImpl implements ManageBankCardRepository {
   @override
   Future<void> addNewCard({required List<CardEntity> card}) async {
     try {
-      final cardModels = card.map((entity) => CardModel.fromEntity(entity: entity));
+      final cardModels =
+          card.map((entity) => CardModel.fromEntity(entity: entity));
       await ManageBankCardData.addNewCard(cards: cardModels.toList());
     } catch (error) {
       log(error.toString());

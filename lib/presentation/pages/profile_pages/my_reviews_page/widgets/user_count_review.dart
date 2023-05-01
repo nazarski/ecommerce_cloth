@@ -15,23 +15,18 @@ class UserCountReviews extends ConsumerWidget {
       sliver: SliverToBoxAdapter(
         child: Container(
           child: reviews.when(
-            data: (data) =>
-              Text(
-                '${data.length} reviews',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-            error: (error, stackTrace) =>
-              Text(
-                error.toString(),
-                style: Theme.of(context).textTheme.displayMedium,
-              )
-            ,
-            loading: () =>
-              Text(
-                'reviews',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-
+            data: (data) => Text(
+              '${data.length} reviews',
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
+            error: (error, stackTrace) => Text(
+              error.toString(),
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
+            loading: () => Text(
+              'reviews',
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
           ),
         ),
       ),

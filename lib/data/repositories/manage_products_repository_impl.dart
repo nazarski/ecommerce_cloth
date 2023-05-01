@@ -8,7 +8,8 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
   @override
   Future<List<ProductEntity>> getProductsFromDate(DateTime startDate) async {
     try {
-      final List<ProductModel> models = await ManageProductsData.getProductsFromDate(startDate);
+      final List<ProductModel> models =
+          await ManageProductsData.getProductsFromDate(startDate);
       return models.map((e) => e.toEntity()).toList();
     } catch (e) {
       throw Future.error(e.toString());
@@ -25,7 +26,9 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
   }) async {
     try {
       return await ManageProductsData.getProductTypes(
-          productGroup: productGroup, attribute: attribute, categoryId: categoryId);
+          productGroup: productGroup,
+          attribute: attribute,
+          categoryId: categoryId);
     } catch (e) {
       throw Future.error(e.toString());
     }
@@ -86,7 +89,8 @@ class ManageProductsRepositoryImpl implements ManageProductsRepository {
     required String productId,
   }) async {
     try {
-      final currentModel = await ManageProductsData.getProductById(productId: productId);
+      final currentModel =
+          await ManageProductsData.getProductById(productId: productId);
       return currentModel.toEntity();
     } catch (e) {
       throw Future.error(e.toString());

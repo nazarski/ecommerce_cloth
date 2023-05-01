@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SettingItem extends StatelessWidget {
@@ -35,7 +34,7 @@ class SettingItem extends StatelessWidget {
             ),
           ),
         ),
-         Divider(
+        Divider(
           color: Colors.grey.withOpacity(0.3),
         )
       ],

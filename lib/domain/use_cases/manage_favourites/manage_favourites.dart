@@ -75,7 +75,8 @@ class ManageFavourites {
     );
   }
 
-  Future<List<UserCartItemEntity>> getAllFavourites({required int userId}) async {
+  Future<List<UserCartItemEntity>> getAllFavourites(
+      {required int userId}) async {
     try {
       return await _favouritesRepository.getFavouriteProducts(userId: userId);
     } on Exception catch (error) {

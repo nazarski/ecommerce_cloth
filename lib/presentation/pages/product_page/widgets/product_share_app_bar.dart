@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ProductShareAppBar extends StatelessWidget implements PreferredSizeWidget{
+class ProductShareAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const ProductShareAppBar({
     super.key,
     required this.title,

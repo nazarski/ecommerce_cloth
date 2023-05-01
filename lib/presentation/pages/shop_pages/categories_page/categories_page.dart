@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key}) : super(key: key);
-static const routeName = 'categories-page';
+  static const routeName = 'categories-page';
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
 }
@@ -53,5 +53,3 @@ class _CategoriesPageState extends State<CategoriesPage> {
     );
   }
 }
-
-

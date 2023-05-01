@@ -8,7 +8,8 @@ final manageReviews = ManageReviews(
   ManageReviewsRepositoryImpl(),
   const ManageProductsRepositoryImpl(),
 );
-final productByIdProvider = FutureProvider.family<ProductEntity, String>((ref, productId) async {
+final productByIdProvider =
+    FutureProvider.family<ProductEntity, String>((ref, productId) async {
   final product = await manageReviews.getProductByReview(productId: productId);
   return product;
 });

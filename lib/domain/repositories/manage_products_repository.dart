@@ -5,7 +5,9 @@ abstract class ManageProductsRepository {
   Future<List<ProductEntity>> getProductsFromDate(DateTime startDate);
 
   Future<List<String>> getProductTypes(
-      {required String productGroup, required String attribute, required String categoryId});
+      {required String productGroup,
+      required String attribute,
+      required String categoryId});
 
   Future<List<ProductEntity>> getProductsFromFilter({
     required int page,

@@ -25,15 +25,19 @@ class BankCardWidget extends StatelessWidget {
     return Column(
       children: [
         ColorFiltered(
-          colorFilter: isActiveCard!
+          colorFilter: isActiveCard
               ? const ColorFilter.mode(Colors.white, BlendMode.dstIn)
-              : ColorFilter.mode(Colors.white.withOpacity(0.6), BlendMode.dstOut),
+              : ColorFilter.mode(
+                  Colors.white.withOpacity(0.6), BlendMode.dstOut),
           child: Container(
             height: height / 4,
             width: width / 1,
             decoration: BoxDecoration(
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.9), blurRadius: 10, spreadRadius: 1),
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.9),
+                    blurRadius: 10,
+                    spreadRadius: 1),
               ],
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(8),
@@ -43,14 +47,16 @@ class BankCardWidget extends StatelessWidget {
                 Container(
                   alignment: Alignment.topRight,
                   child: CustomPaint(
-                    size: Size(height / 5.5, (height / 5.8 * 1.029585798816568).toDouble()),
+                    size: Size(height / 5.5,
+                        (height / 5.8 * 1.029585798816568).toDouble()),
                     painter: TopCanvas(),
                   ),
                 ),
                 Container(
                   alignment: Alignment.bottomLeft,
                   child: CustomPaint(
-                    size: Size(height / 3, (height / 3.5 * 0.3715277777777778).toDouble()),
+                    size: Size(height / 3,
+                        (height / 3.5 * 0.3715277777777778).toDouble()),
                     painter: BottomCanvas(),
                   ),
                 ),
@@ -120,11 +126,11 @@ class BankCardWidget extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.contain,
                             child: SvgPicture.asset(
-                              _getCardTypeIcon(cardEntity.cardNumber.toString()),
+                              _getCardTypeIcon(
+                                  cardEntity.cardNumber.toString()),
                               width: 32,
                               height: 32,
                             ),
-
                           ),
                         ],
                       )
@@ -137,7 +143,8 @@ class BankCardWidget extends StatelessWidget {
         ),
         Row(
           children: [
-            AnimatedCheckBox(isActiveCard: isActiveCard, cardEntity: cardEntity),
+            AnimatedCheckBox(
+                isActiveCard: isActiveCard, cardEntity: cardEntity),
             Text(
               'Use as default payment method',
               style: Theme.of(context).textTheme.bodySmall,
@@ -203,7 +210,9 @@ class _AnimatedCheckBoxState extends ConsumerState<AnimatedCheckBox> {
                 checked = value;
               });
               Future.delayed(const Duration(milliseconds: 500), () {
-                ref.read(bankCardsProvider.notifier).makeToDefault(makeDefault: widget.cardEntity);
+                ref
+                    .read(bankCardsProvider.notifier)
+                    .makeToDefault(makeDefault: widget.cardEntity);
                 setState(() {
                   checked = widget.isActiveCard;
                 });

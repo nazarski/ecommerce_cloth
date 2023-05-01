@@ -43,7 +43,8 @@ class _ProductListWidgetState extends ConsumerState<ProductListWidget> {
                       const ProductShimmerGrid(),
                   itemBuilder: (BuildContext context, item, int index) {
                     return ProductListGridItem(
-                      product: item as ProductEntity, hero: true,
+                      product: item as ProductEntity,
+                      hero: true,
                     );
                   }),
             ),
@@ -77,11 +78,11 @@ class _ProductListWidgetState extends ConsumerState<ProductListWidget> {
       loading: () => SliverPadding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         sliver: SliverFillRemaining(
-          child: widget.isGrid ? const ProductShimmerGrid() : const ProductShimmerList(),
+          child: widget.isGrid
+              ? const ProductShimmerGrid()
+              : const ProductShimmerList(),
         ),
       ),
     );
   }
 }
-
-

@@ -16,9 +16,10 @@ class PromoCodesRemoteData {
     final todayDate = DateTime.now();
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     final result = values
-      .where((map) => DateTime.parse(map['attributes']['estimatedDate']).isAfter(todayDate))
-      .map((models) => PromoCodeModel.fromMap(models))
-      .toList();
+        .where((map) => DateTime.parse(map['attributes']['estimatedDate'])
+            .isAfter(todayDate))
+        .map((models) => PromoCodeModel.fromMap(models))
+        .toList();
     return result;
   }
 }

@@ -4,11 +4,11 @@ import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entit
 import 'package:ecommerce_cloth/presentation/pages/favourites_page/widgets/remove_from_favourites_button.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FavouritesListListItem extends StatefulWidget {
-  const FavouritesListListItem({Key? key, required this.cartItem, required this.onRemove})
+  const FavouritesListListItem(
+      {Key? key, required this.cartItem, required this.onRemove})
       : super(key: key);
   final UserCartItemEntity cartItem;
   final VoidCallback onRemove;
@@ -17,7 +17,8 @@ class FavouritesListListItem extends StatefulWidget {
   State<FavouritesListListItem> createState() => _FavouritesListListItemState();
 }
 
-class _FavouritesListListItemState extends State<FavouritesListListItem>   with SingleTickerProviderStateMixin {
+class _FavouritesListListItemState extends State<FavouritesListListItem>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
 
   @override
@@ -34,6 +35,7 @@ class _FavouritesListListItemState extends State<FavouritesListListItem>   with 
     _animationController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final product = widget.cartItem.product;
@@ -42,10 +44,10 @@ class _FavouritesListListItemState extends State<FavouritesListListItem>   with 
       brand: product.brand,
       type: product.productType,
     );
-    final chipValue = getChipValue(product.additionDate, product.sale);
-    _animationController.forward();
+    // final chipValue = getChipValue(product.additionDate, product.sale);
+    // _animationController.forward();
     return FadeTransition(
-        opacity: _animationController,
+      opacity: _animationController,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Stack(
@@ -91,7 +93,8 @@ class _FavouritesListListItemState extends State<FavouritesListListItem>   with 
                               Row(
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Column(
                                         crossAxisAlignment:
@@ -136,7 +139,8 @@ class _FavouritesListListItemState extends State<FavouritesListListItem>   with 
                                     width: 8,
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text.rich(
@@ -216,4 +220,3 @@ class _FavouritesListListItemState extends State<FavouritesListListItem>   with 
     );
   }
 }
-

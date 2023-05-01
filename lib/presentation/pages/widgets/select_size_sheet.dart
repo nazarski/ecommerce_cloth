@@ -1,7 +1,6 @@
 import 'package:ecommerce_cloth/presentation/pages/product_page/widgets/details_item.dart';
 import 'package:flutter/material.dart';
 
-
 class SelectSizeSheet extends StatefulWidget {
   const SelectSizeSheet({
     super.key,
@@ -60,7 +59,7 @@ class _SelectSizeSheetState extends State<SelectSizeSheet> {
         Padding(
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
-            onPressed: (){
+            onPressed: () {
               widget.onPressed(selectedSize);
               Navigator.pop(context);
             },

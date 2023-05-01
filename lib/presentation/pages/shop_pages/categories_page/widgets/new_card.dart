@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class NewCard extends StatelessWidget {
   const NewCard({Key? key, required this.attribute}) : super(key: key);
-final String attribute;
+  final String attribute;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -31,10 +31,10 @@ final String attribute;
                 ),
               ),
             ),
-             Expanded(
+            Expanded(
               child: ClipRRect(
                 borderRadius:
-                const BorderRadius.horizontal(right: Radius.circular(8)),
+                    const BorderRadius.horizontal(right: Radius.circular(8)),
                 child: Image(
                   alignment: Alignment.centerLeft,
                   fit: BoxFit.cover,

@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 
-class AppColorsLight{
+class AppColorsLight {
   AppColorsLight._();
   static const Color black = Color(0xff222222);
   static const Color grey = Color(0xff9B9B9B);
@@ -12,7 +11,8 @@ class AppColorsLight{
   static const Color error = Color(0xffF01F0E);
   static const Color success = Color(0xff2AA952);
 }
-class AppColorsDark{
+
+class AppColorsDark {
   AppColorsDark._();
   static const Color white = Color(0xfff6f6f6);
   static const Color grey = Color(0xffABB4BD);

@@ -6,7 +6,6 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_provider
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class TabViewCategories extends ConsumerWidget {
   const TabViewCategories({
     super.key,

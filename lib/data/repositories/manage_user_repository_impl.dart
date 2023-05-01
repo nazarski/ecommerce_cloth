@@ -12,8 +12,10 @@ class ManageUserRepositoryImpl extends ManageUserRepository {
     required UserInfoEntity userInfoEntity,
   }) async {
     try {
-      final UserInfoModel userInfoModel = UserInfoModel.fromEntity(entity: userInfoEntity);
-      await ManageUserRemoteData.updateFullNameAndDateOfBirth(userInfoModel: userInfoModel);
+      final UserInfoModel userInfoModel =
+          UserInfoModel.fromEntity(entity: userInfoEntity);
+      await ManageUserRemoteData.updateFullNameAndDateOfBirth(
+          userInfoModel: userInfoModel);
     } on Exception catch (error) {
       return Future.error(error.toString());
     }
@@ -42,7 +44,8 @@ class ManageUserRepositoryImpl extends ManageUserRepository {
     required String fcmToken,
   }) async {
     try {
-      final UserInfoModel userInfoModel = UserInfoModel.fromEntity(entity: userInfoEntity);
+      final UserInfoModel userInfoModel =
+          UserInfoModel.fromEntity(entity: userInfoEntity);
       await ManageUserRemoteData.updateFcmToken(
         userInfoModel: userInfoModel,
         fcmToken: fcmToken,
@@ -53,20 +56,24 @@ class ManageUserRepositoryImpl extends ManageUserRepository {
   }
 
   @override
-  UserInfoEntity? updateFcmTokenForSecureStorage({required UserInfoEntity userInfoEntity, required String fcmToken}) {
-  try{
-    final userModel = ManageUserLocalData.updateFcmToken(userInfoEntity: userInfoEntity, fcmToken: fcmToken);
-    return userModel;
-  } catch (error) {
-    log(error.toString());
-    return null;
-  }
+  UserInfoEntity? updateFcmTokenForSecureStorage(
+      {required UserInfoEntity userInfoEntity, required String fcmToken}) {
+    try {
+      final userModel = ManageUserLocalData.updateFcmToken(
+          userInfoEntity: userInfoEntity, fcmToken: fcmToken);
+      return userModel;
+    } catch (error) {
+      log(error.toString());
+      return null;
+    }
   }
 
   @override
-  UserInfoEntity? updatePermissionForSecureStorage({required UserInfoEntity userInfoEntity, required bool permission}) {
-    try{
-      final userModel = ManageUserLocalData.updateNotification(userInfoEntity: userInfoEntity, notification: permission);
+  UserInfoEntity? updatePermissionForSecureStorage(
+      {required UserInfoEntity userInfoEntity, required bool permission}) {
+    try {
+      final userModel = ManageUserLocalData.updateNotification(
+          userInfoEntity: userInfoEntity, notification: permission);
       return userModel;
     } catch (error) {
       log(error.toString());

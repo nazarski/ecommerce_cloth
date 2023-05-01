@@ -57,7 +57,8 @@ class PromoCodeItem extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(subtitle, style: Theme.of(context).textTheme.labelMedium),
+                    Text(subtitle,
+                        style: Theme.of(context).textTheme.labelMedium),
                   ],
                 ),
               ),
@@ -84,10 +85,12 @@ class PromoCodeItem extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    buttonApply ? ElevatedButton(
-                      onPressed: () {},
-                      child: const Center(child: Text('Apply')),
-                    ) : const SizedBox.shrink()
+                    buttonApply
+                        ? ElevatedButton(
+                            onPressed: () {},
+                            child: const Center(child: Text('Apply')),
+                          )
+                        : const SizedBox.shrink()
                   ],
                 ),
               ),

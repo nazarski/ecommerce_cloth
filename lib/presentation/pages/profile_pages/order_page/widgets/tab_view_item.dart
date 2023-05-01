@@ -15,23 +15,21 @@ class TabViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          return ListView.builder(
-            itemCount: listOfOrders.length,
-            itemBuilder: (context, index) {
-              return OrderInfoItem(
-                  numberOfOrder: listOfOrders[index].orderId,
-                  date: '01-01-2021',
-                  trackingNumber: listOfOrders[index].trackingNumber,
-                  quantity: listOfOrders[index].quantity.toString(),
-                  totalAmount: listOfOrders[index].totalAmount.toString(),
-                  status: listOfOrders[index].status.toString(), width: double.infinity, height: constraints.maxHeight / 2.7,);
-
-            },
+      return ListView.builder(
+        itemCount: listOfOrders.length,
+        itemBuilder: (context, index) {
+          return OrderInfoItem(
+            numberOfOrder: listOfOrders[index].orderId,
+            date: '01-01-2021',
+            trackingNumber: listOfOrders[index].trackingNumber,
+            quantity: listOfOrders[index].quantity.toString(),
+            totalAmount: listOfOrders[index].totalAmount.toString(),
+            status: listOfOrders[index].status.toString(),
+            width: double.infinity,
+            height: constraints.maxHeight / 2.7,
           );
-
-        }
-    );
-
-
+        },
+      );
+    });
   }
 }

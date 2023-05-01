@@ -3,12 +3,12 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-
 class NotificationData {
   NotificationData._();
 
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
-  static final StreamController<RemoteMessage> _messageController = StreamController<RemoteMessage>();
+  static final StreamController<RemoteMessage> _messageController =
+      StreamController<RemoteMessage>();
 
   static Future<String> getFcmToken() async {
     final token = await _messaging.getToken();

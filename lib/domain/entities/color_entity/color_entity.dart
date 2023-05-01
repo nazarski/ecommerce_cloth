@@ -13,7 +13,7 @@ class ColorEntity extends Equatable {
 
   @override
   List<Object> get props => [
-    colorString,
-    colorValue,
-  ];
+        colorString,
+        colorValue,
+      ];
 }

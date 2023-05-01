@@ -130,7 +130,9 @@ class UserInfoModel {
       fullName: map['fullName'] ?? '',
       jwt: map['jwt'] ?? '',
       id: map['id'] ?? 0,
-      createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
+      createdAt: map['createdAt'] != null
+          ? DateTime.parse(map['createdAt'])
+          : DateTime.now(),
       displayName: map['username'] ?? '',
       email: map['email'] ?? '',
       favorites: map['favourites'].map((item) {

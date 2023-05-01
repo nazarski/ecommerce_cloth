@@ -22,8 +22,8 @@ class PriceRangeSlider extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                Text('\$${receiver.fromPrice}'),
-                Text('\$${receiver.toPrice}'),
+              Text('\$${receiver.fromPrice}'),
+              Text('\$${receiver.toPrice}'),
             ],
           ),
           Padding(

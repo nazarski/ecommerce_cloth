@@ -9,7 +9,7 @@ class AnimatedCardList extends StatefulWidget {
   const AnimatedCardList({Key? key}) : super(key: key);
 
   @override
-  _AnimatedCardListState createState() => _AnimatedCardListState();
+  State<AnimatedCardList> createState() => _AnimatedCardListState();
 }
 
 class _AnimatedCardListState extends State<AnimatedCardList> {
@@ -28,7 +28,8 @@ class _AnimatedCardListState extends State<AnimatedCardList> {
             child: AnimatedList(
               key: _listKey,
               initialItemCount: data.length,
-              itemBuilder: (BuildContext context, int index, Animation<double> animation) {
+              itemBuilder: (BuildContext context, int index,
+                  Animation<double> animation) {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
                   height: animation.value,

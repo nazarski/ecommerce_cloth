@@ -1,7 +1,5 @@
-
 import 'package:ecommerce_cloth/presentation/pages/promocodes_page/widgets/promocode_item.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_promocodes_state/get_product_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,8 +25,12 @@ class PromoCodesBodyPage extends ConsumerWidget {
                     );
                   }),
                 ),
-            error: (Object error, StackTrace stackTrace) {},
-            loading: () {}),
+            error: (Object error, StackTrace stackTrace) {
+              return Text(error.toString());
+            },
+            loading: () {
+              return const CircularProgressIndicator.adaptive();
+            }),
       ),
     );
   }

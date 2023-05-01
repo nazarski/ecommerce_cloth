@@ -42,7 +42,9 @@ class AuthenticateLocalData {
       favorites: const {},
       photoUrl: userData['avatarUrl'],
       fullName: '',
-      dateOfBirth: '', fcmToken: '', notification: true,
+      dateOfBirth: '',
+      fcmToken: '',
+      notification: true,
     );
     log('✅ Successful: Update user');
     return updateUser;
@@ -81,7 +83,8 @@ class AuthenticateLocalData {
   static bool isExpired({required String jwt}) {
     final jwtDecode = JwtDecoder.decode(jwt);
     final getExpire = jwtDecode['exp'];
-    final dateTimeOneDayBefore = DateTime.fromMillisecondsSinceEpoch(getExpire * 1000).subtract(
+    final dateTimeOneDayBefore =
+        DateTime.fromMillisecondsSinceEpoch(getExpire * 1000).subtract(
       const Duration(days: 1),
     );
     final bool actualExpire = !DateTime.now().isAfter(dateTimeOneDayBefore);
@@ -90,7 +93,4 @@ class AuthenticateLocalData {
     log('⚠️ The expiration date of the token is equal to $formattedDate');
     return actualExpire;
   }
-
-
 }
-

@@ -50,7 +50,8 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         ref.invalidate(authControllerRegistrationProvider);
       }
       if (next.value != null && next.value!) {
-        Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
       }
     });
     final height = MediaQuery.of(context).size.height;
@@ -172,7 +173,9 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                       type: AuthenticateType.registration,
                     );
                     if (validateAndSaveHelper(formKey: formKey)) {
-                      await ref.read(authControllerRegistrationProvider.notifier).signInAnonymously(
+                      await ref
+                          .read(authControllerRegistrationProvider.notifier)
+                          .signInAnonymously(
                             userInfo,
                           );
                     }
@@ -205,7 +208,8 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Center(child: Text('User with this email or login already exists')),
+          content: Center(
+              child: Text('User with this email or login already exists')),
           duration: Duration(seconds: 3),
         ),
       );

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FilterItemContainer extends StatelessWidget {
-  const FilterItemContainer({Key? key, required this.child, required this.title}) : super(key: key);
+  const FilterItemContainer(
+      {Key? key, required this.child, required this.title})
+      : super(key: key);
   final Widget child;
-final String title;
+  final String title;
 
   @override
   Widget build(BuildContext context) {

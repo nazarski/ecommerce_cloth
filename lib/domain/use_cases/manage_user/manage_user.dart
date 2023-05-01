@@ -12,7 +12,8 @@ class ManageUser {
     required String fullName,
     required String dateOfBirth,
   }) async {
-    final UserInfoEntity? userInfoEntity = await _authRepository.getUserFromSecureStorage();
+    final UserInfoEntity? userInfoEntity =
+        await _authRepository.getUserFromSecureStorage();
     final updatedUserEntity = UserInfoEntity(
       fullName: fullName,
       dateOfBirth: dateOfBirth,
@@ -26,7 +27,8 @@ class ManageUser {
       notification: userInfoEntity.notification,
       fcmToken: userInfoEntity.fcmToken,
     );
-    await _manageUserRepository.updateFullNameAndDateOfBirth(userInfoEntity: updatedUserEntity);
+    await _manageUserRepository.updateFullNameAndDateOfBirth(
+        userInfoEntity: updatedUserEntity);
     await _authRepository.saveUserToSecureStorage(userModel: updatedUserEntity);
   }
 
@@ -34,7 +36,8 @@ class ManageUser {
     required String currentPassword,
     required String newPassword,
   }) async {
-    final UserInfoEntity? userInfoEntity = await _authRepository.getUserFromSecureStorage();
+    final UserInfoEntity? userInfoEntity =
+        await _authRepository.getUserFromSecureStorage();
     await _manageUserRepository.resetPassword(
       jwt: userInfoEntity!.jwt,
       currentPassword: currentPassword,

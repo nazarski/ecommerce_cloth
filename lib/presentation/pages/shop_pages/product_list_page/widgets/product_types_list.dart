@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/collect_search_hierarchy_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/product_types_provider.dart';
@@ -89,5 +88,3 @@ class _ProductTypesListState extends ConsumerState<ProductTypesList>
     );
   }
 }
-
-

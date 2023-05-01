@@ -17,7 +17,9 @@ class CardShimmer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: const ShimmerWidget(height: 100,),
+                child: const ShimmerWidget(
+                  height: 100,
+                ),
               ),
             );
           }),

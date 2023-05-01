@@ -38,12 +38,12 @@ class AppRouter {
 
   // main routes
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final arguments = settings.arguments;
+    // final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
     switch (settings.name) {
       case SplashScreen.routeName:
         return PageTransition(
-          child:  const SplashScreen(),
+          child: const SplashScreen(),
           type: PageTransitionType.fade,
         );
       case LoginPage.routeName:
@@ -84,7 +84,8 @@ class AppRouter {
       case ProductPage.routeName:
         return PageTransition(
           settings: settings,
-          child: ProductPage(selectedProduct: settings.arguments as ProductEntity),
+          child:
+              ProductPage(selectedProduct: settings.arguments as ProductEntity),
           type: PageTransitionType.rightToLeft,
         );
       case MyReviewsNestPage.routeName:
@@ -106,19 +107,24 @@ class AppRouter {
 
   // Main page nested routes
   static Route<dynamic> generateHomePageNestedRoutes(RouteSettings settings) {
-    final arguments = settings.arguments;
+    // final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
     switch (settings.name) {
       case HomePage.routeName:
-        return PageTransition(child: const HomePage(), type: PageTransitionType.fade);
+        return PageTransition(
+            child: const HomePage(), type: PageTransitionType.fade);
       case ShopPage.routeName:
-        return PageTransition(child: const ShopPage(), type: PageTransitionType.fade);
+        return PageTransition(
+            child: const ShopPage(), type: PageTransitionType.fade);
       case BagPage.routeName:
-        return PageTransition(child: const BagPage(), type: PageTransitionType.fade);
+        return PageTransition(
+            child: const BagPage(), type: PageTransitionType.fade);
       case FavouritesPage.routeName:
-        return PageTransition(child: const FavouritesPage(), type: PageTransitionType.fade);
+        return PageTransition(
+            child: const FavouritesPage(), type: PageTransitionType.fade);
       case ProfilePage.routeName:
-        return PageTransition(child: const ProfilePage(), type: PageTransitionType.fade);
+        return PageTransition(
+            child: const ProfilePage(), type: PageTransitionType.fade);
       default:
         throw Exception('Invalid route: ${settings.name}');
     }
@@ -130,7 +136,8 @@ class AppRouter {
     log('⤴️ ${settings.name.toString()}');
     switch (settings.name) {
       case CategoriesPage.routeName:
-        return PageTransition(child: const CategoriesPage(), type: PageTransitionType.fade);
+        return PageTransition(
+            child: const CategoriesPage(), type: PageTransitionType.fade);
       case ProductGroupPage.routeName:
         return PageTransition(
           type: PageTransitionType.fade,
@@ -152,7 +159,7 @@ class AppRouter {
 
   // Filter page nested routes
   static Route<dynamic> generateFilterPageNestedRoutes(RouteSettings settings) {
-    final arguments = settings.arguments;
+    // final arguments = settings.arguments;
     log(settings.name.toString());
     switch (settings.name) {
       case FiltersPage.routeName:
@@ -171,10 +178,11 @@ class AppRouter {
     }
   }
 
-  static Route<dynamic> generateProfilePageNestedRoutes(RouteSettings settings) {
-    final arguments = settings.arguments;
+  static Route<dynamic> generateProfilePageNestedRoutes(
+      RouteSettings settings) {
+    // final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
-    WidgetBuilder builder;
+    // WidgetBuilder builder;
     switch (settings.name) {
       case ProfileCardPage.routeName:
         return PageTransition(
@@ -194,10 +202,11 @@ class AppRouter {
   }
 
   // Filter page nested routes
-  static Route<dynamic> generateAddressesPageNestedRoutes(RouteSettings settings) {
-    final arguments = settings.arguments;
+  static Route<dynamic> generateAddressesPageNestedRoutes(
+      RouteSettings settings) {
+    // final arguments = settings.arguments;
     log('⤴️ ${settings.name.toString()}');
-    WidgetBuilder builder;
+    // WidgetBuilder builder;
     switch (settings.name) {
       case AddressesPage.routeName:
         return PageTransition(
@@ -215,10 +224,11 @@ class AppRouter {
     }
   }
 
-  static Route<dynamic> generateSettingPageNestedRoutes(RouteSettings settings) {
-    final arguments = settings.arguments;
+  static Route<dynamic> generateSettingPageNestedRoutes(
+      RouteSettings settings) {
+    // final arguments = settings.arguments;
     log(settings.name.toString());
-    WidgetBuilder builder;
+    // WidgetBuilder builder;
     switch (settings.name) {
       case SettingPage.routeName:
         return PageTransition(
@@ -232,10 +242,11 @@ class AppRouter {
   }
 
   // Payments page nested routes
-  static Route<dynamic> generatePaymentsPageNestedRoutes(RouteSettings settings) {
-    final arguments = settings.arguments;
+  static Route<dynamic> generatePaymentsPageNestedRoutes(
+      RouteSettings settings) {
+    // final arguments = settings.arguments;
     log(settings.name.toString());
-    WidgetBuilder builder;
+    // WidgetBuilder builder;
     switch (settings.name) {
       case PaymentsMethodsPage.routeName:
         return PageTransition(
@@ -250,9 +261,9 @@ class AppRouter {
 
   // My reviews page nested routes
   static Route<dynamic> generateMyReviewsNestedRoutes(RouteSettings settings) {
-    final arguments = settings.arguments;
+    // final arguments = settings.arguments;
     log(settings.name.toString());
-    WidgetBuilder builder;
+    // WidgetBuilder builder;
     switch (settings.name) {
       case MyReviewsPage.routeName:
         return PageTransition(

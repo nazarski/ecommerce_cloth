@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class StarsViewWidget extends StatelessWidget {
@@ -27,11 +26,11 @@ class StarsViewWidget extends StatelessWidget {
           size: 14,
         );
       }),
-      if(reviews != null)
-      Text(
-        '($reviews)',
-        style: Theme.of(context).textTheme.labelMedium,
-      )
+      if (reviews != null)
+        Text(
+          '($reviews)',
+          style: Theme.of(context).textTheme.labelMedium,
+        )
     ]);
   }
 }

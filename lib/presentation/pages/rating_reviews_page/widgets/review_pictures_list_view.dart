@@ -46,12 +46,14 @@ class ReviewPicturesListView extends ConsumerWidget {
           return ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: GestureDetector(
-              onLongPress: (){
+              onLongPress: () {
                 HapticFeedback.vibrate();
                 ref.read(createReviewProvider.notifier).removePicture(i);
               },
               child: Image.file(
-                File(pictureList[i],),
+                File(
+                  pictureList[i],
+                ),
                 fit: BoxFit.cover,
                 height: 104,
                 width: 104,

@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class SettingNestPage extends StatelessWidget {
   const SettingNestPage({Key? key}) : super(key: key);
   static const routeName = 'setting-nest-page';
-  static final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> _navigatorKey =
+      GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {

@@ -22,15 +22,15 @@ class ProductTypeChip extends ConsumerWidget {
       onTap: isActive
           ? null
           : () {
-        final filter = ref.read(filterValuesProvider.notifier)
-          ..setProductTypes(productTypes: [type]);
-        ref
-            .read(pagingControllerProvider.notifier)
-            .newFilerValue(filter.filter);
-        ref
-            .read(availableFiltersProvider.notifier)
-            .getAvailableFilters([type]);
-      },
+              final filter = ref.read(filterValuesProvider.notifier)
+                ..setProductTypes(productTypes: [type]);
+              ref
+                  .read(pagingControllerProvider.notifier)
+                  .newFilerValue(filter.filter);
+              ref
+                  .read(availableFiltersProvider.notifier)
+                  .getAvailableFilters([type]);
+            },
       child: TypeChipWidget(isActive: isActive, type: type),
     );
   }

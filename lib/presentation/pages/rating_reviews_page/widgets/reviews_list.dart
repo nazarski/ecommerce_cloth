@@ -18,7 +18,7 @@ class ReviewsList extends ConsumerWidget {
         data: (data) => SliverList(
           delegate: SliverChildBuilderDelegate(
             childCount: data.length,
-                (context, i) {
+            (context, i) {
               return ReviewItem(
                 review: data[i],
               );

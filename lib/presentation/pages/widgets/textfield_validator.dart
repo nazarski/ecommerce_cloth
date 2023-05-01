@@ -62,15 +62,20 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
             if (!focus) {
               setState(() {
                 if (widget.checkOfErrorOnFocusChange &&
-                        widget.validation(widget.tempTextEditingController.text).toString().isNotEmpty ||
+                        widget
+                            .validation(widget.tempTextEditingController.text)
+                            .toString()
+                            .isNotEmpty ||
                     widget.tempTextEditingController.text.isEmpty) {
                   isError = true;
                   suffixIcon = const Icon(Icons.close);
-                  errorString = widget.validation(widget.tempTextEditingController.text);
+                  errorString =
+                      widget.validation(widget.tempTextEditingController.text);
                 } else if (widget.tempTextEditingController.text.isNotEmpty) {
                   isError = false;
                   suffixIcon = const Icon(Icons.check);
-                  errorString = widget.validation(widget.tempTextEditingController.text);
+                  errorString =
+                      widget.validation(widget.tempTextEditingController.text);
                 }
               });
             }
@@ -114,25 +119,33 @@ class _TextFieldValidatorState extends State<TextFieldValidator> {
                 textInputAction: widget.textInputAction,
                 inputFormatters: widget.inputFormatters,
                 validator: (string) {
-                  if (widget.validation(widget.tempTextEditingController.text).toString().isNotEmpty) {
+                  if (widget
+                      .validation(widget.tempTextEditingController.text)
+                      .toString()
+                      .isNotEmpty) {
                     setState(() {
                       isError = true;
-                      errorString = widget.validation(widget.tempTextEditingController.text);
+                      errorString = widget
+                          .validation(widget.tempTextEditingController.text);
                       suffixIcon = const Icon(Icons.close);
                     });
                     return '';
                   } else {
                     setState(() {
                       isError = false;
-                      errorString = widget.validation(widget.tempTextEditingController.text);
-                      suffixIcon = IconButton(onPressed: widget.saveButton, icon: const Icon(Icons.check));
+                      errorString = widget
+                          .validation(widget.tempTextEditingController.text);
+                      suffixIcon = IconButton(
+                          onPressed: widget.saveButton,
+                          icon: const Icon(Icons.check));
                     });
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  suffixIconColor:
-                      isError ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onError,
+                  suffixIconColor: isError
+                      ? Theme.of(context).colorScheme.error
+                      : Theme.of(context).colorScheme.onError,
                   suffixIcon: suffixIcon,
                   errorStyle: const TextStyle(height: 0),
                   labelText: widget.labelText,

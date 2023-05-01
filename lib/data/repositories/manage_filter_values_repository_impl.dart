@@ -42,6 +42,7 @@ class ManageFilterValuesRepositoryImpl implements ManageFilterValuesRepository {
       return Future.error(e.toString());
     }
   }
+
   @override
   Future<List<String>> getBrandsByValue(String searchValue) async {
     try {
@@ -50,5 +51,4 @@ class ManageFilterValuesRepositoryImpl implements ManageFilterValuesRepository {
       return Future.error(e.toString());
     }
   }
-
 }

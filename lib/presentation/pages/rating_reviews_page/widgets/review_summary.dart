@@ -52,10 +52,10 @@ class ReviewSummary extends ConsumerWidget {
               ),
               Row(
                 children: [
-                  const Checkbox(
-                      value: false,
-                      onChanged: null),
-                  const SizedBox(width: 12,),
+                  const Checkbox(value: false, onChanged: null),
+                  const SizedBox(
+                    width: 12,
+                  ),
                   Text(
                     'With photo',
                     style: Theme.of(context).textTheme.bodySmall,

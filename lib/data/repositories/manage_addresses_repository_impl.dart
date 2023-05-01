@@ -4,9 +4,11 @@ import 'package:ecommerce_cloth/domain/repositories/manage_addresses_repository.
 
 class ManageAddressesRepoImpl implements ManageAddressesRepository {
   @override
-  Future<List<UserAddressEntity>> getUserAddresses({required String userId}) async {
+  Future<List<UserAddressEntity>> getUserAddresses(
+      {required String userId}) async {
     try {
-      final listAddresses = await AddressesRemoteData.getUserAddresses(userId: userId);
+      final listAddresses =
+          await AddressesRemoteData.getUserAddresses(userId: userId);
       return listAddresses.map((e) => e.toEntity()).toList();
     } on Exception catch (error) {
       return Future.error(error.toString());

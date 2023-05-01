@@ -11,18 +11,20 @@ Map<String, String> generateSizesQuery(List<String> sizes) {
       'filters[availableQuantity][size][$i]': sizes[i]
   };
 }
+
 Map<String, String> generateColorsQuery(List<String> colors) {
   return {
-    for (int i = 0; i < colors.length; i++)
-      'filters[color][$i]': colors[i]
+    for (int i = 0; i < colors.length; i++) 'filters[color][$i]': colors[i]
   };
 }
+
 Map<String, String> generateBrandNameQuery(List<String> brandNames) {
   return {
     for (int i = 0; i < brandNames.length; i++)
       'filters[brand][brandName][$i]': brandNames[i]
   };
 }
+
 Map<String, int> generatePriceQuery(int fromPrice, int toPrice) {
   return {
     'filters[price][\$lte]': toPrice,
