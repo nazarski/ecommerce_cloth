@@ -22,4 +22,6 @@ abstract class ManageShoppingCartRepository {
   });
 
   Future<void> removeFromCart({required int cartItemId});
+
+  Future<void> changeQuantity({required UserCartItemEntity cartItem});
 }

@@ -33,4 +33,26 @@ class ManageShoppingCart {
     await _cartRepository.bindCartItemIdWithShoppingCart(
         cartItemId: cartItemId, userId: userId);
   }
+
+  List<UserCartItemEntity> changeItemQuantity({
+    required List<UserCartItemEntity> items,
+    required int value,
+    required UserCartItemEntity itemToUpdate,
+  }) {
+    final int indexOfItem = items.indexOf(itemToUpdate);
+    if (items[indexOfItem].quantity == 1 && value < 0) {
+      removeFromCart(cartItemId: itemToUpdate.id);
+      return items..removeAt(indexOfItem);
+    } else {
+      final UserCartItemEntity updatedItem = items[indexOfItem]
+          .copyWith(quantity: items[indexOfItem].quantity + value);
+      _cartRepository.changeQuantity(cartItem: updatedItem);
+      return items
+        ..replaceRange(
+          indexOfItem,
+          indexOfItem + 1,
+          [updatedItem],
+        );
+    }
+  }
 }

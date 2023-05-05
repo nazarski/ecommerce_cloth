@@ -6,8 +6,10 @@ class UserCartItemEntity extends Equatable {
   final ProductEntity product;
   final int quantity;
   final String size;
+  final int id;
 
   const UserCartItemEntity({
+    required this.id,
     required this.additionDate,
     required this.product,
     this.quantity = 1,
@@ -16,6 +18,7 @@ class UserCartItemEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         additionDate,
         product,
         quantity,
@@ -27,8 +30,10 @@ class UserCartItemEntity extends Equatable {
     ProductEntity? product,
     int? quantity,
     String? size,
+    int? id,
   }) {
     return UserCartItemEntity(
+      id: id ?? this.id,
       additionDate: additionDate ?? this.additionDate,
       product: product ?? this.product,
       quantity: quantity ?? this.quantity,

@@ -1,5 +1,6 @@
 import 'package:ecommerce_cloth/core/utils/helpers/product_helpers.dart';
 import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
+import 'package:ecommerce_cloth/presentation/pages/product_page/product_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/heart_favourite.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
@@ -50,78 +51,84 @@ class _ProductListListItemState extends State<ProductListListItem>
     _animationController.forward();
     return FadeTransition(
       opacity: _animationController,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Container(
-              height: 112,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onBackground,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context, rootNavigator: true)
+              .pushNamed(ProductPage.routeName, arguments: widget.product);
+        },
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Container(
+                height: 112,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          offset: const Offset(0, 5),
+                          blurRadius: 5)
+                    ]),
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        offset: const Offset(0, 5),
-                        blurRadius: 5)
-                  ]),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Row(
-                  children: [
-                    Image(
-                      image: NetworkImage(widget.product.thumbnail),
-                      width: MediaQuery.of(context).size.width * .33,
-                      alignment: Alignment.topCenter,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          title,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        Text(
-                          widget.product.brand,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                        StarsViewWidget(
-                          rating: widget.product.rating.averageRating,
-                          reviews: widget.product.rating.totalReviews,
-                        ),
-                        Text(
-                          '${widget.product.price}\$',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ],
-                    )
-                  ],
+                  child: Row(
+                    children: [
+                      Image(
+                        image: NetworkImage(widget.product.thumbnail),
+                        width: MediaQuery.of(context).size.width * .33,
+                        alignment: Alignment.topCenter,
+                        fit: BoxFit.cover,
+                      ),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            title,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            widget.product.brand,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          StarsViewWidget(
+                            rating: widget.product.rating.averageRating,
+                            reviews: widget.product.rating.totalReviews,
+                          ),
+                          Text(
+                            '${widget.product.price}\$',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: HeartFavourite(
-              systemProductId: widget.product.systemId,
-              listOfSizes: widget.product.availableQuantity.keys.toList(),
-            ),
-          ),
-          if (chipValue.isNotEmpty)
             Positioned(
-              top: 8,
-              left: 8,
-              child: ProductItemChip(
-                value: chipValue,
+              bottom: 0,
+              right: 0,
+              child: HeartFavourite(
+                systemProductId: widget.product.systemId,
+                listOfSizes: widget.product.availableQuantity.keys.toList(),
               ),
             ),
-        ],
+            if (chipValue.isNotEmpty)
+              Positioned(
+                top: 8,
+                left: 8,
+                child: ProductItemChip(
+                  value: chipValue,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

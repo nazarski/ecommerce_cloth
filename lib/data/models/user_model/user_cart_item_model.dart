@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_cloth/data/models/product_model/product_model.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
 
@@ -7,8 +6,10 @@ class UserCartItemModel {
   final ProductModel product;
   final int quantity;
   final String size;
+  final int id;
 
   const UserCartItemModel({
+    required this.id,
     required this.additionDate,
     required this.product,
     required this.quantity,
@@ -31,11 +32,13 @@ class UserCartItemModel {
       product: product.toEntity(),
       quantity: quantity,
       size: size,
+      id: id,
     );
   }
 
   factory UserCartItemModel.fromEntity({required UserCartItemEntity entity}) {
     return UserCartItemModel(
+      id: entity.id,
       additionDate: entity.additionDate,
       product: ProductModel.fromEntity(entity: entity.product),
       quantity: entity.quantity,
@@ -45,6 +48,7 @@ class UserCartItemModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'additionDate': additionDate,
       'product': product,
       'quantity': quantity,
@@ -54,6 +58,7 @@ class UserCartItemModel {
 
   factory UserCartItemModel.fromMap(Map<String, dynamic> map) {
     return UserCartItemModel(
+      id: map['id'] as int,
       additionDate: DateTime.parse(map['createdAt']),
       product: ProductModel.fromCartItemMap(map['product']),
       quantity: map['quantity'] ?? 0,

@@ -54,14 +54,16 @@ class UserInfoProvider extends StateNotifier<UserInfoEntity> {
 
   void addToFavourites(
       {required int systemProductId, required String selectedSize}) {
-    final newSet = _favourites.addToFavourites(
-      favourites: state.favorites,
-      systemProductId: systemProductId,
-      size: selectedSize,
-      userId: state.id,
-      jwt: state.jwt,
-    );
-    state = state.copyWith(favorites: newSet);
+    if (!state.favorites.contains(systemProductId)) {
+      final newSet = _favourites.addToFavourites(
+        favourites: state.favorites,
+        systemProductId: systemProductId,
+        size: selectedSize,
+        userId: state.id,
+        jwt: state.jwt,
+      );
+      state = state.copyWith(favorites: newSet);
+    }
   }
 
   Future<void> removeFromFavourites({required int systemProductId}) async {

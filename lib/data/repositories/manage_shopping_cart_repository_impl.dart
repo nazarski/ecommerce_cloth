@@ -1,5 +1,7 @@
+import 'dart:ui';
 
 import 'package:ecommerce_cloth/data/data_sources/remote/manage_shopping_cart_data.dart';
+import 'package:ecommerce_cloth/data/models/user_model/user_cart_item_model.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/manage_shopping_cart_repository.dart';
 
@@ -60,8 +62,13 @@ class ManageShoppingCartRepositoryImpl implements ManageShoppingCartRepository {
   }
 
   @override
-  Future<void> removeFromCart({required int cartItemId}) {
-    // TODO: implement removeFromCart
-    throw UnimplementedError();
+  Future<void> removeFromCart({required int cartItemId}) async {
+    await ManageShoppingCartData.deleteCartItemFromId(cartItemId: cartItemId);
+  }
+
+  @override
+  Future<void> changeQuantity({required UserCartItemEntity cartItem}) async {
+    final itemModel = UserCartItemModel.fromEntity(entity: cartItem);
+    await ManageShoppingCartData.updateCartItemQuantity(itemModel: itemModel);
   }
 }

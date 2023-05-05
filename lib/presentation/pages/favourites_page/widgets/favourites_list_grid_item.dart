@@ -5,11 +5,11 @@ import 'package:ecommerce_cloth/presentation/pages/favourites_page/widgets/remov
 import 'package:ecommerce_cloth/presentation/pages/widgets/product_item_chip.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/star_view_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FavouritesListGridItem extends ConsumerStatefulWidget {
+class FavouritesListGridItem extends StatefulWidget {
   const FavouritesListGridItem({
+    required this.addToCart,
     required this.onRemove,
     required this.cartItem,
     super.key,
@@ -19,13 +19,13 @@ class FavouritesListGridItem extends ConsumerStatefulWidget {
   final VoidCallback onRemove;
   final bool hero;
   final UserCartItemEntity cartItem;
+  final VoidCallback addToCart;
 
   @override
-  ConsumerState<FavouritesListGridItem> createState() =>
-      _ProductListGridItemState();
+  State<FavouritesListGridItem> createState() => _ProductListGridItemState();
 }
 
-class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
+class _ProductListGridItemState extends State<FavouritesListGridItem>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
 
@@ -89,7 +89,7 @@ class _ProductListGridItemState extends ConsumerState<FavouritesListGridItem>
                     right: -10,
                     bottom: 0,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: widget.addToCart,
                       style: const ButtonStyle(
                         shape: MaterialStatePropertyAll(
                           CircleBorder(),

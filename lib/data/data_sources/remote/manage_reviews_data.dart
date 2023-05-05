@@ -104,7 +104,6 @@ class ManageReviewsData {
       HttpHeaders.contentTypeHeader: 'application/json',
     });
     final data = rating.toMap();
-    log(data.toString());
     final response = await _dio.put(
       '$_apiEndpoint/products/$ratingId',
       data: {

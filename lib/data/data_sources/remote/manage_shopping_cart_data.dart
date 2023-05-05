@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -56,8 +57,9 @@ class ManageShoppingCartData {
       'populate[shoppingCart][populate][cartItems][populate][product][populate]':
           '*',
     });
+    log(response.realUri.toString());
     final list = List<Map<String, dynamic>>.from(
-        response.data['shoppingCart']['cartItems']);
+        response.data['shoppingCart']?['cartItems'] ?? []);
     return list.map((e) => UserCartItemModel.fromMap(e));
   }
 
@@ -86,6 +88,17 @@ class ManageShoppingCartData {
     await _dio.put('$_apiEndpoint/shopping-carts/$shoppingCartId', data: {
       'data': {
         'cartItems': cartItemsIds..add(cartItemId),
+      }
+    });
+  }
+
+  static Future<void> updateCartItemQuantity({
+    required UserCartItemModel itemModel,
+  }) async {
+    log(itemModel.id.toString());
+    await _dio.put('$_apiEndpoint/cart-items/${itemModel.id}', data: {
+      'data': {
+        'quantity': itemModel.quantity,
       }
     });
   }

@@ -1,6 +1,7 @@
 import 'package:ecommerce_cloth/presentation/pages/favourites_page/widgets/favourites_list_list_item.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/shimmer_widget.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/favourites_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_cart_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,6 +23,10 @@ class FavouritesListView extends ConsumerWidget {
               await ref.read(userInfoProvider.notifier).removeFromFavourites(
                   systemProductId: data[index].product.systemId);
               final value = await ref.refresh(favouritesListProvider.future);
+            },
+            addToCart: () {
+              ref.read(userCartProvider.notifier).addCartItem(
+                  product: data[index].product, size: data[index].size);
             },
           );
         }, childCount: data.length),

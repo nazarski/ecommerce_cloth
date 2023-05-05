@@ -7,11 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FavouritesListListItem extends StatefulWidget {
-  const FavouritesListListItem(
-      {Key? key, required this.cartItem, required this.onRemove})
-      : super(key: key);
+  const FavouritesListListItem({
+    Key? key,
+    required this.cartItem,
+    required this.onRemove,
+    required this.addToCart,
+  }) : super(key: key);
   final UserCartItemEntity cartItem;
   final VoidCallback onRemove;
+  final VoidCallback addToCart;
 
   @override
   State<FavouritesListListItem> createState() => _FavouritesListListItemState();
@@ -44,8 +48,8 @@ class _FavouritesListListItemState extends State<FavouritesListListItem>
       brand: product.brand,
       type: product.productType,
     );
-    // final chipValue = getChipValue(product.additionDate, product.sale);
-    // _animationController.forward();
+    final chipValue = getChipValue(product.additionDate, product.sale);
+    _animationController.forward();
     return FadeTransition(
       opacity: _animationController,
       child: Padding(
@@ -197,7 +201,7 @@ class _FavouritesListListItemState extends State<FavouritesListListItem>
               bottom: 0,
               right: -10,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: widget.addToCart,
                 style: const ButtonStyle(
                   shape: MaterialStatePropertyAll(
                     CircleBorder(),

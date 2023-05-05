@@ -1,3 +1,4 @@
+import 'package:ecommerce_cloth/domain/entities/product_entity/product_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/select_size_sheet.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_cart_provider.dart';
@@ -6,13 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductPageAddToCart extends ConsumerWidget {
   const ProductPageAddToCart({
-    required this.systemProductId,
+    required this.product,
     super.key,
     required this.sizes,
   });
 
   final List<String> sizes;
-  final int systemProductId;
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,7 +45,7 @@ class ProductPageAddToCart extends ConsumerWidget {
                 child: SelectSizeSheet(
                   onPressed: (String size) {
                     ref.read(userCartProvider.notifier).addCartItem(
-                          systemProductId: systemProductId,
+                          product: product,
                           size: size,
                         );
                     Navigator.pop(context);
