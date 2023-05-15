@@ -10,7 +10,7 @@ class ManageShoppingCartData {
 
   static final _dio = Dio();
   static const _apiEndpoint = StrapiInitialize.apiEndpoint;
-
+//р
   static Future<void> createUserCart(
       {required int userId, required String jwt}) async {
     final options = Options(headers: {
@@ -28,7 +28,7 @@ class ManageShoppingCartData {
       options: options,
     );
   }
-
+//д
   static Future<int> createCartItem({
     required int productSystemId,
     required int quantity,
