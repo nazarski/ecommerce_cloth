@@ -1,21 +1,24 @@
 import 'package:ecommerce_cloth/core/utils/helpers/auth_helpers.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_address_model.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_address_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CreateAddressPage extends StatefulWidget {
+class CreateAddressPage extends ConsumerStatefulWidget {
   final UserAddressModel? addressModel;
 
   const CreateAddressPage({Key? key, this.addressModel}) : super(key: key);
   static const routeName = 'create-addresses-page';
 
   @override
-  State<CreateAddressPage> createState() => _CreateAddressPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CreateAddressPageState();
 }
 
-class _CreateAddressPageState extends State<CreateAddressPage> {
+class _CreateAddressPageState extends ConsumerState<CreateAddressPage> {
   final FocusNode fullNameFocus = FocusNode();
   final FocusNode addressFocus = FocusNode();
   final FocusNode cityFocus = FocusNode();
@@ -30,13 +33,12 @@ class _CreateAddressPageState extends State<CreateAddressPage> {
   final TextEditingController regionController = TextEditingController();
   final TextEditingController zipCodeController = TextEditingController();
   final TextEditingController countryController = TextEditingController();
-  UserAddressModel? addressModel;
+  UserAddressEntity? addressModel;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final args =
-        ModalRoute.of(context)!.settings.arguments as UserAddressModel?;
+    final args = ModalRoute.of(context)!.settings.arguments as UserAddressEntity?;
     if (args != null) {
       addressModel = args;
       fullNameController.text = addressModel!.fullName;
@@ -50,15 +52,6 @@ class _CreateAddressPageState extends State<CreateAddressPage> {
 
   @override
   Widget build(BuildContext context) {
-//     final args = ModalRoute.of(context)?.settings.arguments as UserAddressModel?;
-// print(args);
-//     final fullNameController = TextEditingController(text: args?.fullName ?? '');
-//     final addressController = TextEditingController(text: args?.address ?? '');
-//     final cityController = TextEditingController(text: args?.city ?? '');
-//     final regionController = TextEditingController(text: args?.region ?? '');
-//     final zipCodeController = TextEditingController(text: args?.zipCode ?? '');
-//     final countryController = TextEditingController(text: args?.country ?? '');
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -184,15 +177,61 @@ class _CreateAddressPageState extends State<CreateAddressPage> {
               SizedBox(
                 width: double.infinity,
                 height: 55,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (validateAndSaveHelper(formKey: formKey)) {
-                      Navigator.pop(context);
-                    }
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    ref.listen(getAllUserAddressesProvider, (previous, next) {
+                      if (next.hasValue) {
+                        Navigator.pop(context);
+                      }
+                    });
+                    final provider = ref.watch(getAllUserAddressesProvider);
+
+                    return provider.when(
+                      data: (_) {
+                        return ElevatedButton(
+                          onPressed: () {
+                            final UserAddressEntity addressEntity = UserAddressEntity(
+                              addressId: addressModel?.addressId ?? 0,
+                              address: addressController.text,
+                              city: cityController.text,
+                              country: countryController.text,
+                              fullName: fullNameController.text,
+                              primary: false,
+                              region: regionController.text,
+                              zipCode: zipCodeController.text,
+                            );
+                            if (validateAndSaveHelper(formKey: formKey)) {
+                              addressModel != null
+                                  ? ref
+                                      .read(getAllUserAddressesProvider.notifier)
+                                      .updateUserAddress(addressEntity: addressEntity)
+                                  : ref
+                                      .read(getAllUserAddressesProvider.notifier)
+                                      .postUserAddress(addressEntity: addressEntity);
+                            }
+                          },
+                          child: const Text('SAVE ADDRESS'),
+                        );
+                      },
+                      error: (_, __) {
+                        return const ElevatedButton(
+                          onPressed: null,
+                          child: Icon(
+                            Icons.error_outline_rounded,
+                            color: Colors.white,
+                          ),
+                        );
+                      },
+                      loading: () {
+                        return const ElevatedButton(
+                          onPressed: null,
+                          child: Center(child: CircularProgressIndicator.adaptive()),
+                        );
+                      },
+                    );
                   },
-                  child: const Text('SAVE ADDRESS'),
                 ),
-              )
+              ),
             ],
           ),
         ),

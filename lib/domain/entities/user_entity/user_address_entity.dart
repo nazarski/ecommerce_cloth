@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class UserAddressEntity extends Equatable {
-  final String addressId;
+  final int addressId;
   final String address;
   final String city;
   final String country;
   final String fullName;
-  final bool primary;
+   bool? primary;
   final String region;
   final String zipCode;
 
-  const UserAddressEntity({
+   UserAddressEntity({
     required this.addressId,
     required this.address,
     required this.city,

@@ -1,7 +1,10 @@
 import 'package:ecommerce_cloth/core/resources/app_colors.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_address_entity.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddressItem extends StatefulWidget {
+class AddressItem extends ConsumerStatefulWidget {
   final String address;
   final String city;
   final String country;
@@ -9,6 +12,7 @@ class AddressItem extends StatefulWidget {
   final String region;
   final String zipCode;
   final VoidCallback onTap;
+  final UserAddressEntity model;
   bool? primary;
 
   AddressItem({
@@ -21,13 +25,14 @@ class AddressItem extends StatefulWidget {
     required this.zipCode,
     required this.primary,
     required this.onTap,
+    required this.model,
   });
 
   @override
-  State<AddressItem> createState() => _AddressItemState();
+  ConsumerState<AddressItem> createState() => _AddressItemState();
 }
 
-class _AddressItemState extends State<AddressItem> {
+class _AddressItemState extends ConsumerState<AddressItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -122,6 +127,9 @@ class _AddressItemState extends State<AddressItem> {
                     onChanged: (bool? selected) {
                       setState(() {
                         widget.primary = selected!;
+                        ref.read(getAllUserAddressesProvider.notifier).setPrimaryAddress(
+                              addressEntity: widget.model,
+                            );
                       });
                     }),
               ),
