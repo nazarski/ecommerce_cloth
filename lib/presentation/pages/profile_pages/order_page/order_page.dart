@@ -1,5 +1,8 @@
-
+import 'package:ecommerce_cloth/domain/entities/card_entity/card_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/delivery_service_entity/delivery_service_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_address_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_info_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/widgets/tab_menu_item.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/widgets/tab_view_item.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
