@@ -22,10 +22,7 @@ class _PaymentsMethodsPageState extends State<PaymentsMethodsPage> {
       floatingActionButton: FloatingActionButton.small(
         child: const Icon(Icons.add),
         onPressed: () {
-          buildShowModalBottomSheet(
-              context: context,
-              child: const CreateNewCardSheet(),
-              header: 'Add new card');
+          buildShowModalBottomSheet(context: context, child: const CreateNewCardSheet(), header: 'Add new card');
         },
       ),
       appBar: const AppBarSearchBack(

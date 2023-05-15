@@ -1,7 +1,7 @@
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_address_entity.dart';
 
 class UserAddressModel {
-  final String addressId;
+  final int addressId;
   final String address;
   final String city;
   final String country;
@@ -55,7 +55,7 @@ class UserAddressModel {
       city: entity.city,
       country: entity.country,
       fullName: entity.fullName,
-      primary: entity.primary,
+      primary: entity.primary!,
       region: entity.region,
       zipCode: entity.zipCode,
     );
@@ -76,12 +76,12 @@ class UserAddressModel {
 
   factory UserAddressModel.fromMap(Map<String, dynamic> map) {
     return UserAddressModel(
-      addressId: map['id'] as String,
+      addressId: map['id'] as int,
       address: map['address'] as String,
       city: map['city'] as String,
       country: map['country'] as String,
       fullName: map['fullName'] as String,
-      primary: map['primary'] as bool,
+      primary: map['primary'] ?? false,
       region: map['region'] as String,
       zipCode: map['zipCode'] as String,
     );
