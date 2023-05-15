@@ -1,5 +1,6 @@
 import 'package:ecommerce_cloth/data/models/card_model/card_model.dart';
 import 'package:ecommerce_cloth/data/models/delivery_service_model/delivery_service_model.dart';
+import 'package:ecommerce_cloth/data/models/promocode_model/promo_code_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_address_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_cart_item_model.dart';
 import 'package:ecommerce_cloth/data/models/user_model/user_info_model.dart';
@@ -15,10 +16,19 @@ class OrderModel {
   final UserAddressModel shippingAddress;
   final UserInfoModel user;
   final int totalAmount;
+  final String trackingNumber;
+  final int quantity;
+  final String status;
+  final PromoCodeModel? promoCode;
+
 //TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
 //TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   const OrderModel({
     required this.dateOfSubmission,
+    required this.trackingNumber,
+    required this.quantity,
+    required this.status,
+    required this.promoCode,
     required this.orderId,
     required this.deliveryMethod,
     required this.orderedProducts,
@@ -27,6 +37,7 @@ class OrderModel {
     required this.user,
     required this.totalAmount,
   });
+
 //TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   @override
   String toString() {
@@ -53,9 +64,10 @@ class OrderModel {
       shippingAddress: shippingAddress.toEntity(),
       user: user.toEntity(),
       totalAmount: totalAmount,
-      quantity: 0,
-      trackingNumber: '',
-      status: '',
+      quantity: quantity,
+      trackingNumber: trackingNumber,
+      status: status,
+      promoCode: promoCode?.toEntity(),
     );
   }
 
@@ -74,8 +86,15 @@ class OrderModel {
           UserAddressModel.fromEntity(entity: entity.shippingAddress),
       user: UserInfoModel.fromEntity(entity: entity.user),
       totalAmount: entity.totalAmount,
+      trackingNumber: entity.trackingNumber,
+      quantity: entity.quantity,
+      status: entity.status,
+      promoCode: entity.promoCode != null
+          ? PromoCodeModel.fromEntity(entity: entity.promoCode!)
+          : null,
     );
   }
+
 //TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   Map<String, dynamic> toMap() {
     return {
@@ -101,6 +120,10 @@ class OrderModel {
       shippingAddress: map['shippingAddress'].fromMap as UserAddressModel,
       user: map['user'].fromMap as UserInfoModel,
       totalAmount: map['totalAmount'] as int,
+      trackingNumber: '',
+      quantity: map['quantity'],
+      status: map['status'],
+      promoCode: map['status'],
     );
   }
 

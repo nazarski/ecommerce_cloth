@@ -11,14 +11,14 @@ class UserAddressEntity extends Equatable {
   final String zipCode;
 
   const UserAddressEntity({
-    required this.addressId,
-    required this.address,
-    required this.city,
-    required this.country,
-    required this.fullName,
-    required this.primary,
-    required this.region,
-    required this.zipCode,
+    this.addressId = '',
+    this.address = '',
+    this.city = '',
+    this.country = '',
+    this.fullName = '',
+    this.primary = false,
+    this.region = '',
+    this.zipCode = '',
   });
 
   @override

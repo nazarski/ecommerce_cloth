@@ -4,7 +4,7 @@ import 'package:ecommerce_cloth/domain/entities/product_filter_entity/product_fi
 import 'package:ecommerce_cloth/presentation/pages/favourites_page/widgets/favourites_list.dart';
 import 'package:ecommerce_cloth/presentation/pages/favourites_page/widgets/favourites_types_list.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/product_list_toolbox.dart';
-import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/widgets/sliver_header_delegate_wrap.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/sliver_header_delegate_wrap.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/transforming_app_bar.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/favourites_state.dart';
 import 'package:flutter/cupertino.dart';

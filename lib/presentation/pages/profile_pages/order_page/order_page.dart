@@ -97,7 +97,7 @@ class _OrderPageState extends ConsumerState<OrderPage>
           notification: true,
           fcmToken: ''),
       totalAmount: 140,
-      status: 'Delivered',
+      status: 'Delivered', promoCode: null,
     ),
   ];
   final List<OrderEntity> fakeListProcessing = [

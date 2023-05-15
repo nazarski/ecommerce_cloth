@@ -7,6 +7,7 @@ import 'package:ecommerce_cloth/presentation/pages/address_pages/create_address_
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/registration_page/registration_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/bag_page/bag_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/checkout_page/checkout_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/favourites_page/favourites_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/brands_page/brands_list_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/filter_pages/filter_nest_page.dart';
@@ -98,6 +99,11 @@ class AppRouter {
         return PageTransition(
           settings: settings,
           child: RatingReviewPage(rating: settings.arguments as RatingEntity),
+          type: PageTransitionType.rightToLeft,
+        );
+      case CheckoutPage.routeName:
+        return PageTransition(
+          child: const CheckoutPage(),
           type: PageTransitionType.rightToLeft,
         );
       default:

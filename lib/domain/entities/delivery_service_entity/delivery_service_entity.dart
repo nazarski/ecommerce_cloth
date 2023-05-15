@@ -8,11 +8,11 @@ class DeliveryServiceEntity extends Equatable {
   final String service;
 
   const DeliveryServiceEntity({
-    required this.id,
-    required this.estimated,
-    required this.icon,
-    required this.price,
-    required this.service,
+    this.id = '',
+    this.estimated = '',
+    this.icon = '',
+    this.price = 0,
+    this.service = '',
   });
 
   @override

@@ -8,11 +8,11 @@ class CardEntity extends Equatable {
   final String cardId;
 
   const CardEntity({
-    required this.cardId,
-    required this.cardNumber,
-    required this.cardDate,
-    required this.cardName,
-    required this.isDefault,
+     this.cardId = '',
+     this.cardNumber = -1,
+     this.cardDate ='',
+     this.cardName = '',
+     this.isDefault = false,
   });
 
   @override

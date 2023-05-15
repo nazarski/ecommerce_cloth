@@ -57,7 +57,6 @@ class ManageShoppingCartData {
       'populate[shoppingCart][populate][cartItems][populate][product][populate]':
           '*',
     });
-    log(response.realUri.toString());
     final list = List<Map<String, dynamic>>.from(
         response.data['shoppingCart']?['cartItems'] ?? []);
     return list.map((e) => UserCartItemModel.fromMap(e));
