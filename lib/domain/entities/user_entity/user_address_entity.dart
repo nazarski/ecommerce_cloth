@@ -21,6 +21,7 @@ class UserAddressEntity extends Equatable {
     this.zipCode = '',
   });
 
+
   @override
   // TODO: implement props
   List<Object?> get props => [
