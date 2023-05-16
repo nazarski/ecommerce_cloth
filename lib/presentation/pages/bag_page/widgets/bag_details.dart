@@ -1,5 +1,5 @@
 import 'package:ecommerce_cloth/presentation/pages/bag_page/widgets/promo_code_textfield.dart';
-import 'package:ecommerce_cloth/presentation/pages/bag_page/widgets/total_amount.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/total_amount.dart';
 import 'package:ecommerce_cloth/presentation/pages/checkout_page/checkout_page.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_cart_provider.dart';
@@ -45,7 +45,7 @@ class BagDetails extends ConsumerWidget {
             const SizedBox(
               height: 28,
             ),
-            const TotalAmount(),
+            const TotalAmount(title: 'Total amount',),
             const SizedBox(
               height: 24,
             ),

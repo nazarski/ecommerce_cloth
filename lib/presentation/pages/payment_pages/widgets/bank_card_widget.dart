@@ -126,8 +126,7 @@ class BankCardWidget extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.contain,
                             child: SvgPicture.asset(
-                              _getCardTypeIcon(
-                                  cardEntity.cardNumber.toString()),
+                              cardEntity.cardIcon,
                               width: 32,
                               height: 32,
                             ),
@@ -153,26 +152,6 @@ class BankCardWidget extends StatelessWidget {
         )
       ],
     );
-  }
-
-  String _getCardTypeIcon(String cardNumber) {
-    final RegExp visaRegex = RegExp(r'^4[0-9]{6,}$');
-    final RegExp mastercardRegex = RegExp(r'^5[1-5][0-9]{5,}$');
-    final RegExp amexRegex = RegExp(r'^3[47][0-9]{5,}$');
-
-    String iconPath = '';
-
-    if (visaRegex.hasMatch(cardNumber)) {
-      iconPath = AppIcons.visa;
-    } else if (mastercardRegex.hasMatch(cardNumber)) {
-      iconPath = AppIcons.masterCard;
-    } else if (amexRegex.hasMatch(cardNumber)) {
-      iconPath = AppIcons.americanExpress;
-    } else {
-      iconPath = AppIcons.defaultCard;
-    }
-
-    return iconPath;
   }
 }
 

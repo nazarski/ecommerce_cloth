@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TotalAmount extends ConsumerWidget {
-  const TotalAmount({
+  const TotalAmount({required this.title,
     super.key,
   });
 
+  final String title;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final order = ref.watch(orderProvider);
@@ -15,7 +16,7 @@ class TotalAmount extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Total amount',
+            title,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           Text(
@@ -31,7 +32,7 @@ class TotalAmount extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Total amount',
+          title,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         Text.rich(
