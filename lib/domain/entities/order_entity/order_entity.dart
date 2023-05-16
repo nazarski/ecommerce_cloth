@@ -30,7 +30,7 @@ class OrderEntity extends Equatable {
      this.deliveryMethod = const DeliveryServiceEntity(),
      this.orderedProducts = const [],
      this.payment = const CardEntity(),
-     this.shippingAddress = const UserAddressEntity(),
+     this.shippingAddress =  UserAddressEntity(),
      this.user = const UserInfoEntity(),
      this.totalAmount = 0,
   });
