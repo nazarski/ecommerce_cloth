@@ -62,5 +62,6 @@ class GetAllUserAddressesProvider extends StateNotifier<AsyncValue<List<UserAddr
       userAddressEntity: addressEntity,
       listOfAddresses: state.value!,
     );
+    _getAllUserAddresses();
   }
 }

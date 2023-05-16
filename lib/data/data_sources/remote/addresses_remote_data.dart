@@ -10,12 +10,16 @@ class AddressesRemoteData {
   static final _dio = Dio();
   static const _apiEndpoint = StrapiInitialize.apiEndpoint;
 
-  static Future<List<UserAddressModel>> getUserAddresses({required String userId}) async {
-    final response = await _dio.get('$_apiEndpoint/users/$userId?populate=addresses');
-    final addressesResponse = List<Map<String, dynamic>>.from(response.data['addresses']);
+  static Future<List<UserAddressModel>> getUserAddresses(
+      {required String userId}) async {
+    final response =
+        await _dio.get('$_apiEndpoint/users/$userId?populate=addresses');
+    final addressesResponse =
+        List<Map<String, dynamic>>.from(response.data['addresses']);
     final result = addressesResponse.map((element) {
       return UserAddressModel.fromMap(element);
     }).toList();
+    result.sort((a, b) => b.primary ? 1 : -1);
     return result;
   }
 
@@ -80,8 +84,12 @@ class AddressesRemoteData {
       HttpHeaders.authorizationHeader: 'Bearer $jwt',
       HttpHeaders.contentTypeHeader: 'application/json',
     });
-    final List<Map<String, dynamic>> data = listOfAddresses.map((address) {
-      return {
+
+    for (int addressIndex = 0;
+        addressIndex < listOfAddresses.length;
+        addressIndex++) {
+      final address = listOfAddresses[addressIndex];
+      final Map<String, dynamic> data = {
         'user': userId,
         'address': address.address,
         'city': address.city,
@@ -91,12 +99,12 @@ class AddressesRemoteData {
         'region': address.region,
         'zipCode': address.zipCode,
       };
-    }).toList();
-    await _dio.put(
-      '$_apiEndpoint/users/$userId',
-      options: options,
-      data: {'addresses': data},
-    );
-  }
 
+      await _dio.put(
+        '$_apiEndpoint/addresses/${address.addressId}',
+        options: options,
+        data: {'data': data},
+      );
+    }
+  }
 }
