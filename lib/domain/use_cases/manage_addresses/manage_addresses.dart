@@ -6,7 +6,8 @@ class ManageAddresses {
 
   ManageAddresses(this._addressesRepository);
 
-  Future<List<UserAddressEntity>> getUserAddresses({required String userId}) async {
+  Future<List<UserAddressEntity>> getUserAddresses(
+      {required String userId}) async {
     return await _addressesRepository.getUserAddresses(userId: userId);
   }
 
@@ -40,17 +41,18 @@ class ManageAddresses {
     required UserAddressEntity userAddressEntity,
     required List<UserAddressEntity> listOfAddresses,
   }) async {
-    for (UserAddressEntity address in listOfAddresses) {
+    final List<UserAddressEntity> toggledAddresses =
+        listOfAddresses.map((address) {
       if (address.addressId == userAddressEntity.addressId) {
-        address.primary = true;
+        return address.copyWith(primary: true);
       } else {
-        address.primary = false;
+        return address.copyWith(primary: false);
       }
-    }
-    listOfAddresses.sort((a, b) {
-      if (a.primary!) {
+    }).toList();
+    toggledAddresses.sort((a, b) {
+      if (a.primary) {
         return -1;
-      } else if (b.primary!) {
+      } else if (b.primary) {
         return 1;
       } else {
         return 0;
@@ -59,7 +61,7 @@ class ManageAddresses {
     return await _addressesRepository.setPrimaryAddress(
       userId: userId,
       jwt: jwt,
-      listOfAddresses: listOfAddresses,
+      listOfAddresses: toggledAddresses,
     );
   }
 }

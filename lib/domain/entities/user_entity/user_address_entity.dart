@@ -6,22 +6,20 @@ class UserAddressEntity extends Equatable {
   final String city;
   final String country;
   final String fullName;
-   bool? primary;
+  final bool primary;
   final String region;
   final String zipCode;
 
-   UserAddressEntity({
-    required this.addressId,
-    required this.address,
-    required this.city,
-    required this.country,
-    required this.fullName,
-    required this.primary,
-    required this.region,
-    required this.zipCode,
+  const UserAddressEntity({
+    this.addressId = 0,
+    this.address = '',
+    this.city = '',
+    this.country = '',
+    this.fullName = '',
+    this.primary = false,
+    this.region = '',
+    this.zipCode = '',
   });
-
-
 
   @override
   // TODO: implement props
@@ -35,4 +33,26 @@ class UserAddressEntity extends Equatable {
         region,
         zipCode,
       ];
+
+  UserAddressEntity copyWith({
+    int? addressId,
+    String? address,
+    String? city,
+    String? country,
+    String? fullName,
+    bool? primary,
+    String? region,
+    String? zipCode,
+  }) {
+    return UserAddressEntity(
+      addressId: addressId ?? this.addressId,
+      address: address ?? this.address,
+      city: city ?? this.city,
+      country: country ?? this.country,
+      fullName: fullName ?? this.fullName,
+      primary: primary ?? this.primary,
+      region: region ?? this.region,
+      zipCode: zipCode ?? this.zipCode,
+    );
+  }
 }
