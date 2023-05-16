@@ -64,7 +64,6 @@ class AddressesRemoteData {
       'region': addressModel.region,
       'zipCode': addressModel.zipCode,
     };
-    print(addressModel.addressId);
     await _dio.put(
       '$_apiEndpoint/addresses/${addressModel.addressId}',
       options: options,
