@@ -32,6 +32,10 @@ dependencies:
   firebase_messaging: ^14.3.0
   image_picker: ^0.8.7+1
   android_intent_plus: ^3.1.6
+  liqpay:
+    git:
+      url: https://github.com/TrachukV/liqpay.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
