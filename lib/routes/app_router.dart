@@ -103,7 +103,7 @@ class AppRouter {
         );
       case CheckoutPage.routeName:
         return PageTransition(
-          child: const CheckoutPage(),
+          child: CheckoutPage(),
           type: PageTransitionType.rightToLeft,
         );
       default:
