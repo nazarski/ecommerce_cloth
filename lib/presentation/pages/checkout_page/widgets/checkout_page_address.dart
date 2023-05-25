@@ -1,4 +1,4 @@
-import 'package:ecommerce_cloth/presentation/pages/address_pages/addresses_page/addresses_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +44,7 @@ class CheckoutPageAddress extends ConsumerWidget {
                 )
               ]),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +56,7 @@ class CheckoutPageAddress extends ConsumerWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
-                          .pushNamed(AddressesPage.routeName);
+                          .pushNamed(AddressNestPage.routeName);
                     },
                     style: ButtonStyle(
                       foregroundColor: MaterialStatePropertyAll(

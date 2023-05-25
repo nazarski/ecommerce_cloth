@@ -1,8 +1,14 @@
+
+import 'package:ecommerce_cloth/data/repositories/liqpay_repository_impl.dart';
+import 'package:ecommerce_cloth/domain/entities/card_entity/card_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/delivery_service_entity/delivery_service_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/promo_code_entity/promo_code_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
+import 'package:ecommerce_cloth/domain/use_cases/manage_checkout/manage_checkout.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final ManageCheckout _checkout = ManageCheckout(LiqPayRepositoryImpl());
 
 final orderProvider = StateNotifierProvider<OrderProvider, OrderEntity>((ref) {
   return OrderProvider();
@@ -28,7 +34,17 @@ class OrderProvider extends StateNotifier<OrderEntity> {
   }
 
   void setDeliveryMethod(DeliveryServiceEntity deliveryServiceEntity) {
-    state = state.copyWith(deliveryMethod: deliveryServiceEntity);
+    state = state.copyWith(
+      deliveryMethod: deliveryServiceEntity,
+    );
+  }
+
+  Future<bool> liqPayPay({
+    required CardEntity cardEntity,
+    required double amount,
+  }) async {
+    return await _checkout.liqPayResponse(
+        cardEntity: cardEntity, amount: amount);
   }
 
   void _deletePromoCode() {
