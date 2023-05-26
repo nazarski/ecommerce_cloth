@@ -1,3 +1,5 @@
+
+import 'package:ecommerce_cloth/presentation/pages/search_page/search_nest_page.dart';
 import 'package:flutter/material.dart';
 
 class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
@@ -36,7 +38,10 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         if (search)
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true)
+                  .pushNamed(SearchNestPage.routeName);
+            },
             icon: const Icon(
               Icons.search_rounded,
             ),

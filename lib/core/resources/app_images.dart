@@ -5,4 +5,5 @@ class AppImages {
 
   static const String splashScreen = '$_path/splash_screen.png';
   static const String success = '$_path/bags.svg';
+  static const String searchBackground = '$_path/search_background.png';
 }

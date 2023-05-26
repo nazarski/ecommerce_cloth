@@ -24,6 +24,8 @@ import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_pa
 import 'package:ecommerce_cloth/presentation/pages/rating_reviews_page/rating_reviews_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/search_page/main_search_page/main_search_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/search_page/search_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/categories_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_page/product_groups_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
@@ -76,6 +78,11 @@ class AppRouter {
       case SettingNestPage.routeName:
         return PageTransition(
           child: const SettingNestPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+      case SearchNestPage.routeName:
+        return PageTransition(
+          child: const SearchNestPage(),
           type: PageTransitionType.rightToLeft,
         );
       case PaymentsNestPage.routeName:
@@ -245,6 +252,23 @@ class AppRouter {
       case SettingPage.routeName:
         return PageTransition(
           child: const SettingPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      default:
+        throw Exception('Invalid route: ${settings.name}');
+    }
+  }
+
+  static Route<dynamic> generateSearchPageNestedRoutes(
+      RouteSettings settings) {
+    // final arguments = settings.arguments;
+    log(settings.name.toString());
+    // WidgetBuilder builder;
+    switch (settings.name) {
+      case MainSearchPage.routeName:
+        return PageTransition(
+          child: const MainSearchPage(),
           type: PageTransitionType.rightToLeft,
         );
 
