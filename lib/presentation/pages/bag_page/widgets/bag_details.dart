@@ -51,6 +51,7 @@ class BagDetails extends ConsumerWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                ref.read(orderProvider.notifier).setCartItems(data);
                 Navigator.of(context, rootNavigator: true)
                     .pushNamed(CheckoutPage.routeName);
               },

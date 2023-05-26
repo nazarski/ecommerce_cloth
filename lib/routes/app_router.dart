@@ -29,6 +29,7 @@ import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_groups_pag
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/product_list_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/shop_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
+import 'package:ecommerce_cloth/presentation/pages/success_page/success_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -103,7 +104,12 @@ class AppRouter {
         );
       case CheckoutPage.routeName:
         return PageTransition(
-          child: CheckoutPage(),
+          child: const CheckoutPage(),
+          type: PageTransitionType.rightToLeft,
+        );
+      case SuccessPage.routeName:
+        return PageTransition(
+          child: const SuccessPage(),
           type: PageTransitionType.rightToLeft,
         );
       default:

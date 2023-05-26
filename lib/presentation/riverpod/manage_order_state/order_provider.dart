@@ -1,14 +1,11 @@
-
-import 'package:ecommerce_cloth/data/repositories/liqpay_repository_impl.dart';
 import 'package:ecommerce_cloth/domain/entities/card_entity/card_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/delivery_service_entity/delivery_service_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/promo_code_entity/promo_code_entity.dart';
+import 'package:ecommerce_cloth/domain/entities/user_entity/user_address_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
 import 'package:ecommerce_cloth/domain/use_cases/manage_checkout/manage_checkout.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final ManageCheckout _checkout = ManageCheckout(LiqPayRepositoryImpl());
 
 final orderProvider = StateNotifierProvider<OrderProvider, OrderEntity>((ref) {
   return OrderProvider();
@@ -18,14 +15,21 @@ class OrderProvider extends StateNotifier<OrderEntity> {
   OrderProvider() : super(OrderEntity(dateOfSubmission: DateTime.now()));
 
   void setTotalAmount(int totalAmount) {
-    state = state.copyWith(totalAmount: totalAmount);
+    state = state.copyWith(
+      totalAmount: totalAmount,
+      summary: totalAmount.toDouble(),
+    );
   }
 
   void setPromoCode(PromoCodeEntity? promoCodeEntity) {
     if (promoCodeEntity == null) {
       _deletePromoCode();
     } else {
-      state = state.copyWith(promoCode: promoCodeEntity);
+      final summary =
+          ((state.totalAmount * (1 - state.promoCode!.discount / 100)) +
+                  state.deliveryMethod.price)
+              .roundToDouble();
+      state = state.copyWith(promoCode: promoCodeEntity, summary: summary);
     }
   }
 
@@ -34,17 +38,22 @@ class OrderProvider extends StateNotifier<OrderEntity> {
   }
 
   void setDeliveryMethod(DeliveryServiceEntity deliveryServiceEntity) {
+    final summary = deliveryServiceEntity.price + state.totalAmount.toDouble();
     state = state.copyWith(
       deliveryMethod: deliveryServiceEntity,
+      summary: summary,
     );
   }
 
-  Future<bool> liqPayPay({
-    required CardEntity cardEntity,
-    required double amount,
-  }) async {
-    return await _checkout.liqPayResponse(
-        cardEntity: cardEntity, amount: amount);
+  void setCard(CardEntity card) {
+    state = state.copyWith(payment: card);
+  }
+
+  void setAddress(UserAddressEntity addressEntity) {
+    state = state.copyWith(shippingAddress: addressEntity);
+  }
+  void setCartItems(List<UserCartItemEntity> listOfProducts){
+    state = state.copyWith(orderedProducts: listOfProducts);
   }
 
   void _deletePromoCode() {

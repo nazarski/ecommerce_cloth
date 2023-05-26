@@ -6,7 +6,6 @@ import 'package:ecommerce_cloth/data/models/user_model/user_cart_item_model.dart
 import 'package:ecommerce_cloth/data/models/user_model/user_info_model.dart';
 import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
 
-//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
 class OrderModel {
   final DateTime dateOfSubmission;
   final String orderId;
@@ -21,8 +20,6 @@ class OrderModel {
   final String status;
   final PromoCodeModel? promoCode;
 
-//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
-//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   const OrderModel({
     required this.dateOfSubmission,
     required this.trackingNumber,
@@ -38,7 +35,6 @@ class OrderModel {
     required this.totalAmount,
   });
 
-//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   @override
   String toString() {
     return 'OrderModel{ '
@@ -53,7 +49,6 @@ class OrderModel {
         '}';
   }
 
-//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   OrderEntity toEntity() {
     return OrderEntity(
       dateOfSubmission: dateOfSubmission,
@@ -71,7 +66,6 @@ class OrderModel {
     );
   }
 
-//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
   factory OrderModel.fromEntity({required OrderEntity entity}) {
     return OrderModel(
       dateOfSubmission: entity.dateOfSubmission,
@@ -95,16 +89,16 @@ class OrderModel {
     );
   }
 
-//TODO: NAZAR ATTENTION! NEED UPDATE THIS MODEL FIELD quantity and track number
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(int userId) {
     return {
-      'dateOfSubmission': dateOfSubmission,
+      'dateOfSubmission': dateOfSubmission.toIso8601String(),
       'orderId': orderId,
       'deliveryMethod': deliveryMethod.toMap(),
-      'orderedProducts': orderedProducts.map((e) => e.toMap()),
+      'orderedProducts':
+          orderedProducts.map((cartItem) => cartItem.toMap()).toList(),
       'payment': payment.toMap(),
       'shippingAddress': shippingAddress.toMap(),
-      'user': user.toMap(),
+      'user': userId,
       'totalAmount': totalAmount,
     };
   }
@@ -126,6 +120,4 @@ class OrderModel {
       promoCode: map['status'],
     );
   }
-
-//</editor-fold>
 }

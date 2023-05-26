@@ -1,4 +1,5 @@
 import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -78,7 +79,6 @@ class CheckoutPageAddress extends ConsumerWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium
-                    ?.copyWith(fontWeight: FontWeight.w700),
               )
             ],
           ),
@@ -94,7 +94,7 @@ class CheckoutPageAddress extends ConsumerWidget {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.2),
                   blurRadius: 10,
-                )
+                ),
               ]),
           child: Center(
             child: Text(error.toString()),
@@ -111,7 +111,7 @@ class CheckoutPageAddress extends ConsumerWidget {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.2),
                   blurRadius: 10,
-                )
+                ),
               ]),
           child: const Center(
             child: CircularProgressIndicator.adaptive(),

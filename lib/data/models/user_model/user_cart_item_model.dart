@@ -49,8 +49,13 @@ class UserCartItemModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'additionDate': additionDate,
-      'product': product,
+      'additionDate': additionDate.toIso8601String(),
+      'product': {
+        'id': product.systemId,
+        'name': product.name,
+        'price': product.price,
+        'type': product.productType,
+      },
       'quantity': quantity,
       'size': size,
     };

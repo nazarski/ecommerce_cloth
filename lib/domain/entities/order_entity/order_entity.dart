@@ -19,24 +19,27 @@ class OrderEntity extends Equatable {
   final int quantity;
   final String status;
   final PromoCodeEntity? promoCode;
+  final double summary;
 
   const OrderEntity({
     this.promoCode,
+    this.summary = 0,
     this.status = 'none',
     this.quantity = 0,
     this.trackingNumber = 'none',
     required this.dateOfSubmission,
-     this.orderId = 'none',
-     this.deliveryMethod = const DeliveryServiceEntity(),
-     this.orderedProducts = const [],
-     this.payment = const CardEntity(),
-     this.shippingAddress = const UserAddressEntity(),
-     this.user = const UserInfoEntity(),
-     this.totalAmount = 0,
+    this.orderId = 'none',
+    this.deliveryMethod = const DeliveryServiceEntity(),
+    this.orderedProducts = const [],
+    this.payment = const CardEntity(),
+    this.shippingAddress = const UserAddressEntity(),
+    this.user = const UserInfoEntity(),
+    this.totalAmount = 0,
   });
 
   @override
   List<Object?> get props => [
+        summary,
         promoCode,
         status,
         quantity,
@@ -52,6 +55,7 @@ class OrderEntity extends Equatable {
       ];
 
   OrderEntity copyWith({
+    double? summary,
     DateTime? dateOfSubmission,
     String? orderId,
     DeliveryServiceEntity? deliveryMethod,
@@ -66,6 +70,7 @@ class OrderEntity extends Equatable {
     PromoCodeEntity? promoCode,
   }) {
     return OrderEntity(
+      summary:  summary ?? this.summary,
       dateOfSubmission: dateOfSubmission ?? this.dateOfSubmission,
       orderId: orderId ?? this.orderId,
       deliveryMethod: deliveryMethod ?? this.deliveryMethod,

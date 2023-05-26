@@ -1,33 +1,73 @@
-import 'package:ecommerce_cloth/domain/entities/card_entity/card_entity.dart';
+import 'package:ecommerce_cloth/core/enums/checkout_status.dart';
+import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
 import 'package:ecommerce_cloth/domain/entities/delivery_service_entity/delivery_service_entity.dart';
 import 'package:ecommerce_cloth/presentation/pages/checkout_page/widgets/checkout_page_address.dart';
 import 'package:ecommerce_cloth/presentation/pages/checkout_page/widgets/delivety_method_widget.dart';
 import 'package:ecommerce_cloth/presentation/pages/payment_pages/payments_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/success_page/success_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/snack_bars.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/total_amount.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_bank_state/manage_bank_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/checkout_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
-class CheckoutPage extends ConsumerWidget {
+class CheckoutPage extends ConsumerStatefulWidget {
   const CheckoutPage({Key? key}) : super(key: key);
   static const routeName = 'checkout-page';
 
+  @override
+  ConsumerState<CheckoutPage> createState() => _CheckoutPageState();
+}
 
+class _CheckoutPageState extends ConsumerState<CheckoutPage> {
+  final FocusNode cvvFocusController = FocusNode();
+  final TextEditingController cvvController = TextEditingController();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final FocusNode cvvFocusController = FocusNode();
-    final TextEditingController cvvController = TextEditingController();
-    CardEntity card = const CardEntity();
-    int amount = 0;
+  Widget build(BuildContext context) {
+    ref.listen(checkoutProvider, (previous, next) {
+      if (previous != next && next == CheckoutStatus.loading) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return SimpleDialog(
+                backgroundColor: Colors.transparent,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(32),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
+                  )
+                ],
+              );
+            });
+      }
+      if (previous != next && next == CheckoutStatus.success) {
+        Navigator.of(context, rootNavigator: true)
+            .pushNamedAndRemoveUntil(SuccessPage.routeName, (route) => false);
+      }
+      if (previous != next && next == CheckoutStatus.errorPay) {
+        topSnackBar(context: context, label: 'Payment error');
+      }
+      if (previous != next && next == CheckoutStatus.errorPlace) {
+        topSnackBar(
+            context: context, label: 'Server error occurred, try again later');
+      }
+    });
+
     return Scaffold(
       appBar: const AppBarSearchBack(
         title: '',
@@ -96,7 +136,6 @@ class CheckoutPage extends ConsumerWidget {
                   );
                 }
                 final defaultCard = data.first;
-                card = data.first;
                 return SizedBox(
                   height: 64,
                   child: Row(
@@ -152,9 +191,9 @@ class CheckoutPage extends ConsumerWidget {
             const SizedBox(
               height: 16,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
+              children: [
                 DeliveryMethodWidget(
                   deliveryServiceEntity: DeliveryServiceEntity(
                       icon: 'assets/icons/dhl.svg',
@@ -206,14 +245,7 @@ class CheckoutPage extends ConsumerWidget {
             ),
             Consumer(
               builder: (context, ref, child) {
-                final order = ref.watch(orderProvider);
-                final int summary = order.promoCode != null
-                    ? (order.totalAmount *
-                                (1 - order.promoCode!.discount / 100))
-                            .round() +
-                        order.deliveryMethod.price
-                    : order.deliveryMethod.price + order.totalAmount;
-                amount = summary;
+                final summary = ref.watch(orderProvider).summary;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -237,88 +269,104 @@ class CheckoutPage extends ConsumerWidget {
             ),
             Consumer(
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                final ifSelected =
+                final ifDeliverySelected =
                     ref.watch(orderProvider).deliveryMethod.price > 0;
-
+                final defaultCard = ref.watch(bankCardsProvider).value?.first;
+                final defaultAddress =
+                    ref.watch(getAllUserAddressesProvider).value?.first;
                 return ElevatedButton(
-                    onPressed: ifSelected
+                    onPressed: ifDeliverySelected &&
+                            defaultCard != null &&
+                            defaultAddress != null
                         ? () async {
-                      buildShowModalBottomSheet(
-                          context: context,
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    card.cardIcon,
-                                    width: 53,
-                                    height: 30,
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text('**** **** **** ${card.cardId}')
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              SizedBox(
-                                width: 100,
-                                child: TextFieldValidator(
-                                  labelText: 'CVV',
-                                  checkOfErrorOnFocusChange: true,
-                                  validation: () {},
-                                  tempTextEditingController:
-                                  cvvController,
-                                  focusNode: cvvFocusController,
-                                  keyboardType: TextInputType.number,
-                                  autofocus: false,
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(3),
-                                  ],
-                                  passwordVisible: true,
-                                  focusPush: cvvFocusController,
-                                  readOnly: false,
-                                  textInputAction: TextInputAction.done,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20),
-                                child: ElevatedButton(
-                                  onPressed: (){
-                                    Navigator.pop(context);
-                                    cvvController.text.length == 3 ?
-
-                                    ref.read(orderProvider.notifier).liqPayPay(
-                                      cardEntity: card,
-                                      amount: amount.toDouble(),
-                                    ) : topSnackBar(
-                                        context: context,
-                                        label: 'Enter correct cvv');
-                                  },
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16),
-                                      child: Text(
-                                          'submit order'.toUpperCase()),
+                            ref
+                                .read(orderProvider.notifier)
+                                .setAddress(defaultAddress);
+                            ref
+                                .read(orderProvider.notifier)
+                                .setCard(defaultCard);
+                            buildShowModalBottomSheet(
+                                context: context,
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 20,
                                     ),
-                                  ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          defaultCard.cardIcon,
+                                          width: 53,
+                                          height: 30,
+                                        ),
+                                        const SizedBox(width: 20),
+                                        Text(
+                                            '**** **** **** ${defaultCard.cardId}')
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    SizedBox(
+                                      width: 100,
+                                      child: TextFieldValidator(
+                                        labelText: 'CVV',
+                                        checkOfErrorOnFocusChange: true,
+                                        validation: (cvv) {
+                                          return validateCvv(cvv);
+                                        },
+                                        tempTextEditingController:
+                                            cvvController,
+                                        focusNode: cvvFocusController,
+                                        keyboardType: TextInputType.number,
+                                        autofocus: false,
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(3),
+                                        ],
+                                        passwordVisible: true,
+                                        focusPush: cvvFocusController,
+                                        readOnly: false,
+                                        textInputAction: TextInputAction.done,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          if (cvvController.text.length == 3) {
+                                            final order =
+                                                ref.read(orderProvider);
+                                            ref
+                                                .read(checkoutProvider.notifier)
+                                                .placeOrder(order: order);
+                                          } else {
+                                            topSnackBar(
+                                                context: context,
+                                                label: 'Enter correct cvv');
+                                          }
+                                        },
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 16),
+                                            child: Text(
+                                                'submit order'.toUpperCase()),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          ),
-                          header: 'Please enter you CVV code');
+                                header: 'Please enter you CVV code');
                           }
                         : () {
                             topSnackBar(
