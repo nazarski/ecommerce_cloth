@@ -271,9 +271,9 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
                 final ifDeliverySelected =
                     ref.watch(orderProvider).deliveryMethod.price > 0;
-                final defaultCard = ref.watch(bankCardsProvider).value?.first;
+                final defaultCard = ref.watch(bankCardsProvider).value?.firstOrNull;
                 final defaultAddress =
-                    ref.watch(getAllUserAddressesProvider).value?.first;
+                    ref.watch(getAllUserAddressesProvider).value?.firstOrNull;
                 return ElevatedButton(
                     onPressed: ifDeliverySelected &&
                             defaultCard != null &&

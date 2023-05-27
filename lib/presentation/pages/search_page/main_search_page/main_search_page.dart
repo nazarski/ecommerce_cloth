@@ -12,11 +12,14 @@ class MainSearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarSearchBack(
+      appBar: AppBarSearchBack(
         title: 'Visual search',
         search: false,
         elevation: false,
         back: true,
+        root: (){
+          Navigator.of(context, rootNavigator: true).pop();
+        },
       ),
       body: Container(
         height: double.infinity,

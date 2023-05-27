@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce_cloth/data/data_sources/remote/strapi_initialize.dart';
