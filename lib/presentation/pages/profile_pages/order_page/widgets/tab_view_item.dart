@@ -1,35 +1,51 @@
+import 'dart:developer';
+
 import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_list_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'order_info_item.dart';
 
-class TabViewItem extends StatelessWidget {
+class TabViewItem extends ConsumerWidget {
   const TabViewItem({
     super.key,
-    required this.listOfOrders,
+    required this.status,
   });
 
-  final List<OrderEntity> listOfOrders;
+  final String status;
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return ListView.builder(
-        itemCount: listOfOrders.length,
-        itemBuilder: (context, index) {
-          return OrderInfoItem(
-            numberOfOrder: listOfOrders[index].orderId,
-            date: '01-01-2021',
-            trackingNumber: listOfOrders[index].trackingNumber,
-            quantity: listOfOrders[index].quantity.toString(),
-            totalAmount: listOfOrders[index].totalAmount.toString(),
-            status: listOfOrders[index].status.toString(),
-            width: double.infinity,
-            height: constraints.maxHeight / 2.7,
-          );
-        },
-      );
-    });
+  Widget build(BuildContext context, WidgetRef ref) {
+    final listOfOrders = ref.watch(orderListProvider(status));
+    return listOfOrders.when(
+      data: (data) {
+        return ListView.builder(
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            return OrderInfoItem(
+              numberOfOrder: data[index].orderId,
+              date: '${data[index].dateOfSubmission.day}-${data[index].dateOfSubmission.month}-${data[index].dateOfSubmission.year}',
+              trackingNumber: data[index].trackingNumber,
+              quantity: data[index].quantity.toString(),
+              totalAmount: data[index].totalAmount.toString(),
+              status: data[index].status.toString(),
+              width: double.infinity,
+              height: 200,
+            );
+          },
+        );
+      },
+      error: (error, stackTrace) {
+        log(error.toString());
+        log(stackTrace.toString());
+        return const Text('An error occurred');
+      },
+      loading: () {
+        return const Center(
+          child: CircularProgressIndicator.adaptive(),
+        );
+      },
+    );
   }
 }

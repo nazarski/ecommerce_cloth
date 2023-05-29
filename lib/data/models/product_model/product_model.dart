@@ -106,18 +106,19 @@ class ProductModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'additionDate': additionDate,
-      'attributes': attributes,
+      'additionDate': additionDate.toIso8601String(),
+      'attributes': attributes.toList(),
       'availableQuantity': availableQuantity,
       'brand': brand,
       'productType': productType,
-      'id': id,
-      'images': images,
+      'id': systemId,
+      'productId': id,
+      'images': images.toList(),
       'name': name,
       'popular': popular,
       'thumbnail': thumbnail,
       'price': price,
-      'rating': rating,
+      'rating': rating.toMap(),
       'sale': sale,
       'description': description,
       'colors': colors,
@@ -157,6 +158,7 @@ class ProductModel {
         rating: RatingModel.fromMap(map['attributes']['rating']),
         sale: {});
   }
+
   factory ProductModel.fromCartItemMap(Map<String, dynamic> map) {
     log('Product from favourites');
     return ProductModel(
@@ -183,6 +185,26 @@ class ProductModel {
         thumbnail: StrapiInitialize.endpoint +
             map['images'].first['formats']['small']['url'],
         colors: map['color'].map((e) => e['color']),
+        rating: RatingModel.fromMap(map['rating']),
+        sale: {});
+  }
+
+  factory ProductModel.fromOrderMap(Map<String, dynamic> map) {
+    return ProductModel(
+        systemId: map['id'],
+        id: map['productId'],
+        additionDate: DateTime.tryParse(map['additionDate']) ?? DateTime.now(),
+        popular: map['popular'],
+        name: map['productTitle'] ?? '',
+        price: map['price'],
+        description: map['description'] ?? '',
+        images: List<String>.from(map['images']),
+        availableQuantity: Map<String, int>.from(map['availableQuantity']),
+        productType: map['productType'] as String,
+        brand: map['brand'] as String,
+        attributes: [],
+        thumbnail: map['thumbnail'],
+        colors: {},
         rating: RatingModel.fromMap(map['rating']),
         sale: {});
   }

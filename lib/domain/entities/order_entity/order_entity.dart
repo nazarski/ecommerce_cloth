@@ -13,7 +13,7 @@ class OrderEntity extends Equatable {
   final List<UserCartItemEntity> orderedProducts;
   final CardEntity payment;
   final UserAddressEntity shippingAddress;
-  final UserInfoEntity user;
+  final UserInfoEntity? user;
   final int totalAmount;
   final String trackingNumber;
   final int quantity;
@@ -33,7 +33,7 @@ class OrderEntity extends Equatable {
     this.orderedProducts = const [],
     this.payment = const CardEntity(),
     this.shippingAddress = const UserAddressEntity(),
-    this.user = const UserInfoEntity(),
+    this.user,
     this.totalAmount = 0,
   });
 

@@ -34,6 +34,7 @@ class Authenticate {
     await _authRepository.saveUserToSecureStorage(
       userModel: userData,
     );
+    await _createUserCart(userId: userData!.id, jwt: userData.jwt);
   }
 
   Future<UserInfoEntity?> _uploadAvatarProcess(
@@ -186,27 +187,31 @@ class Authenticate {
     await _saveUserToSecureStorage(userData: userdata);
   }
 
-  Future authenticateByType({
+  Future<void> authenticateByType({
     required UserCredentialEntity userCredential,
   }) async {
     final credential = userCredential;
     switch (credential.type) {
       case AuthenticateType.google:
-        return await _authenticateUserFromGoogle();
+        await _authenticateUserFromGoogle();
+        break;
       case AuthenticateType.facebook:
-        return await _authenticateUserFromFacebook();
+        await _authenticateUserFromFacebook();
+        break;
       case AuthenticateType.registration:
-        return await _registerUserFromApp(
+        await _registerUserFromApp(
           avatarUrl: '',
           email: credential.email!,
           username: credential.username!,
           password: credential.password!,
         );
+        break;
       case AuthenticateType.authorization:
-        return await _authorizationUserFromApp(
+        await _authorizationUserFromApp(
           email: credential.email!,
           password: credential.password!,
         );
+        break;
       default:
         log('Error by type');
     }

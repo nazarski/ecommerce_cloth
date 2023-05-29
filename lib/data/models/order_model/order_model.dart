@@ -10,10 +10,10 @@ class OrderModel {
   final DateTime dateOfSubmission;
   final String orderId;
   final DeliveryServiceModel deliveryMethod;
-  final List<UserCartItemModel> orderedProducts;
+  final Iterable<UserCartItemModel> orderedProducts;
   final CardModel payment;
   final UserAddressModel shippingAddress;
-  final UserInfoModel user;
+  final UserInfoModel? user;
   final int totalAmount;
   final String trackingNumber;
   final int quantity;
@@ -57,7 +57,7 @@ class OrderModel {
       orderedProducts: orderedProducts.map((e) => e.toEntity()).toList(),
       payment: payment.toEntity(),
       shippingAddress: shippingAddress.toEntity(),
-      user: user.toEntity(),
+      user: user?.toEntity(),
       totalAmount: totalAmount,
       quantity: quantity,
       trackingNumber: trackingNumber,
@@ -78,7 +78,9 @@ class OrderModel {
       payment: CardModel.fromEntity(entity: entity.payment),
       shippingAddress:
           UserAddressModel.fromEntity(entity: entity.shippingAddress),
-      user: UserInfoModel.fromEntity(entity: entity.user),
+      user: entity.user != null
+          ? UserInfoModel.fromEntity(entity: entity.user!)
+          : null,
       totalAmount: entity.totalAmount,
       trackingNumber: entity.trackingNumber,
       quantity: entity.quantity,
@@ -100,24 +102,27 @@ class OrderModel {
       'shippingAddress': shippingAddress.toMap(),
       'user': userId,
       'totalAmount': totalAmount,
+      'quantity': quantity,
     };
   }
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
-      dateOfSubmission: map['dateOfSubmission'] as DateTime,
+      dateOfSubmission: DateTime.parse(map['dateOfSubmission']),
       orderId: map['orderId'] as String,
-      deliveryMethod: map['deliveryMethod'].fromMap as DeliveryServiceModel,
-      orderedProducts: map['orderedProducts'].map((e) => e.fromMap)
-          as List<UserCartItemModel>,
-      payment: map['payment'].fromMap as CardModel,
-      shippingAddress: map['shippingAddress'].fromMap as UserAddressModel,
-      user: map['user'].fromMap as UserInfoModel,
+      deliveryMethod: DeliveryServiceModel.fromMap(map['deliveryMethod']),
+      orderedProducts:
+          List<Map<String, dynamic>>.from(map['orderedProducts']).map((e) {
+        return UserCartItemModel.fromOrderMap(e);
+      }),
+      payment: CardModel.fromMap(map['payment']),
+      shippingAddress: UserAddressModel.fromMap(map['shippingAddress']),
       totalAmount: map['totalAmount'] as int,
-      trackingNumber: '',
-      quantity: map['quantity'],
+      trackingNumber: map['trackingNumber'] ?? '',
+      quantity: map['quantity'] ,
       status: map['status'],
-      promoCode: map['status'],
+      promoCode: map['promoCode'],
+      user: null,
     );
   }
 }

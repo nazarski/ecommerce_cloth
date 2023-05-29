@@ -50,12 +50,7 @@ class UserCartItemModel {
     return {
       'id': id,
       'additionDate': additionDate.toIso8601String(),
-      'product': {
-        'id': product.systemId,
-        'name': product.name,
-        'price': product.price,
-        'type': product.productType,
-      },
+      'product': product.toMap(),
       'quantity': quantity,
       'size': size,
     };
@@ -66,7 +61,16 @@ class UserCartItemModel {
       id: map['id'] as int,
       additionDate: DateTime.parse(map['createdAt']),
       product: ProductModel.fromCartItemMap(map['product']),
-      quantity: map['quantity'] ?? 0,
+      quantity: map['quantity'] as int,
+      size: map['size'] as String,
+    );
+  }
+  factory UserCartItemModel.fromOrderMap(Map<String, dynamic> map) {
+    return UserCartItemModel(
+      id: map['id'] as int,
+      additionDate: DateTime.parse(map['additionDate']),
+      product: ProductModel.fromOrderMap(map['product']),
+      quantity: map['quantity'] as int,
       size: map['size'] as String,
     );
   }

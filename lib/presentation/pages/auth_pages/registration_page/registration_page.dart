@@ -1,15 +1,13 @@
 import 'package:ecommerce_cloth/core/enums/authenticate_type.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/auth_helpers.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
-
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_credential_entity.dart';
-
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/login_page/login_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/auth_pages/widgets/social_auth_button.dart';
-
 import 'package:ecommerce_cloth/presentation/pages/main_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,12 +42,13 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = ref.watch(authControllerRegistrationProvider);
-    ref.listen(authControllerRegistrationProvider, (previous, next) {
+    ref.listen(authControllerRegistrationProvider, (previous, next) async {
       if (next.hasError) {
         showErrorSnackBar(context);
         ref.invalidate(authControllerRegistrationProvider);
       }
       if (next.value != null && next.value!) {
+        await ref.read(userInfoProvider.notifier).getUserFromSecureStorage();
         Navigator.of(context)
             .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
       }

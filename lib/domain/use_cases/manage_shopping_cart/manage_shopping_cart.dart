@@ -11,6 +11,13 @@ class ManageShoppingCart {
     return await _cartRepository.getAllCartItems(userId: userId);
   }
 
+  Future<void> removeItemsFromCart(
+      {required List<UserCartItemEntity> listOfItems}) async {
+    await Future.forEach(listOfItems, (element) async {
+      await removeFromCart(cartItemId: element.id);
+    });
+  }
+
   Future<void> addToCart({
     required int systemProductId,
     required String size,

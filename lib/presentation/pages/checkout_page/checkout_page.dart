@@ -14,6 +14,7 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_bank_state/manage_b
 import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/checkout_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,6 +57,8 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
             });
       }
       if (previous != next && next == CheckoutStatus.success) {
+        ref.read(userCartProvider.notifier).emptyCart();
+        ref.invalidate(orderProvider);
         Navigator.of(context, rootNavigator: true)
             .pushNamedAndRemoveUntil(SuccessPage.routeName, (route) => false);
       }
@@ -271,7 +274,8 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
                 final ifDeliverySelected =
                     ref.watch(orderProvider).deliveryMethod.price > 0;
-                final defaultCard = ref.watch(bankCardsProvider).value?.firstOrNull;
+                final defaultCard =
+                    ref.watch(bankCardsProvider).value?.firstOrNull;
                 final defaultAddress =
                     ref.watch(getAllUserAddressesProvider).value?.firstOrNull;
                 return ElevatedButton(

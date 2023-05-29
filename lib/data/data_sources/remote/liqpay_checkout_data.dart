@@ -42,7 +42,7 @@ class ManageCheckoutData {
 
   static Future<void> updatePaymentStatus({required orderId}) async {
     await _dio.put('$_endPoint/orders/$orderId', data: {
-      'data': {'status': 'Payment received'}
+      'data': {'status': 'Processing'}
     });
 
   }

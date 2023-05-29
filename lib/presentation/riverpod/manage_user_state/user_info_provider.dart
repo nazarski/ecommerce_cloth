@@ -29,10 +29,10 @@ final userInfoProvider =
 
 class UserInfoProvider extends StateNotifier<UserInfoEntity> {
   UserInfoProvider() : super(const UserInfoEntity()) {
-    _getUserFromSecureStorage();
+    getUserFromSecureStorage();
   }
 
-  Future<void> _getUserFromSecureStorage() async {
+  Future<void> getUserFromSecureStorage() async {
     await _notificationService.enableNotification();
     final userModel = await _authenticate.getUserInfoFromSecureStorage();
     state = userModel!;

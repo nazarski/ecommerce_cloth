@@ -42,7 +42,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         showErrorSnackBarLogin(context);
         ref.invalidate(authControllerLoginProvider);
       }
-      if (next.value != null && next.value == true) {
+      if (next.value != null && next.value!) {
         Navigator.of(context)
             .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
       }

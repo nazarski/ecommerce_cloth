@@ -4,7 +4,6 @@ import 'package:ecommerce_cloth/core/enums/checkout_status.dart';
 import 'package:ecommerce_cloth/domain/entities/card_entity/card_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
 import 'package:ecommerce_cloth/domain/repositories/liqpay_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:liqpay/liqpay.dart';
 
 class ManageCheckout {
@@ -31,6 +30,7 @@ class ManageCheckout {
       {required OrderEntity order, required int userId}) async {
     final newOrder = order.copyWith(
       status: 'Payment not received',
+      quantity: order.orderedProducts.length,
       orderId: DateTime.now().millisecondsSinceEpoch.toString(),
     );
     try {
@@ -61,7 +61,6 @@ class ManageCheckout {
     if (!paymentSuccess) {
       return CheckoutStatus.errorPay;
     }
-    log('payed, updating order');
     await _checkoutRepository.updatePaymentStatus(orderId: newOrderId);
     return CheckoutStatus.success;
   }
