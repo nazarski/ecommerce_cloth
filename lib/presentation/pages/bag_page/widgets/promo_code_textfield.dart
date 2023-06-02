@@ -14,6 +14,7 @@ class PromoCodeTextField extends ConsumerWidget {
     final promoCode = ref.watch(orderProvider).promoCode;
     return TextField(
       onTap: () {
+
         buildShowModalBottomSheet(
           context: context,
           child: PromoCodesBodyPage(

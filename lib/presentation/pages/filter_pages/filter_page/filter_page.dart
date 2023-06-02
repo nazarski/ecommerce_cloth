@@ -20,6 +20,7 @@ class FiltersPage extends ConsumerWidget {
     return filters.when(
       data: (data) => Scaffold(
         appBar: AppBarSearchBack(
+          canPop: true,
           root: () {
             Navigator.of(context, rootNavigator: true).pop();
           },

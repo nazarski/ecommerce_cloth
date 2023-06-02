@@ -16,6 +16,7 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userLoggedIn = ref.watch(userLoggedInProvider);
+    print(userLoggedIn.value);
     return userLoggedIn.maybeWhen(
       data: (value) {
         Future.microtask(() async {

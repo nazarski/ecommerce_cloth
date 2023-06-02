@@ -17,6 +17,7 @@ class MainSearchPage extends StatelessWidget {
         search: false,
         elevation: false,
         back: true,
+        canPop: true,
         root: (){
           Navigator.of(context, rootNavigator: true).pop();
         },

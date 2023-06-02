@@ -29,7 +29,7 @@ class AddressesRemoteData {
     required String userId,
   }) async {
     final options = Options(headers: {
-      HttpHeaders.authorizationHeader: 'Bearer $jwt',
+
       HttpHeaders.contentTypeHeader: 'application/json',
     });
     final Map<String, dynamic> data = {

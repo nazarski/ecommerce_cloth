@@ -20,6 +20,7 @@ class BrandsListPage extends ConsumerWidget {
         title: 'Brands',
         elevation: false,
         back: true,
+        canPop: true,
       ),
       body: Column(
         children: [

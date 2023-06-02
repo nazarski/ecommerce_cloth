@@ -30,6 +30,7 @@ class _PaymentsMethodsPageState extends State<PaymentsMethodsPage> {
         search: false,
         elevation: true,
         back: true,
+        canPop: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

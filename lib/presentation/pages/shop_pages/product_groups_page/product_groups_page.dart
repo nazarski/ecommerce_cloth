@@ -23,6 +23,7 @@ class ProductGroupPage extends ConsumerWidget {
           elevation: true,
           back: true,
           search: true,
+          canPop: true,
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

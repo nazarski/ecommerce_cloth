@@ -14,4 +14,10 @@ class ManageOrdersRepositoryImpl extends ManageOrdersRepository {
     );
     return orders.map((e) => e.toEntity()).toList();
   }
+
+  @override
+  Future<List<OrderEntity>> getAllOrders({required int userId}) async  {
+   final orders = await ManageOrdersData.getAllOrders(userId: userId);
+   return orders.map((e) => e.toEntity()).toList();
+  }
 }

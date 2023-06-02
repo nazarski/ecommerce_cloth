@@ -1,4 +1,5 @@
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/tab_view_categories.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -16,31 +17,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
     return DefaultTabController(
       length: categoryGroups.length,
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-            ),
-          ),
-          title: const Text('Categories'),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search_rounded,
-              ),
-            )
-          ],
-          bottom: TabBar(
-            indicatorColor: Theme.of(context).colorScheme.primary,
-            tabs: categoryGroups.map((e) {
-              return Tab(
-                text: '${e[0].toUpperCase()}${e.substring(1)}',
-              );
-            }).toList(),
-          ),
+        appBar: const AppBarSearchBack(
+          title: '',
+          search: true,
+          elevation: false,
+          back: false,
+          canPop: true,
         ),
         body: TabBarView(
           children: categoryGroups

@@ -5,6 +5,12 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_inf
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _manageOrders = ManageOrders(ManageOrdersRepositoryImpl());
+
+final allOrderProviders = FutureProvider.autoDispose<List<OrderEntity>>((ref) async {
+  final userId = ref.read(userInfoProvider).id;
+  return await _manageOrders.getAllOrders(userId: userId);
+});
+
 final orderListProvider = FutureProvider.autoDispose
     .family<List<OrderEntity>, String>((ref, category) async {
   final userId = ref.read(userInfoProvider).id;

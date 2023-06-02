@@ -1,5 +1,4 @@
 import 'package:ecommerce_cloth/presentation/pages/address_pages/address_nest_page.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,19 +14,25 @@ class CheckoutPageAddress extends ConsumerWidget {
     return address.when(
       data: (data) {
         if (data.isEmpty) {
-          return Container(
-            height: 120,
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onBackground,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 10,
-                  )
-                ]),
-            child: const Center(
-              child: Text('No address found, please, add an address'),
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context, rootNavigator: true)
+                  .pushNamed(AddressNestPage.routeName);
+            },
+            child: Container(
+              height: 120,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 10,
+                    )
+                  ]),
+              child: const Center(
+                child: Text('No address found, please, add an address'),
+              ),
             ),
           );
         }

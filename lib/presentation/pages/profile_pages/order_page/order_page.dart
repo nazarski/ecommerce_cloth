@@ -27,6 +27,7 @@ class _OrderPageState extends ConsumerState<OrderPage>
           search: true,
           elevation: false,
           back: true,
+          canPop: true,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),

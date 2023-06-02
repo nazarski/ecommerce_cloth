@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_cloth/presentation/pages/search_page/search_nest_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +10,7 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
     required this.elevation,
     required this.back,
     this.share,
+    required this.canPop,
   });
 
   final String? title;
@@ -19,19 +19,23 @@ class AppBarSearchBack extends StatelessWidget implements PreferredSizeWidget {
   final bool elevation;
   final bool back;
   final Widget? share;
+  final bool canPop;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       elevation: !elevation ? 0 : 10,
       leading: IconButton(
-        onPressed: root ??
-            () {
-              Navigator.pop(context);
-            },
-        icon: const Icon(
+        onPressed: canPop
+            ? root ??
+                () {
+                  Navigator.of(context).pop();
+                }
+            : () {},
+        icon: back ? const Icon(
           Icons.arrow_back_ios_new_rounded,
-        ),
+        ) : SizedBox(),
       ),
       title: Text(title ?? ''),
       centerTitle: true,

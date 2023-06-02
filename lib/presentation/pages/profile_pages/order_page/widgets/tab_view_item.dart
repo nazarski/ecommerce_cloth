@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +22,7 @@ class TabViewItem extends ConsumerWidget {
           itemCount: data.length,
           itemBuilder: (context, index) {
             return OrderInfoItem(
+              orderEntity: data[index],
               numberOfOrder: data[index].orderId,
               date: '${data[index].dateOfSubmission.day}-${data[index].dateOfSubmission.month}-${data[index].dateOfSubmission.year}',
               trackingNumber: data[index].trackingNumber,

@@ -9,6 +9,10 @@ import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_pa
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_bank_state/manage_bank_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_list_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/product_reviews_provider.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,6 +26,8 @@ class ProfileCardPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+
     final AsyncValue<UserInfoEntity> userFromLocal = ref.watch(getUserInfo);
     if (userFromLocal is AsyncLoading) {
       return const CircularProgressIndicator.adaptive();
@@ -29,12 +35,14 @@ class ProfileCardPage extends ConsumerWidget {
       return Text('Error: ${userFromLocal.error}');
     } else if (userFromLocal is AsyncData) {
       final user = userFromLocal.value;
+
       return Scaffold(
         appBar: const AppBarSearchBack(
           title: '',
           search: true,
           elevation: false,
           back: false,
+          canPop: false,
         ),
         body: Column(
           children: [
@@ -95,47 +103,185 @@ class ProfileCardPage extends ConsumerWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SettingItem(
-                      title: 'My orders',
-                      subtitle: 'Already have ?? orders',
-                      onTap: () {
-                        Navigator.of(context).pushNamed(OrderPage.routeName);
-                      },
-                    ),
-                    SettingItem(
-                      title: 'Shipping addresses',
-                      subtitle: '? addresses',
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamed(AddressNestPage.routeName);
-                      },
-                    ),
-                    SettingItem(
-                      title: 'Payment methods',
-                      subtitle: 'Visa  **34',
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamed(PaymentsNestPage.routeName);
-                      },
-                    ),
+                    Consumer(builder: (context, ref, child){
+                      final listOfOrders = ref.watch(allOrderProviders);
+                      return listOfOrders.when(data: (data) {
+                        if(data.isEmpty) {
+                          return SettingItem(
+                            title: 'My orders',
+                            subtitle: 'Already doesn\'t have orders',
+                            onTap: () {
+                              Navigator.of(context).pushNamed(OrderPage.routeName);
+                            },
+                          );
+                        }
+                        final int length = data.length;
+                        return SettingItem(
+                          title: 'My orders',
+                          subtitle: 'Already have $length orders',
+                          onTap: () {
+                            Navigator.of(context).pushNamed(OrderPage.routeName);
+                          },
+                        );
+                      }, error: (error, stackTrace)
+                      {
+                        return SettingItem(
+                          title: 'My orders',
+                          subtitle: 'Already doesn\'t have orders',
+                          onTap: () {
+                            Navigator.of(context).pushNamed(OrderPage.routeName);
+                          },
+                        );
+                      }, loading: () {
+                        return SettingItem(
+                          title: 'My orders',
+                          subtitle: 'loading...',
+                          onTap: () {
+                            Navigator.of(context).pushNamed(OrderPage.routeName);
+                          },
+                        );
+                      });
+                    }),
+                    Consumer(builder: (context, ref, child) {
+                      final listOfAddresses = ref.watch(getAllUserAddressesProvider);
+                      return listOfAddresses.when(data: (data) {
+                        if(data.isEmpty) {
+                           return SettingItem(
+                            title: 'Shipping addresses',
+                            subtitle: 'Add a new address',
+                            onTap: () {
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushNamed(AddressNestPage.routeName);
+                            },
+                          );
+
+                        }
+                        final int length = data.length;
+                        return SettingItem(
+                          title: 'Shipping addresses',
+                          subtitle: '$length addresses',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(AddressNestPage.routeName);
+                          },
+                        );
+                      }, error: (error, stackTrace) {
+                        return SettingItem(
+                          title: 'Shipping addresses',
+                          subtitle: '0 addresses',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(AddressNestPage.routeName);
+                          },
+                        );
+                      }, loading: (){
+                        return SettingItem(
+                          title: 'Shipping addresses',
+                          subtitle: 'loading...',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(AddressNestPage.routeName);
+                          },
+                        );
+                      });
+                    }),
+                    Consumer(builder: (context, ref, child) {
+                      final defaultCard = ref.watch(bankCardsProvider);
+                      return defaultCard.when(data: (data) {
+                        if (data.isEmpty) {
+                          return SettingItem(
+                            title: 'Payment methods',
+                            subtitle: 'Add a new card',
+                            onTap: () {
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushNamed(PaymentsNestPage.routeName);
+                            },
+                          );
+                        }
+                        final defaultCard = data.first;
+                        return SettingItem(
+                          title: 'Payment methods',
+                          subtitle:
+                              'Default card **${defaultCard.cardNumber.toString().substring(defaultCard.cardNumber.toString().length - 2)}',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(PaymentsNestPage.routeName);
+                          },
+                        );
+                      }, error: (error, stackTrace) {
+                        return SettingItem(
+                          title: 'Payment methods',
+                          subtitle: '',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(PaymentsNestPage.routeName);
+                          },
+                        );
+                      }, loading: () {
+                        return SettingItem(
+                          title: 'Payment methods',
+                          subtitle: 'loading...',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(PaymentsNestPage.routeName);
+                          },
+                        );
+                      });
+                    }),
                     SettingItem(
                         title: 'Promo-codes',
                         subtitle: 'You have special promo codes',
                         onTap: () {
                           buildShowModalBottomSheet(
                             context: context,
-                            child:  PromoCodesBodyPage(),
+                            child: const PromoCodesBodyPage(),
                             header: 'Your Promo Codes',
                           );
                         }),
-                    SettingItem(
-                      title: 'My reviews',
-                      subtitle: 'Reviews for ?? items',
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamed(MyReviewsNestPage.routeName);
-                      },
-                    ),
+                    Consumer(builder: (context, ref, child) {
+                      final reviews = ref.watch(userReviewsProvider);
+                      return reviews.when(data: (data) {
+                        if(data.isEmpty) {
+                          return SettingItem(
+                            title: 'My reviews',
+                            subtitle: 'You need to add review',
+                            onTap: () {
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushNamed(MyReviewsNestPage.routeName);
+                            },
+                          );
+                        }
+                        final int length = data.length;
+                        return SettingItem(
+                          title: 'My reviews',
+                          subtitle: 'Reviews for $length items',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(MyReviewsNestPage.routeName);
+                          },
+                        );
+                      }, error: (error, stackTrace) {
+                        return SettingItem(
+                          title: 'My reviews',
+                          subtitle: 'Reviews for 0 items',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(MyReviewsNestPage.routeName);
+                          },
+                        );
+                      }, loading: () {
+                        return SettingItem(
+                          title: 'My reviews',
+                          subtitle: 'loading...',
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(MyReviewsNestPage.routeName);
+                          },
+                        );
+                      });
+
+                    }),
+
                     SettingItem(
                       title: 'Settings',
                       subtitle: 'Notifications, password',

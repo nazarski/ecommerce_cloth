@@ -15,4 +15,11 @@ class ManageOrders {
       userId: userId,
     );
   }
+  Future<List<OrderEntity>> getAllOrders({
+    required int userId,
+  }) async {
+    return await _repository.getAllOrders(
+      userId: userId,
+    );
+  }
 }

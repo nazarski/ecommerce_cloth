@@ -21,6 +21,7 @@ class AddressNestPage extends StatelessWidget {
           search: false,
           elevation: true,
           back: true,
+          canPop: true,
         ),
         body: Navigator(
           key: _navigatorKey,

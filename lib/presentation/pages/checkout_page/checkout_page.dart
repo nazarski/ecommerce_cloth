@@ -63,7 +63,9 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
             .pushNamedAndRemoveUntil(SuccessPage.routeName, (route) => false);
       }
       if (previous != next && next == CheckoutStatus.errorPay) {
+        Navigator.of(context).pop();
         topSnackBar(context: context, label: 'Payment error');
+        Navigator.of(context).pop();
       }
       if (previous != next && next == CheckoutStatus.errorPlace) {
         topSnackBar(
@@ -77,6 +79,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
         search: false,
         elevation: true,
         back: true,
+        canPop: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -194,7 +197,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
             const SizedBox(
               height: 16,
             ),
-            const Row(
+             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 DeliveryMethodWidget(

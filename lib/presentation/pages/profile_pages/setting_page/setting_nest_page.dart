@@ -21,6 +21,7 @@ class SettingNestPage extends StatelessWidget {
           search: true,
           elevation: false,
           back: true,
+          canPop: true,
         ),
         body: Navigator(
           key: _navigatorKey,

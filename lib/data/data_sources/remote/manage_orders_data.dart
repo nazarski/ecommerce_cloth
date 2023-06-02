@@ -20,4 +20,14 @@ class ManageOrdersData {
     final rawData = List<Map<String, dynamic>>.from(response.data['data']);
     return rawData.map((e) => OrderModel.fromMap(e['attributes']));
   }
+  static Future<Iterable<OrderModel>> getAllOrders({
+    required int userId
+}) async {
+    final response = await _dio.get('$_endpoint/orders', queryParameters: {
+      'filters[user][id]': userId,
+    });
+    print(response);
+    final rawData = List<Map<String, dynamic>>.from(response.data['data']);
+    return rawData.map((e) => OrderModel.fromMap(e['attributes']));
+  }
 }

@@ -64,6 +64,7 @@ final userLoggedInProvider = FutureProvider<bool>((ref) async {
   final user = await _authenticate.isExpired();
   if (user!) {
     final userModel = await _authenticate.getUserInfoFromSecureStorage();
+    print(userModel);
     await ref
         .read(userInfoProvider.notifier)
         .getUserFromStrapi(jwt: userModel!.jwt, userId: userModel.id);
