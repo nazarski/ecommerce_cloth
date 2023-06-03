@@ -13,6 +13,7 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_bank_state/manage_b
 import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_list_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/product_reviews_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,8 +27,6 @@ class ProfileCardPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-
     final AsyncValue<UserInfoEntity> userFromLocal = ref.watch(getUserInfo);
     if (userFromLocal is AsyncLoading) {
       return const CircularProgressIndicator.adaptive();
@@ -35,6 +34,7 @@ class ProfileCardPage extends ConsumerWidget {
       return Text('Error: ${userFromLocal.error}');
     } else if (userFromLocal is AsyncData) {
       final user = userFromLocal.value;
+
 
       return Scaffold(
         appBar: const AppBarSearchBack(

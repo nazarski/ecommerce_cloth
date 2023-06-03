@@ -14,7 +14,7 @@ final _authenticate =
 final _manageUser =
     ManageUser(ManageUserRepositoryImpl(), AuthRepositoryImpl());
 
-final getUserInfo = FutureProvider<UserInfoEntity>((ref) async {
+final getUserInfo = FutureProvider.autoDispose<UserInfoEntity>((ref) async {
   final UserInfoEntity? userInfo =
       await _authenticate.getUserInfoFromSecureStorage();
   return userInfo!;

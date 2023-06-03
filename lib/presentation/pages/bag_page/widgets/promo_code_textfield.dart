@@ -14,7 +14,6 @@ class PromoCodeTextField extends ConsumerWidget {
     final promoCode = ref.watch(orderProvider).promoCode;
     return TextField(
       onTap: () {
-
         buildShowModalBottomSheet(
           context: context,
           child: PromoCodesBodyPage(
@@ -28,18 +27,19 @@ class PromoCodeTextField extends ConsumerWidget {
       controller: TextEditingController()..text = promoCode?.promoText ?? '',
       readOnly: true,
       decoration: InputDecoration(
-          hintText: 'Enter promo code',
-          contentPadding: const EdgeInsets.only(left: 24),
-          suffixIcon: MaterialButton(
-            shape: const CircleBorder(),
-            onPressed: () {
-              ref.read(orderProvider.notifier).setPromoCode(null);
-            },
-            child: const Icon(Icons.close_rounded),
-          ),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
-              borderSide: BorderSide.none)),
+        hintText: 'Enter promo code',
+        contentPadding: const EdgeInsets.only(left: 24),
+        suffixIcon: MaterialButton(
+          shape: const CircleBorder(),
+          onPressed: () {
+            ref.read(orderProvider.notifier).setPromoCode(null);
+          },
+          child: const Icon(Icons.close_rounded),
+        ),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50),
+            borderSide: BorderSide.none),
+      ),
     );
   }
 }

@@ -35,6 +35,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     ref.listen(checkoutProvider, (previous, next) {
+
       if (previous != next && next == CheckoutStatus.loading) {
         showDialog(
             context: context,

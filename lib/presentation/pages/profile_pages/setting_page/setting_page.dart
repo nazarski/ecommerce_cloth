@@ -4,7 +4,9 @@ import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/wi
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/widgets/custom_switch.dart';
 import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/cupertino.dart';

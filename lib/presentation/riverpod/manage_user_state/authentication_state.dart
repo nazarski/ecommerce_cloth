@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final _authenticate =
     Authenticate(AuthRepositoryImpl(), ManageShoppingCartRepositoryImpl());
 
-final logOutProvider = Provider((ref) => _authenticate.logOut());
+final logOutProvider = FutureProvider.autoDispose((ref) => _authenticate.logOut());
 
 final authControllerRegistrationProvider =
     StateNotifierProvider.autoDispose<AuthRegisterController, AsyncValue<bool>>(
