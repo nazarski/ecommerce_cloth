@@ -78,7 +78,7 @@ class _BrandsTile extends StatelessWidget {
     return Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
       final subtitle =
-          ref.watch(receiveFilterValuesProvider).brandNames.toString();
+          ref.watch(receiveFilterValuesProvider).brandNames.join(', ');
       return ListTile(
         title: Text(
           'Brands',

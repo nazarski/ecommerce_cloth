@@ -4,7 +4,6 @@ import 'package:ecommerce_cloth/domain/entities/order_entity/order_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/promo_code_entity/promo_code_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_address_entity.dart';
 import 'package:ecommerce_cloth/domain/entities/user_entity/user_cart_item_entity.dart';
-import 'package:ecommerce_cloth/domain/use_cases/manage_checkout/manage_checkout.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final orderProvider = StateNotifierProvider<OrderProvider, OrderEntity>((ref) {
@@ -25,8 +24,9 @@ class OrderProvider extends StateNotifier<OrderEntity> {
     if (promoCodeEntity == null) {
       _deletePromoCode();
     } else {
+
       final summary =
-          ((state.totalAmount * (1 - state.promoCode!.discount / 100)) +
+          ((state.totalAmount * (1 - promoCodeEntity.discount / 100)) +
                   state.deliveryMethod.price)
               .roundToDouble();
       state = state.copyWith(promoCode: promoCodeEntity, summary: summary);

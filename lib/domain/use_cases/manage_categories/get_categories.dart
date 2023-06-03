@@ -13,6 +13,6 @@ class GetCategories {
   Future<List<String>> getProductGroups(String categoryId) async {
     final types =
         await _categoriesRepository.getProductTypesFromCategoryId(categoryId);
-    return types.isEmpty ? ['Nothing here yet'] : types;
+    return types;
   }
 }

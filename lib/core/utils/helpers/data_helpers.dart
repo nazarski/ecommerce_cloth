@@ -14,7 +14,7 @@ Map<String, String> generateSizesQuery(List<String> sizes) {
 
 Map<String, String> generateColorsQuery(List<String> colors) {
   return {
-    for (int i = 0; i < colors.length; i++) 'filters[color][$i]': colors[i]
+    for (int i = 0; i < colors.length; i++) 'filters[color][color][$i]': colors[i]
   };
 }
 

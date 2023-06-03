@@ -7,19 +7,19 @@ import 'package:ecommerce_cloth/presentation/pages/profile_pages/my_reviews_page
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/order_page/order_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_card_page/widgets/setting_item.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/setting_nest_page.dart';
+import 'package:ecommerce_cloth/presentation/pages/promocodes_page/promocodes_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/build_show_modal_bottom_sheet.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_bank_state/manage_bank_state.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_order_state/order_list_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/product_reviews_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../promocodes_page/promocodes_page.dart';
+
 
 class ProfileCardPage extends ConsumerWidget {
   const ProfileCardPage({Key? key}) : super(key: key);
@@ -27,7 +27,9 @@ class ProfileCardPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final AsyncValue<UserInfoEntity> userFromLocal = ref.watch(getUserInfo);
+    print(userFromLocal.value);
     if (userFromLocal is AsyncLoading) {
       return const CircularProgressIndicator.adaptive();
     } else if (userFromLocal is AsyncError) {
@@ -109,7 +111,7 @@ class ProfileCardPage extends ConsumerWidget {
                         if(data.isEmpty) {
                           return SettingItem(
                             title: 'My orders',
-                            subtitle: 'Already doesn\'t have orders',
+                            subtitle: 'You orders',
                             onTap: () {
                               Navigator.of(context).pushNamed(OrderPage.routeName);
                             },
@@ -127,7 +129,7 @@ class ProfileCardPage extends ConsumerWidget {
                       {
                         return SettingItem(
                           title: 'My orders',
-                          subtitle: 'Already doesn\'t have orders',
+                          subtitle: 'You have orders',
                           onTap: () {
                             Navigator.of(context).pushNamed(OrderPage.routeName);
                           },
@@ -144,6 +146,7 @@ class ProfileCardPage extends ConsumerWidget {
                     }),
                     Consumer(builder: (context, ref, child) {
                       final listOfAddresses = ref.watch(getAllUserAddressesProvider);
+                      print(listOfAddresses);
                       return listOfAddresses.when(data: (data) {
                         if(data.isEmpty) {
                            return SettingItem(

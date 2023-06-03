@@ -1,13 +1,10 @@
 import 'package:ecommerce_cloth/core/utils/helpers/date_input_formatter.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
+import 'package:ecommerce_cloth/main.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/widgets/bottom_sheet_markings.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/widgets/custom_switch.dart';
-import 'package:ecommerce_cloth/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/adresses_state.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
-import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
-
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -209,9 +206,12 @@ class _SettingPageState extends ConsumerState<SettingPage> {
                 GestureDetector(
                   onTap: () {
                     ref.read(logOutProvider);
-                    Navigator.of(context, rootNavigator: true)
-                        .pushNamedAndRemoveUntil(
-                            SplashScreen.routeName, (route) => false);
+                    // ref.invalidate(bankCardsProvider);
+                    // ref.invalidate(getAllUserAddressesProvider);
+                    RestartWidget.restartApp(context);
+                    // Navigator.of(context, rootNavigator: true)
+                    //     .pushNamedAndRemoveUntil(
+                    //         SplashScreen.routeName, (route) => false);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

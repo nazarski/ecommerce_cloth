@@ -74,7 +74,7 @@ class ManageProductsData {
     final brandQuery = generateBrandNameQuery(brandNames);
     final sizeQuery = generateSizesQuery(sizes);
     final productTypesQuery = generateProductTypesQuery(productTypes);
-    // final colorsQuery = generateColorsQuery(colors);
+    final colorsQuery = generateColorsQuery(colors);
 
     final response = await _dio.get(
       '$_endpoint/products',
@@ -83,12 +83,14 @@ class ManageProductsData {
         ...brandQuery,
         ...sizeQuery,
         ...productTypesQuery,
+        ...colorsQuery,
         'sort': _sortTypes[sortType],
         'pagination[page]': page,
         'pagination[pageSize]': 10,
         'populate': '*',
       },
     );
+    print(response.realUri);
     final values = List<Map<String, dynamic>>.from(response.data['data']);
     final result = values.map((e) {
       return ProductModel.fromMap(e);
