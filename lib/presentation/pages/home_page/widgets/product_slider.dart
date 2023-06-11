@@ -5,6 +5,7 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_products_state/new_
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductSlider extends ConsumerWidget {
   const ProductSlider({
@@ -54,7 +55,9 @@ class ProductSlider extends ConsumerWidget {
                     ),
                   ],
                 ),
-                TextButton(onPressed: () {}, child: const Text('View all'))
+                TextButton(onPressed: () async {
+                  await launchUrl(Uri.parse('https://www.lamoda.co.uk'));
+                }, child: const Text('View all on site'))
               ],
             ),
           ),
@@ -103,7 +106,6 @@ class ProductSlider extends ConsumerWidget {
                     ),
                   ],
                 ),
-                const TextButton(onPressed: null, child: Text('View all'))
               ],
             ),
           ),

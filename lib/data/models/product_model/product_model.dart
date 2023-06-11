@@ -137,7 +137,7 @@ class ProductModel {
         description: map['attributes']['description'] ?? '',
         images: (map['attributes']['images']['data'] as List).map((image) {
           return StrapiInitialize.endpoint +
-              image['attributes']['formats']['large']['url'];
+              (image['attributes']['formats']['medium']?['url'] ?? '');
         }),
         availableQuantity: (map['attributes']['availableQuantity'] as List)
             .fold(<String, int>{}, (previousValue, element) {

@@ -61,7 +61,7 @@ class UserCartItemModel {
       id: map['id'] as int,
       additionDate: DateTime.parse(map['createdAt']),
       product: ProductModel.fromCartItemMap(map['product']),
-      quantity: map['quantity'] as int,
+      quantity: map['quantity'] ?? 0,
       size: map['size'] as String,
     );
   }

@@ -1,5 +1,5 @@
+import 'package:ecommerce_cloth/core/resources/app_colors.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/tab_view_categories.dart';
-import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/app_bar_back_search.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -17,21 +17,44 @@ class _CategoriesPageState extends State<CategoriesPage> {
     return DefaultTabController(
       length: categoryGroups.length,
       child: Scaffold(
-        appBar: const AppBarSearchBack(
-          title: '',
-          search: true,
-          elevation: false,
-          back: false,
-          canPop: true,
-        ),
-        body: TabBarView(
-          children: categoryGroups
-              .map(
-                (e) => TabViewCategories(categoryGroup: e),
-              )
-              .toList(),
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              title: const Text('Categories'),
+              floating: true,
+              pinned: true,
+              snap: false,
+              elevation: 0,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                  },
+                ),
+              ],
+              bottom: TabBar(
+                indicatorColor: AppColorsLight.primary,
+                tabs: categoryGroups
+                    .map((e) => Tab(text: e.capitalize()))
+                    .toList(),
+              ),
+            ),
+          ],
+          body: TabBarView(
+            children: categoryGroups
+                .map(
+                  (e) => TabViewCategories(categoryGroup: e),
+            )
+                .toList(),
+          ),
         ),
       ),
     );
+  }
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }

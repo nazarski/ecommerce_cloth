@@ -15,7 +15,6 @@ class SortTypeButton extends ConsumerWidget {
     SortType.novelty: 'Date: new first',
     SortType.priceDESC: 'Price: highest to lowest',
     SortType.priceASC: 'Price: lowest to highest',
-    SortType.saleFirst: 'Sale: sale items first',
   };
 
   @override

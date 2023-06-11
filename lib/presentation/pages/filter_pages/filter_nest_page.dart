@@ -54,7 +54,9 @@ class _FilterBottomSheet extends ConsumerWidget {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: const Text('Discard'),
                 ),
               ),

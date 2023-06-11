@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SaleCard extends StatelessWidget {
   const SaleCard({Key? key, required this.attribute}) : super(key: key);
@@ -7,7 +8,9 @@ class SaleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        await launchUrl(Uri.parse('https://www.lamoda.co.uk'));
+      },
       child: Container(
         height: 100,
         decoration: BoxDecoration(

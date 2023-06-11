@@ -35,6 +35,7 @@ class ManageFavouritesData {
       'fields': 'id',
       'populate[favourites][populate][product][populate]': '*',
     });
+    print(response.realUri);
     final listOfData =
         List<Map<String, dynamic>>.from(response.data['favourites']);
     return listOfData.map((e) {

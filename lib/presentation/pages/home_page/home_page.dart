@@ -1,5 +1,6 @@
 import 'package:ecommerce_cloth/core/enums/product_slider_type.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'widgets/product_slider.dart';
 
 class HomePage extends StatelessWidget {
@@ -59,7 +60,9 @@ class HomePage extends StatelessWidget {
                       SizedBox(
                         width: width * 0.4,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: ()async  {
+                            await launchUrl(Uri.parse('https://www.lamoda.co.uk'));
+                          },
                           child: const Text(
                             'Check',
                           ),

@@ -1,6 +1,5 @@
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/card_shimer.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/category_card.dart';
-import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/new_card.dart';
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/categories_page/widgets/sale_card.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_categories_provider.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +27,9 @@ class TabViewCategories extends ConsumerWidget {
             const SizedBox(
               height: 16,
             ),
-            NewCard(
-              attribute: categoryGroup,
-            ),
+            // NewCard(
+            //   attribute: categoryGroup,
+            // ),
             const SizedBox(
               height: 8,
             ),

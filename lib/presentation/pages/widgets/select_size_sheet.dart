@@ -1,5 +1,6 @@
 import 'package:ecommerce_cloth/presentation/pages/product_page/widgets/details_item.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SelectSizeSheet extends StatefulWidget {
   const SelectSizeSheet({
@@ -50,8 +51,11 @@ class _SelectSizeSheetState extends State<SelectSizeSheet> {
         const Divider(
           height: 0,
         ),
-        const DetailsItem(
+        DetailsItem(
           title: 'Size info',
+          onTap: () async {
+            await launchUrl(Uri.parse('https://www.lamoda.co.uk/size-guide/'));
+          },
         ),
         const Divider(
           height: 0,
