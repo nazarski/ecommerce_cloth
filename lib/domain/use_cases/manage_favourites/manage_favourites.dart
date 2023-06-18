@@ -22,6 +22,8 @@ class ManageFavourites {
       userId: userId,
       jwt: jwt,
     );
+    getFavouritesTypes(userId: userId);
+    getAllFavourites(userId: userId);
     return favourites..add(systemProductId);
   }
 
@@ -44,6 +46,8 @@ class ManageFavourites {
       newListOfIds: listOfIds..add(cartId),
       jwt: jwt,
     );
+    getFavouritesTypes(userId: userId);
+    getAllFavourites(userId: userId);
   }
 
   // Set<int> removeFromFavourites({

@@ -1,4 +1,5 @@
 import 'package:ecommerce_cloth/firebase_options.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/restart_app.dart';
 import 'package:ecommerce_cloth/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -47,33 +48,3 @@ class ECommerceApp extends StatelessWidget {
   }
 }
 
-class RestartWidget extends StatefulWidget {
-  const RestartWidget({super.key, required this.child});
-
-  final Widget child;
-
-  static void restartApp(BuildContext context) {
-    context.findAncestorStateOfType<_RestartWidgetState>()?.restartApp();
-  }
-
-  @override
-  _RestartWidgetState createState() => _RestartWidgetState();
-}
-
-class _RestartWidgetState extends State<RestartWidget> {
-  Key key = UniqueKey();
-
-  void restartApp() {
-    setState(() {
-      key = UniqueKey();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return KeyedSubtree(
-      key: key,
-      child: widget.child,
-    );
-  }
-}

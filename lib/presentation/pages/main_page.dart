@@ -5,7 +5,9 @@ import 'package:ecommerce_cloth/presentation/pages/home_page/home_page.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/profile_nest_page.dart';
 
 import 'package:ecommerce_cloth/presentation/pages/shop_pages/shop_page.dart';
+import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/favourites_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'widgets/navigation/app_botom_navigation.dart';
 
@@ -55,9 +57,20 @@ class _MainPageState extends State<MainPage> {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(12),
               ),
-              child: AppBottomNavigation(
-                currentIndex: _currentIndex,
-                onTap: (i) => setState(() => _currentIndex = i),
+              child: Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  return AppBottomNavigation(
+                    currentIndex: _currentIndex,
+                    onTap: (i) {
+                      if (i == 3) {
+                        final value = ref.refresh(favouritesListProvider);
+                      }
+                      setState(() {
+                        _currentIndex = i;
+                      });
+                    },
+                  );
+                },
               ),
             ),
           )),

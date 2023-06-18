@@ -7,7 +7,6 @@ import 'package:ecommerce_cloth/presentation/pages/shop_pages/product_list_page/
 import 'package:ecommerce_cloth/presentation/pages/widgets/sliver_header_delegate_wrap.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/transforming_app_bar.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/favourites_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,7 +23,8 @@ class FavouritesPage extends ConsumerStatefulWidget {
 class _FavouritesPageState extends ConsumerState<FavouritesPage> {
   bool isGrid = false;
 
-  Future<void> _refreshFunction() async {
+
+  Future<void> refreshFunction() async {
     final types = ref.refresh(favouritesTypesProvider);
     final value = await ref.refresh(favouritesListProvider.future);
   }
@@ -65,50 +65,43 @@ class _FavouritesPageState extends ConsumerState<FavouritesPage> {
               widgetHeight: 52,
             ),
           ),
-          CupertinoSliverRefreshControl(
-            onRefresh: _refreshFunction,
-          ),
           FavouritesListWidget(isGrid: isGrid)
         ],
       );
     } else {
-      child = RefreshIndicator(
-        edgeOffset: height + 84,
-        onRefresh: _refreshFunction,
-        child: CustomScrollView(
-          slivers: [
-            SliverPersistentHeader(
-              delegate: TransformingAppBar(
-                ifPop: false,
-                expandedHeight: height,
-                title: 'Favourites',
-              ),
-              pinned: true,
+      child = CustomScrollView(
+        slivers: [
+          SliverPersistentHeader(
+            delegate: TransformingAppBar(
+              ifPop: false,
+              expandedHeight: height,
+              title: 'Favourites',
             ),
-            const SliverPersistentHeader(
-              pinned: true,
-              delegate: SliverHeaderDelegateWrap(
-                widget: FavouritesTypesList(),
-                widgetHeight: 30,
-              ),
+            pinned: true,
+          ),
+          const SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverHeaderDelegateWrap(
+              widget: FavouritesTypesList(),
+              widgetHeight: 30,
             ),
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: SliverHeaderDelegateWrap(
-                widget: ProductListToolBox(
-                  changeView: () {
-                    setState(() {
-                      isGrid = !isGrid;
-                    });
-                  },
-                  changeSortType: (ProductFilterEntity value) {},
-                ),
-                widgetHeight: 52,
+          ),
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverHeaderDelegateWrap(
+              widget: ProductListToolBox(
+                changeView: () {
+                  setState(() {
+                    isGrid = !isGrid;
+                  });
+                },
+                changeSortType: (ProductFilterEntity value) {},
               ),
+              widgetHeight: 52,
             ),
-            FavouritesListWidget(isGrid: isGrid)
-          ],
-        ),
+          ),
+          FavouritesListWidget(isGrid: isGrid)
+        ],
       );
     }
     return SafeArea(

@@ -81,10 +81,12 @@ class ManageFavouritesData {
       data: {'favourites': newListOfIds},
       options: options,
     );
+    getFavouriteProducts(userId: userId);
   }
 
   static Future<int> getCartItemIdFromProductId(
       {required int systemProductId, required int userId}) async {
+    print(systemProductId);
     final response =
         await _dio.get('$_apiEndpoint/users/$userId', queryParameters: {
       'fields': 'id',
@@ -92,6 +94,7 @@ class ManageFavouritesData {
       'populate[favourites][populate][product][fields]': 'id',
       'populate[favourites][filters][product][id]': systemProductId,
     });
+    print(response.data['favourites']);
     return response.data['favourites'].first['id'] as int;
   }
 

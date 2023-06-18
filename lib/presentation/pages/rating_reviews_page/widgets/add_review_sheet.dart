@@ -3,6 +3,7 @@ import 'package:ecommerce_cloth/presentation/riverpod/manage_reviews_state/creat
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../widgets/snack_bars.dart';
 import 'review_pictures_list_view.dart';
 import 'star_review_selection.dart';
 
@@ -74,6 +75,7 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
                           .read(createReviewProvider.notifier)
                           .createReview(_controller.text, widget.ratingEntity);
                       Navigator.pop(context);
+                      topSnackBar(context: context, label: 'Your review has been sent for moderation');
                     }
                   : null,
               child: Center(

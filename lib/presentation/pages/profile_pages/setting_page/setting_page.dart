@@ -1,8 +1,8 @@
 import 'package:ecommerce_cloth/core/utils/helpers/date_input_formatter.dart';
 import 'package:ecommerce_cloth/core/utils/helpers/regexp_helpers.dart';
-import 'package:ecommerce_cloth/main.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/widgets/bottom_sheet_markings.dart';
 import 'package:ecommerce_cloth/presentation/pages/profile_pages/setting_page/widgets/custom_switch.dart';
+import 'package:ecommerce_cloth/presentation/pages/widgets/navigation/restart_app.dart';
 import 'package:ecommerce_cloth/presentation/pages/widgets/textfield_validator.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/authentication_state.dart';
 import 'package:ecommerce_cloth/presentation/riverpod/manage_user_state/user_info_state.dart';
